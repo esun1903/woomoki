@@ -2,7 +2,7 @@ package com.ssafy.project;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-//º¯°æ
+//real?
 @Controller
 public class HomeController {
 
