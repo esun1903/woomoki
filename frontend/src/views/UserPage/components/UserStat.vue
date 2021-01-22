@@ -2,7 +2,7 @@
   <div class="stat-info">
     <div>
       <span class="stat-name">당신이 좋아하는 카테고리</span>
-      <img src="https://lh3.googleusercontent.com/proxy/ZPbr0DIWhpHXE1bEyZPd3fHwZq-sx1f5MGDxJPYxYZS6I6Xg6wqsNuhWV0DyFOnWfrPYftFyx4IEikKgt-T0bO6ffQxQB_smoancZmTiXMDLuNCC5PttHGZtVuAy5KvHL5Su" alt="" class="stat-data">
+      <img src="https://t1.daumcdn.net/cfile/tistory/0141D44A5127C6BE21" alt="" class="stat-data">
     </div>
     <div>
       <span class="stat-name">파이형 그래프 통계 수치</span>
@@ -10,7 +10,7 @@
     </div>
     <div>
       <span class="stat-name">히스토 그램 통계</span>
-      <img src="https://lh3.googleusercontent.com/proxy/hIgKJj7wVKknoyGMMr6RyaEwFZS_WXPVEFHkIqLTZA_jJDuAOecX04jxitqd4Y0Bx2rO7YaqZssUex6YiBdgS_srly6aP8WE-Q7Gyuf2ZLgTLitG3E0Tcqwio_r-1lPtYew6_9fb_nZEx_QDtGFoOSgZUpRm5oji_XKaqGkkKA_wtATeZ8_7R-8x3qi7ld6lbUw" alt="" class="stat-data">
+      <img src="https://codetorial.net/matplotlib/_images/histogram_00.png" alt="" class="stat-data">
     </div>
   </div>
 </template>

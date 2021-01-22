@@ -17,7 +17,8 @@
             >
               <v-card-title v-text="card.title"></v-card-title>
               <v-btn icon class="content-overlay content-details fadeIn-bottom">
-                <v-icon size="64">mdi-heart</v-icon>
+                <!-- <v-icon size="64">mdi-heart</v-icon> -->
+                <h1 style="color: white;">매일매일 운동하기</h1>
               </v-btn>
             </v-img>
 
@@ -51,16 +52,25 @@ export default {
   data: function () {
     return {
       cards: [
-        { title: 'Pre-fab homes', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 4 },
-        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 4 },
-        { title: 'Best airlines1', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
-        { title: 'Best airlines2', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
-        { title: 'Best airlines3', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
-        { title: 'Best airlines4', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
-        { title: 'Best airlines5', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
-        { title: 'Best airlines6', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
-        { title: 'Best airlines7', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
+        { title: '9주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 4 },
+        { title: '8주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 4 },
+        { title: '7주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
+        { title: '6주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
+        { title: '5주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
+        { title: '4주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
+        { title: '3주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
+        { title: '2주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
+        { title: '1주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
       ],
+    }
+  },
+  methods: {
+    UserCertification: function () {
+      // axios.post("?")
+    },
+    CertificationDetail: function () {
+      // 인증 디테일 페이지로 이동
+      // this.$push()
     }
   }
 }

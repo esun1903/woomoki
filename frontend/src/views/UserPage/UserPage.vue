@@ -1,16 +1,18 @@
 <template>
-<v-app class="container">
-    <h1 class="text-center">유저페이지!!!!</h1>
-    <div class="inline-info user-info">
-        <BasicUserInfo class="margin-bottom"></BasicUserInfo>
-        <!-- <MyPageFunction></MyPageFunction> -->
-        <!-- <FollowButtons class="margin-bottom"></FollowButtons> -->
-    </div>
-    <ChallengeResults class="margin-bottom"></ChallengeResults>
-    <UserStat class="margin-bottom"></UserStat>
-    <UserCertifications class="margin-bottom"></UserCertifications>
-    
-</v-app>
+<v-container>
+    <v-app>
+        <h1 class="text-center">유저페이지!!!!</h1>
+        <div class="inline-info user-info">
+            <BasicUserInfo class="margin-bottom"></BasicUserInfo>
+            <!-- <MyPageFunction></MyPageFunction> -->
+            <!-- <FollowButtons class="margin-bottom"></FollowButtons> -->
+        </div>
+        <ChallengeResults class="margin-bottom"></ChallengeResults>
+        <UserStat class="margin-bottom"></UserStat>
+        <UserCertifications class="margin-bottom"></UserCertifications>   
+    </v-app>
+</v-container>
+
 </template>
 
 <script>
