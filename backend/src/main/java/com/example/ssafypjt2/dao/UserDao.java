@@ -24,12 +24,12 @@ public interface UserDao {
 			+ " FROM user WHERE email = #{Email} ")
 	public UserDto login(String email) throws SQLException;
 
-	// @Insert("INSERT INTO user ( USER_NAME, USER_PASSWORD, USER_EMAIL, USER_REGISTER_DATE ) VALUES ( #{memberDto.userName} , #{memberDto.userPassword} , #{memberDto.userEmail} , now())")
 	
 	@Insert("Insert INTO user ( nickname, password, phone, email, introduce, levelnum, leveltitle, img, deposit, join_date )"
 			+ " VALUES ( #{userDto.nickname} , #{userDto.password}, #{userDto.phone}, #{userDto.email}, #{userDto.introduce}, #{userDto.levelnum}, #{userDto.leveltitle}, #{userDto.img}, #{userDto.deposit} , now())")
 	@Options(useGeneratedKeys = true)
 	public int signup(@Param("userDto")UserDto userDto);
+	
 
 }
 

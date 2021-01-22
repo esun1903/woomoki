@@ -48,13 +48,11 @@ public class UserController {
 				String token = jwtService.create(loginUser);
 				logger.trace("로그인 토큰정보 : {}", token);
 
-//				토큰 정보는 response의 헤더로 보내고 나머지는 Map에 담는다.
-//				response.setHeader("auth-token", token);
+//	                           토큰 정보는 response의 헤더로 보내고 나머지는 Map에 담는다.
+//             	response.setHeader("auth-token", token);
 				resultMap.put("auth-token", token);
 				resultMap.put("user-name", loginUser.getNickname());
 				resultMap.put("user-email", loginUser.getEmail());
-//				resultMap.put("status", true);
-//				resultMap.put("data", loginUser);
 				status = HttpStatus.ACCEPTED;
 			} else {
 				resultMap.put("message", "로그인 실패");
@@ -65,19 +63,64 @@ public class UserController {
 			resultMap.put("message", e.getMessage());
 			status = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
+
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-	
-	
-	
+
 	@CrossOrigin(origins = "*")
 	@PostMapping("/signup")
-	public int signup ( @RequestBody UserDto userDto) {  // 회원가입 post 요청 
-		
-		System.out.println("회원가입: "+ userDto.getEmail());
-		int result = userService.signup(userDto);
+	public ResponseEntity<Map<String, Object>> signup(@RequestBody UserDto userDto, HttpServletResponse response,
+			HttpSession session) { // 회원가입후 로그인이 되게끔 하기
+
+		HttpStatus status = null;
+		Map<String, Object> resultMap = new HashMap<>();
+		System.out.println("회원가입: " + userDto.getEmail());
+		int result = userService.signup(userDto); // result 값은
 		System.out.println(result);
-		return result;
+
+		if (result == 1) {
+			try {
+				UserDto loginUser = userService.login(userDto);
+				System.out.println("loginUser 들어가기전에 ! " + loginUser.getEmail() + " " + loginUser.getPassword());
+				if (loginUser != null) {
+//					jwt.io에서 확인
+//					로그인 성공했다면 토큰을 생성한다.
+					String token = jwtService.create(loginUser);
+					logger.trace("로그인 토큰정보 : {}", token);
+
+//					토큰 정보는 response의 헤더로 보내고 나머지는 Map에 담는다.
+//					response.setHeader("auth-token", token);
+					resultMap.put("auth-token", token);
+					resultMap.put("user-name", loginUser.getNickname());
+					resultMap.put("user-email", loginUser.getEmail());
+					status = HttpStatus.CREATED;
+				} else {
+					resultMap.put("message", "로그인 실패");
+					status = HttpStatus.ACCEPTED;
+				}
+			} catch (Exception e) {
+				logger.error("로그인 실패 : {}", e);
+				resultMap.put("message", e.getMessage());
+				status = HttpStatus.INTERNAL_SERVER_ERROR;
+			}
+
+		} // end of if
+
+		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 
 }
+
+
+/*
+ * --- 기존 postMapping
+ * 
+ * @CrossOrigin(origins = "*")
+ * 
+ * @PostMapping("/signup") public int signup ( @RequestBody UserDto userDto) {
+ * // 회원가입후 로그인이 되게끔 하기
+ * 
+ * System.out.println("회원가입: "+ userDto.getEmail()); int result =
+ * userService.signup(userDto); // result 값은 System.out.println(result); return
+ * result; }
+ */
