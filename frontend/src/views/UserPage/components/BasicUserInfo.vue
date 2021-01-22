@@ -12,14 +12,16 @@
     <div class="inline-Info">
       <div class="align-Id-follow-edit">
         <span class="user-id">rladydals123</span>
-        <v-btn 
+        <v-btn
+          :ripple="false"
           class="btn-margin"
           plain
           width="50"
           >
           팔로우
         </v-btn>
-        <v-btn 
+        <v-btn
+          :ripple="false"
           class="btn-margin"
           plain
           width="100"
@@ -40,17 +42,18 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
+                  :ripple="false"
                   color="black"
                   plain
                   v-bind="attrs"
                   v-on="on"
                 >
-                  <div>팔로잉</div>
+                  <div>팔로워</div>
                   <div>116</div>
                 </v-btn>
               </template>
               <v-card>
-                  <v-card-title class="title-close-inline">팔로잉
+                  <v-card-title class="title-close-inline">팔로워
                     <v-btn
                       color="blue darken-1"
                       text
@@ -116,13 +119,14 @@
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
+                  :ripple="false"
                   color="black"
                   plain
                   v-bind="attrs"
                   v-on="on"
                 >
                   <div>팔로잉</div>
-                  <div>116</div>
+                  <div>122</div>
                 </v-btn>
               </template>
               <v-card>
@@ -187,12 +191,59 @@ export default {
         dialog: false,
         dialogm2: '',
         dialog2: false,
-      }
+      },
+      userId: "",
+      userInfo: [],
     }
   },
   methods: {
-    BasicUserInfo: function () {
-      // axios.post("??")
+    setToken: function () {
+      const token = localStorage.getItem("jwt");
+      const config = {
+        headers: {
+          Authorization: `JWT ${token}`,
+        },
+      };
+      return config;
+    },
+    // 내 페이지는 마이페이지 버튼을 누르면
+    // jwt 토큰 정보를 통해 config 생성 후에 요청으로 보내 userId를 응답받는다.
+    // setToken: function () {
+    //   const config = this.setToken();
+    //   axios.post("??", config)
+    //     .then((res) => {
+    //       this.UserId = res.data
+    //     })
+    //     .catch((err) => {
+    //       console.log(err)
+    //     })
+    // },
+
+    // 다른 유저 페이지
+    // 누른 아이디(닉네임) 정보를 요청으로 보내 userId를 응답받는다.
+    // GetUserId: function () {
+    //   const nickName = this.nickName
+    //   axios.post("??", nickName)
+    //     .then((res) => {
+    //       this.UserId = res.data
+    //     })
+    //     .catch((err) => {
+    //       console.log(err)
+    //     })
+    // }
+
+    // BasicUserInfo: function () {
+    //   axios.get("??/userId")
+    //     .then((res) => {
+    //       this.userInfo = res.data
+    //     })
+    //     .catch((err) => {
+    //       console.log(err)
+    //     })
+    // }
+    created() {
+      // this.GetUserId()
+      // this.BasicUserInfo()
     }
   }
 }
@@ -261,6 +312,5 @@ export default {
 .title-close-inline {
   display: flex;
   justify-content: space-between;
-
 }
 </style>

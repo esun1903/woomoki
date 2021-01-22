@@ -1,0 +1,13 @@
+$btn-active-opacity: 0.18;
+$btn-focus-opacity: 0.24;
+$btn-hover-opacity: 0.08;
+$btn-text-transform: uppercase !default;
+$btn-font-weight: 500 !default;
+
+$btn-states: (
+  'states': (
+    'activated': $btn-active-opacity,
+    'focus': $btn-focus-opacity,
+    'hover': $btn-hover-opacity
+  )
+);
