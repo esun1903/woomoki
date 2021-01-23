@@ -1,16 +1,21 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 // import Home from "../views/Home.vue";
-import Join from "@/views/Join/Join.vue";
-
+import Signup from "@/views/Signup/Signup.vue";
+import FavoriteCategory from "@/views/Signup/components/FavoriteCategory.vue";
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/join",
-    name: "Join",
-    component: Join
+    path: "/signup",
+    name: "Signup",
+    component: Signup
   },
+  {
+    path: "/signup/favCategory",
+    name: "FavoriteCategory",
+    component: FavoriteCategory
+  }
   // {
   //   path: "/about",
   //   name: "About",
