@@ -49,7 +49,8 @@
                 <div id="join-find">
                     <ul>
                         <li><a href="">아이디 찾기</a></li>
-                        <li><a href="">비밀번호 재설정</a></li>
+                        <!-- <li><router-link to="/ResetPassword">비밀번호 재설정 라우터</router-link></li> -->
+                        <!-- <li><a href="ResetPassword.vue">비밀번호 재설정</a></li> -->
                         <li><a href="#">회원가입</a></li>
                     </ul>
                 </div>
