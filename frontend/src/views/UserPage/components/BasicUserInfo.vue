@@ -1,8 +1,7 @@
 <template>
 <div>
-    <!-- <img src="https://cdn.clien.net/web/api/file/F01/10333937/4379c3e76c59d8.jpg" alt="유저사진" class="profile-size"> -->
     <v-avatar 
-      color="indigo"
+      color="success"
       width="300"
       height="300"
       class="profile-img"
@@ -15,7 +14,7 @@
         <v-btn
           :ripple="false"
           class="btn-margin"
-          plain
+          color="primary"
           width="50"
           >
           팔로우
@@ -65,43 +64,18 @@
                 <v-divider></v-divider>
                 
                 <v-card-text style="height: 300px;">
-                  <div>
-                    <div>홍지희</div>
-                    <div>최은선</div>
-                    <div>김효진</div>
-                    <div>표기동</div>
-                    <div>박경민</div>
-                    <div>박용미</div>
-                    <div>신채린</div>
-                    <div>신채원</div>
-                    <div>현성섭</div>
-                    <div>최정휴</div>
-                    <div>손준희</div>
-                    <div>권기현</div>
-                    <div>홍지희</div>
-                    <div>최은선</div>
-                    <div>김효진</div>
-                    <div>표기동</div>
-                    <div>박경민</div>
-                    <div>박용미</div>
-                    <div>신채린</div>
-                    <div>신채원</div>
-                    <div>현성섭</div>
-                    <div>최정휴</div>
-                    <div>손준희</div>
-                    <div>권기현</div>
-                    <div>홍지희</div>
-                    <div>최은선</div>
-                    <div>김효진</div>
-                    <div>표기동</div>
-                    <div>박경민</div>
-                    <div>박용미</div>
-                    <div>신채린</div>
-                    <div>신채원</div>
-                    <div>현성섭</div>
-                    <div>최정휴</div>
-                    <div>손준희</div>
-                    <div>권기현</div> 
+                  <div 
+                    v-for="follower in followers"
+                    :key="follower"
+                    class="name-follow">
+                    <span><a href="">{{ follower }}</a></span>
+                    <v-btn
+                      color="primary"
+                      small
+                      class="follow-margin"
+                      >
+                    팔로우
+                    </v-btn>
                   </div>
                 </v-card-text>
                 <v-card-actions>
@@ -142,31 +116,18 @@
                 <v-divider></v-divider>
                 
                 <v-card-text style="height: 300px;">
-                  <div>
-                    <div>차은우</div>
-                    <div>문가영</div>
-                    <div>배상연</div>
-                    <div>김상훈</div>
-                    <div>강병훈</div>
-                    <div>조민형</div>
-                    <div>김대인</div>
-                    <div>김영재</div>
-                    <div>차은우</div>
-                    <div>문가영</div>
-                    <div>배상연</div>
-                    <div>김상훈</div>
-                    <div>강병훈</div>
-                    <div>조민형</div>
-                    <div>김대인</div>
-                    <div>김영재</div>
-                    <div>차은우</div>
-                    <div>문가영</div>
-                    <div>배상연</div>
-                    <div>김상훈</div>
-                    <div>강병훈</div>
-                    <div>조민형</div>
-                    <div>김대인</div>
-                    <div>김영재</div>
+                  <div 
+                    v-for="following in followings"
+                    :key="following"
+                    class="name-follow">
+                    <a href="">{{ following }}</a>
+                    <v-btn
+                      color="primary"
+                      small
+                      class="follow-margin"
+                      >
+                    팔로우
+                    </v-btn>
                   </div>
                 </v-card-text>
                 <v-card-actions>
@@ -186,14 +147,17 @@ export default {
   name: "BasicUserInfo",
   data: function () {
     return {
+      userState: "", 
       dialog: {
-        dialogm1: '',
+        dialogm1: "",
         dialog: false,
-        dialogm2: '',
+        dialogm2: "",
         dialog2: false,
       },
       userId: "",
       userInfo: [],
+      followers: [ "김용민", "김용민", "김용민", "김용민", "김용민", "김용민", "김용민", "김용민", "김용민", "김용민"],
+      followings: [ "홍지희", "표기동", "최은선", "김효진"],
     }
   },
   methods: {
@@ -206,21 +170,23 @@ export default {
       };
       return config;
     },
-    // 내 페이지는 마이페이지 버튼을 누르면
-    // jwt 토큰 정보를 통해 config 생성 후에 요청으로 보내 userId를 응답받는다.
+    // 마이페이지아이콘을 눌러 이 페이지로 이동할 때
+    // jwt 토큰 정보를 통해 config 생성 후에 요청으로 보내 로그인한 사람의 정보를 응답받는다.
+    // 로그인한 사람의 userid와 
     // setToken: function () {
     //   const config = this.setToken();
-    //   axios.post("??", config)
+    //   axios.get("??", config)
     //     .then((res) => {
-    //       this.UserId = res.data
+    //       this.userInfo = res.data
     //     })
     //     .catch((err) => {
     //       console.log(err)
     //     })
     // },
 
+    // 다른 유저 페이지를 따로만들어야 할듯?..
     // 다른 유저 페이지
-    // 누른 아이디(닉네임) 정보를 요청으로 보내 userId를 응답받는다.
+    // 누른 아이디(닉네임) 정보를 요청으로 보내 userid(pk)를 응답받는다.
     // GetUserId: function () {
     //   const nickName = this.nickName
     //   axios.post("??", nickName)
@@ -249,9 +215,20 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 /* 안됨..
 @import "./BasicUserInfo.scss"; */
+a {text-decoration: none;}
+
+@mixin between {
+  display: flex;
+  justify-content: space-between;
+}
+
+@mixin margin {
+  margin: 2px;
+}
+
 
 .inline-Info {
   display: inline-block;
@@ -310,7 +287,14 @@ export default {
 }
   
 .title-close-inline {
-  display: flex;
-  justify-content: space-between;
+  @include between;
+}
+
+.name-follow {
+  @include between;
+}
+
+.follow-margin {
+  @include margin;
 }
 </style>

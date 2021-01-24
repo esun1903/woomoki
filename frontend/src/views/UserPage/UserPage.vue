@@ -7,9 +7,36 @@
             <!-- <MyPageFunction></MyPageFunction> -->
             <!-- <FollowButtons class="margin-bottom"></FollowButtons> -->
         </div>
-        <ChallengeResults class="margin-bottom"></ChallengeResults>
-        <UserStat class="margin-bottom"></UserStat>
-        <UserCertifications class="margin-bottom"></UserCertifications>   
+        <v-banner class="margin-bottom"></v-banner>
+        <v-tabs
+            v-model="tab"
+            background-color="transparent"
+            color="success"
+            grow
+            >
+            <v-tab
+                v-for="item in items"
+                :key="item"
+                >
+                {{ item }}
+            </v-tab>
+        </v-tabs>
+
+        <v-tabs-items v-model="tab">
+            <v-tab-item
+                v-for="item in items"
+                :key="item"
+                >
+                <v-card
+                    color="basil"
+                    flat
+                    >
+                    <v-card-text v-if="item === '피드'"><UserCertifications class="margin-bottom"></UserCertifications></v-card-text>
+                    <v-card-text v-if="item === '챌린지'"><ChallengeResults class="margin-bottom"></ChallengeResults></v-card-text>
+                    <v-card-text v-if="item === '통계'"><UserStat class="margin-bottom"></UserStat></v-card-text>
+                </v-card>
+            </v-tab-item>
+        </v-tabs-items>
     </v-app>
 </v-container>
 
@@ -34,7 +61,10 @@ export default {
         UserStat,
     },
     data: function () {
-        return {};
+        return {
+            tab: null,
+        items: ['피드', '챌린지', '통계'],
+        };
     },
     methods: {
         }
@@ -60,6 +90,6 @@ export default {
 }
 
 .margin-bottom {
-    margin-bottom: 100px;
+    margin-bottom: 50px;
 }
 </style>

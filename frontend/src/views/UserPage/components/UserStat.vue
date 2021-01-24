@@ -9,7 +9,7 @@
       <img src="https://docs.tibco.com/pub/spotfire_server/11.0.0/doc/html/ko-KR/TIB_sfire_bauthor-consumer_usersguide/GUID-5E23F5F5-6290-4780-959F-D4E403B4B1EC-display.png" alt="" class="stat-data">
     </div>
     <div>
-      <span class="stat-name">히스토 그램 통계</span>
+      <span class="stat-name">히스토그램 통계</span>
       <img src="https://codetorial.net/matplotlib/_images/histogram_00.png" alt="" class="stat-data">
     </div>
   </div>
