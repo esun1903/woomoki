@@ -1,20 +1,18 @@
 <template>
-  <div id="main">
-    <!-- <Navbar></Navbar> -->
-    <Login></Login>
+  <div id="app">
+    <Navbar/>
     <router-view/>
   </div>
 </template>
 
 <script>
 // import HelloWorld from "./components/HelloWorld";
-import Login from "@/views/Login/Login";
+import Navbar from "@/components/Navbar/Navbar.vue";
 
 export default {
   name: "App",
-
   components: {
-Login,
+    Navbar,
   },
 
   data: () => ({
