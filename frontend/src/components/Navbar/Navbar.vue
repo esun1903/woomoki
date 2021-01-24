@@ -9,21 +9,17 @@
         <!-- 간격 띄우기 용 -->
         <!-- <v-spacer></v-spacer> -->
 
-
         <!-- 누르면 스크랩 페이지로 이동 -->
         <div id="right">
-          
           <v-btn id="btns" :ripple="false" @click="goChallengeCreate">
             챌린지 생성하기
           </v-btn>
 
-
-          <v-btn icon  id="btns">
+          <v-btn icon id="btns">
             <v-icon>mdi-cart</v-icon>
           </v-btn>
 
-
-          <v-btn id="btns" @click="notice=true"> 
+          <v-btn id="btns" @click="notice = true">
             <v-icon>mdi-bell-ring</v-icon>
           </v-btn>
           <v-dialog v-model="notice">
@@ -59,7 +55,7 @@
 
             <v-list>
               <div v-if="login">
-                <v-list-item  @click="goMyPage">
+                <v-list-item @click="goMyPage">
                   <v-list-item-title>마이페이지</v-list-item-title>
                 </v-list-item>
                 <v-list-item @click="goLogout">
