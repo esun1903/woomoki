@@ -1,17 +1,18 @@
 <template>
   <div id="main">
+    <UserPageEdit></UserPageEdit>
     <router-view/>
   </div>
 </template>
 
 <script>
-// import HelloWorld from "./components/HelloWorld";
+import UserPageEdit from "./views/UserPageEdit/UserPageEdit";
 
 export default {
   name: "App",
 
   components: {
-
+    UserPageEdit
   },
 
   data: () => ({
