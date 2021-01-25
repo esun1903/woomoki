@@ -2,6 +2,7 @@ package com.example.ssafypjt2.dao;
 
 import java.sql.SQLException;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -43,6 +44,10 @@ public interface ChallengeDao {
 			+ "join_deposit = #{challengeDto.join_deposit} "
 			+ "WHERE id = #{challengeDto.id}")
 	public int challengeUpdate(@Param("challengeDto")ChallengeDto challengeDto);
+	
+	@Delete("DELETE FROM challenge "
+			+ "WHERE id=#{id}")
+	public int challengeDelete(@Param("id")int id);
 }
 
 //private int id;

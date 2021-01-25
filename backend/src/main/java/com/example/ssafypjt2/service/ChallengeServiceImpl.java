@@ -32,9 +32,9 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 	@Override
-	public int challengeDelete(ChallengeDto challengeDto) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int challengeDelete(int id) {
+		int get = dao.challengeDelete(id);
+		return get;
 	}
 
 	@Override

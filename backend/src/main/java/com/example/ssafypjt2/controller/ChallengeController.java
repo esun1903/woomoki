@@ -2,6 +2,7 @@ package com.example.ssafypjt2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,6 +32,14 @@ public class ChallengeController {
 	@PutMapping("/updateChallenge")
 	public int challengeUpdate ( @RequestBody ChallengeDto challengeDto) {
 		int result = challengeService.challengeUpdate(challengeDto);
+		System.out.println(result);
+		return result;
+	}
+	
+	@CrossOrigin(origins = "*")
+	@DeleteMapping("/deleteChallenge")
+	public int challengeUpdate ( @RequestBody int id) {
+		int result = challengeService.challengeDelete(id);
 		System.out.println(result);
 		return result;
 	}
