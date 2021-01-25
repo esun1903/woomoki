@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,8 +36,7 @@ public class UserController {
 	public static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@PostMapping("/login")
-	public ResponseEntity<Map<String, Object>> login(@RequestBody UserDto userDto, HttpServletResponse response,
-			HttpSession session) {
+	public ResponseEntity<Map<String, Object>> login(@RequestBody UserDto userDto, HttpServletResponse response, HttpSession session) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		try {
@@ -107,6 +107,15 @@ public class UserController {
 		} // end of if
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
+	}
+	
+	@CrossOrigin(origins = "*")
+	@GetMapping("/logout")
+	public String join (HttpSession session) {
+		
+		System.out.println("로그아웃 기능");
+		session.invalidate();
+		return "redirect:/";
 	}
 
 }
