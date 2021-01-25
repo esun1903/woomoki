@@ -229,6 +229,17 @@ a {text-decoration: none;}
   margin: 2px;
 }
 
+.title-close-inline {
+  @include between;
+}
+
+.name-follow {
+  @include between;
+}
+
+.follow-margin {
+  @include margin;
+}
 
 .inline-Info {
   display: inline-block;
@@ -286,15 +297,5 @@ a {text-decoration: none;}
   opacity: 1;
 }
   
-.title-close-inline {
-  @include between;
-}
 
-.name-follow {
-  @include between;
-}
-
-.follow-margin {
-  @include margin;
-}
 </style>
