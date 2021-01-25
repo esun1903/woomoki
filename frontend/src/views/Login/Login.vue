@@ -23,7 +23,7 @@
 <!-- :disabled="!isSubmit"
                   :class="{disabled : !isSubmit}" -->
               <div class="text-center">
-                <v-btn class="login-btn" type="submit" rounded color="white" >
+                <v-btn class="login-btn" type="submit" rounded color="white"   >
                   로그인
                 </v-btn>
               </div>
@@ -35,7 +35,7 @@
                       <router-link :to="'findId'">아이디 찾기</router-link>
                     </li>
                     <li>
-                      <router-link :to="'resetPassword'">비밀번호 찾기</router-link>
+                      <router-link :to="'findPassword'">비밀번호 찾기</router-link>
                     </li>
                     <li>
                       <router-link :to="'signup'">회원가입</router-link>
@@ -117,15 +117,15 @@
     methods: {
        
       async submit() {
-        let isSubmit = false;
+        this.isSubmit = false;
         const valid = await this.$refs.observer.validate()
         if (valid) {
-          isSubmit = true;
-          console.log(isSubmit);
+          this.isSubmit = true;
+          console.log(this.isSubmit);
           this.login(this.params) // action to login
         } else {
-          isSubmit = false;
-          console.log(isSubmit);
+          this.isSubmit = false;
+          console.log(this.isSubmit);
         }
       },
       clear() {
@@ -196,7 +196,7 @@
     .signin {
       padding: 0;
       margin: 0 auto;
-      min-height: 750px;
+      min-height: 690px;
       box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
 
       .left {

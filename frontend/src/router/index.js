@@ -1,7 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "@/views/Login/Login.vue";
-import ResetPassword from "@/views/Login/ResetPassword.vue";
+import FindPassword from "@/views/Login/FindPassword.vue";
 
 // import Navbar from "@/components/Navbar/Navbar.vue";
 
@@ -18,10 +18,10 @@ const router = new VueRouter({
       component: Login,        
     },
     {
-      path: '/resetPassword',
-      name: 'ResetPassword',
-      component: ResetPassword,
-    }
+      path: '/findPassword',
+      name: 'FindPassword',
+      component: FindPassword,
+    },
   ]
 });
 
