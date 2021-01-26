@@ -1,19 +1,21 @@
+	
 <template>
-  <div id="main">
-    <v-app>
-      <UserPageEdit></UserPageEdit>
-    </v-app>
+  <v-app>
+    <!-- <Navbar></Navbar>
+    <Footer></Footer> -->
     <router-view />
-  </div>
+  </v-app>
 </template>
 
 <script>
-import UserPageEdit from "./views/UserPageEdit/UserPageEdit";
+// import Navbar from "@/components/Navbar/Navbar.vue"
+// import Footer from "@/components/Footer/Footer.vue"
 
 export default {
   name: "App",
   components: {
-    UserPageEdit
+    // Navbar,
+    // Footer,
   },
 
   data: () => ({
