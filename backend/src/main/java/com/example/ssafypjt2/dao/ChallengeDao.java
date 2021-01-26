@@ -17,8 +17,8 @@ public interface ChallengeDao {
 	@Select(" SELECT category_id, user_id, title, content, "
 			+ "sum_img, start_date, end_date, cert_count, "
 			+ "max_people, example_img , join_deposit "
-			+ " FROM challenge WHERE id = #{cng_id} ")
-	public ChallengeDto challengeDetail(@Param("cng_id")int cng_id);
+			+ " FROM challenge WHERE id = #{cngId} ")
+	public ChallengeDto challengeDetail(@Param("cngId")int cngId);
 
 
 	@Insert("Insert INTO challenge ( category_id, user_id, title, content, sum_img, start_date, end_date, cert_count, max_people, example_img , join_deposit)"
@@ -43,19 +43,6 @@ public interface ChallengeDao {
 	public int challengeUpdate(@Param("challengeDto")ChallengeDto challengeDto);
 	
 	@Delete("DELETE FROM challenge "
-			+ "WHERE id=#{id}")
-	public int challengeDelete(@Param("id")int id);
+			+ "WHERE id=#{cngId}")
+	public int challengeDelete(@Param("cngId")int cngId);
 }
-
-//private int id;
-//private int category_id;
-//private int user_id;
-//private String title;
-//private String content;
-//private String sum_img;
-//private String start_date;
-//private String end_date;
-//private int cert_count;
-//private int max_people;
-//private String example;
-//private int join_deposit;

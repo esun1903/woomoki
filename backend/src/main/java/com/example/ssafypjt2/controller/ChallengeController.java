@@ -35,17 +35,17 @@ public class ChallengeController {
 		return result;
 	}
 	
-	@DeleteMapping("/deleteChallenge")
-	public int challengeUpdate ( @RequestBody int id) {
+	@DeleteMapping("/deleteChallenge/{cngId}")
+	public int challengeUpdate (@PathVariable(value = "cngId") int id) {
 		int result = challengeService.challengeDelete(id);
 		System.out.println(result);
 		return result;
 	}
 	
 	@GetMapping("/detailChallenge/{cngId}")
-	public ChallengeDto challengeDetail (@PathVariable(value = "cngId") int cng_id) {
+	public ChallengeDto challengeDetail (@PathVariable(value = "cngId") int id) {
 		
-		ChallengeDto result = challengeService.challengeDetail(cng_id);
+		ChallengeDto result = challengeService.challengeDetail(id);
 		
 		return result;
 	}

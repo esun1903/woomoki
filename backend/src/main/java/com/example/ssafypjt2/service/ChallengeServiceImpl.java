@@ -42,8 +42,8 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 
 	@Override
-	public ChallengeDto challengeDetail(int cng_id) {
-		return dao.challengeDetail(cng_id);
+	public ChallengeDto challengeDetail(int id) {
+		return dao.challengeDetail(id);
 	}
 
 }

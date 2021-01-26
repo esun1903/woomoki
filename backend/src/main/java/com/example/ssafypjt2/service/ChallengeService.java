@@ -9,8 +9,7 @@ public interface ChallengeService {
     public int challengeInsert(ChallengeDto challengeDto); 
     public int challengeUpdate(ChallengeDto challengeDto);
     public int challengeDelete(int id);
-    
-    public ChallengeDto challengeDetail(int cng_id);
+    public ChallengeDto challengeDetail(int id);
     
     public ChallengeDto challengeJoin(ChallengeDto challengeDto);
     
