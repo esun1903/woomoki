@@ -1,18 +1,22 @@
 <template>
-  <div id="app">
-    <Navbar/>
-    <router-view/>
+  <div id="main">
+    <!-- <Navbar></Navbar> -->
+    <Signup></Signup>
+    <!-- <FavoriteCategory></FavoriteCategory> -->
+    <router-view />
   </div>
 </template>
 
 <script>
-// import HelloWorld from "./components/HelloWorld";
-import Navbar from "@/components/Navbar/Navbar.vue";
-
+// import Navbar from "@/components/Navbar/Navbar.vue";
+import Signup from "@/views/Signup/Signup.vue";
+// import FavoriteCategory from "@/views/Signup/components/FavoriteCategory.vue";
 export default {
   name: "App",
   components: {
-    Navbar,
+    // Navbar,
+    Signup
+    // FavoriteCategory,
   },
 
   data: () => ({

@@ -20,12 +20,21 @@
 
 <script>
 export default {
-    setup () {
-        
-
-        return {}
-    }
-}
+  name: 'Naver',
+  components: {  },
+  directives: {  },
+  data() {
+    return {
+      
+    };
+  },
+  mounted() {
+    
+  },
+  methods: {
+    
+  },
+};
 </script>
 
 <style lang="scss" scoped>

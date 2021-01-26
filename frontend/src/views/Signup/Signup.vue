@@ -55,8 +55,12 @@
                   v-model="phoneNumber"
                   :counter="11"
                   :error-messages="errors"
-                  label="핸드폰 번호(-없이 입력해주세요)"
+                  label="핸드폰 번호(숫자만)"
                   required
+                  outlined
+                  dark
+                  filled
+                  dense
                 ></v-text-field>
               </validation-provider>
               <validation-observer>
@@ -102,14 +106,14 @@
               </validation-observer>
               <div class="text-center">
                 <v-btn class="signup-btn" type="submit" rounded color="white" 
-                  :disabled="!isSubmit" :class="{disabled : !isSubmit}">
+                >
                   회원가입
                 </v-btn>
               </div>
             </v-form>
           </validation-observer>
           <v-divider></v-divider>
-          <p class="login-box-hd">또는 다른 서비스 계정으로 로그인</p>
+          <p class="login-box-hd">또는 다른 서비스 계정으로 회원가입</p>
           <span class="or-bar or-bar-right"></span>
           <v-col class="py-2">
             <div id="socialBtn">
@@ -155,7 +159,7 @@ extend("email", {
 
 
 extend( "password", {
-  message: "문자, 숫자, 특수 문자 포함 8자리 이상을 입력해주세요",
+  message: "문자, 숫자, 특수문자 8자리",
   validate: value => {
     return /^.*(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[$@$!%*#?&]).*$/.test(value)
   }
@@ -188,26 +192,19 @@ export default {
       passwordConfirmation: "",
       showPass: false,
       isSubmit: false,
-      error : this.errors.any(),
+      // error : "",
     }
   },
   computed: {
     params: function () {
       return {
+        nickName: this.nickName,
         email: this.email,
+        phoneNumber: this.phoneNumber,
         password: this.password
       };
     },
 
-  },
-  watch: {
-    error: function () {
-      if (this.error) {
-        this.isSubmit = false;
-      } else {
-        this.isSubmit = true;
-      }
-    },
   },
   methods: {
 
@@ -215,13 +212,20 @@ export default {
       const valid = await this.$refs.observer.validate();
       if (valid) {
         this.isSubmit = true;
-        this.login(this.params); 
+        axios.post("http://localhost:8088/signup", this.params)
+          .then(() => {
+            axios.post("http://localhost:8088/login", this.params)
+          })
+          .catch((err) => console.log(err))
+        
+      } else {
+        this.isSubmit = false;
+        alert("내용을 확인해주세요")
       }
-      else this.isSubmit = false;
     },
     clear() {
       this.email = "";
-      this.password = null;
+      this.password = "";
       this.$refs.observer.reset();
     }
   },
@@ -229,12 +233,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  /* ./assets/styles.scss */
-
-  // .socialBtnToggle {
-  //         background-color: rgba(255,255,255,0) !important;
-  //     }
-
+  .v-btn {
+    left: 30%;
+  }
 
   #join-find {
     display: flex;
@@ -268,6 +269,7 @@ export default {
   }
 
   .login-box-hd {
+    margin-top: 20px;
     text-align: center;
     font-weight: 400;
     font-size: 11px;
@@ -316,9 +318,10 @@ export default {
           margin: 30px 0;
         }
 
-        .signup-btn {
+        .login-btn {
           width: 100%;
-          color: #30ac7c;   
+          color: #30ac7c;  
+          margin-top: 10px; 
         }
       }
     }
