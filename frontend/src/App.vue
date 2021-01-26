@@ -1,17 +1,19 @@
 <template>
-  <v-app>
-    <MainPage/>
-  </v-app>
+  <div id="main">
+    <v-app>
+      <UserPageEdit></UserPageEdit>
+    </v-app>
+    <router-view />
+  </div>
 </template>
 
 <script>
-// import HelloWorld from "./components/HelloWorld";
-import MainPage from "@/views/MainPage/MainPage.vue";
+import UserPageEdit from "./views/UserPageEdit/UserPageEdit";
+
 export default {
   name: "App",
-
   components: {
-    MainPage,
+    UserPageEdit
   },
 
   data: () => ({
