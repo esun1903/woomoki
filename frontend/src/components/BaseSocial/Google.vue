@@ -1,15 +1,18 @@
 <template>
-  <div>
-    <v-btn
-      @click="google"
-      color="transparent"
-      depressed
-      icon
-    >
-      <v-img :src="require('@/assets/images/google.png')"
-        max-height="40" max-width="40" />
-    </v-btn> 
-  </div>
+      <div>
+      <v-btn
+              @click="google"
+              color="transparent"
+              depressed
+              icon
+            >
+              <v-img :src="require('@/assets/images/google.png')"
+               max-height="40"
+  max-width="40" />
+            </v-btn>
+
+     
+    </div>
 </template>
 
 <script>
@@ -26,8 +29,8 @@ export default {
   mounted() {
     
   },
-  methods: {
-    google() {
+   methods:{
+      google() {
       const _this = this;
 
       var provider = new firebase.auth.GoogleAuthProvider();
@@ -54,7 +57,7 @@ export default {
         var user = result.user;
         // ...
         console.log(user);
-          _this.$router.push("/profile");
+          _this.$router.push("/main");
       }).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
@@ -70,7 +73,7 @@ export default {
         // ...
       });
     },
-  },
+   },
 };
 </script>
 

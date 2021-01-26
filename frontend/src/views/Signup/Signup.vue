@@ -132,16 +132,17 @@
 import Kakao from "@/components/BaseSocial/Kakao.vue";
 import Naver from "@/components/BaseSocial/Naver.vue";
 import Google from "@/components/BaseSocial/Google.vue";
-import axios from "axios";
+import Vue from "vue";
 import { required, email } from "vee-validate/dist/rules";
 import {
   extend,
-  // ErrorBag,
+  VeeValidate,
   ValidationProvider,
   setInteractionMode,
   ValidationObserver
 } from "vee-validate";
 
+Vue.use(VeeValidate);
 
 
 setInteractionMode("eager");
