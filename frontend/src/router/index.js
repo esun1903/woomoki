@@ -13,7 +13,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/main",
+    path: "/",
     name: "Main",
     component: Main
   },
@@ -33,12 +33,12 @@ const routes = [
     component: Login,        
   },
   {
-    path: 'login/findId',
+    path: '/login/findId',
     name: 'FindId',
     component: FindId,        
   },
   {
-    path: 'login/findPassword',
+    path: '/login/findPassword',
     name: 'FindPassword',
     component: FindPassword,        
   },
@@ -48,12 +48,12 @@ const routes = [
     component: UserPage,        
   },
   {
-    path: 'userPage/userPageEdit',
+    path: '/userPage/userPageEdit',
     name: 'UserPageEdit',
     component: UserPageEdit,        
   },
   {
-    path: 'userPage/userPageEdit/password',
+    path: '/userPage/userPageEdit/password',
     name: 'CompareOriginPassword',
     component: CompareOriginPassword,        
   },

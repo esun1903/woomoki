@@ -1,5 +1,4 @@
 <template>
-<v-app>
   <v-footer
     color="success lighten-1"
     padless
@@ -26,7 +25,6 @@
       </v-col>
     </v-row>
   </v-footer>
-  </v-app>
 </template>
 
 <script>
