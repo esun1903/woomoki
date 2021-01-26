@@ -30,12 +30,12 @@ public class RelationController {
 
 	@CrossOrigin(origins = "*")
 	@GetMapping("/followerList/{userid}")
-	public List<RelationDto> followerList(@PathVariable(value = "userid") int user_id, HttpServletRequest request) {
-		String token = request.getHeader("Authorization");
-		jwtService.checkValid(token);
+	public List<RelationDto> followerList(@PathVariable(value = "userid") int user_id ) {
+		//String token = request.getHeader("Authorization");
+	//	jwtService.checkValid(token);
 		
-		UserDto user = (UserDto) jwtService.get(token).get("user");
-		System.out.println(user.getNickname());
+	//	UserDto user = (UserDto) jwtService.get(token).get("user");
+		//System.out.println(user.getNickname());
 		System.out.println("이제 "+ user_id +"팔로워리스트를 알려줄게요!");
 		
         List<RelationDto> followerList = relationService.followerlist(user_id);
@@ -75,11 +75,14 @@ public class RelationController {
 	
 	@CrossOrigin(origins = "*")
 	@PostMapping("/followingList/Insert/{userid}/{followingid}")
-	public int followingInsert(@PathVariable(value = "userid") int user_id, @PathVariable(value = "followingid") int following_id) {
+	public int followingInsert(@PathVariable(value = "userid") int user_id, @PathVariable(value = "followingid" ) int following_id) {
 
 		System.out.println("이제 "+ user_id +" 가 " + "팔로잉 하고 싶은  id는 " +following_id);
         int result = relationService.followingInsert(user_id, following_id);
 		return result;
 	}
+	
+	
+	
 	
 }

@@ -6,7 +6,8 @@ public class RelationDto {
 	private int request_user_id;
 	private int get_user_id;
     private String nickname;
-	public int getRequest_user_id() {
+	
+    public int getRequest_user_id() {
 		return request_user_id;
 	}
 	public void setRequest_user_id(int request_user_id) {

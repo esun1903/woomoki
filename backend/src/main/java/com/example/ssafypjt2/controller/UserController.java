@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.example.ssafypjt2.dto.UserDto;
+import com.example.ssafypjt2.model.ResponseData;
 import com.example.ssafypjt2.service.JwtService;
 import com.example.ssafypjt2.service.UserService;
 
@@ -36,7 +39,8 @@ public class UserController {
 	public static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@PostMapping("/login")
-	public ResponseEntity<Map<String, Object>> login(@RequestBody UserDto userDto, HttpServletResponse response, HttpSession session) {
+	public ResponseEntity<Map<String, Object>> login(@RequestBody UserDto userDto, HttpServletResponse response,
+			HttpSession session) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		try {
@@ -108,18 +112,57 @@ public class UserController {
 
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
-	
+
+	//로그아웃 기능 
 	@CrossOrigin(origins = "*")
 	@GetMapping("/logout")
-	public String join (HttpSession session) {
-		
+	public String join(HttpSession session) {
+
 		System.out.println("로그아웃 기능");
 		session.invalidate();
 		return "redirect:/";
 	}
-
+	
+    //비밀번호 찾기 
+	@CrossOrigin(origins = "*")
+	@PostMapping("/userPage/changePassword")
+	public ResponseEntity changepassword(@RequestBody UserDto userDto) throws Exception {
+		System.out.println(userDto.getId() + " " + userDto.getNewPassword());
+		int result = userService.changepassword(userDto.getId(), userDto.getNewPassword());
+		String returnMessage = "비밀번호 변경 실패";
+		if(result == 1) {
+			returnMessage = "비밀번호 변경 성공";
+		}
+		return new ResponseEntity<>(new ResponseData(returnMessage, null), HttpStatus.OK);
+	}
+	
+	//닉네임 변경 
+	@CrossOrigin(origins = "*")
+	@PostMapping("/userPage/changeNickname")
+	public ResponseEntity changenickname(@RequestBody UserDto userDto) throws Exception {
+		System.out.println("닉네임변경"+ userDto.getId() + " " + userDto.getNewNickname());
+		int result = userService.changenickname(userDto.getId(), userDto.getNewNickname());
+		String returnMessage = "닉네임 변경 실패";
+		if(result == 1) {
+			returnMessage = "닉네임 변경 성공";
+		}
+		return new ResponseEntity<>(new ResponseData(returnMessage, null), HttpStatus.OK);
+	}
+	
+	//한 줄소개 변경 
+	@CrossOrigin(origins = "*")
+	@PostMapping("/userPage/changeIntroduce")
+	public ResponseEntity changeIntroduce(@RequestBody UserDto userDto) throws Exception {
+		System.out.println("한 줄 소개 변경"+ userDto.getId() + " " + userDto.getNewIntroduce());
+		
+		int result = userService.changeintroduce(userDto.getId(), userDto.getNewIntroduce());
+		String returnMessage = "한 줄 소개 변경 실패";
+		if(result == 1) {
+			returnMessage = "한 줄 소개 변경 성공";
+		}
+		return new ResponseEntity<>(new ResponseData(returnMessage, null), HttpStatus.OK);
+	}
 }
-
 
 /*
  * --- 기존 postMapping
