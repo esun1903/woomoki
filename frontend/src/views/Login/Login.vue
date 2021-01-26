@@ -1,20 +1,21 @@
 <template>
   <div>
     <section class="section-container">
-      <v-row class="signin">
+      <v-row class="login">
         <v-col cols="8" class="left">
           <h1>로고로고로고로고로고로고로고</h1>
         </v-col>
         <v-col cols="4" class="right">
           <h2>로그인</h2>
           <h4>이메일 로그인하기</h4>
-          <validation-observer ref="observer">
+          <!-- <validation-observer ref="observer"> -->
+            <validation-observer v-slot="{ invalid }">
             <v-form @submit.prevent="submit">
-              <validation-provider v-slot="{ errors }" name="Name" rules="required|email">
+              <validation-provider v-slot="{ errors }" name="email" rules="required|email">
                 <v-text-field v-model="email" :error-messages="errors" label="Email" required outlined dark filled
                   dense></v-text-field>
               </validation-provider>
-              <validation-provider v-slot="{ errors }" name="email" rules="required">
+              <validation-provider v-slot="{ errors }" name="password" rules="required|password">
                 <v-text-field v-model="password" :error-messages="errors" label="Password"
                   :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'" @click:append="showPass = !showPass" required
                   outlined dense dark filled :type="showPass ? 'text' : 'password'"></v-text-field>
@@ -23,7 +24,7 @@
 <!-- :disabled="!isSubmit"
                   :class="{disabled : !isSubmit}" -->
               <div class="text-center">
-                <v-btn class="login-btn" type="submit" rounded color="white"   >
+                <v-btn class="login-btn" type="submit" rounded color="white"  :disabled="invalid">
                   로그인
                 </v-btn>
               </div>
@@ -45,7 +46,6 @@
               </v-col>
             </v-form>
           </validation-observer>
-          <v-divider></v-divider>
           <p class="login-box-hd">또는 다른 서비스 계정으로 로그인</p>
           <span class="or-bar or-bar-right"></span>
           <v-col class="py-2">
@@ -68,16 +68,8 @@
   import Kakao from "@/components/BaseSocial/Kakao.vue"
   import Naver from "@/components/BaseSocial/Naver.vue"
   import Google from "@/components/BaseSocial/Google.vue"
-  import {
-    required,
-    email
-  } from 'vee-validate/dist/rules'
-  import {
-    extend,
-    ValidationProvider,
-    setInteractionMode,
-    ValidationObserver
-  } from 'vee-validate'
+  import { required, email } from 'vee-validate/dist/rules'
+  import { extend, ValidationProvider, setInteractionMode, ValidationObserver } from 'vee-validate'
 
   setInteractionMode('eager')
 
@@ -91,6 +83,13 @@
     message: 'Email must be valid'
   })
 
+  extend("password", {
+  message: "문자, 숫자, 특수문자 8자리",
+  validate: value => {
+    return /^.*(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[$@$!%*#?&]).*$/.test(value)
+  }
+});
+
   export default {
     name: 'Login',
     components: {
@@ -102,7 +101,7 @@
     },
     data: () => ({
       email: '',
-      password: null,
+      password: '',
       showPass: false,
       isSubmit: false,
     }),
@@ -116,24 +115,18 @@
     },
     methods: {
        
-      async submit() {
-        this.isSubmit = false;
-        const valid = await this.$refs.observer.validate()
-        if (valid) {
-          this.isSubmit = true;
-          console.log(this.isSubmit);
-          this.login(this.params) // action to login
-        } else {
-          this.isSubmit = false;
-          console.log(this.isSubmit);
-        }
-      },
-      clear() {
-        // you can use this method to clear login form
-        this.email = ''
-        this.password = null
-        this.$refs.observer.reset()
-      }
+      // async submit() {
+      //   this.isSubmit = false;
+      //   const valid = await this.$refs.observer.validate()
+      //   if (valid) {
+      //     this.isSubmit = true;
+      //     console.log(this.isSubmit);
+      //     this.login(this.params) // action to login
+      //   } else {
+      //     this.isSubmit = false;
+      //     console.log(this.isSubmit);
+      //   }
+      // },
     }
   }
 </script>
@@ -193,7 +186,7 @@
     box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
     box-sizing: border-box;
 
-    .signin {
+    .login {
       padding: 0;
       margin: 0 auto;
       min-height: 690px;
