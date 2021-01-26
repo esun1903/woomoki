@@ -1,22 +1,19 @@
 <template>
   <div id="main">
-    <!-- <Navbar></Navbar> -->
-    <Signup></Signup>
-    <!-- <FavoriteCategory></FavoriteCategory> -->
+    <v-app>
+      <UserPageEdit></UserPageEdit>
+    </v-app>
     <router-view />
   </div>
 </template>
 
 <script>
-// import Navbar from "@/components/Navbar/Navbar.vue";
-import Signup from "@/views/Signup/Signup.vue";
-// import FavoriteCategory from "@/views/Signup/components/FavoriteCategory.vue";
+import UserPageEdit from "./views/UserPageEdit/UserPageEdit";
+
 export default {
   name: "App",
   components: {
-    // Navbar,
-    Signup
-    // FavoriteCategory,
+    UserPageEdit
   },
 
   data: () => ({
