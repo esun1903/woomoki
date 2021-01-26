@@ -25,8 +25,8 @@ public class CertificationServiceImpl implements CertificationService{
 
 	@Override
 	public int certificationDelete(int id) {
-	
-		return 0;
+		int res = dao.challengeDelete(id);
+		return res;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.example.ssafypjt2.dao;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Options;
@@ -29,4 +30,9 @@ public interface CertificationDao {
 			+ "result= #{certificationDto.result} "
 			+ "WHERE id = #{certificationDto.id}")
 	public int certificationUpdate(@Param("certificationDto")CertificationDto certificationDto);
+	
+
+	@Delete("DELETE FROM certification "
+			+ "WHERE id=#{certId}")
+	public int challengeDelete(@Param("certId")int certId);
 }
