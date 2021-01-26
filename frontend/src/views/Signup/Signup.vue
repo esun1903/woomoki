@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="section-container">
-      <v-row class="signin">
+      <v-row class="signup">
         <v-col cols="8" class="left">
           <h1>GRITREE, 당신의 새로운 원동력</h1>
         </v-col>
@@ -35,6 +35,27 @@
                   v-model="email"
                   :error-messages="errors"
                   label="이메일을 입력해주세요"
+                  required
+                  outlined
+                  dark
+                  filled
+                  dense
+                ></v-text-field>
+              </validation-provider>
+              <validation-provider
+                v-slot="{ errors }"
+                name="핸드폰 번호"
+                :rules="{
+                  required: true,
+                  digits: 11,
+                  regex: /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/
+                }"
+              >
+                <v-text-field
+                  v-model="phoneNumber"
+                  :counter="11"
+                  :error-messages="errors"
+                  label="핸드폰 번호(숫자만)"
                   required
                   outlined
                   dark
@@ -84,24 +105,15 @@
                 </validation-provider>
               </validation-observer>
               <div class="text-center">
-                <v-btn class="signup-btn" type="submit" rounded color="white">
+                <v-btn class="signup-btn" type="submit" rounded color="white" 
+                >
                   회원가입
                 </v-btn>
               </div>
-
-              <v-col class="py-2">
-                <div id="join-find">
-                  <ul>
-                    <li><a href="">아이디 찾기</a></li>
-                    <li><a href="">비밀번호 재설정</a></li>
-                    <li><a href="#">회원가입</a></li>
-                  </ul>
-                </div>
-              </v-col>
             </v-form>
           </validation-observer>
           <v-divider></v-divider>
-          <p class="login-box-hd">또는 다른 서비스 계정으로 로그인</p>
+          <p class="login-box-hd">또는 다른 서비스 계정으로 회원가입</p>
           <span class="or-bar or-bar-right"></span>
           <v-col class="py-2">
             <div id="socialBtn">
@@ -120,13 +132,16 @@
 import Kakao from "@/components/BaseSocial/Kakao.vue";
 import Naver from "@/components/BaseSocial/Naver.vue";
 import Google from "@/components/BaseSocial/Google.vue";
+import axios from "axios";
 import { required, email } from "vee-validate/dist/rules";
 import {
   extend,
+  // ErrorBag,
   ValidationProvider,
   setInteractionMode,
   ValidationObserver
 } from "vee-validate";
+
 
 
 setInteractionMode("eager");
@@ -141,8 +156,9 @@ extend("email", {
   message: "이메일 형식에 맞추어 입력해주세요."
 });
 
+
 extend( "password", {
-  message: "문자, 숫자, 특수 문자 포함 8자리 이상을 입력해주세요",
+  message: "문자, 숫자, 특수문자 8자리",
   validate: value => {
     return /^.*(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[$@$!%*#?&]).*$/.test(value)
   }
@@ -170,20 +186,24 @@ export default {
     return {
       nickName: "",
       email: "",
+      phoneNumber: "",
       password: "",
       passwordConfirmation: "",
       showPass: false,
-
       isSubmit: false,
+      // error : "",
     }
   },
   computed: {
     params: function () {
       return {
+        nickName: this.nickName,
         email: this.email,
+        phoneNumber: this.phoneNumber,
         password: this.password
       };
-    },  
+    },
+
   },
   methods: {
 
@@ -191,27 +211,30 @@ export default {
       const valid = await this.$refs.observer.validate();
       if (valid) {
         this.isSubmit = true;
-        this.login(this.params); 
+        axios.post("http://localhost:8088/signup", this.params)
+          .then(() => {
+            axios.post("http://localhost:8088/login", this.params)
+          })
+          .catch((err) => console.log(err))
+        
+      } else {
+        this.isSubmit = false;
+        alert("내용을 확인해주세요")
       }
-      else this.isSubmit = false;
     },
     clear() {
       this.email = "";
-      this.password = null;
+      this.password = "";
       this.$refs.observer.reset();
-    },
-
-  }
-};
+    }
+  },
+}
 </script>
 
 <style lang="scss" scoped>
-  /* ./assets/styles.scss */
-
-  // .socialBtnToggle {
-  //         background-color: rgba(255,255,255,0) !important;
-  //     }
-
+  .v-btn {
+    left: 30%;
+  }
 
   #join-find {
     display: flex;
@@ -245,6 +268,7 @@ export default {
   }
 
   .login-box-hd {
+    margin-top: 20px;
     text-align: center;
     font-weight: 400;
     font-size: 11px;
@@ -260,7 +284,7 @@ export default {
     box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
     box-sizing: border-box;
 
-    .signin {
+    .signup {
       padding: 0;
       margin: 0 auto;
       min-height: 750px;
@@ -295,7 +319,8 @@ export default {
 
         .login-btn {
           width: 100%;
-          color: #30ac7c;   
+          color: #30ac7c;  
+          margin-top: 10px; 
         }
       }
     }
