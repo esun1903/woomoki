@@ -1,20 +1,22 @@
 <template>
   <div id="main">
-    <UserPage></UserPage>
-    <router-view/>
+    <!-- <Navbar></Navbar> -->
+    <Signup></Signup>
+    <!-- <FavoriteCategory></FavoriteCategory> -->
+    <router-view />
   </div>
 </template>
 
 <script>
-//김용민
-import UserPage from './views/UserPage/UserPage.vue';
-
+// import Navbar from "@/components/Navbar/Navbar.vue";
+import Signup from "@/views/Signup/Signup.vue";
+// import FavoriteCategory from "@/views/Signup/components/FavoriteCategory.vue";
 export default {
   name: "App",
-
   components: {
-    //김용민
-    UserPage
+    // Navbar,
+    Signup
+    // FavoriteCategory,
   },
 
   data: () => ({
