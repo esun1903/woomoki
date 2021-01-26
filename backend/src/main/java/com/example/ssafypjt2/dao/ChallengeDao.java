@@ -1,7 +1,5 @@
 package com.example.ssafypjt2.dao;
 
-import java.sql.SQLException;
-
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -11,17 +9,16 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.example.ssafypjt2.dto.ChallengeDto;
-import com.example.ssafypjt2.dto.UserDto;
+
 
 @Mapper
 public interface ChallengeDao {
 
-	@Select(" SELECT id AS UserId, nickname AS NickName, password AS PassWord, "
-			+ " phone AS Phone, email AS Email, introduce AS Introduce, "
-			+ " levelnum AS LevelNum, leveltitle AS LevelTitle, img AS Img, "
-			+ " deposit AS Deposit, DATE_FORMAT(join_date,'%Y.%m.%d.') AS userJoin_Date "
-			+ " FROM user WHERE email = #{Email} ")
-	public UserDto login(String email) throws SQLException;
+	@Select(" SELECT category_id, user_id, title, content, "
+			+ "sum_img, start_date, end_date, cert_count, "
+			+ "max_people, example_img , join_deposit "
+			+ " FROM challenge WHERE id = #{cng_id} ")
+	public ChallengeDto challengeDetail(@Param("cng_id")int cng_id);
 
 
 	@Insert("Insert INTO challenge ( category_id, user_id, title, content, sum_img, start_date, end_date, cert_count, max_people, example_img , join_deposit)"

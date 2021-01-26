@@ -12,11 +12,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 	private ChallengeDao dao; 
 	
 
-	@Override
-	public ChallengeDto challengeDetail(ChallengeDto challengeDto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public int challengeUpdate(ChallengeDto challengeDto) {
@@ -42,6 +38,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 		int get = dao.challengeInsert(challengeDto); 
 		
 		return get;
+	}
+
+
+	@Override
+	public ChallengeDto challengeDetail(int cng_id) {
+		return dao.challengeDetail(cng_id);
 	}
 
 }
