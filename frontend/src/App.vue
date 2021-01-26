@@ -1,18 +1,22 @@
 <template>
   <div id="main">
-    <Footer></Footer>
-    <router-view/>
+    <!-- <Navbar></Navbar> -->
+    <Signup></Signup>
+    <!-- <FavoriteCategory></FavoriteCategory> -->
+    <router-view />
   </div>
-
 </template>
 
 <script>
-import Footer from "./components/Footer/Footer";
-
+// import Navbar from "@/components/Navbar/Navbar.vue";
+import Signup from "@/views/Signup/Signup.vue";
+// import FavoriteCategory from "@/views/Signup/components/FavoriteCategory.vue";
 export default {
   name: "App",
   components: {
-    Footer,
+    // Navbar,
+    Signup
+    // FavoriteCategory,
   },
 
   data: () => ({
