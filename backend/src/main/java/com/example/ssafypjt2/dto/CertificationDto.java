@@ -7,21 +7,23 @@ public class CertificationDto {
 	private String img;
 	private String content;
 	private String create_date;
-	
-	
+	private int result;
+
 	public CertificationDto() {
 		super();
-		// TODO Auto-generated constructor stub
+
 	}
-	
-	public CertificationDto(int id, int cng_id, String img, String content, String create_date) {
+
+	public CertificationDto(int id, int cng_id, String img, String content, String create_date, int result) {
 		super();
 		this.id = id;
 		this.cng_id = cng_id;
 		this.img = img;
 		this.content = content;
 		this.create_date = create_date;
+		this.result = result;
 	}
+
 	public int getId() {
 		return id;
 	}
@@ -62,11 +64,18 @@ public class CertificationDto {
 		this.create_date = create_date;
 	}
 
+	public int getResult() {
+		return result;
+	}
+
+	public void setResult(int result) {
+		this.result = result;
+	}
+
 	@Override
 	public String toString() {
 		return "CertificationDto [id=" + id + ", cng_id=" + cng_id + ", img=" + img + ", content=" + content
-				+ ", create_date=" + create_date + "]";
+				+ ", create_date=" + create_date + ", result=" + result + "]";
 	}
-	
-	
+
 }
