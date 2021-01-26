@@ -1,28 +1,18 @@
 <template>
-    <div>
-        
-    </div>
+  <div></div>
 </template>
 
 <script>
 export default {
-    name: 'Join',
-    components: { ComponentName },
-    directives: { DirectiveName },
-    data() {
-        return {
-            
-        };
-    },
-    mounted() {
-        
-    },
-    methods: {
-        
-    },
+  name: "Join",
+  components: { ComponentName },
+  directives: { DirectiveName },
+  data() {
+    return {};
+  },
+  mounted() {},
+  methods: {}
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

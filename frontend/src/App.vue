@@ -1,7 +1,9 @@
 <template>
   <div id="main">
-    <UserPageEdit></UserPageEdit>
-    <router-view/>
+    <v-app>
+      <UserPageEdit></UserPageEdit>
+    </v-app>
+    <router-view />
   </div>
 </template>
 
