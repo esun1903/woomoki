@@ -1,8 +1,10 @@
 <template>
   <v-app>
     <Navbar></Navbar>
+    <v-main>
+      <router-view></router-view>
+    </v-main>
     <Footer class="footer"></Footer>
-    <router-view />
   </v-app>
 </template>
 
@@ -25,10 +27,11 @@ export default {
 
 <style>
 .footer {
-  position: relative;
-  bottom: -1200px;
-  width: 100%;
-  z-index: 0;
+  
+  /* position: absolute; */
+  /* bottom: -1200px; */
+  /* width: 100%; */
+  z-index: 1;
 }
 
 </style>
