@@ -11,7 +11,12 @@ import FindPasswordByPhone from "@/views/Login/components/FindPasswordByPhone.vu
 import UserPage from "@/views/UserPage/UserPage.vue";
 import UserPageEdit from "@/views/UserPageEdit/UserPageEdit.vue";
 import CompareOriginPassword from "@/views/UserPageEdit/CompareOriginPassword.vue";
+// import KakaoTalk from "@/views/Login/callback/KakaoTalk.vue";
 Vue.use(VueRouter);
+
+// Containers
+const BlankContainer = () => import('@/containers/BlankContainer')
+
 
 const routes = [
   {
@@ -68,6 +73,19 @@ const routes = [
     path: '/userPage/userPageEdit/password',
     name: 'CompareOriginPassword',
     component: CompareOriginPassword,        
+  },
+  {
+    path: '/callback',
+    name: 'callback',
+    redirect: '/login',
+    component: BlankContainer,
+    children: [
+      {
+        path: 'kakaotalk',
+        name: 'callback-kakaotalk',
+        component: () => import('@/views/Login/callback/KakaoTalk'),
+      },
+    ]
   },
   
 ];

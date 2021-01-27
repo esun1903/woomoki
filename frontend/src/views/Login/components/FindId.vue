@@ -27,7 +27,7 @@
                 </div>
               </v-form>
             </validation-observer>
-            <router-link :to="'/login/findPassword'">
+            <router-link :to="'/login'">
               <BackBtn />
             </router-link>
           </div>

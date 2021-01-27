@@ -61,7 +61,7 @@ const request = require('request-promise')
                 client_id: process.env.KAKAO_APP_KEY_REST,
                 redirect_uri: process.env.KAKAO_APP_REDIRECT_URI,
                 code: kakaoAuthCode,
-                // client_secret: ''
+                client_secret: 'BidDKV3QkhRiKn4eLeY8H2TsD8NMKCH7'
             }
         })
     

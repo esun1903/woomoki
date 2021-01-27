@@ -1,6 +1,6 @@
 <template>
     <div>
-      <v-app-bar dark id="app-bar">
+      <v-app-bar dark id="app-bar" fixed>
         <v-btn :ripple="false" id="service-name" @click="goMainPage">
           GRITREE
         </v-btn>
