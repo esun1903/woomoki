@@ -14,6 +14,8 @@ import com.example.ssafypjt2.dto.UserDto;
 
 @Mapper
 public interface UserDao {
+ 
+	
 
 	@Select(" SELECT id AS UserId, nickname AS NickName, password AS PassWord, "
 			+ " phone AS Phone, email AS Email, introduce AS Introduce, "
