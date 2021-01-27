@@ -4,8 +4,10 @@ import Main from "@/views/MainPage/MainPage.vue";
 import Signup from "@/views/Signup/Signup.vue";
 import FavoriteCategory from "@/views/Signup/components/FavoriteCategory.vue";
 import Login from "@/views/Login/Login.vue";
-import FindId from "@/views/Login/FindId.vue";
-import FindPassword from "@/views/Login/FindPassword.vue";
+import FindId from "@/views/Login/components/FindId.vue";
+import FindPassword from "@/views/Login/components/FindPassword.vue";
+import FindPasswordByEmail from "@/views/Login/components/FindPasswordByEmail.vue";
+import FindPasswordByPhone from "@/views/Login/components/FindPasswordByPhone.vue";
 import UserPage from "@/views/UserPage/UserPage.vue";
 import UserPageEdit from "@/views/UserPageEdit/UserPageEdit.vue";
 import CompareOriginPassword from "@/views/UserPageEdit/CompareOriginPassword.vue";
@@ -41,6 +43,16 @@ const routes = [
     path: '/login/findPassword',
     name: 'FindPassword',
     component: FindPassword,        
+  },
+  {
+    path: '/login/findPasswordByEmail',
+    name: 'FindPasswordByEmail',
+    component: FindPasswordByEmail,        
+  },
+  {
+    path: '/login/findPasswordByPhone',
+    name: 'FindPasswordByPhone',
+    component: FindPasswordByPhone,        
   },
   {
     path: '/userPage',
