@@ -22,7 +22,7 @@
   }
 </script>
 
-<style>
+<style scoped>
 
 .stat-info {
   display: -webkit-flex;
