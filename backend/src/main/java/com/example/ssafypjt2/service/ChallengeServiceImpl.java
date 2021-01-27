@@ -52,4 +52,9 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return dao.challengeCategorySort(cgId);
 	}
 
+	@Override
+	public List<ChallengeDto> challengeUserSelect(int userId) {
+		return dao.challengeUserSelect(userId);
+	}
+
 }

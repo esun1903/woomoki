@@ -15,6 +15,7 @@ public interface ChallengeService {
     public ChallengeDto challengeDetail(int id);
     public List<ChallengeDto> challengeAllList();
     public List<ChallengeDto> challengeCategorySort(int cgId);
+    public List<ChallengeDto> challengeUserSelect(int userId);
     public ChallengeDto challengeJoin(ChallengeDto challengeDto);
     
     

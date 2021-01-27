@@ -59,5 +59,11 @@ public interface ChallengeDao {
 			+ " FROM challenge WHERE category_id = #{cgId} ")
 	public List<ChallengeDto> challengeCategorySort(@Param("cgId")int cgId);
 
+	@Select(" SELECT id, category_id, user_id, title, content, "
+			+ "sum_img, start_date, end_date, cert_count, "
+			+ "max_people, example_img , join_deposit "
+			+ " FROM challenge WHERE user_id = #{userId} ")
+	public List<ChallengeDto> challengeUserSelect(@Param("userId")int userId);
+
 	
 }

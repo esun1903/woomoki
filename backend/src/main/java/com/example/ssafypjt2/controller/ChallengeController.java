@@ -61,4 +61,10 @@ public class ChallengeController {
 		return challengeService.challengeCategorySort(cgId);	
 	}
 	
+	@GetMapping("/challengeUserSelect/{userId}")
+	public List<ChallengeDto> challengeUserSelect(@PathVariable(value = "userId") int userId){
+		return challengeService.challengeUserSelect(userId);	
+	}
+	
+	
 }
