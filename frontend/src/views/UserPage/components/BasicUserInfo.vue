@@ -146,12 +146,18 @@
 </template>
 
 <script>
+// import axios from "axios";
+// import { mapState } from "vuex"
 
 export default {
   name: "BasicUserInfo",
+  components: {
+    // mapState,
+  },
   data: function () {
     return {
-      test: "",
+      myId: "",
+      myState: "",
       userState: "", 
       dialog: {
         dialogm1: "",
@@ -159,66 +165,66 @@ export default {
         dialogm2: "",
         dialog2: false,
       },
-      userId: "",
-      userInfo: [],
       followers: [ "김용민", "김용민", "김용민", "김용민", "김용민", "김용민", "김용민", "김용민", "김용민", "김용민"],
       followings: [ "홍지희", "표기동", "최은선", "김효진"],
     }
   },
   methods: {
-    setToken: function () {
-      const token = localStorage.getItem("jwt");
-      const config = {
-        headers: {
-          Authorization: `JWT ${token}`,
-        },
-      };
-      return config;
-    },
-    // 마이페이지아이콘을 눌러 이 페이지로 이동할 때
-    // jwt 토큰 정보를 통해 config 생성 후에 요청으로 보내 로그인한 사람의 정보를 응답받는다.
-    // 로그인한 사람의 userid와 
+    // setToken: function () {
+    //   const token = localStorage.getItem("jwt");
+    //   const config = {
+    //     headers: {
+    //       Authorization: `JWT ${token}`,
+    //     },
+    //   };
+    //   return config;
+    // },
+
+    // jwt 토큰
     // setToken: function () {
     //   const config = this.setToken();
     //   axios.get("??", config)
     //     .then((res) => {
-    //       this.userInfo = res.data
+    //       this.myId = res.data
     //     })
     //     .catch((err) => {
     //       console.log(err)
     //     })
     // },
 
-    // 다른 유저 페이지를 따로만들어야 할듯?..
-    // 다른 유저 페이지
-    // 누른 아이디(닉네임) 정보를 요청으로 보내 userid(pk)를 응답받는다.
-    // GetUserId: function () {
-    //   const nickName = this.nickName
-    //   axios.post("??", nickName)
-    //     .then((res) => {
-    //       this.UserId = res.data
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // }
-
+    // 마이페이지 아이콘 or 다른사람의 닉네임을 누르면 
+    // router로 페이지 이동과 함께 params or query로 유저 아이디를 vuex state에 저장한다.
+    // 그리고 UserPage.vue가 렌더링 될때 vuex state에 있는 아이디를 post에 보내서 유저 정보를 렌더링
+    // jwt토큰을 가져와서 그 유저정보와 지금 렌더링 되는 유저 정보가 같으면 마이페이지 렌더링, 아니면 유저페이지 렌더링
     // BasicUserInfo: function () {
-    //   axios.get("??/userId")
+    //   axios.post("??/userId", userid)
     //     .then((res) => {
     //       this.userInfo = res.data
+    //       if (this.myId === userid) {
+    //         // 내 페이지
+    //         // myState에 따라 태그에 v-if 렌더링
+    //         this.myState = true;
+    //       } else {
+    //         // 다른 유저 페이지
+    //         this.myState = false;
+    //       }
     //     })
     //     .catch((err) => {
     //       console.log(err)
     //     })
     // },
-    UserFollowerBtn: function () {
+    // UserFollowerBtn: function () {
       
-    },
-    created() {
-      // this.GetUserId()
-      // this.BasicUserInfo()
-    }
+    // },
+    // created() {
+    //   // this.setToken()
+    //   // this.BasicUserInfo()
+    // },
+    // computed: {
+    //   ...mapState({
+    //     userid: 'state에서 유저닉네임이 저장되어있는 변수'
+    //   })
+    // }
   }
 }
 </script>
