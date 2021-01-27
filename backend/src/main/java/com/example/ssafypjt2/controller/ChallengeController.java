@@ -1,5 +1,7 @@
 package com.example.ssafypjt2.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,10 +45,15 @@ public class ChallengeController {
 	}
 	
 	@GetMapping("/detailChallenge/{cngId}")
-	public ChallengeDto challengeDetail (@PathVariable(value = "cngId") int id) {
-		
-		ChallengeDto result = challengeService.challengeDetail(id);
-		
+	public ChallengeDto challengeDetail (@PathVariable(value = "cngId") int id) {		
+		ChallengeDto result = challengeService.challengeDetail(id);	
 		return result;
 	}
+	
+	@GetMapping("/allChallenge")
+	public List<ChallengeDto> challengeAllList(){
+		return challengeService.challengeAllList();
+		
+	}
+	
 }

@@ -1,5 +1,7 @@
 package com.example.ssafypjt2.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +12,6 @@ import com.example.ssafypjt2.dto.ChallengeDto;
 public class ChallengeServiceImpl implements ChallengeService {
 	@Autowired
 	private ChallengeDao dao; 
-	
-
-	
 
 	@Override
 	public int challengeUpdate(ChallengeDto challengeDto) {
@@ -44,6 +43,13 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@Override
 	public ChallengeDto challengeDetail(int id) {
 		return dao.challengeDetail(id);
+	}
+
+
+	@Override
+	public List<ChallengeDto> challengeAllList() {
+		
+		return dao.ChallengeAllList();
 	}
 
 }

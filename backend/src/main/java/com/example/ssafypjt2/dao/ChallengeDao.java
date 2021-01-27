@@ -1,5 +1,7 @@
 package com.example.ssafypjt2.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -9,6 +11,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.example.ssafypjt2.dto.ChallengeDto;
+import com.example.ssafypjt2.dto.RelationDto;
 
 
 @Mapper
@@ -45,4 +48,9 @@ public interface ChallengeDao {
 	@Delete("DELETE FROM challenge "
 			+ "WHERE id=#{cngId}")
 	public int challengeDelete(@Param("cngId")int cngId);
+	
+	
+	@Select("SELECT * FROM challenge")
+	List<ChallengeDto> ChallengeAllList();
+	
 }
