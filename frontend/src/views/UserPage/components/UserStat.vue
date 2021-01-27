@@ -1,25 +1,40 @@
 <template>
   <div class="stat-info">
     <div>
-      <span class="stat-name">당신이 좋아하는 카테고리</span>
-      <img src="https://t1.daumcdn.net/cfile/tistory/0141D44A5127C6BE21" alt="" class="stat-data">
+      <div class="stat-name">월별 챌린지 인증 횟수</div>
+      <GraphLine></GraphLine>
     </div>
     <div>
-      <span class="stat-name">파이형 그래프 통계 수치</span>
-      <img src="https://docs.tibco.com/pub/spotfire_server/11.0.0/doc/html/ko-KR/TIB_sfire_bauthor-consumer_usersguide/GUID-5E23F5F5-6290-4780-959F-D4E403B4B1EC-display.png" alt="" class="stat-data">
+      <div class="stat-name">좋아하는 카테고리</div>
+      <GraphPie></GraphPie>
     </div>
     <div>
-      <span class="stat-name">히스토그램 통계</span>
-      <img src="https://codetorial.net/matplotlib/_images/histogram_00.png" alt="" class="stat-data">
+      <div class="stat-name">당신의 성향</div>
+      <GraphRadar></GraphRadar>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    name: "UserStat",
-  
-  }
+// import ApexCharts from 'apexcharts';
+// import VueApexCharts from 'vue-apexcharts'
+import GraphLine from './GraphLine'
+import GraphPie from './GraphPie'
+import GraphRadar from './GraphRadar'
+
+export default {
+  name: "UserStat",
+  components: {
+    // ApexCharts,
+    GraphLine,
+    GraphPie,
+    GraphRadar
+  },
+  data: function () {
+    return {
+      }
+}
+}
 </script>
 
 <style>
@@ -27,8 +42,10 @@
 .stat-info {
   display: -webkit-flex;
   display: flex;
+  /* display: inline; */
   -webkit-justify-content: space-around;
   justify-content: space-around;
+  margin-top: 70px;
 }
 
 .stat-info .stat-name {
@@ -42,4 +59,9 @@
   height: 200px;
   display: flex;
 }
+
+.v-sheet--offset {
+    margin-top: 10px;
+    position: relative;
+  }
 </style>

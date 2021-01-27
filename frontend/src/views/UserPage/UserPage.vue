@@ -1,7 +1,5 @@
 <template>
-<v-container>
-    <v-app>
-        <h1 class="text-center">유저페이지!!!!</h1>
+    <v-container>
         <div class="inline-info user-info">
             <BasicUserInfo class="margin-bottom"></BasicUserInfo>
             <!-- <MyPageFunction></MyPageFunction> -->
@@ -37,9 +35,7 @@
                 </v-card>
             </v-tab-item>
         </v-tabs-items>
-    </v-app>
-</v-container>
-
+    </v-container>
 </template>
 
 <script>
@@ -76,6 +72,7 @@ export default {
 .container {
   position: absolute;
   left: 30%;
+  margin-top: 100px;
   margin-left: -100px;
   width: 1000px;
 }

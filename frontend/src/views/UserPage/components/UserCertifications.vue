@@ -1,49 +1,33 @@
 <template>
-  <v-app class="certification-feed">
-    <v-container fluid>
-      <v-row dense>
-        <v-col
-          v-for="card in cards"
-          :key="card.title"
-          :cols="card.flex"
-        >
-          <v-card>
-            <v-img
-              :src="card.src"
-              class="white--text align-end content"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              width="300px"
-              height="300px"
-            >
-              <v-card-title v-text="card.title"></v-card-title>
-              <v-btn icon class="content-overlay content-details fadeIn-bottom">
-                <!-- <v-icon size="64">mdi-heart</v-icon> -->
-                <h1 style="color: white;">매일매일 운동하기</h1>
-              </v-btn>
-            </v-img>
-
-            <v-card-actions>
-              <v-spacer></v-spacer>
-
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-
-  </v-app>
-  <!-- <div class="certification-group certification-container">
-    <img src="https://cdn.clien.net/web/api/file/F01/10333937/4379c3e76c59d8.jpg" alt="" class="certification-img">
-    <img src="https://cdn.clien.net/web/api/file/F01/10333937/4379c3e76c59d8.jpg" alt="" class="certification-img">
-    <img src="https://cdn.clien.net/web/api/file/F01/10333937/4379c3e76c59d8.jpg" alt="" class="certification-img">
-    <img src="https://cdn.clien.net/web/api/file/F01/10333937/4379c3e76c59d8.jpg" alt="" class="certification-img">
-    <img src="https://cdn.clien.net/web/api/file/F01/10333937/4379c3e76c59d8.jpg" alt="" class="certification-img">
-    <img src="https://cdn.clien.net/web/api/file/F01/10333937/4379c3e76c59d8.jpg" alt="" class="certification-img">
-    <img src="https://cdn.clien.net/web/api/file/F01/10333937/4379c3e76c59d8.jpg" alt="" class="certification-img">
-    <img src="https://cdn.clien.net/web/api/file/F01/10333937/4379c3e76c59d8.jpg" alt="" class="certification-img">
-    <img src="https://cdn.clien.net/web/api/file/F01/10333937/4379c3e76c59d8.jpg" alt="" class="certification-img">
-    <img src="https://cdn.clien.net/web/api/file/F01/10333937/4379c3e76c59d8.jpg" alt="" class="certification-img">
-  </div> -->
+  <v-row>
+    <v-col
+      v-for="n in 9"
+      :key="n"
+      class="d-flex child-flex"
+      cols="4"
+    >
+      <v-img
+        :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
+        :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+        aspect-ratio="1"
+        class="grey lighten-2"
+        @click="CertificationDetail"
+      >
+        <template v-slot:placeholder>
+          <v-row
+            class="fill-height ma-0"
+            align="center"
+            justify="center"
+          >
+            <v-progress-circular
+              indeterminate
+              color="grey lighten-5"
+            ></v-progress-circular>
+          </v-row>
+        </template>
+      </v-img>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -51,17 +35,7 @@ export default {
   name: "UserCertifications",
   data: function () {
     return {
-      cards: [
-        { title: '9주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 4 },
-        { title: '8주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 4 },
-        { title: '7주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
-        { title: '6주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
-        { title: '5주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
-        { title: '4주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
-        { title: '3주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
-        { title: '2주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
-        { title: '1주차 인증샷', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 4 },
-      ],
+      cards: [],
     }
   },
   methods: {
@@ -69,6 +43,7 @@ export default {
       // axios.post("?")
     },
     CertificationDetail: function () {
+      console.log("CertificationDetail")
       // 인증 디테일 페이지로 이동
       // this.$push()
     }

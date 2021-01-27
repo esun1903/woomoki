@@ -11,21 +11,25 @@
     <div class="inline-Info">
       <div class="align-Id-follow-edit">
         <span class="user-id">rladydals123</span>
-        <v-btn
-          :ripple="false"
-          class="btn-margin"
-          color="primary"
-          width="50"
-          >
-          팔로우
-        </v-btn>
+        <v-btn-toggle
+         active-class="toggle-btn">
+          <v-btn
+            :ripple="false"
+            class="btn-margin"
+            color="primary"
+            width="60"
+            height="30"
+            >
+            팔로우
+          </v-btn>
+        </v-btn-toggle>
         <v-btn
           :ripple="false"
           class="btn-margin"
           plain
           width="100"
           >
-          프로필 편집
+          <router-link to="/userPage/userPageEdit/password">프로필 편집</router-link>    
         </v-btn>
       </div>
       <div class="user-level">👩‍💼 Lv. 17</div>
@@ -147,6 +151,7 @@ export default {
   name: "BasicUserInfo",
   data: function () {
     return {
+      test: "",
       userState: "", 
       dialog: {
         dialogm1: "",
@@ -206,7 +211,10 @@ export default {
     //     .catch((err) => {
     //       console.log(err)
     //     })
-    // }
+    // },
+    UserFollowerBtn: function () {
+      
+    },
     created() {
       // this.GetUserId()
       // this.BasicUserInfo()
@@ -296,6 +304,9 @@ a {text-decoration: none;}
 .btn {
   opacity: 1;
 }
-  
+
+.toggle-btn {
+  color: skyblue;
+}
 
 </style>

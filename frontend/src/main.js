@@ -6,11 +6,16 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import axios from "axios";
 import firebase from 'firebase'
-
+import VueApexCharts from 'vue-apexcharts'
 
 Vue.config.productionTip = false;
 
+
 Vue.use(Vuex);
+
+// apexchart 사용
+Vue.use(VueApexCharts)
+Vue.component('apexchart', VueApexCharts)
 
 window.Kakao.init("dc7cf69baf1f6d8d13dbb622f40e287f");
 
