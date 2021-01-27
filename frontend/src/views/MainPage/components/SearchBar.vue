@@ -1,68 +1,12 @@
 <template>
-  <v-card
-    class="overflow-hidden"
-    color="purple lighten-1"
-    dark
-  >
-    <v-toolbar
-      flat
-      color="purple"
-    >
-      <v-icon>mdi-account</v-icon>
-      <v-toolbar-title class="font-weight-light">
-        User Profile
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        color="purple darken-3"
-        fab
-        small
-        @click="isEditing = !isEditing"
-      >
-        <v-icon v-if="isEditing">
-          mdi-close
-        </v-icon>
-        <v-icon v-else>
-          mdi-pencil
-        </v-icon>
+  <div id="search-bar">
+    <form class="search" @submit="getSearchResult">
+      <input type="text" class="searchTerm" placeholder="어떤 씨앗을 심을까요?" @input="searchQuery = $event.target.value" autocomplete="on">
+      <v-btn type="submit" class="searchButton">
+        <v-icon>mdi-cloud-search-outline</v-icon>
       </v-btn>
-    </v-toolbar>
-    <v-card-text>
-      <v-text-field
-        :disabled="!isEditing"
-        color="white"
-        label="Name"
-      ></v-text-field>
-      <v-autocomplete
-        :disabled="!isEditing"
-        :items="states"
-        :filter="customFilter"
-        color="white"
-        item-text="name"
-        label="State"
-      ></v-autocomplete>
-    </v-card-text>
-    <v-divider></v-divider>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn
-        :disabled="!isEditing"
-        color="success"
-        @click="save"
-      >
-        Save
-      </v-btn>
-    </v-card-actions>
-    <v-snackbar
-      v-model="hasSaved"
-      :timeout="2000"
-      absolute
-      bottom
-      left
-    >
-      Your profile has been updated
-    </v-snackbar>
-  </v-card>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -74,25 +18,67 @@ export default {
   directives: {  },
   data() {
     return {
-      
+      keyword: [] 
     };
   },
   mounted() {
     
   },
   methods: {
-    
+    getSearchResult: function () {
+      this.$emit('searched-keyword', this.keyword)
+    }
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.search-wrapper {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    top:50%;
-    left:50%;
+.search {
+  width: 50%;
+  height:60%;
+  position: relative;
+  display: flex;
+  top: 20%;
 }
-.search-wrapper.active {}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #04915b;
+  border-right: none;
+  padding: 20px;
+  height: 100%;
+  left: 40%;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+  font-size: 22px;
+}
+
+.searchTerm:focus{
+  color: #04915b;
+}
+
+.searchButton {
+  width: 3%;
+  height: 100% !important;
+  border: 1px solid #04915b;
+  background: #04915b !important;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+  position: relative;
+}
+
+/*Resize the wrap to see the search bar change!*/
+#search-bar{
+  width: 100%;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 50px;
+}
 
 </style>
