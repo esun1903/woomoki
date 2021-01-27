@@ -1,5 +1,7 @@
 package com.example.ssafypjt2.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +32,13 @@ public class CertificationServiceImpl implements CertificationService{
 	}
 
 	@Override
-	public CertificationDto certificationDetail(int id) {
-		
+	public CertificationDto certificationDetail(int id) {	
 		return dao.certificationDetail(id);
+	}
+
+	@Override
+	public List<CertificationDto> certificationAllList() {
+		return dao.certificationAllList();
 	}
 
 }

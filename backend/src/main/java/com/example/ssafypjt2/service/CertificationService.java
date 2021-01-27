@@ -1,5 +1,7 @@
 package com.example.ssafypjt2.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import com.example.ssafypjt2.dto.CertificationDto;
 
@@ -10,6 +12,6 @@ public interface CertificationService {
 	    public int certificationUpdate(CertificationDto certificationDto);
 	    public int certificationDelete(int id); 
 	    public CertificationDto certificationDetail(int id);
-	    
+	    public List<CertificationDto> certificationAllList();
 	   
 }
