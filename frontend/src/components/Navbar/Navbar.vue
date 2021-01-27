@@ -1,5 +1,4 @@
 <template>
-  <v-app>
     <div>
       <v-app-bar dark id="app-bar">
         <v-btn :ripple="false" id="service-name" @click="goMainPage">
@@ -76,7 +75,6 @@
         </div>
       </v-app-bar>
     </div>
-  </v-app>
 </template>
 
 <script>

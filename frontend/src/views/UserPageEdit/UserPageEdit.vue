@@ -1,7 +1,6 @@
 <template>
   <v-container style="width: 500px; margin-top: 150px">
     <h1 style="text-align: center; margin-bottom: 50px;">프로필 편집 페이지</h1>
-    <v-app>
       <CompareOriginPassword></CompareOriginPassword>
       <!-- <ImgEdit></ImgEdit> -->
       <validation-observer ref="observer" v-slot="{ invalid }">
@@ -123,7 +122,6 @@
           </v-btn>
         </form>
       </validation-observer>
-    </v-app>
   </v-container>
 </template>
 
