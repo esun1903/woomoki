@@ -49,4 +49,11 @@ public class UserServiceImpl implements UserService {
 		int get = dao.changeintroduce(user_id, user_newIntroduce);
 		return get;
 	}
+
+	@Override
+	public int userPageDelete(int user_id) throws Exception {
+		System.out.println("여기는 회원탈퇴를 담당하는 Service에 도달했습니다 ~ " + user_id);
+		int get = dao.userPageDelete(user_id);
+		return get;
+	}
 }

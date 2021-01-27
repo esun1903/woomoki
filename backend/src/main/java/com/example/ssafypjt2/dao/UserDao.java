@@ -39,6 +39,9 @@ public interface UserDao {
 
 	@Update("UPDATE user SET introduce = #{user_newIntroduce} WHERE id = #{user_id}")
 	public int changeintroduce(@Param("user_id") int user_id,  @Param("user_newIntroduce")String user_newIntroduce);
+
+    @Delete("DELETE FROM user WHERE id = #{user_id} ")
+	public int userPageDelete(@Param("user_id") int user_id);
 	
 
 }

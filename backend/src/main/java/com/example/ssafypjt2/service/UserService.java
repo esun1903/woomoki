@@ -14,5 +14,6 @@ public interface UserService {
 	public int changepassword( int user_id,  String user_password) throws Exception;
 	public int changenickname(int user_id, String user_newNickname) throws Exception;
 	public int changeintroduce(int user_id, String user_newIntroduce) throws Exception;
+	public int userPageDelete(int user_id) throws Exception ;
     
 }
