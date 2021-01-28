@@ -24,11 +24,15 @@
 
 ### Tech Log
 
-[프로젝트 공유문서]https://www.notion.so/A303-1d48727b951b41a18886118e55d04fb8
+
 #### 진행상황
 ![진행상황](/uploads/2604d1a22d225fb31a5c7236d5e7b8ff/진행상황.PNG)
+
+
+
 #### Cooperation
-![진행상황](/uploads/2604d1a22d225fb31a5c7236d5e7b8ff/진행상황.PNG)
+[프로젝트 공유문서]https://www.notion.so/A303-1d48727b951b41a18886118e55d04fb8
+![스크럼](/uploads/23af022e3d6741638aa7bd1651bb2038/스크럼.PNG)
 
 #### ERD
 ![erd](/uploads/0815b418a07c92cab0eff9501285027f/erd.png)
