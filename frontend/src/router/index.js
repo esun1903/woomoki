@@ -53,7 +53,7 @@ const routes = [
     component: UserPageEdit,        
   },
   {
-    path: '/userPage/userPageEdit/password',
+    path: '/userPage/password',
     name: 'CompareOriginPassword',
     component: CompareOriginPassword,        
   },
