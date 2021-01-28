@@ -20,13 +20,16 @@ export default {
             },
             labels: ['운동', '자산', '취미', '생활습관', '독서', '공부'],
             responsive: [{
-              breakpoint: 480,
+              breakpoint: 50,
               options: {
                 chart: {
                   width: 200
                 },
                 legend: {
-                  position: 'bottom'
+                  show: false,
+                  position: 'left',
+                  horizontalAlign: 'left',
+                  floating: true,
                 }
               }
             }]

@@ -34,7 +34,7 @@ compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.5.0'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
-	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	compile group: 'io.jsonwebtoken', name: 'jwt', version: '0.9.1'
 	 
     //Firebase
     implementation 'com.google.firebase:firebase-database:16.0.5'
