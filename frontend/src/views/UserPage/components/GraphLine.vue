@@ -1,6 +1,6 @@
 <template>
   <div id="chart">
-    <apexchart type="line" width="300" height="300" :options="chartOptions" :series="series"></apexchart>
+    <apexchart type="line" width="250" height="250" :options="chartOptions" :series="series"></apexchart>
   </div>
 </template>
 
@@ -47,6 +47,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

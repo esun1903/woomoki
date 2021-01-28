@@ -1,6 +1,6 @@
 <template>
   <div id="chart">
-    <apexchart type="radar" width="300" height="300" :options="chartOptions" :series="series"></apexchart>
+    <apexchart type="radar" width="250" height="250" :options="chartOptions" :series="series"></apexchart>
   </div>
 </template>
 
@@ -22,7 +22,7 @@ export default {
               text: ''
             },
             xaxis: {
-              categories: ['운동', '공부', '생활습관', '취미', '자산', '독서']
+              categories: ['꾸준함', '활동적', '리더십', '섬세함', '소통', '끈기']
             }
           },
     }
@@ -30,6 +30,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>

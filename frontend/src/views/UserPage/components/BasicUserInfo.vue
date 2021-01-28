@@ -9,7 +9,7 @@
       <span class="white--text headline">
         사진
         <v-img
-          src="">
+          :src="require('@/assets/images/profile_img.jpg')">
         </v-img>
       </span>
     </v-avatar>
@@ -234,7 +234,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 /* 안됨..
 @import "./BasicUserInfo.scss"; */
 a {text-decoration: none;}
