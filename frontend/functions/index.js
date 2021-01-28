@@ -52,16 +52,19 @@ const request = require('request-promise')
         console.log('Requesting user access token from Kakao API server.')
         // console.log('Kakao Client id : ', process.env.KAKAO_APP_KEY_REST)
         
+        var formString = Object.entries(form).map(e => e.join('=')).join('&');
+      
+        
         return request({
-            method: 'POST',
-            headers: {'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'},
+            method: 'GET',
+            // headers: {'Content-type': 'application/x-www-form-urlencoded;charset=utf-8'},
             url: kakaoRequestTokenUrl,
             form: {
                 grant_type: 'authorization_code',
                 client_id: process.env.KAKAO_APP_KEY_REST,
                 redirect_uri: process.env.KAKAO_APP_REDIRECT_URI,
                 code: kakaoAuthCode,
-                client_secret: 'BidDKV3QkhRiKn4eLeY8H2TsD8NMKCH7'
+                client_secret: 'BidDKV3QkhRiKn4eLeY8H2TsD8NMKCH7',
             }
         })
     
