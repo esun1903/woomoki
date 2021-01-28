@@ -9,7 +9,7 @@
           <h2>로그인</h2>
           <h4>이메일 로그인하기</h4>
           <!-- <validation-observer ref="observer"> -->
-            <validation-observer v-slot="{ invalid }">
+          <validation-observer v-slot="{ invalid }" ref="observer">
             <v-form @submit.prevent="submit">
               <validation-provider v-slot="{ errors }" name="email" rules="required|email">
                 <v-text-field v-model="email" :error-messages="errors" label="Email" required outlined dark filled
@@ -21,10 +21,8 @@
                   outlined dense dark filled :type="showPass ? 'text' : 'password'"></v-text-field>
               </validation-provider>
 
-<!-- :disabled="!isSubmit"
-                  :class="{disabled : !isSubmit}" -->
               <div class="text-center">
-                <v-btn class="login-btn" type="submit" rounded color="white"  :disabled="invalid">
+                <v-btn class="login-btn" type="submit" rounded color="white" :disabled="invalid">
                   로그인
                 </v-btn>
               </div>
@@ -33,10 +31,10 @@
                 <div id="join-find">
                   <ul>
                     <li>
-                      <router-link :to="'findId'">아이디 찾기</router-link>
+                      <router-link :to="'/login/findId'">아이디 찾기</router-link>
                     </li>
                     <li>
-                      <router-link :to="'findPassword'">비밀번호 찾기</router-link>
+                      <router-link :to="'/login/findPassword'">비밀번호 찾기</router-link>
                     </li>
                     <li>
                       <router-link :to="'signup'">회원가입</router-link>
@@ -68,8 +66,16 @@
   import Kakao from "@/components/BaseSocial/Kakao.vue"
   import Naver from "@/components/BaseSocial/Naver.vue"
   import Google from "@/components/BaseSocial/Google.vue"
-  import { required, email } from 'vee-validate/dist/rules'
-  import { extend, ValidationProvider, setInteractionMode, ValidationObserver } from 'vee-validate'
+  import {
+    required,
+    email
+  } from 'vee-validate/dist/rules'
+  import {
+    extend,
+    ValidationProvider,
+    setInteractionMode,
+    ValidationObserver
+  } from 'vee-validate'
 
   setInteractionMode('eager')
 
@@ -84,11 +90,11 @@
   })
 
   extend("password", {
-  message: "문자, 숫자, 특수문자 8자리",
-  validate: value => {
-    return /^.*(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[$@$!%*#?&]).*$/.test(value)
-  }
-});
+    message: "문자, 숫자, 특수문자 8자리",
+    validate: value => {
+      return /^.*(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[$@$!%*#?&]).*$/.test(value)
+    }
+  });
 
   export default {
     name: 'Login',
@@ -103,7 +109,6 @@
       email: '',
       password: '',
       showPass: false,
-      isSubmit: false,
     }),
     computed: {
       params() {
@@ -114,19 +119,13 @@
       }
     },
     methods: {
-       
-      // async submit() {
-      //   this.isSubmit = false;
-      //   const valid = await this.$refs.observer.validate()
-      //   if (valid) {
-      //     this.isSubmit = true;
-      //     console.log(this.isSubmit);
-      //     this.login(this.params) // action to login
-      //   } else {
-      //     this.isSubmit = false;
-      //     console.log(this.isSubmit);
-      //   }
-      // },
+      async submit() {
+        const valid = await this.$refs.observer.validate()
+        if (valid) {
+          // this.login(this.params) // action to login
+          this.$router.push("/");
+        }
+      },
     }
   }
 </script>
@@ -156,7 +155,7 @@
 
   a {
     text-decoration: none;
-    color: #ffffff;
+    color: #ffffff !important;
   }
 
   ul {
@@ -168,6 +167,7 @@
     float: left;
     font-size: 13px;
     margin-right: 20px;
+
   }
 
   .login-box-hd {
@@ -222,26 +222,14 @@
         .login-btn {
           width: 100%;
           color: #30ac7c;
-          // &:not([disabled]) {
-          //   &:hover,
-          //   &:focus,
-          //   &.active {
-          //     box-shadow: none;
-          //     -webkit-box-shadow: none;
-          //   }
-          // }
-
-          // &.disabled {
-          //   background: rgb(136, 133, 133);
-          //   cursor: default;
-          // }
         }
+
         .disabled,
-.disabled:hover {
-  background-color: rgb(136, 154, 152, 0.25);
-  color: #f8f8f8;
-  cursor: inherit;
-}
+        .disabled:hover {
+          background-color: rgb(136, 154, 152, 0.25);
+          color: #f8f8f8;
+          cursor: inherit;
+        }
 
       }
     }

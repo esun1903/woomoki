@@ -1,12 +1,12 @@
 <template>
     <div>
-      <v-app-bar dark id="app-bar">
+      <v-app-bar dark id="app-bar" fixed>
         <v-btn :ripple="false" id="service-name" @click="goMainPage">
           GRITREE
         </v-btn>
 
         <!-- 간격 띄우기 용 -->
-        <!-- <v-spacer></v-spacer> -->
+        <v-spacer></v-spacer>
 
         <!-- 누르면 스크랩 페이지로 이동 -->
         <div id="right">
@@ -132,7 +132,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #service-name {
   font-size: 30px;
 }
@@ -147,13 +147,13 @@ export default {
 .v-tabs-slider {
   color: red;
 }
-.v-dialog {
-  width: 20% !important;
+.v-dialog > * {
+  width: 25% !important;
   box-shadow: none;
 }
 .v-dialog__content {
-  top: -36% !important;
-  left: 39% !important;
+  top: -33% !important;
+  left: 73% !important;
 }
 .notice-card {
   width: 50px;
