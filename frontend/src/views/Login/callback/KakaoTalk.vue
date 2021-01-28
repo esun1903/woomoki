@@ -62,7 +62,7 @@ export default {
           console.log(errorCode, errorMessage);
           // console.log(error);
           alert("토큰이 정상적이지 않습니다. 만료된 토큰이거나 이미 사용된 토큰입니다.");
-          _this.$router.push("/login");
+          // _this.$router.push("/login");
           return;
         });
       }).catch(function(error) {
@@ -76,12 +76,12 @@ export default {
         
         alert("정상적이지 않은 접근입니다. 만료된 데이터이거나 이미 사용된 데이터입니다.");
         // alert(message + ' ' + details);
-        _this.$router.push("/login");
+        // _this.$router.push("/login");
         return;
       });
     } else {
       alert("잘못된 방법으로 접근하셨습니다. 로그인 페이지로 이동합니다.");
-      _this.$router.push("/login");
+      // _this.$router.push("/login");
       return;
     }
   },
