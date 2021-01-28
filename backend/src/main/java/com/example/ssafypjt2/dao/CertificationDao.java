@@ -15,21 +15,22 @@ import com.example.ssafypjt2.dto.ChallengeDto;
 
 @Mapper
 public interface CertificationDao {
-	@Select(" SELECT cng_id, img, content, create_date , result"
+	@Select(" SELECT cng_id, img, content, create_date , result, user_id"
 			+ " FROM certification WHERE id = #{certId} ")
 	public CertificationDto certificationDetail(@Param("certId") int certId);
 
-	@Insert("Insert INTO certification ( cng_id, img, content, create_date , result)"
+	@Insert("Insert INTO certification ( cng_id, img, content, create_date , result, user_id)"
 			+ " VALUES ( "
 			+ "#{certificationDto.cng_id}, #{certificationDto.img}, "
-			+ "#{certificationDto.content}, now(), #{certificationDto.result}) ")			
+			+ "#{certificationDto.content}, now(), #{certificationDto.result}, , #{certificationDto.user_id} ")			
 	public int certificationInsert(@Param("certificationDto")CertificationDto certificationDto);
 	
 	@Update("Update certification SET "
 			+ "cng_id = #{certificationDto.cng_id},"
 			+ "img =  #{certificationDto.img}, "
 			+ "content = #{certificationDto.content},"
-			+ "result= #{certificationDto.result} "
+			+ "result= #{certificationDto.result},"
+			+ "user_id= #{certificationDto.user_id} "
 			+ "WHERE id = #{certificationDto.id}")
 	public int certificationUpdate(@Param("certificationDto")CertificationDto certificationDto);
 	
@@ -42,8 +43,12 @@ public interface CertificationDao {
 	@Select("SELECT * FROM certification")
 	public List<CertificationDto> certificationAllList();
 	
-	@Select(" SELECT id, cng_id, img, content, create_date , result"
+	@Select(" SELECT id, cng_id, img, content, create_date, result, user_id "
 			+ " FROM certification WHERE cng_id = #{cngId} ")
-	public List<CertificationDto> sameChallengeList(@Param("cngId")int cngId);
+	public List<CertificationDto> sameChallengeCrtList(@Param("cngId")int cngId);
+	
+	@Select(" SELECT id, cng_id, img, content, create_date , result, user_id"
+			+ " FROM certification WHERE user_id = #{userId} ")
+	public List<CertificationDto> userCrtList(@Param("userId")int userId);
 }
 

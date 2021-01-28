@@ -54,8 +54,13 @@ public class CertificationController {
 		
 	}
 	@GetMapping("/sameChallengeCertificaion/{cngId}")
-	public  List<CertificationDto> sameChallengeList(@PathVariable(value = "cngId") int cngId){
-		return certificationService.sameChallengeList(cngId);
+	public  List<CertificationDto> sameChallengeCrtList(@PathVariable(value = "cngId") int cngId){
+		return certificationService.sameChallengeCrtList(cngId);
+		
+	}
+	@GetMapping("/userCertificaion/{userId}")
+	public  List<CertificationDto> userCrtList(@PathVariable(value = "userId") int userId){
+		return certificationService.userCrtList(userId);
 		
 	}
 	

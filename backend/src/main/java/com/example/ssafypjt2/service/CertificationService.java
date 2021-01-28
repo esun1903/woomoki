@@ -13,5 +13,6 @@ public interface CertificationService {
 	    public int certificationDelete(int id); 
 	    public CertificationDto certificationDetail(int id);
 	    public List<CertificationDto> certificationAllList();
-	    public List<CertificationDto> sameChallengeList(int cngId);
+	    public List<CertificationDto> sameChallengeCrtList(int cngId);
+	    public List<CertificationDto> userCrtList(int userId);
 }
