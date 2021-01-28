@@ -23,6 +23,8 @@
 ![서비스_기능](/uploads/17b64fcc5f11b79c63f2acc7dcd5bb03/서비스_기능.PNG)
 
 ### Tech Log
+
+[프로젝트 공유문서]https://www.notion.so/A303-1d48727b951b41a18886118e55d04fb8
 #### 진행상황
 ![진행상황](/uploads/2604d1a22d225fb31a5c7236d5e7b8ff/진행상황.PNG)
 #### Cooperation
