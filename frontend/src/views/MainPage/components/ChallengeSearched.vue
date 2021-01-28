@@ -60,10 +60,9 @@ export default {
   width: 100%;
 }
 .container {
-  display: flex;
-  justify-content: center;
   width:100%;
-  left: 15%;
+  left:12% !important;
+  margin-left: 0;
 }
 #challenge-card {
   display: flex;

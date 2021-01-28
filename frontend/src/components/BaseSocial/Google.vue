@@ -1,18 +1,9 @@
 <template>
-      <div>
-      <v-btn
-              @click="google"
-              color="transparent"
-              depressed
-              icon
-            >
-              <v-img :src="require('@/assets/images/google.png')"
-               max-height="40"
-  max-width="40" />
-            </v-btn>
-
-     
-    </div>
+  <div>
+    <v-btn @click="google" color="transparent" depressed icon>
+      <v-img :src="require('@/assets/images/google.png')" max-height="40" max-width="40" />
+    </v-btn>
+  </div>
 </template>
 
 <script>
