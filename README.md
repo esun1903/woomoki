@@ -13,7 +13,8 @@
 ![문제인식_1](/uploads/54bc26112aebb7eaf7849afed6867185/문제인식_1.PNG)
 ![문제인식2](/uploads/42bf69ad5c5387fe4a224beb92e2ff9c/문제인식2.PNG)
 ![문제인식3](/uploads/304764dd7f8a9c33ad219ec4fdf4c87e/문제인식3.PNG)
-![해결방안](/uploads/049afd0d4caba31a6632b44215ae26c6/해결방안.PNG)
+
+
 #### 해결방안
 ![해결방안](/uploads/049afd0d4caba31a6632b44215ae26c6/해결방안.PNG)
 
