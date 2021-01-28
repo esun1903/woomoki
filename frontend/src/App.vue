@@ -2,10 +2,8 @@
 <template>
   <v-app>
     <Navbar></Navbar>
-    <v-main>
       <router-view></router-view>
-    </v-main>
-    <Footer class="footer"></Footer>
+    <Footer></Footer>
   </v-app>
 </template>
 
