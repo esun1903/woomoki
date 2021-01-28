@@ -1,6 +1,5 @@
 package com.example.ssafypjt2.dto;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -16,7 +15,16 @@ public class UserDto {
 	private String leveltitle;
 	private String img; 
 	private int deposit;
+	private String newPassword;
+	private String newNickname; 
+	private String newIntroduce; 
 	
+	public String getNewNickname() {
+		return newNickname;
+	}
+	public void setNewNickname(String newNickname) {
+		this.newNickname = newNickname;
+	}
 	@DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime join_date;
     
@@ -86,9 +94,17 @@ public class UserDto {
 	public void setJoin_date(LocalDateTime join_date) {
 		this.join_date = join_date;
 	}
-
+	public String getNewPassword() {
+		return newPassword;
+	}
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+	public String getNewIntroduce() {
+		return newIntroduce;
+	}
+	public void setNewIntroduce(String newIntroduce) {
+		this.newIntroduce = newIntroduce;
+	}
 	
-    
-    
-    
 }

@@ -194,7 +194,7 @@ export default {
     }
   },
   computed: {
-    params: function () {
+    signupParams: function () {
       return {
         nickName: this.nickName,
         email: this.email,
@@ -202,6 +202,12 @@ export default {
         password: this.password
       };
     },
+    loginParams: function () {
+      return {
+        email: this.email,
+        password: this.password,  
+      }
+    }
 
   },
   methods: {
@@ -210,9 +216,9 @@ export default {
       const valid = await this.$refs.observer.validate();
       if (valid) {
         this.isSubmit = true;
-        axios.post("http://localhost:8088/signup", this.params)
+        axios.post("http://localhost:8080/signup", this.signupParams)
           .then(() => {
-            axios.post("http://localhost:8088/login", this.params)
+            axios.post("http://localhost:8080/login", this.loginParams)
           })
           .catch((err) => console.log(err))
         

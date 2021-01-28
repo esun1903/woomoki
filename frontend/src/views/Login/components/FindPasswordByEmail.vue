@@ -7,18 +7,17 @@
         </v-col>
         <v-col cols="4" class="right">
           <h2>Oops!!!!!!!비밀번호를 잊었다니!</h2>
-          <h4>임시 비밀번호 발급받기</h4>
-            <validation-observer v-slot="{ invalid }">
+          <h4>이메일로 임시 비밀번호 발급받기</h4>
+            <validation-observer v-slot="{ invalid }" ref="observer">
             <v-form @submit.prevent="submit">
               <validation-provider v-slot="{ errors }" name="Name" rules="required|email">
                 <v-text-field v-model="email" :error-messages="errors" label="Email" required outlined dark filled dense></v-text-field>
               </validation-provider>
-
               <div class="text-center">
                 <v-btn class="send-email" type="submit" rounded color="white" :disabled="invalid">
                   임시 비밀번호 발송
                 </v-btn>
-                 <router-link :to="'login'">
+                 <router-link :to="'/login/findPassword'">
                  <v-btn class="back-btn" rounded color="white">
                   이전 페이지로 돌아가기
                 </v-btn>
@@ -49,15 +48,14 @@ setInteractionMode('eager')
   })
 
   export default {
-    name: 'FindPassword',
+    name: 'FindPasswordByEmail',
     components: {
       ValidationProvider,
       ValidationObserver,
      
     },
     data: () => ({
-      email: '',
-      isSubmit: false,
+      email: ''
     }),
     computed: {
       params() {
@@ -69,17 +67,11 @@ setInteractionMode('eager')
     methods: {
        
       async submit() {
-        this.isSubmit = false;
         const valid = await this.$refs.observer.validate()
         if (valid) {
-          this.isSubmit = true;
-          console.log(this.isSubmit);
           alert('임시 비밀번호를 발송하였습니다!\n이메일을 확인해주세요');
-          location.href='login';
         //   this.login(this.params) // action to login
-        } else {
-          this.isSubmit = false;
-          console.log(this.isSubmit);
+          location.href='/login';
         }
       },
     }
