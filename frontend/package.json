@@ -16,6 +16,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "email-validator": "^2.0.4",
+    "emailjs-com": "^2.6.4",
     "firebase": "^8.2.4",
     "firebase-admin": "^9.4.2",
     "firebase-functions": "^3.13.1",

@@ -98,20 +98,16 @@
         if (valid) {
           alert('인증 코드를 발송하였습니다.\n 인증 코드를 입력해주세요.');
           this.show = !this.show;
-          //   this.login(this.params) // action to login
         }
       },
+      checkCode(){
+         this.$router.push("/login/findIdResult");
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  // @import "Login.scss";
-
-  #join-find {
-    display: flex;
-    justify-content: space-around;
-  }
 
   #socialBtn {
     display: flex;
@@ -124,14 +120,6 @@
 
   a {
     text-decoration: none;
-    color: #ffffff;
-  }
-
-  .login-box-hd {
-    text-align: center;
-    font-weight: 400;
-    font-size: 11px;
-    line-height: 28px;
     color: #ffffff;
   }
 
