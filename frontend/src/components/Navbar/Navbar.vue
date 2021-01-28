@@ -1,10 +1,9 @@
 <template>
     <div>
-      <v-app-bar dark id="app-bar" fixed>
-        <v-btn :ripple="false" id="service-name" @click="goMainPage">
-          GRITREE
-        </v-btn>
-
+      <v-app-bar id="app-bar" fixed>
+        <h1 :ripple="false" id="service-name">
+          우목이
+        </h1>
         <!-- 간격 띄우기 용 -->
         <v-spacer></v-spacer>
 
@@ -18,7 +17,7 @@
             <v-icon>mdi-cart</v-icon>
           </v-btn>
 
-          <v-btn id="btns" @click="notice = true">
+          <v-btn icon id="btns" @click="notice = true">
             <v-icon>mdi-bell-ring</v-icon>
           </v-btn>
           <v-dialog v-model="notice">
@@ -133,8 +132,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#app-bar {
+  background-color: #30ac7c;
+}
 #service-name {
   font-size: 30px;
+  margin-left: 5px;
 }
 .v-toolbar__content {
   display: flex;
@@ -143,6 +146,9 @@ export default {
 }
 #btns {
   margin: 0px 10px 0px 5px;
+  background-color: #30ac7c;
+  border: 0;
+  outline:0;
 }
 .v-tabs-slider {
   color: red;
@@ -158,4 +164,5 @@ export default {
 .notice-card {
   width: 50px;
 }
+$btn-border-radius : 0;
 </style>
