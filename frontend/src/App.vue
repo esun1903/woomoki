@@ -27,12 +27,6 @@ export default {
 </script>
 
 <style>
-.footer {
-  
-  /* position: absolute; */
-  /* bottom: -1200px; */
-  /* width: 100%; */
-  z-index: 1;
-}
+
 
 </style>
