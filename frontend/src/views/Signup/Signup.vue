@@ -3,11 +3,11 @@
     <section class="section-container">
       <v-row class="signup">
         <v-col cols="8" class="left">
-          <h1>GRITREE, 당신의 새로운 원동력</h1>
+          <h1>우목이, 당신의 새로운 원동력</h1>
         </v-col>
         <v-col cols="4" class="right">
-          <h2>로그인</h2>
-          <h4>이메일 로그인하기</h4>
+          <h2>회원가입</h2>
+          <h4>이메일 회원가입하기</h4>
           <validation-observer v-slot="{ invalid }" ref="observer">
             <v-form @submit.prevent="submit">
               <validation-provider
@@ -217,7 +217,7 @@ export default {
             axios.post("http://localhost:8080/login", this.loginParams)
           })
           .catch((err) => console.log(err))
-        
+        this.$router.push({ name: 'FavoriteCategory' })
       } else {
         this.isSubmit = false;
         alert("내용을 확인해주세요")
@@ -289,7 +289,7 @@ export default {
         h2,
         h4 {
           text-align: center;
-          margin: 30px 0;
+          margin: 20px 0;
         }
 
         .signup-btn {
