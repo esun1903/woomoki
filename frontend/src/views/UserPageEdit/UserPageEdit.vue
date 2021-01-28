@@ -4,7 +4,12 @@
       <ImgEdit></ImgEdit>
       <validation-observer ref="observer" v-slot="{ invalid }">
         <form @submit.prevent="submit">
-          <validation-provider
+          <v-text-field
+            value="rladydals123"
+            label="아이디"
+            readonly
+          ></v-text-field>
+          <!-- <validation-provider
             v-slot="{ errors }"
             name="아이디"
             :rules="{
@@ -17,10 +22,10 @@
               v-model="name"
               :counter="10"
               :error-messages="errors"
-              label="아이디"
+              label="rladydals123"
               required
             ></v-text-field>
-          </validation-provider>
+          </validation-provider> -->
 
           <validation-provider v-slot="{ errors }" name="한 줄 소개">
             <v-text-field
