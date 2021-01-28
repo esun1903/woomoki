@@ -1,17 +1,17 @@
 <template>
   <div id="main-page">
-      <SearchBar id="mainpage-component" @searched-keyword="searchedKeyword" />
+      <SearchBar id="mainpage-component"/>
 
       <CategoryButtons id="mainpage-component"/>
 
       <div v-if="isSearching">
-        <ChallengeSearched id="mainpage-component-result"/> 
+        <ChallengeSearched id="mainpage-component-result" @searched-keyword="searchedKeyword"/> 
       </div>
 
       <div v-show="isNotSearching">
         <ChallengeRecommended id="mainpage-component-result"/>
-        <ChallengeFamous id="mainpage-component-result"/>
-        <ChallengeNew id="mainpage-component-result"/> 
+        <ChallengeFamous id="mainpage-component-result" @category-searched="categorySearched"/>
+        <ChallengeNew id="mainpage-component-result" @category-searched="categorySearched"/> 
       </div>
 
   </div>

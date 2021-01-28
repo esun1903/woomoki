@@ -2,7 +2,7 @@
   <div id="category-buttons">
     <v-tooltip bottom v-for="(item, index) in items" :key="index"> 
       <template v-slot:activator="{ on }">
-        <v-avatar v-on="on">
+        <v-avatar v-on="on" @click="categorySearch(item)">
           <v-icon dark v-text="item.icon"></v-icon>
         </v-avatar>
       </template>
@@ -19,6 +19,7 @@ export default {
   directives: {  },
   data() {
     return {
+      categorySearchedResult: "",
       items: [
         {
           text: '건강',
@@ -57,7 +58,12 @@ export default {
     
   },
   methods: {
-    
+    categorySearch: function(category) {
+      // category에 해당하는 것 갖고와서 categorySearchResult에 넣어주기
+      // axios.get()
+      console.log(category);
+      this.$emit('category-searched', this.categorySearchedResult)
+    }
   },
 };
 </script>
