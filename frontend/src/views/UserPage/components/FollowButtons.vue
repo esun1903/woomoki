@@ -145,7 +145,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 export default {
   name: "FollowButtons",
   data: function () {
