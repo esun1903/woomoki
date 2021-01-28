@@ -10,7 +10,7 @@
         :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
         :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
         aspect-ratio="1"
-        class="grey lighten-2"
+        class="grey lighten-2 cursor_test"
         @click="CertificationDetail"
       >
         <template v-slot:placeholder>
@@ -51,7 +51,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 /* .certification-group {
   display: flex;
@@ -121,4 +121,6 @@ export default {
 .fadeIn-bottom {
   top: 70%;
 }
+
+.cursor_test {cursor: pointer;}
 </style>

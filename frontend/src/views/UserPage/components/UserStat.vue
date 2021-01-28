@@ -18,9 +18,9 @@
 <script>
 // import ApexCharts from 'apexcharts';
 // import VueApexCharts from 'vue-apexcharts'
-import GraphLine from './GraphLine'
-import GraphPie from './GraphPie'
-import GraphRadar from './GraphRadar'
+import GraphLine from "./GraphLine";
+import GraphPie from "./GraphPie";
+import GraphRadar from "./GraphRadar";
 
 export default {
   name: "UserStat",
@@ -30,15 +30,13 @@ export default {
     GraphPie,
     GraphRadar
   },
-  data: function () {
-    return {
-      }
-}
-}
+  data: function() {
+    return {};
+  }
+};
 </script>
 
 <style>
-
 .stat-info {
   display: -webkit-flex;
   display: flex;
@@ -49,6 +47,8 @@ export default {
 }
 
 .stat-info .stat-name {
+  margin-bottom: 20px;
+  font-size: 20px;
   display: flex;
   justify-content: center;
 }
@@ -61,7 +61,7 @@ export default {
 }
 
 .v-sheet--offset {
-    margin-top: 10px;
-    position: relative;
-  }
+  margin-top: 10px;
+  position: relative;
+}
 </style>

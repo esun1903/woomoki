@@ -6,7 +6,12 @@
       height="300"
       class="profile-img"
       >
-      <span class="white--text headline">사진</span>
+      <span class="white--text headline">
+        사진
+        <v-img
+          src="">
+        </v-img>
+      </span>
     </v-avatar>
     <div class="inline-Info">
       <div class="align-Id-follow-edit">

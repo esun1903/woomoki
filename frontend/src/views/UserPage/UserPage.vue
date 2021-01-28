@@ -13,6 +13,7 @@
             grow
             >
             <v-tab
+                class="tab-font-size"
                 v-for="item in items"
                 :key="item"
                 >
@@ -78,8 +79,8 @@ export default {
 }
 
 .user-info {
-    margin-left: 130px;
-    margin-bottom: -200px;
+  margin-left: 130px;
+  margin-bottom: -200px;
 }
 
 .inline-info {
@@ -87,6 +88,11 @@ export default {
 }
 
 .margin-bottom {
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 }
+
+.tab-font-size {
+  font-size: 20px; 
+}
+
 </style>
