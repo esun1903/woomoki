@@ -2,8 +2,8 @@
 <template>
   <v-app>
     <Navbar></Navbar>
-    <Footer class="footer"></Footer>
-    <router-view />
+      <router-view></router-view>
+    <Footer></Footer>
   </v-app>
 </template>
 
@@ -25,11 +25,6 @@ export default {
 </script>
 
 <style>
-.footer {
-  position: relative;
-  bottom: -1200px;
-  width: 100%;
-  z-index: 0;
-}
+
 
 </style>
