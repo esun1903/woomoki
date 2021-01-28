@@ -29,7 +29,7 @@
           plain
           width="100"
           >
-          <router-link to="/userPage/userPageEdit/password">프로필 편집</router-link>    
+          <router-link to="/userPage/password">프로필 편집</router-link>    
         </v-btn>
       </div>
       <div class="user-level">👩‍💼 Lv. 17</div>
