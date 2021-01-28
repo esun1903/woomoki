@@ -57,7 +57,7 @@ export default {
         var user = result.user;
         // ...
         console.log(user);
-          _this.$router.push("/main");
+          _this.$router.push("/");
       }).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
