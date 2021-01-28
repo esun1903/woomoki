@@ -38,7 +38,7 @@
         </v-btn>
       </div>
       <div class="user-level">👩‍💼 Lv. 17</div>
-      <div class="user-introduce">안녕하세용~~ㅎㅎ</div>
+      <div class="user-introduce">씨앗에 매일매일 물주기!</div>
       <div class="user-wallet">나의 캐시 : 3000원</div>
       <div class="follow-info">
         <div>
@@ -56,8 +56,10 @@
                   v-bind="attrs"
                   v-on="on"
                 >
-                  <div>팔로워</div>
-                  <div>116</div>
+                  <div>
+                    <h2 class="follow-margin">팔로워</h2>
+                    <div>116</div>
+                  </div>
                 </v-btn>
               </template>
               <v-card>
@@ -67,7 +69,7 @@
                       text
                       @click="dialog.dialog = false"
                     >
-                      Close
+                      닫기
                     </v-btn>
                   </v-card-title>
                 <v-divider></v-divider>
@@ -76,7 +78,8 @@
                   <div 
                     v-for="follower in followers"
                     :key="follower"
-                    class="name-follow">
+                    class="name-follow"
+                    >
                     <span><a href="">{{ follower }}</a></span>
                     <v-btn
                       color="primary"
@@ -108,8 +111,10 @@
                   v-bind="attrs"
                   v-on="on"
                 >
-                  <div>팔로잉</div>
-                  <div>122</div>
+                  <div>
+                    <h2 class="follow-margin">팔로잉</h2>
+                    <div>122</div>
+                  </div>
                 </v-btn>
               </template>
               <v-card>
@@ -119,7 +124,7 @@
                       text
                       @click="dialog.dialog2 = false"
                     >
-                      Close
+                      닫기
                     </v-btn>
                   </v-card-title>
                 <v-divider></v-divider>
@@ -170,8 +175,8 @@ export default {
         dialogm2: "",
         dialog2: false,
       },
-      followers: [ "김용민", "김용민", "김용민", "김용민", "김용민", "김용민", "김용민", "김용민", "김용민", "김용민"],
-      followings: [ "홍지희", "표기동", "최은선", "김효진"],
+      followers: [ "배상연", "김상훈", "최인교", "엄윤상", "김영재", "강병훈", "조민형", "김대인", "이선규"],
+      followings: [ "홍지희", "표기동", "최은선", "김효진", "최정휴", "현성섭", "손준희", "권기현"],
     }
   },
   methods: {
@@ -242,6 +247,7 @@ a {text-decoration: none;}
 @mixin between {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 @mixin margin {
@@ -267,7 +273,7 @@ a {text-decoration: none;}
 
 .profile-img {
   margin-right: 150px;
-  margin-bottom: 200px;
+  margin-bottom: 180px;
 }
 
 .user-id {
@@ -293,7 +299,7 @@ a {text-decoration: none;}
 }
 
 .user-wallet {
-  margin-bottom: 30px;
+  margin-bottom: 50px;
 }
 
 .follow-info {
@@ -318,6 +324,10 @@ a {text-decoration: none;}
 
 .toggle-btn {
   color: skyblue;
+}
+
+.follow-margin {
+  margin-bottom: 10px;
 }
 
 </style>
