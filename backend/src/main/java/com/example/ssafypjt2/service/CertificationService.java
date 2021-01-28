@@ -15,4 +15,5 @@ public interface CertificationService {
 	    public List<CertificationDto> certificationAllList();
 	    public List<CertificationDto> sameChallengeCrtList(int cngId);
 	    public List<CertificationDto> userCrtList(int userId);
+	    public List<CertificationDto> userCrtListSort(int userId ,int cngId);
 }

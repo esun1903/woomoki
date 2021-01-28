@@ -63,5 +63,10 @@ public class CertificationController {
 		return certificationService.userCrtList(userId);
 		
 	}
+	@GetMapping("/userCertificaionSort/{userId}/{cngId}")
+	public  List<CertificationDto> userCrtListSort(@PathVariable(value = "userId") int userId, @PathVariable(value = "cngId") int cngId){
+		return certificationService.userCrtListSort(userId, cngId);
+		
+	}
 	
 }
