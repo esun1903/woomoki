@@ -1,7 +1,10 @@
 <template>
-  <v-footer
+  <div></div>
+  <!-- <v-bottom-nav
     color="success lighten-1"
-    padless
+    fixed
+    app
+    class="footer"
   >
     <v-row
       justify="center"
@@ -24,7 +27,7 @@
         {{ new Date().getFullYear() }} — <strong>Produce 303</strong>
       </v-col>
     </v-row>
-  </v-footer>
+  </v-bottom-nav> -->
 </template>
 
 <script>
@@ -45,6 +48,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
 
 </style>
