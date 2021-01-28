@@ -41,4 +41,9 @@ public class CertificationServiceImpl implements CertificationService{
 		return dao.certificationAllList();
 	}
 
+	@Override
+	public List<CertificationDto> sameChallengeList(int cngId) {
+		return dao.sameChallengeList(cngId);
+	}
+
 }

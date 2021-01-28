@@ -41,5 +41,9 @@ public interface CertificationDao {
 	
 	@Select("SELECT * FROM certification")
 	public List<CertificationDto> certificationAllList();
+	
+	@Select(" SELECT id, cng_id, img, content, create_date , result"
+			+ " FROM certification WHERE cng_id = #{cngId} ")
+	public List<CertificationDto> sameChallengeList(@Param("cngId")int cngId);
 }
 
