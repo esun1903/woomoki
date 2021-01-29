@@ -1,7 +1,7 @@
 	
 <template>
   <v-app>
-    <Navbar></Navbar>
+    <Navbar id="nav-bar"></Navbar>
     <Footer class="footer"></Footer>
     <router-view />
   </v-app>
@@ -31,5 +31,7 @@ export default {
   width: 100%;
   z-index: 0;
 }
-
+#nav-bar {
+  /* margin-bottom: 50px; */
+}
 </style>
