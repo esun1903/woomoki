@@ -1,10 +1,12 @@
 	
 <template>
-  <v-app>
-    <Navbar></Navbar>
-      <router-view></router-view>
+<div>
+    <Navbar class="test"></Navbar>
+    <v-app>
+        <router-view></router-view>
+    </v-app>
     <Footer></Footer>
-  </v-app>
+</div>
 </template>
 
 <script>
@@ -26,5 +28,8 @@ export default {
 
 <style>
 
+.test {
+  margin-bottom: 60px;
+}
 
 </style>
