@@ -121,7 +121,5 @@ localhost:8080 으로 실행할 수 있습니다.
 ![회원가입](/uploads/2ce23f509e30eea3b1700ca82625e1e7/회원가입.png)
 ![카테고리](/uploads/01f08f7015e50ff3ecc63e2b924a5960/카테고리.png)
 
-### Install and Usage
 
-### 최종 산물
 
