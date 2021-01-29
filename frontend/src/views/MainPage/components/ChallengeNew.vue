@@ -62,7 +62,7 @@ export default {
 .container {
   width:100%;
   left:12% !important;
-  margin-left: 0;
+  margin-left: 70px;
 }
 #challenge-card {
   display: flex;

@@ -49,6 +49,7 @@ export default {
   display: flex;
   justify-content: center;
   height: 98px;
+  margin-top: 50px;
 }
 #mainpage-component-result {
   display: block;
