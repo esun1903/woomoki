@@ -16,7 +16,7 @@
               </validation-provider>
               <div class="text-center">
                 <v-btn class="send-email" type="submit" rounded color="white" :disabled="invalid">
-                  인증 코드 메일 발송
+                  임시 비밀번호 메일 발송
                 </v-btn>
                 <router-link :to="'/login/findPassword'">
                   <v-btn class="back-btn" rounded color="white">
@@ -82,6 +82,7 @@
             from_name: "우목이",
             to_name: "김싸피",
             user_email: this.email,
+            admin_email: "admin@a303.com",
             temp_pw: "1234abcd*"
           }, 'user_jsT9VLscfRQIahhEQbuiv').then((
             result) => {

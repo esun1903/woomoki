@@ -11,9 +11,9 @@
           <div class="text-center">
             <validation-observer v-slot="{ invalid }" ref="observer">
               <v-form @submit.prevent="submit">
-                <validation-provider v-slot="{ errors }" name="phone" rules="required|integer|length:11">
-                  <v-text-field v-model="phone" :error-messages="errors" label="Phone" required outlined dark filled
-                    dense></v-text-field>
+                <validation-provider v-slot="{ errors }" name="phone" rules="required|min:12|max:13">
+                  <v-text-field v-model="phone" :error-messages="errors" label="Phone" @keyup="getPhoneMask(phone)"
+                    required outlined dark filled dense></v-text-field>
                 </validation-provider>
                 <v-btn class="send-code-btn" type="submit" rounded color="white" :disabled="invalid">
                   인증 코드 보내기
@@ -40,7 +40,6 @@
 <script>
   import {
     required,
-    integer,
     length
   } from 'vee-validate/dist/rules'
   import {
@@ -60,15 +59,9 @@
 
   })
 
-  extend('integer', {
-    ...integer,
-    message: '휴대폰 번호를 확인해주세요'
-
-  })
-
   extend('length', {
     ...length,
-    message: '휴대폰 번호는 10 또는 11자의 숫자로 이루어져야 합니다'
+    message: '휴대폰 번호는 11자의 숫자로 이루어져야 합니다'
 
   })
 
@@ -93,6 +86,49 @@
     },
     methods: {
 
+      getPhoneMask(val) {
+        let res = this.getMask(val)
+        this.phone = res
+        //서버 전송 값에는 '-' 를 제외하고 숫자만 저장
+        this.model.phone = this.phone.replace(/[^0-9]/g, '')
+      },
+
+      getMask(phoneNumber) {
+        if (!phoneNumber) return phoneNumber
+        phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
+
+        let res = ''
+        if (phoneNumber.length < 3) {
+          res = phoneNumber
+        } else {
+          if (phoneNumber.substr(0, 2) == '02') {
+
+            if (phoneNumber.length <= 5) { //02-123-5678
+              res = phoneNumber.substr(0, 2) + '-' + phoneNumber.substr(2, 3)
+            } else if (phoneNumber.length > 5 && phoneNumber.length <= 9) { //02-123-5678
+              res = phoneNumber.substr(0, 2) + '-' + phoneNumber.substr(2, 3) + '-' + phoneNumber.substr(5)
+            } else if (phoneNumber.length > 9) { //02-1234-5678
+              res = phoneNumber.substr(0, 2) + '-' + phoneNumber.substr(2, 4) + '-' + phoneNumber.substr(6)
+            }
+
+          } else {
+            if (phoneNumber.length < 8) {
+              res = phoneNumber
+            } else if (phoneNumber.length == 8) {
+              res = phoneNumber.substr(0, 4) + '-' + phoneNumber.substr(4)
+            } else if (phoneNumber.length == 9) {
+              res = phoneNumber.substr(0, 3) + '-' + phoneNumber.substr(3, 3) + '-' + phoneNumber.substr(6)
+            } else if (phoneNumber.length == 10) {
+              res = phoneNumber.substr(0, 3) + '-' + phoneNumber.substr(3, 3) + '-' + phoneNumber.substr(6)
+            } else if (phoneNumber.length > 10) { //010-1234-5678
+              res = phoneNumber.substr(0, 3) + '-' + phoneNumber.substr(3, 4) + '-' + phoneNumber.substr(7)
+            }
+          }
+        }
+
+        return res
+      },
+
       async submit() {
         const valid = await this.$refs.observer.validate()
         if (valid) {
@@ -100,15 +136,14 @@
           this.show = !this.show;
         }
       },
-      checkCode(){
-         this.$router.push("/login/findIdResult");
+      checkCode() {
+        this.$router.push("/login/findIdResult");
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
-
   #socialBtn {
     display: flex;
     justify-content: space-around;
@@ -134,7 +169,7 @@
     .find-id {
       padding: 0;
       margin: 0 auto;
-      min-height: 690px;
+      min-height: 750px;
       box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
 
       .left {
