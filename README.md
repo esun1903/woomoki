@@ -101,6 +101,26 @@ localhost:8080 으로 실행할 수 있습니다.
 
 ### 페이지 소개 
 
+##### main 페이지
+
+![main](/uploads/1d0424379cacfb1ccc3d378be5fe04d9/main.png)
+
+##### 챌린지 리스트 
+
+![챌린지현황](/uploads/49a607ec26fb3d9ebbf1ce0042e4f2fa/챌린지현황.png)
+
+##### SNS 계정 페이지  
+
+![sns](/uploads/5691cc9eed84b044c71b4aa1283cf43c/sns.png)
+![sns_통계](/uploads/4b44de7e3958ed81444cbc5f2bbe1ba1/sns_통계.png)
+![팔로워](/uploads/f67d917e59e6d26a723df8e6826805f3/팔로워.png)
+
+
+##### 회원가입 페이지
+
+![회원가입](/uploads/2ce23f509e30eea3b1700ca82625e1e7/회원가입.png)
+![카테고리](/uploads/01f08f7015e50ff3ecc63e2b924a5960/카테고리.png)
+
 ### Install and Usage
 
 ### 최종 산물
