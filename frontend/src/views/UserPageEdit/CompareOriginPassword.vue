@@ -1,0 +1,84 @@
+<template>
+  <v-container class="container-width">
+    <div>프로필 변경을 위해 비밀번호를 한번더 입력해주세요!</div>
+    <v-text-field
+      v-model="originPassword"
+      type="password"
+      >
+    </v-text-field>
+    <v-btn 
+      @click="comparePassword" 
+      :disabled="this.originPassword.length < 4"
+      class="confirm-btn-right">
+      <router-link to="/userPage/UserPageEdit" class="confirm-btn-textcolor">확인</router-link>
+    </v-btn>
+  </v-container>
+</template>
+
+<script>
+export default {
+  name: "CompareOriginPassword",
+  data: function () {
+    return {
+      originPassword: "",
+      savedPassword: "1q2w3e4r!",
+      isSubmit: false,
+    }
+  },
+  methods:  {
+    // db에서 로그인 정보와 일치하는 패스워드 불러오기
+    // getPassword : function () {
+    //   axios.post("http://localhost:8088/", ??)
+    //     .then((res) => {
+    //       console.log(res)
+    //       this.savedPassword = res.data
+    //     })
+    //     .catch((err) => {
+    //       console.log(err)
+    //     })
+    // },
+    comparePassword: function () {
+      if (this.originPassword === this.savedPassword) {
+        console.log("패스워드 일치!")
+      } else {
+        console.log("패스워드 불일치!")
+      }
+    },
+    // 입력된 패스워드 정규식 테스트
+    // formPassword: function (password) {
+    //   const re = /$/
+    //   return re.test(password)
+    // },
+    validatePassword: function (password) {
+      if (password.length >= 0) {
+        console.log("true")
+        this.isSubmit = true;
+      } else {
+        console.log("false")
+        this.isSubmit = false;
+      }
+      return this.isSubmit;
+    }
+  },
+  computed: {
+    isComplete() {
+      return this.validatePassword(this.originPassword)
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+a { text-decoration:none } 
+
+.container-width {
+  margin-top: 100px;
+  width: 400px;
+}
+
+.confirm-btn-textcolor {
+  color: black;
+}
+
+</style>
