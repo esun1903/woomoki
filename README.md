@@ -99,7 +99,20 @@ localhost:8080 으로 실행할 수 있습니다.
 
 ![기술_스택](/uploads/89c229c548e6a066987f62439f2ac1ce/기술_스택.PNG)
 
-### 페이지 소개 
+### 🌳 페이지 소개 
+
+#### 회원가입 , 로그인 , 비밀번호 찾기 페이지
+
+![회원가입페이지](/uploads/ff0cce76561132a9605027a8e60b90e8/회원가입페이지.PNG)
+![로그인](/uploads/c5f15c5981a4f8d1eacd2c5ee0e90364/로그인.PNG)
+![관심카테고리](/uploads/23df9bb126b04776685804de692efcce/관심카테고리.PNG)
+![소셜로그인](/uploads/fa3d19e120e91c4cccdd7737f0fe1717/소셜로그인.PNG)
+
+![비번찾기](/uploads/a42dd9b84f9a24d92da7efdce47158ce/비번찾기.PNG)
+![핸드폰_인증](/uploads/2d0a8365be101e14bab1735264f705d8/핸드폰_인증.PNG)
+![이메일_인증](/uploads/cb005eb0299a1cb5cb4d0b709deafc84/이메일_인증.PNG)
+![인증코드](/uploads/324acd814b5de8bf5476d550b272f943/인증코드.PNG)
+![아이디찾기](/uploads/198f25a62d64db1451968d1835357860/아이디찾기.PNG)
 
 ##### main 페이지
 
