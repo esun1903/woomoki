@@ -1,12 +1,10 @@
 	
 <template>
-<div>
-    <Navbar class="test"></Navbar>
-    <v-app>
-        <router-view></router-view>
-    </v-app>
-    <Footer></Footer>
-</div>
+  <v-app>
+  <Navbar class="test"></Navbar>
+      <router-view></router-view>
+  <Footer></Footer>
+  </v-app>
 </template>
 
 <script>
