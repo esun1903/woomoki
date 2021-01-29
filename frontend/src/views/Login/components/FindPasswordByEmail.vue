@@ -1,5 +1,5 @@
 <template>
-    <div>
+  <div>
     <section class="section-container">
       <v-row class="find-password">
         <v-col cols="8" class="left">
@@ -8,19 +8,20 @@
         <v-col cols="4" class="right">
           <h2>Oops!!!!!!!비밀번호를 잊었다니!</h2>
           <h4>이메일로 임시 비밀번호 발급받기</h4>
-            <validation-observer v-slot="{ invalid }" ref="observer">
+          <validation-observer v-slot="{ invalid }" ref="observer">
             <v-form @submit.prevent="submit">
               <validation-provider v-slot="{ errors }" name="Name" rules="required|email">
-                <v-text-field v-model="email" :error-messages="errors" label="Email" required outlined dark filled dense></v-text-field>
+                <v-text-field v-model="email" :error-messages="errors" label="Email" required outlined dark filled
+                  dense></v-text-field>
               </validation-provider>
               <div class="text-center">
                 <v-btn class="send-email" type="submit" rounded color="white" :disabled="invalid">
-                  임시 비밀번호 발송
+                  인증 코드 메일 발송
                 </v-btn>
-                 <router-link :to="'/login/findPassword'">
-                 <v-btn class="back-btn" rounded color="white">
-                  이전 페이지로 돌아가기
-                </v-btn>
+                <router-link :to="'/login/findPassword'">
+                  <v-btn class="back-btn" rounded color="white">
+                    이전 페이지로 돌아가기
+                  </v-btn>
                 </router-link>
               </div>
             </v-form>
@@ -30,12 +31,21 @@
     </section>
   </div>
 </template>
- 
-<script>
-  import { required, email } from 'vee-validate/dist/rules'
-  import { extend, ValidationProvider, setInteractionMode, ValidationObserver } from 'vee-validate'
 
-setInteractionMode('eager')
+<script>
+  import emailjs from 'emailjs-com';
+  import {
+    required,
+    email
+  } from 'vee-validate/dist/rules'
+  import {
+    extend,
+    ValidationProvider,
+    setInteractionMode,
+    ValidationObserver
+  } from 'vee-validate'
+
+  setInteractionMode('eager')
 
   extend('required', {
     ...required,
@@ -52,7 +62,7 @@ setInteractionMode('eager')
     components: {
       ValidationProvider,
       ValidationObserver,
-     
+
     },
     data: () => ({
       email: ''
@@ -65,13 +75,22 @@ setInteractionMode('eager')
       }
     },
     methods: {
-       
       async submit() {
         const valid = await this.$refs.observer.validate()
         if (valid) {
+          emailjs.send('service_y8xub6u', 'template_fyxfdgh', {
+            from_name: "우목이",
+            to_name: "김싸피",
+            user_email: this.email,
+            temp_pw: "1234abcd*"
+          }, 'user_jsT9VLscfRQIahhEQbuiv').then((
+            result) => {
+            console.log('SUCCESS!', result.status, result.text);
+          }, (error) => {
+            console.log('FAILED...', error);
+          });
           alert('임시 비밀번호를 발송하였습니다!\n이메일을 확인해주세요');
-        //   this.login(this.params) // action to login
-          location.href='/login';
+          location.href = '/login';
         }
       },
     }
@@ -79,7 +98,6 @@ setInteractionMode('eager')
 </script>
 
 <style lang="scss" scoped>
-
   #join-find {
     display: flex;
     justify-content: space-around;
@@ -143,7 +161,8 @@ setInteractionMode('eager')
         padding-left: 50px;
         padding-right: 50px;
 
-        h2, h4 {
+        h2,
+        h4 {
           text-align: center;
           margin: 30px 0;
         }
@@ -152,16 +171,19 @@ setInteractionMode('eager')
           width: 100%;
           color: #be5656;
         }
-        .disabled,.disabled:hover {
-            background-color: rgb(136, 154, 152, 0.25);
-            color: #f8f8f8;
-            cursor: inherit;
-            }
+
+        .disabled,
+        .disabled:hover {
+          background-color: rgb(136, 154, 152, 0.25);
+          color: #f8f8f8;
+          cursor: inherit;
+        }
+
         .back-btn {
           width: 100%;
           color: #be5656;
-          margin-top:20px;
-          text-decoration:none;
+          margin-top: 20px;
+          text-decoration: none;
         }
       }
     }

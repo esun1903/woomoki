@@ -1,21 +1,23 @@
 <template>
   <div>
     <section class="section-container">
-      <v-row class="find-password">
+      <v-row class="find-id-result">
         <v-col cols="8" class="left">
           <h1>로고로고로고로고로고로고로고</h1>
         </v-col>
         <v-col cols="4" class="right">
-          <h2>Oops!!!!!!!비밀번호를 잊었다니!</h2>
-          <h4>임시 비밀번호 발급 수단 선택</h4>
-          <div class="find-password-btn">
-            <FindPasswordByPhoneBtn />
-            <v-divider></v-divider>
-            <FindPasswordByEmailBtn />
-          </div>
+          <h2>Oops!!!!!!!아이디를 잊었다니!</h2>
+          <h4>아이디 찾기</h4>
+          <div class="text-center">
+                 <span class="showEmail">
+                     회원님의 등록된 아이디는 
+                     <br>
+                 <b>ssafy@gmail.com</b> 입니다. 
+                 </span>
             <router-link :to="'/login'">
-            <BackBtn />
+              <GoLoginBtn />
             </router-link>
+          </div>
         </v-col>
       </v-row>
     </section>
@@ -23,33 +25,28 @@
 </template>
 
 <script>
-  import FindPasswordByPhoneBtn from "@/views/Login/components/FindPasswordByPhoneBtn.vue"
-  import FindPasswordByEmailBtn from "@/views/Login/components/FindPasswordByEmailBtn.vue"
-  import BackBtn from "@/views/Login/components/BackBtn.vue"
+  import GoLoginBtn from "@/views/Login/components/GoLoginBtn.vue"
 
   export default {
-    name: 'FindPassword',
+    name: 'FindIdResult',
     components: {
-      FindPasswordByPhoneBtn,
-      FindPasswordByEmailBtn,
-      BackBtn,
+      GoLoginBtn,
     },
+    data: () => ({
+    }),
     computed: {
-
+      params() {
+        return {
+        }
+      }
     },
     methods: {
-
     }
   }
 </script>
 
 <style lang="scss" scoped>
 
-  #find-password-btn {
-    display: flex;
-    justify-content: space-around;
-    font-size: 15px;
-  }
 
   a {
     text-decoration: none;
@@ -64,7 +61,7 @@
     box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
     box-sizing: border-box;
 
-    .find-password {
+    .find-id-result {
       padding: 0;
       margin: 0 auto;
       min-height: 690px;
@@ -95,6 +92,16 @@
         h4 {
           text-align: center;
           margin: 30px 0;
+        }
+
+        .disabled,
+        .disabled:hover {
+          background-color: rgb(136, 154, 152, 0.25);
+          color: #f8f8f8;
+          cursor: inherit;
+        }
+      .showEmail {
+          margin-top: 20px;
         }
       }
     }

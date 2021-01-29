@@ -98,9 +98,11 @@
         if (valid) {
           alert('인증 코드를 발송하였습니다.\n 인증 코드를 입력해주세요.');
           this.show = !this.show;
-          //   this.login(this.params) // action to login
         }
       },
+       checkCode(){
+         this.$router.push("/login/findPasswordResult");
+      }
     }
   }
 </script>

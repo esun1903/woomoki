@@ -1,19 +1,39 @@
 <template>
   <div class="challenge-results">
-    <div>
-      <span class="challenge-state">참가</span>
+    <div @click="goToListPage">
+      <v-icon 
+        class="challenge-icon"
+        size="100"
+        >
+        mdi-home</v-icon>
+      <div class="challenge-state">참가</div>
+      <div class="challenge-count">5</div>
+    </div>
+    <div @click="goToListPage">
+      <v-icon 
+        class="challenge-icon"
+        size="100"
+        >
+        mdi-home</v-icon>
+      <div class="challenge-state">성공</div>
+      <div class="challenge-count">5</div>
+    </div>
+    <div @click="goToListPage">
+      <v-icon 
+        class="challenge-icon"
+        size="100"
+        >
+        mdi-home</v-icon>
+      <div class="challenge-state">실패</div>
       <div class="challenge-count">5</div>
     </div>
     <div>
-      <span class="challenge-state">성공</span>
-      <div class="challenge-count">5</div>
-    </div>
-    <div>
-      <span class="challenge-state">실패</span>
-      <div class="challenge-count">5</div>
-    </div>
-    <div>
-      <span class="challenge-state">개설</span>
+      <v-icon 
+        class="challenge-icon"
+        size="100"
+        >
+        mdi-home</v-icon>
+      <div class="challenge-state">개설</div>
       <div class="challenge-count">5</div>
     </div>
   </div>
@@ -21,25 +41,46 @@
 
 <script>
 export default {
-  name: "ChallengeResults"
+  name: "ChallengeResults",
+  data: function () {
+    return {
+
+    }
+  },
+  methods: {
+    goToListPage: function () {
+      console.log("go to list")
+      // this.$router.push()
+    }
+  }
 }
 </script>
 
-<style>
+<style scoped>
 
 .challenge-results {
   display: -webkit-flex;
   display: flex;
   -webkit-justify-content: space-around;
   justify-content: space-around;
+  margin-top: 100px;
 }
 
 .challenge-results .challenge-state{
+  margin-bottom: 20px;
   font-size: 30px;
+  display: flex;
+  justify-content: center;
 }
 
 .challenge-results .challenge-count{
-  font-size: 20px;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.challenge-results .challenge-icon{
+  margin-bottom: 20px;
   display: flex;
   justify-content: center;
 }

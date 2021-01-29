@@ -22,7 +22,7 @@ compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.5.0'
 compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.5.0'
   
   
-	//에러메시지를 위한 lombok 추가
+	//�뿉�윭硫붿떆吏�瑜� �쐞�븳 lombok 異붽�
 	implementation 'org.projectlombok:lombok'
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -34,9 +34,8 @@ compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.5.0'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
-
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
-	
+
 	 
     //Firebase
     //implementation 'com.google.firebase:firebase-database:16.0.5'
