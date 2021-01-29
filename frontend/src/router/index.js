@@ -11,6 +11,7 @@ import FindPasswordByPhone from "@/views/Login/components/FindPasswordByPhone.vu
 import UserPage from "@/views/UserPage/UserPage.vue";
 import UserPageEdit from "@/views/UserPageEdit/UserPageEdit.vue";
 import CompareOriginPassword from "@/views/UserPageEdit/CompareOriginPassword.vue";
+import Feed from "@/views/Feed/Feed.vue";
 // import KakaoTalk from "@/views/Login/callback/KakaoTalk.vue";
 Vue.use(VueRouter);
 
@@ -87,7 +88,11 @@ const routes = [
       },
     ]
   },
-  
+  {
+    path: '/feed',
+    name: 'Feed',
+    component: Feed,        
+  },
 ];
 const router = new VueRouter({
   mode: "history",
