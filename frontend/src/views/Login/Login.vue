@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="all">
     <section class="section-container">
       <v-row class="login">
         <v-col cols="8" class="left">
@@ -86,7 +86,7 @@
 
   extend('email', {
     ...email,
-    message: 'Email must be valid'
+    message: '이메일 형식이 올바르지 않습니다.'
   })
 
   extend("password", {
@@ -189,7 +189,7 @@
     .login {
       padding: 0;
       margin: 0 auto;
-      min-height: 690px;
+      min-height: 750px;
       box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
 
       .left {
@@ -229,6 +229,12 @@
           background-color: rgb(136, 154, 152, 0.25);
           color: #f8f8f8;
           cursor: inherit;
+        }
+
+        .all {
+          .application--wrap {
+            min-height: 80vh !important;
+          }
         }
 
       }
