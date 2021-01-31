@@ -1,5 +1,7 @@
 package com.example.ssafypjt2.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ssafypjt2.dto.CertificationDto;
+import com.example.ssafypjt2.dto.ChallengeDto;
 import com.example.ssafypjt2.service.CertificationService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -44,4 +47,26 @@ public class CertificationController {
 		int result = certificationService.certificationDelete(id);
 		return result;
 	}
+	
+	@GetMapping("/allCertificaion")
+	public  List<CertificationDto> certificationAllList(){
+		return certificationService.certificationAllList();
+		
+	}
+	@GetMapping("/sameChallengeCertificaion/{cngId}")
+	public  List<CertificationDto> sameChallengeCrtList(@PathVariable(value = "cngId") int cngId){
+		return certificationService.sameChallengeCrtList(cngId);
+		
+	}
+	@GetMapping("/userCertificaion/{userId}")
+	public  List<CertificationDto> userCrtList(@PathVariable(value = "userId") int userId){
+		return certificationService.userCrtList(userId);
+		
+	}
+	@GetMapping("/userCertificaionSort/{userId}/{cngId}")
+	public  List<CertificationDto> userCrtListSort(@PathVariable(value = "userId") int userId, @PathVariable(value = "cngId") int cngId){
+		return certificationService.userCrtListSort(userId, cngId);
+		
+	}
+	
 }
