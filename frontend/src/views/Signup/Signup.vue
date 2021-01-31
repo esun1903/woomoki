@@ -3,12 +3,12 @@
     <section class="section-container">
       <v-row class="signup">
         <v-col cols="8" class="left">
-          <h1>GRITREE, 당신의 새로운 원동력</h1>
+          <h1>우목이, 당신의 새로운 원동력</h1>
         </v-col>
         <v-col cols="4" class="right">
-          <h2>로그인</h2>
-          <h4>이메일 로그인하기</h4>
-          <validation-observer ref="observer">
+          <h2>회원가입</h2>
+          <h4>이메일 회원가입하기</h4>
+          <validation-observer v-slot="{ invalid }" ref="observer">
             <v-form @submit.prevent="submit">
               <validation-provider
                 v-slot="{ errors }"
@@ -18,7 +18,7 @@
                 <v-text-field
                   v-model="nickName"
                   :error-messages="errors"
-                  label="사용할 닉네임을 입력해주세요"
+                  label="닉네임"
                   required
                   outlined
                   dark
@@ -34,7 +34,7 @@
                 <v-text-field
                   v-model="email"
                   :error-messages="errors"
-                  label="이메일을 입력해주세요"
+                  label="이메일"
                   required
                   outlined
                   dark
@@ -72,7 +72,7 @@
                   <v-text-field
                     v-model="password"
                     :error-messages="errors"
-                    label="비밀번호를 입력해주세요"
+                    label="비밀번호"
                     :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
                     @click:append="showPass = !showPass"
                     required
@@ -92,7 +92,7 @@
                   <v-text-field
                     v-model="passwordConfirmation"
                     :error-messages="errors"
-                    label="비밀번호 재확인 부탁드려요"
+                    label="비밀번호 재확인"
                     :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
                     @click:append="showPass = !showPass"
                     required
@@ -105,7 +105,7 @@
                 </validation-provider>
               </validation-observer>
               <div class="text-center">
-                <v-btn class="signup-btn" type="submit" rounded color="white" 
+                <v-btn class="signup-btn" type="submit" rounded color="white" :disabled="invalid" 
                 >
                   회원가입
                 </v-btn>
@@ -113,7 +113,7 @@
             </v-form>
           </validation-observer>
           <v-divider></v-divider>
-          <p class="login-box-hd">또는 다른 서비스 계정으로 회원가입</p>
+          <p class="signup-box-hd">또는 다른 서비스 계정으로 회원가입</p>
           <span class="or-bar or-bar-right"></span>
           <v-col class="py-2">
             <div id="socialBtn">
@@ -189,12 +189,10 @@ export default {
       password: "",
       passwordConfirmation: "",
       showPass: false,
-      isSubmit: false,
-      // error : "",
     }
   },
   computed: {
-    params: function () {
+    signupParams: function () {
       return {
         nickName: this.nickName,
         email: this.email,
@@ -202,20 +200,24 @@ export default {
         password: this.password
       };
     },
-
+    loginParams: function () {
+      return {
+        email: this.email,
+        password: this.password,  
+      }
+    }
   },
   methods: {
-
     async submit() {
       const valid = await this.$refs.observer.validate();
       if (valid) {
         this.isSubmit = true;
-        axios.post("http://localhost:8088/signup", this.params)
+        axios.post("http://localhost:8080/signup", this.signupParams)
           .then(() => {
-            axios.post("http://localhost:8088/login", this.params)
+            axios.post("http://localhost:8080/login", this.loginParams)
           })
           .catch((err) => console.log(err))
-        
+        this.$router.push({ name: 'FavoriteCategory' })
       } else {
         this.isSubmit = false;
         alert("내용을 확인해주세요")
@@ -231,15 +233,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .v-btn {
-    left: 30%;
+  .v-text-field {
+    width: 100%;
   }
-
-  #join-find {
-    display: flex;
-    justify-content: space-around;
-  }
-
   #socialBtn {
     display: flex;
     justify-content: space-around;
@@ -249,24 +245,7 @@ export default {
     padding-right: 20px;
 
   }
-
-  a {
-    text-decoration: none;
-    color: #ffffff;
-  }
-
-  ul {
-    list-style: none;
-    font-size: 13px;
-  }
-
-  li {
-    float: left;
-    font-size: 13px;
-    margin-right: 20px;
-  }
-
-  .login-box-hd {
+  .signup-box-hd {
     margin-top: 20px;
     text-align: center;
     font-weight: 400;
@@ -276,8 +255,6 @@ export default {
   }
 
   .section-container {
-    //   padding: 20px;
-    //   margin: 20px;
     background: #fff;
     width: 100%;
     box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
@@ -290,7 +267,6 @@ export default {
       box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
 
       .left {
-        //   padding: 30px;
         justify-content: center;
         align-items: center;
         box-sizing: border-box;
@@ -300,7 +276,7 @@ export default {
       }
 
       .right {
-        //   padding: 30px;
+        padding: 30px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -313,10 +289,10 @@ export default {
         h2,
         h4 {
           text-align: center;
-          margin: 30px 0;
+          margin: 20px 0;
         }
 
-        .login-btn {
+        .signup-btn {
           width: 100%;
           color: #30ac7c;  
           margin-top: 10px; 

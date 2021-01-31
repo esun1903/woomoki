@@ -4,6 +4,7 @@ public class CertificationDto {
 
 	private int id;
 	private int cng_id;
+	private int user_id;
 	private String img;
 	private String content;
 	private String create_date;
@@ -11,13 +12,14 @@ public class CertificationDto {
 
 	public CertificationDto() {
 		super();
-
 	}
 
-	public CertificationDto(int id, int cng_id, String img, String content, String create_date, int result) {
+	public CertificationDto(int id, int cng_id, int user_id, String img, String content, String create_date,
+			int result) {
 		super();
 		this.id = id;
 		this.cng_id = cng_id;
+		this.user_id = user_id;
 		this.img = img;
 		this.content = content;
 		this.create_date = create_date;
@@ -38,6 +40,14 @@ public class CertificationDto {
 
 	public void setCng_id(int cng_id) {
 		this.cng_id = cng_id;
+	}
+
+	public int getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 
 	public String getImg() {
@@ -74,8 +84,8 @@ public class CertificationDto {
 
 	@Override
 	public String toString() {
-		return "CertificationDto [id=" + id + ", cng_id=" + cng_id + ", img=" + img + ", content=" + content
-				+ ", create_date=" + create_date + ", result=" + result + "]";
+		return "CertificationDto [id=" + id + ", cng_id=" + cng_id + ", user_id=" + user_id + ", img=" + img
+				+ ", content=" + content + ", create_date=" + create_date + ", result=" + result + "]";
 	}
 
 }

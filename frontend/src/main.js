@@ -5,10 +5,15 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import axios from "axios";
-import firebase from 'firebase'
-
+import firebase from 'firebase';
+import VueApexCharts from 'vue-apexcharts';
+import "./common/filters";
 
 Vue.config.productionTip = false;
+
+// apexcharts 사용
+Vue.use(VueApexCharts)
+Vue.component('apexchart', VueApexCharts)
 
 Vue.use(Vuex);
 

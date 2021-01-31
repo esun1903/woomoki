@@ -1,7 +1,5 @@
 <template>
-<v-container>
-    <v-app>
-        <h1 class="text-center">유저페이지!!!!</h1>
+    <v-container>
         <div class="inline-info user-info">
             <BasicUserInfo class="margin-bottom"></BasicUserInfo>
             <!-- <MyPageFunction></MyPageFunction> -->
@@ -15,6 +13,7 @@
             grow
             >
             <v-tab
+                class="tab-font-size"
                 v-for="item in items"
                 :key="item"
                 >
@@ -37,9 +36,7 @@
                 </v-card>
             </v-tab-item>
         </v-tabs-items>
-    </v-app>
-</v-container>
-
+    </v-container>
 </template>
 
 <script>
@@ -71,18 +68,19 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 
 .container {
   position: absolute;
   left: 30%;
+  margin-top: 100px;
   margin-left: -100px;
   width: 1000px;
 }
 
 .user-info {
-    margin-left: 130px;
-    margin-bottom: -200px;
+  margin-left: 130px;
+  margin-bottom: -200px;
 }
 
 .inline-info {
@@ -90,6 +88,11 @@ export default {
 }
 
 .margin-bottom {
-    margin-bottom: 50px;
+  margin-bottom: 50px;
 }
+
+.tab-font-size {
+  font-size: 20px; 
+}
+
 </style>

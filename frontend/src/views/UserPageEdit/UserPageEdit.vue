@@ -1,11 +1,15 @@
 <template>
-  <v-container style="width: 500px; margin-top: 150px">
-    <h1 style="text-align: center; margin-bottom: 50px;">프로필 편집 페이지</h1>
-      <CompareOriginPassword></CompareOriginPassword>
-      <!-- <ImgEdit></ImgEdit> -->
+  <v-container class="margin-container">
+      <!-- <CompareOriginPassword></CompareOriginPassword> -->
+      <ImgEdit></ImgEdit>
       <validation-observer ref="observer" v-slot="{ invalid }">
         <form @submit.prevent="submit">
-          <validation-provider
+          <v-text-field
+            value="rladydals123"
+            label="아이디"
+            readonly
+          ></v-text-field>
+          <!-- <validation-provider
             v-slot="{ errors }"
             name="아이디"
             :rules="{
@@ -18,10 +22,10 @@
               v-model="name"
               :counter="10"
               :error-messages="errors"
-              label="아이디"
+              label="rladydals123"
               required
             ></v-text-field>
-          </validation-provider>
+          </validation-provider> -->
 
           <validation-provider v-slot="{ errors }" name="한 줄 소개">
             <v-text-field
@@ -111,13 +115,21 @@
             ></v-checkbox>
           </validation-provider>
 
-          <v-btn class="mr-4" type="submit" :disabled="invalid">
+          <v-btn 
+            class="mr-4" 
+            type="submit" 
+            :disabled="invalid"
+            color="success">
             적용
           </v-btn>
-          <v-btn @click="clear">
+          <v-btn 
+            @click="clear"
+            color="success">
             지우기
           </v-btn>
-          <v-btn class="ml-4">
+          <v-btn 
+            class="ml-4"
+            color="success">
             뒤로가기
           </v-btn>
         </form>
@@ -134,8 +146,8 @@ import {
   setInteractionMode
 } from "vee-validate";
 import CategoryEdit from "./components/CategoryEdit.vue";
-// import ImgEdit from "./components/ImgEdit.vue";
-import CompareOriginPassword from "./CompareOriginPassword.vue";
+import ImgEdit from "./components/ImgEdit.vue";
+// import CompareOriginPassword from "./CompareOriginPassword.vue";
 import axios from "axios";
 
 setInteractionMode("eager");
@@ -162,7 +174,7 @@ extend("max", {
 
 extend("regex", {
   ...regex,
-  message: "아이디는 영문, 숫자 포함 4자 이상 10자 이하 입니다"
+  message: "유효한 핸드폰 번호가 아닙니다"
 });
 
 // extend("originPassword", {
@@ -193,8 +205,8 @@ export default {
     ValidationProvider,
     ValidationObserver,
     CategoryEdit,
-    CompareOriginPassword,
-    // ImgEdit,
+    // CompareOriginPassword,
+    ImgEdit,
   },
   data: function() {
     return {
@@ -237,8 +249,11 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.width-500 {
-  width: 500px;
+<style lang="scss" scoped>
+
+.margin-container {
+  margin-top: 100px;
+  width: 600px;
 }
+
 </style>

@@ -1,9 +1,11 @@
 <template>
+<div>
+  <Navbar class="test"></Navbar>
   <v-app>
-    <Navbar></Navbar>
-    <Footer class="footer"></Footer>
-    <router-view />
+      <router-view></router-view>
   </v-app>
+  <Footer></Footer>
+</div>
 </template>
 
 <script>
@@ -24,11 +26,9 @@ export default {
 </script>
 
 <style>
-.footer {
-  position: relative;
-  bottom: -1200px;
-  width: 100%;
-  z-index: 0;
+
+.test {
+  margin-bottom: 60px;
 }
 
 </style>
