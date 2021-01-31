@@ -46,7 +46,7 @@ public class ChallengeController {
 	public ChallengeDto challengeDetail (@PathVariable(value = "cngId") int id) {
 		
 		ChallengeDto result = challengeService.challengeDetail(id);
-		
+		System.out.println(result+"detail한거 여기~ ");
 		return result;
 	}
 }
