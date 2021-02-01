@@ -11,7 +11,6 @@
       <v-btn
         v-for="link in links"
         :key="link"
-        color="white"
         text
         rounded
         class="my-2"

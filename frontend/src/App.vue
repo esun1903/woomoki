@@ -25,5 +25,8 @@ export default {
 
 <style>
 
+.test {
+  margin-bottom: 60px;
+}
 
 </style>
