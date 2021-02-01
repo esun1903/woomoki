@@ -12,6 +12,10 @@
       <div class="stat-name">당신의 성향</div>
       <GraphRadar class="d-flex justify-center"></GraphRadar>
     </v-col>
+    <v-col>
+      <div class="stat-name">챌린지 성공률</div>
+      <GraphPer class="d-flex justify-center"></GraphPer>
+    </v-col>
   </v-row>
 </template>
 
@@ -19,13 +23,15 @@
 import GraphLine from "./GraphLine";
 import GraphPie from "./GraphPie";
 import GraphRadar from "./GraphRadar";
+import GraphPer from "./GraphPer";
 
 export default {
   name: "UserStat",
   components: {
     GraphLine,
     GraphPie,
-    GraphRadar
+    GraphRadar,
+    GraphPer
   },
   data: function() {
     return {};

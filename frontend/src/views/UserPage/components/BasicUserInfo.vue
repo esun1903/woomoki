@@ -28,7 +28,7 @@
             </h2>
           </v-col>
 
-          <v-col>
+          <v-col class="d-flex justify-center">
             <v-btn-toggle
               active-class="toggle-btn">
               <v-btn
@@ -43,13 +43,9 @@
           </v-col>
 
           <v-col>
-            <v-btn
-              :ripple="false"
-              plain
-              width="100"
-              >
-              <router-link to="/userPage/password">편집</router-link>    
-            </v-btn>
+            <router-link to="/userPage/password">
+              <v-icon>fas fa-user-cog</v-icon>
+            </router-link>    
           </v-col>
         </v-row>
 
@@ -93,25 +89,29 @@
                 </v-btn>
               </template>
               <v-card>
-                  <v-card-title>팔로워
-                    <v-btn
-                      color="blue darken-1"
-                      text
-                      @click="dialog.dialog = false"
-                    >
-                      닫기
-                    </v-btn>
+                  <v-card-title class="d-flex justify-space-between">팔로워
+                  <v-btn
+                    color="success darken-1"
+                    text
+                    @click="dialog.dialog = false"
+                    class="d-flex justify-center"
+                  >
+                    <v-icon>fas fa-times</v-icon>
+                  </v-btn>
                   </v-card-title>
                 <v-divider></v-divider>
                 
-                <v-card-text style="height: 300px;">
+                <v-card-text class="dialog-height">
                   <div 
                     v-for="follower in followers"
                     :key="follower"
+                    class="d-flex justify-space-between ma-1"
                     >
-                    <span><a href="">{{ follower }}</a></span>
+                    <span class="d-flex align-center">
+                      <a href="">{{ follower }}</a>
+                    </span>
                     <v-btn
-                      color="primary"
+                      color="success"
                       small
                       >
                     팔로우
@@ -145,25 +145,29 @@
                 </v-btn>
               </template>
               <v-card>
-                  <v-card-title>팔로잉
+                  <v-card-title class="d-flex justify-space-between">팔로잉
                     <v-btn
-                      color="blue darken-1"
+                      color="success darken-1"
                       text
                       @click="dialog.dialog2 = false"
+                      class="d-flex justify-center"
                     >
-                      닫기
+                      <v-icon>fas fa-times</v-icon>
                     </v-btn>
                   </v-card-title>
                 <v-divider></v-divider>
                 
-                <v-card-text style="height: 300px;">
+                <v-card-text class="dialog-height">
                   <div 
                     v-for="following in followings"
                     :key="following"
+                    class="d-flex justify-space-between ma-1"
                     >
-                    <a href="">{{ following }}</a>
+                    <span class="d-flex align-center">
+                      <a href="">{{ following }}</a>
+                    </span>
                     <v-btn
-                      color="primary"
+                      color="success"
                       small
                       >
                     팔로우
@@ -202,7 +206,7 @@ export default {
         dialogm2: "",
         dialog2: false,
       },
-      followers: [ "배상연", "김상훈", "최인교", "엄윤상", "김영재", "강병훈", "조민형", "김대인", "이선규"],
+      followers: [ "배상연", "김상훈", "최인교", "엄윤상", "김영재", "강병훈", "조민형", "김대인", "이선규", "박상민", "강은빈", "이재현", "김동광", "손인호"],
       followings: [ "홍지희", "표기동", "최은선", "김효진", "최정휴", "현성섭", "손준희", "권기현"],
     }
   },
@@ -318,6 +322,10 @@ a {text-decoration: none;}
 
 .toggle-btn {
   color: skyblue;
+}
+
+.dialog-height {
+  height: 300px;
 }
 
 </style>

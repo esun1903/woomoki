@@ -15,6 +15,7 @@
                     grow
                     >
                     <v-tab
+                        style="font-size: 1vw;"
                         v-for="item in items"
                         :key="item"
                         >
