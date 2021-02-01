@@ -71,10 +71,6 @@ export default {
 <style scoped>
 
 .container {
-  position: absolute;
-  left: 30%;
-  margin-top: 100px;
-  margin-left: -100px;
   width: 1000px;
 }
 
