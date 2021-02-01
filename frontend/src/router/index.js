@@ -13,6 +13,7 @@ import FindPasswordResult from "@/views/Login/components/FindPasswordResult.vue"
 import UserPage from "@/views/UserPage/UserPage.vue";
 import UserPageEdit from "@/views/UserPageEdit/UserPageEdit.vue";
 import CompareOriginPassword from "@/views/UserPageEdit/CompareOriginPassword.vue";
+import CertificationInsert from "@/views/Certification/CertificationInsert.vue";
 // import KakaoTalk from "@/views/Login/callback/KakaoTalk.vue";
 Vue.use(VueRouter);
 
@@ -85,6 +86,11 @@ const routes = [
     path: '/userPage/password',
     name: 'CompareOriginPassword',
     component: CompareOriginPassword,        
+  },
+  {
+    path: '/certification/insert',
+    name: 'CertificationInsert',
+    component: CertificationInsert,        
   },
   {
     path: '/callback',
