@@ -1,17 +1,28 @@
 <template>
-  <v-container class="container-width">
-    <div>프로필 변경을 위해 비밀번호를 한번더 입력해주세요!</div>
-    <v-text-field
-      v-model="originPassword"
-      type="password"
-      >
-    </v-text-field>
-    <v-btn 
-      @click="comparePassword" 
-      :disabled="this.originPassword.length < 4"
-      class="confirm-btn-right">
-      <router-link to="/userPage/UserPageEdit" class="confirm-btn-textcolor">확인</router-link>
-    </v-btn>
+  <v-container class="container-size">
+
+    <v-row>
+      <h2>프로필 변경을 위해 비밀번호를 한번더 입력해주세요!</h2>
+    </v-row>
+    
+    <v-row>
+      <v-text-field
+        v-model="originPassword"
+        type="password"
+        outlined
+        >
+      </v-text-field>
+    </v-row>
+
+    <v-row class="d-flex justify-end">
+      <v-btn
+        @click="comparePassword" 
+        :disabled="this.originPassword.length < 4"
+        class="confirm-btn-right">
+        <router-link to="/userPage/UserPageEdit" class="confirm-btn-textcolor">확인</router-link>
+      </v-btn>
+    </v-row>
+
   </v-container>
 </template>
 
@@ -41,7 +52,7 @@ export default {
       if (this.originPassword === this.savedPassword) {
         console.log("패스워드 일치!")
       } else {
-        console.log("패스워드 불일치!")
+        alert("패스워드 불일치!")
       }
     },
     // 입력된 패스워드 정규식 테스트
@@ -72,9 +83,8 @@ export default {
 
 a { text-decoration:none } 
 
-.container-width {
-  margin-top: 100px;
-  width: 400px;
+.container-size {
+  width: 30%;
 }
 
 .confirm-btn-textcolor {
