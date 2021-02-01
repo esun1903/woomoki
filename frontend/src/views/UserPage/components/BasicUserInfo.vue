@@ -20,11 +20,12 @@
 
         
       <v-col>
-        <v-row class="d-flex align-center">
+        <v-row 
+          class="d-flex align-center">
           <v-col>
-            <h1>
+            <h2>
               rladydals123
-            </h1>
+            </h2>
           </v-col>
 
           <v-col>
@@ -47,7 +48,7 @@
               plain
               width="100"
               >
-              <router-link to="/userPage/password">프로필 편집</router-link>    
+              <router-link to="/userPage/password">편집</router-link>    
             </v-btn>
           </v-col>
         </v-row>
@@ -71,7 +72,7 @@
         </v-row>
 
         <v-row class="d-flex justify-space-around">
-          <v-col>
+          <v-col class="d-flex justify-center">
             <v-dialog
               v-model="dialog.dialog"
               scrollable
@@ -123,7 +124,7 @@
             </v-dialog>
           </v-col>
        
-          <v-col>
+          <v-col class="d-flex justify-center">
             <v-dialog
               v-model="dialog.dialog2"
               scrollable
