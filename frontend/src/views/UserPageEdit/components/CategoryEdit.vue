@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <v-card id="fav-card">
       <v-toolbar flat color="transparent">
         <v-toolbar-title>관심있는 카테고리를 변경해주세요!</v-toolbar-title>
@@ -67,7 +67,7 @@
         >
       </v-card-actions>
     </v-card>
-  </div>
+  </v-container>
 </template>
 
 <script>

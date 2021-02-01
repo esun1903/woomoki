@@ -1,5 +1,5 @@
 <template>
-<div class="profile-img cursor_img">
+<v-row class="cursor_img d-flex justify-center">
   <v-avatar
     width="300"
     height="300"
@@ -12,7 +12,7 @@
   </v-avatar>
 
   <input ref="imageInput" type="file" hidden @change="onChangeImages">
-</div>
+</v-row>
 </template>
 
 <script>
@@ -40,11 +40,7 @@ export default {
 
 <style scoped>
 
-.profile-img {
-  margin-top: -120px;
-  margin-left: 125px;
-  margin-bottom: 50px;
-}
-
 .cursor_img {cursor: pointer;}
+
 </style>
+

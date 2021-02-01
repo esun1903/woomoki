@@ -1,17 +1,27 @@
 <template>
-  <v-container class="container-width">
-    <div>프로필 변경을 위해 비밀번호를 한번더 입력해주세요!</div>
-    <v-text-field
-      v-model="originPassword"
-      type="password"
-      >
-    </v-text-field>
-    <v-btn 
-      @click="comparePassword" 
-      :disabled="this.originPassword.length < 4"
-      class="confirm-btn-right">
-      <router-link to="/userPage/UserPageEdit" class="confirm-btn-textcolor">확인</router-link>
-    </v-btn>
+  <v-container class="container-size">
+
+    <v-row>
+      <h2>프로필 변경을 위해 비밀번호를 한번더 입력해주세요!</h2>
+    </v-row>
+    
+    <v-row>
+      <v-text-field
+        v-model="originPassword"
+        type="password"
+        >
+      </v-text-field>
+    </v-row>
+
+    <v-row>
+      <v-btn
+        @click="comparePassword" 
+        :disabled="this.originPassword.length < 4"
+        class="confirm-btn-right">
+        <router-link to="/userPage/UserPageEdit" class="confirm-btn-textcolor">확인</router-link>
+      </v-btn>
+    </v-row>
+
   </v-container>
 </template>
 
@@ -72,9 +82,8 @@ export default {
 
 a { text-decoration:none } 
 
-.container-width {
-  margin-top: 100px;
-  width: 400px;
+.container-size {
+  width: 30%;
 }
 
 .confirm-btn-textcolor {
