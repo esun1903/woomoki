@@ -13,11 +13,13 @@
             value="rladydals123"
             label="아이디"
             readonly
+            outlined
           ></v-text-field>
           <v-text-field
             value="ssafy44@naver.com"
             label="이메일"
             readonly
+            outlined
           ></v-text-field>
         
           <validation-provider v-slot="{ errors }" name="한 줄 소개">
@@ -26,6 +28,7 @@
               :error-messages="errors"
               label="한 줄 소개"
               counter="20"
+              outlined
             ></v-text-field>
           </validation-provider>
 
@@ -44,6 +47,7 @@
               :error-messages="errors"
               label="핸드폰 번호(-없이 입력해주세요)"
               required
+              outlined
             ></v-text-field>
           </validation-provider>
 
@@ -59,6 +63,7 @@
               :type="showPass ? 'text' : 'password'"
               required
               counter="12"
+              outlined
             ></v-text-field>
           </validation-provider>
 
@@ -75,6 +80,7 @@
               required
               :type="showPass ? 'text' : 'password'"
               counter="12"
+              outlined
             ></v-text-field>
           </validation-provider>
 
@@ -92,6 +98,7 @@
               label="프로필 편집에 동의합니다."
               type="checkbox"
               required
+              outlined
             ></v-checkbox>
           </validation-provider>
 

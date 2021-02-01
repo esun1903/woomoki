@@ -9,11 +9,12 @@
       <v-text-field
         v-model="originPassword"
         type="password"
+        outlined
         >
       </v-text-field>
     </v-row>
 
-    <v-row>
+    <v-row class="d-flex justify-end">
       <v-btn
         @click="comparePassword" 
         :disabled="this.originPassword.length < 4"
@@ -51,7 +52,7 @@ export default {
       if (this.originPassword === this.savedPassword) {
         console.log("패스워드 일치!")
       } else {
-        console.log("패스워드 불일치!")
+        alert("패스워드 불일치!")
       }
     },
     // 입력된 패스워드 정규식 테스트
