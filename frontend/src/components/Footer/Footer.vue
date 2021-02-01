@@ -1,7 +1,7 @@
 <template>
   <v-footer
     height="auto"
-    color="primary lighten-1"
+    color="success lighten-1"
     padless
   >
     <v-row
@@ -19,10 +19,10 @@
         {{ link }}
       </v-btn>
       <v-col
-        class="primary lighten-2 py-4 text-center white--text"
+        class="success lighten-2 py-4 text-center white--text"
         cols="12"
       >
-        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+        {{ new Date().getFullYear() }} — <strong>3팀</strong>
       </v-col>
     </v-row>
   </v-footer>
