@@ -42,8 +42,10 @@ public interface UserDao {
 
     @Delete("DELETE FROM user WHERE id = #{user_id} ")
 	public int userPageDelete(@Param("user_id") int user_id);
-	
 
+
+	@Select(" SELECT * FROM user WHERE id = #{user_id} ")
+	public UserDto userPageDetail(int user_id) ;
 }
 
 /*
