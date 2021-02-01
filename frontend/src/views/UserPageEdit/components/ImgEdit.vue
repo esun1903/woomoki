@@ -1,18 +1,16 @@
 <template>
-<v-row class="cursor_img d-flex justify-center">
   <v-avatar
+    class="cursor_img"
     width="300"
     height="300"
-    color="success"
+    color="green lighten-5"
     @click="onClickImageUpload"
     >{{ this.text }}
     <v-img
         v-if="imageUrl" :src="imageUrl"
     ></v-img>
+    <input ref="imageInput" type="file" hidden @change="onChangeImages">
   </v-avatar>
-
-  <input ref="imageInput" type="file" hidden @change="onChangeImages">
-</v-row>
 </template>
 
 <script>
