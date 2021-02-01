@@ -238,7 +238,7 @@ export default {
     // 그리고 UserPage.vue가 렌더링 될때 vuex state에 있는 아이디를 post에 보내서 유저 정보를 렌더링
     // jwt토큰을 가져와서 그 유저정보와 지금 렌더링 되는 유저 정보가 같으면 마이페이지 렌더링, 아니면 유저페이지 렌더링
     // BasicUserInfo: function () {
-    //   axios.post("??/userId", userid)
+    //   axios.get(`http://127.0.0.1:8000/userPage/${userid}`)
     //     .then((res) => {
     //       this.userInfo = res.data
     //       if (this.myId === userid) {
