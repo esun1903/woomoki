@@ -1,10 +1,8 @@
 <template>
-  <div></div>
-  <!-- <v-bottom-nav
-    color="success lighten-1"
-    fixed
-    app
-    class="footer"
+  <v-footer
+    height="auto"
+    color="primary lighten-1"
+    padless
   >
     <v-row
       justify="center"
@@ -21,13 +19,13 @@
         {{ link }}
       </v-btn>
       <v-col
-        class="success lighten-2 py-4 text-center white--text"
+        class="primary lighten-2 py-4 text-center white--text"
         cols="12"
       >
-        {{ new Date().getFullYear() }} — <strong>Produce 303</strong>
+        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
       </v-col>
     </v-row>
-  </v-bottom-nav> -->
+  </v-footer>
 </template>
 
 <script>
