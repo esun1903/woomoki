@@ -1,11 +1,9 @@
 <template>
-<div>
-  <Navbar class="test"></Navbar>
   <v-app>
-      <router-view></router-view>
+    <Navbar class="test"></Navbar>
+    <router-view></router-view>
+    <Footer></Footer>
   </v-app>
-  <Footer></Footer>
-</div>
 </template>
 
 <script>

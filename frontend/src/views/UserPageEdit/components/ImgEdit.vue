@@ -40,11 +40,6 @@ export default {
 
 <style scoped>
 
-.profile-img {
-  margin-top: -120px;
-  margin-left: 125px;
-  margin-bottom: 50px;
-}
-
 .cursor_img {cursor: pointer;}
+
 </style>
