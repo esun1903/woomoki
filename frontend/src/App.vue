@@ -6,6 +6,7 @@
 </v-app>
 </template>
 
+
 <script>
 import Navbar from "@/components/Navbar/Navbar.vue"
 import Footer from "@/components/Footer/Footer.vue"
@@ -25,8 +26,5 @@ export default {
 
 <style>
 
-.test {
-  margin-bottom: 60px;
-}
 
 </style>
