@@ -2,6 +2,7 @@ package com.example.ssafypjt2.dao;
 
 import java.util.List;
 
+import com.example.ssafypjt2.dto.CertificationDto;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -65,5 +66,7 @@ public interface ChallengeDao {
 			+ " FROM challenge WHERE user_id = #{userId} ")
 	public List<ChallengeDto> challengeUserSelect(@Param("userId")int userId);
 
-	
+
+	@Select("SELECT * FROM challenge  WHERE content like '%' ||  #{keyword} || '%' OR title like '%' ||  #{keyword} || '%'")
+	public List<ChallengeDto> searchWordChallenge(@Param("keyword") String keyword);
 }

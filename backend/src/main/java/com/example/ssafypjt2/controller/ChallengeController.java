@@ -65,6 +65,11 @@ public class ChallengeController {
 	public List<ChallengeDto> challengeUserSelect(@PathVariable(value = "userId") int userId){
 		return challengeService.challengeUserSelect(userId);	
 	}
-	
+
+	// 키워드별 챌린지 보여주기
+	@GetMapping("/searchWordChallenge/{keyword}")
+	public List<ChallengeDto> searchWordChallenge(@PathVariable(value = "keyword") String keyword){
+		return challengeService. searchWordChallenge(keyword);
+	}
 	
 }

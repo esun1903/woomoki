@@ -17,7 +17,5 @@ public interface ChallengeService {
     public List<ChallengeDto> challengeCategorySort(int cgId);
     public List<ChallengeDto> challengeUserSelect(int userId);
     public ChallengeDto challengeJoin(ChallengeDto challengeDto);
-    
-    
-   
+    public List<ChallengeDto> searchWordChallenge(String keyword);
 }

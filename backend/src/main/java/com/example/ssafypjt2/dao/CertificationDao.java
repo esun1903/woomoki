@@ -54,5 +54,8 @@ public interface CertificationDao {
 	@Select(" SELECT id, cng_id, img, content, create_date , result, user_id"
 			+ " FROM certification WHERE user_id = #{userId} AND cng_id = #{cngId} ")
 	public List<CertificationDto> userCrtListSort(@Param("userId")int userId ,@Param("cngId")int cngId);
+
+	@Select("SELECT * FROM certification  WHERE content like '%' ||  #{keyword} || '%' ")
+    public List<CertificationDto> searchWordCert(@Param("keyword") String keyword);
 }
 

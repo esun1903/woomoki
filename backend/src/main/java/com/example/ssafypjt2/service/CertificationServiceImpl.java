@@ -56,4 +56,10 @@ public class CertificationServiceImpl implements CertificationService {
 		return dao.userCrtListSort(userId, cngId);
 	}
 
+	@Override
+	public List<CertificationDto> searchWordCert(String keyword) {
+		System.out.println("서비스단 들어왔어~");
+		return dao.searchWordCert(keyword);
+	}
+
 }
