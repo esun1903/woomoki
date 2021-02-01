@@ -1,17 +1,18 @@
 package com.example.ssafypjt2.service;
 
+import com.example.ssafypjt2.dao.UserDao;
+import com.example.ssafypjt2.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.ssafypjt2.dao.UserDao;
-import com.example.ssafypjt2.dto.UserDto;
+
 
 @Service
 public class UserServiceImpl implements UserService {
  
 	 
 	@Autowired
-	private UserDao dao; 
+	private UserDao dao;
 	
 	@Override
 	public UserDto login(UserDto userDto) throws Exception {
@@ -54,6 +55,13 @@ public class UserServiceImpl implements UserService {
 	public int userPageDelete(int user_id) throws Exception {
 		System.out.println("여기는 회원탈퇴를 담당하는 Service에 도달했습니다 ~ " + user_id);
 		int get = dao.userPageDelete(user_id);
+		return get;
+	}
+
+	@Override
+	public UserDto userPageDetail(int user_id) throws Exception {
+		System.out.println("여기는 회원에 대한 상세화면을 담당하는 Service에 도달했습니다. "+ user_id);
+		UserDto get = dao.userPageDetail(user_id);
 		return get;
 	}
 }
