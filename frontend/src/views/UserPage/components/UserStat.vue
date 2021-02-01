@@ -1,34 +1,37 @@
 <template>
-  <div class="stat-info">
-    <div>
+  <v-row class="stat-info">
+    <v-col>
       <div class="stat-name">월별 챌린지 인증 횟수</div>
-      <GraphLine></GraphLine>
-    </div>
-    <div>
+      <GraphLine class="d-flex justify-center"></GraphLine>
+    </v-col>
+    <v-col>
       <div class="stat-name">좋아하는 카테고리</div>
-      <GraphPie></GraphPie>
-    </div>
-    <div>
+      <GraphPie class="d-flex justify-center"></GraphPie>
+    </v-col>
+    <v-col>
       <div class="stat-name">당신의 성향</div>
-      <GraphRadar></GraphRadar>
-    </div>
-  </div>
+      <GraphRadar class="d-flex justify-center"></GraphRadar>
+    </v-col>
+    <v-col>
+      <div class="stat-name">챌린지 성공률</div>
+      <GraphPer class="d-flex justify-center"></GraphPer>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
-// import ApexCharts from 'apexcharts';
-// import VueApexCharts from 'vue-apexcharts'
 import GraphLine from "./GraphLine";
 import GraphPie from "./GraphPie";
 import GraphRadar from "./GraphRadar";
+import GraphPer from "./GraphPer";
 
 export default {
   name: "UserStat",
   components: {
-    // ApexCharts,
     GraphLine,
     GraphPie,
-    GraphRadar
+    GraphRadar,
+    GraphPer
   },
   data: function() {
     return {};
@@ -40,28 +43,17 @@ export default {
 .stat-info {
   display: -webkit-flex;
   display: flex;
-  /* display: inline; */
   -webkit-justify-content: space-around;
   justify-content: space-around;
-  margin-top: 70px;
 }
 
 .stat-info .stat-name {
-  margin-bottom: 20px;
   font-size: 20px;
   display: flex;
   justify-content: center;
 }
 
-/* 임시 */
-.stat-info .stat-data {
-  width: 200px;
-  height: 200px;
-  display: flex;
-}
-
 .v-sheet--offset {
-  margin-top: 10px;
   position: relative;
 }
 </style>

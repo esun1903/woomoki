@@ -1,6 +1,6 @@
 <template>
   <div id="chart">
-    <apexchart type="pie" width="250" height="250" :options="chartOptions" :series="series"></apexchart>
+    <apexchart type="pie" width="400" height="400" :options="chartOptions" :series="series"></apexchart>
   </div>
 </template>
 
@@ -14,6 +14,7 @@ export default {
     return {
       series: [5, 1, 4, 5, 3, 2],
           chartOptions: {
+            fill: {colors: ['#F44336', '#80FF00', '#FFFF00', '#2E2EFE', '#00FFFF', '#FE9A2E']},
             chart: {
               width: '100%',
               type: 'pie',

@@ -1,38 +1,34 @@
 <template>
-  <v-container class="margin-container">
-      <!-- <CompareOriginPassword></CompareOriginPassword> -->
-      <ImgEdit></ImgEdit>
+  <v-container class="container-size">
+      
+      <v-row class="d-flex justify-center">
+        <ImgEdit></ImgEdit>
+      </v-row>
+      
       <validation-observer ref="observer" v-slot="{ invalid }">
+        
         <form @submit.prevent="submit">
+
           <v-text-field
             value="rladydals123"
             label="아이디"
             readonly
+            outlined
           ></v-text-field>
-          <!-- <validation-provider
-            v-slot="{ errors }"
-            name="아이디"
-            :rules="{
-              required: true,
-              min: 4,
-              regex: /^[a-zA-z0-9가-힣]{4,10}$/
-            }"
-          >
-            <v-text-field
-              v-model="name"
-              :counter="10"
-              :error-messages="errors"
-              label="rladydals123"
-              required
-            ></v-text-field>
-          </validation-provider> -->
-
+          <v-text-field
+            value="ssafy44@naver.com"
+            label="이메일"
+            readonly
+            outlined
+          ></v-text-field>
+        
           <validation-provider v-slot="{ errors }" name="한 줄 소개">
             <v-text-field
               v-model="introduce"
               :error-messages="errors"
               label="한 줄 소개"
               counter="20"
+              outlined
             ></v-text-field>
           </validation-provider>
 
@@ -51,23 +47,9 @@
               :error-messages="errors"
               label="핸드폰 번호(-없이 입력해주세요)"
               required
+              outlined
             ></v-text-field>
           </validation-provider>
-
-          <!-- <validation-provider
-            v-slot="{ errors }"
-            name="기존 비밀번호"
-            rules="required|originPassword"
-          >
-            <v-text-field
-              v-model="originPassword"
-              :error-messages="errors"
-              label="기존 비밀번호 입력"
-              :type="showPass ? 'text' : 'password'"
-              counter="12"
-              required
-            ></v-text-field>
-          </validation-provider> -->
 
           <validation-provider
             v-slot="{ errors }"
@@ -81,6 +63,7 @@
               :type="showPass ? 'text' : 'password'"
               required
               counter="12"
+              outlined
             ></v-text-field>
           </validation-provider>
 
@@ -97,9 +80,12 @@
               required
               :type="showPass ? 'text' : 'password'"
               counter="12"
+              outlined
             ></v-text-field>
           </validation-provider>
-          <CategoryEdit></CategoryEdit>
+
+          <!-- <CategoryEdit></CategoryEdit> -->
+
           <validation-provider
             v-slot="{ errors }"
             rules="required"
@@ -112,26 +98,33 @@
               label="프로필 편집에 동의합니다."
               type="checkbox"
               required
+              outlined
             ></v-checkbox>
           </validation-provider>
 
-          <v-btn 
-            class="mr-4" 
-            type="submit" 
-            :disabled="invalid"
-            color="success">
-            적용
-          </v-btn>
-          <v-btn 
-            @click="clear"
-            color="success">
-            지우기
-          </v-btn>
-          <v-btn 
-            class="ml-4"
-            color="success">
-            뒤로가기
-          </v-btn>
+
+          <v-row class="d-flex justify-end">
+            <v-btn 
+              class="mr-4" 
+              type="submit" 
+              :disabled="invalid"
+              color="success">
+              적용
+            </v-btn>
+
+            <v-btn 
+              @click="clear"
+              color="success">
+              지우기
+            </v-btn>
+
+            <v-btn 
+              class="ml-4"
+              color="success">
+              <router-link to="/userPage">뒤로가기</router-link>
+            </v-btn>
+          </v-row>
+
         </form>
       </validation-observer>
   </v-container>
@@ -145,9 +138,8 @@ import {
   ValidationProvider,
   setInteractionMode
 } from "vee-validate";
-import CategoryEdit from "./components/CategoryEdit.vue";
+// import CategoryEdit from "./components/CategoryEdit.vue";
 import ImgEdit from "./components/ImgEdit.vue";
-// import CompareOriginPassword from "./CompareOriginPassword.vue";
 import axios from "axios";
 
 setInteractionMode("eager");
@@ -204,8 +196,7 @@ export default {
   components: {
     ValidationProvider,
     ValidationObserver,
-    CategoryEdit,
-    // CompareOriginPassword,
+    // CategoryEdit,
     ImgEdit,
   },
   data: function() {
@@ -251,9 +242,16 @@ export default {
 
 <style lang="scss" scoped>
 
-.margin-container {
-  margin-top: 100px;
-  width: 600px;
+a {text-decoration: none;}
+
+.container-size {
+  width: 30%;
+}
+
+@media (max-width:600px) {
+  body {
+    background-color: green;
+  }
 }
 
 </style>

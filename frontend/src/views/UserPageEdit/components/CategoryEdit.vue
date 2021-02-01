@@ -1,29 +1,28 @@
 <template>
-  <div>
+  <v-container>
     <v-card id="fav-card">
+  
       <v-toolbar flat color="transparent">
         <v-toolbar-title>관심있는 카테고리를 변경해주세요!</v-toolbar-title>
       </v-toolbar>
 
-      <v-container class="py-0">
-        <v-row align="center" justify="start">
-          <v-col
-            v-for="(selection, i) in getSelections"
-            :key="selection.text"
-            class="shrink"
+      <v-row align="center" justify="start">
+        <v-col
+          v-for="(selection, i) in getSelections"
+          :key="selection.text"
+          class="shrink"
+        >
+          <v-chip
+            outlined
+            :disabled="loading"
+            close
+            @click:close="selected.splice(i, 1)"
           >
-            <v-chip
-              outlined
-              :disabled="loading"
-              close
-              @click:close="selected.splice(i, 1)"
-            >
-              <v-icon left v-text="selection.icon"></v-icon>
-              {{ selection.text }}
-            </v-chip>
-          </v-col>
-        </v-row>
-      </v-container>
+            <v-icon left v-text="selection.icon"></v-icon>
+            {{ selection.text }}
+          </v-chip>
+        </v-col>
+      </v-row>
 
       <v-divider v-if="!isAllSelected"></v-divider>
 
@@ -67,7 +66,7 @@
         >
       </v-card-actions>
     </v-card>
-  </div>
+    </v-container>
 </template>
 
 <script>
