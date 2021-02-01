@@ -98,10 +98,9 @@
               label="프로필 편집에 동의합니다."
               type="checkbox"
               required
-              outlined
             ></v-checkbox>
-          </validation-provider>
 
+          </validation-provider>
 
           <v-row class="d-flex justify-end">
             <v-btn 
@@ -246,12 +245,6 @@ a {text-decoration: none;}
 
 .container-size {
   width: 30%;
-}
-
-@media (max-width:600px) {
-  body {
-    background-color: green;
-  }
 }
 
 </style>
