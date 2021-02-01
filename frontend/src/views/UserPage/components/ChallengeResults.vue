@@ -1,6 +1,7 @@
 <template>
-  <div class="challenge-results">
-    <div @click="goToListPage">
+
+  <v-row class="challenge-results">
+    <v-col @click="goToListPage">
       <v-icon 
         class="challenge-icon"
         size="100"
@@ -8,8 +9,8 @@
         mdi-home</v-icon>
       <div class="challenge-state">참가</div>
       <div class="challenge-count">5</div>
-    </div>
-    <div @click="goToListPage">
+    </v-col>
+    <v-col @click="goToListPage">
       <v-icon 
         class="challenge-icon"
         size="100"
@@ -17,8 +18,8 @@
         mdi-home</v-icon>
       <div class="challenge-state">성공</div>
       <div class="challenge-count">5</div>
-    </div>
-    <div @click="goToListPage">
+    </v-col>
+    <v-col @click="goToListPage">
       <v-icon 
         class="challenge-icon"
         size="100"
@@ -26,8 +27,8 @@
         mdi-home</v-icon>
       <div class="challenge-state">실패</div>
       <div class="challenge-count">5</div>
-    </div>
-    <div>
+    </v-col>
+    <v-col>
       <v-icon 
         class="challenge-icon"
         size="100"
@@ -35,8 +36,8 @@
         mdi-home</v-icon>
       <div class="challenge-state">개설</div>
       <div class="challenge-count">5</div>
-    </div>
-  </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>

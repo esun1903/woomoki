@@ -1,23 +1,21 @@
 <template>
-  <div class="stat-info">
-    <div>
+  <v-row class="stat-info">
+    <v-col>
       <div class="stat-name">월별 챌린지 인증 횟수</div>
       <GraphLine></GraphLine>
-    </div>
-    <div>
+    </v-col>
+    <v-col>
       <div class="stat-name">좋아하는 카테고리</div>
       <GraphPie></GraphPie>
-    </div>
-    <div>
+    </v-col>
+    <v-col>
       <div class="stat-name">당신의 성향</div>
       <GraphRadar></GraphRadar>
-    </div>
-  </div>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
-// import ApexCharts from 'apexcharts';
-// import VueApexCharts from 'vue-apexcharts'
 import GraphLine from "./GraphLine";
 import GraphPie from "./GraphPie";
 import GraphRadar from "./GraphRadar";
@@ -25,7 +23,6 @@ import GraphRadar from "./GraphRadar";
 export default {
   name: "UserStat",
   components: {
-    // ApexCharts,
     GraphLine,
     GraphPie,
     GraphRadar

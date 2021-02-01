@@ -1,48 +1,77 @@
 <template>
-<div>
-    <v-avatar 
-      color="success"
-      width="300"
-      height="300"
-      class="profile-img"
-      >
-      <span class="white--text headline">
-        사진
-        <v-img
-          :src="require('@/assets/images/profile_img.jpg')">
-        </v-img>
-      </span>
-    </v-avatar>
-    <div class="inline-Info">
-      <div class="align-Id-follow-edit">
-        <span class="user-id">rladydals123</span>
-        <v-btn-toggle
-         active-class="toggle-btn">
-          <v-btn
-            :ripple="false"
-            class="btn-margin"
-            color="primary"
-            width="60"
-            height="30"
-            >
-            팔로우
-          </v-btn>
-        </v-btn-toggle>
-        <v-btn
-          :ripple="false"
-          class="btn-margin"
-          plain
-          width="100"
+  <v-container>
+
+    <v-row class="d-flex justify-space-around align-center">
+      
+      <v-col class="d-flex justify-center">
+        <v-avatar 
+          color="success"
+          width="300"
+          height="300"
           >
-          <router-link to="/userPage/password">프로필 편집</router-link>    
-        </v-btn>
-      </div>
-      <div class="user-level">👩‍💼 Lv. 17</div>
-      <div class="user-introduce">씨앗에 매일매일 물주기!</div>
-      <div class="user-wallet">나의 캐시 : 3000원</div>
-      <div class="follow-info">
-        <div>
-          <v-row justify="center">
+          <span class="white--text headline">
+            사진
+            <v-img
+              :src="require('@/assets/images/profile_img.jpg')">
+            </v-img>
+          </span>
+        </v-avatar>
+      </v-col>
+
+        
+      <v-col>
+        <v-row class="d-flex align-center">
+          <v-col>
+            <h1>
+              rladydals123
+            </h1>
+          </v-col>
+
+          <v-col>
+            <v-btn-toggle
+              active-class="toggle-btn">
+              <v-btn
+                :ripple="false"
+                color="primary"
+                width="60"
+                height="30"
+                >
+                팔로우
+              </v-btn>
+            </v-btn-toggle>
+          </v-col>
+
+          <v-col>
+            <v-btn
+              :ripple="false"
+              plain
+              width="100"
+              >
+              <router-link to="/userPage/password">프로필 편집</router-link>    
+            </v-btn>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col>
+            <div>👩‍💼 Lv. 17</div>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col>
+            <div>씨앗에 매일매일 물주기!</div>
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col>
+            <div>나의 캐시 : 3000원</div>
+          </v-col>
+        </v-row>
+
+        <v-row class="d-flex justify-space-around">
+          <v-col>
             <v-dialog
               v-model="dialog.dialog"
               scrollable
@@ -57,13 +86,13 @@
                   v-on="on"
                 >
                   <div>
-                    <h2 class="follow-margin">팔로워</h2>
+                    <h2>팔로워</h2>
                     <div>116</div>
                   </div>
                 </v-btn>
               </template>
               <v-card>
-                  <v-card-title class="title-close-inline">팔로워
+                  <v-card-title>팔로워
                     <v-btn
                       color="blue darken-1"
                       text
@@ -78,13 +107,11 @@
                   <div 
                     v-for="follower in followers"
                     :key="follower"
-                    class="name-follow"
                     >
                     <span><a href="">{{ follower }}</a></span>
                     <v-btn
                       color="primary"
                       small
-                      class="follow-margin"
                       >
                     팔로우
                     </v-btn>
@@ -94,10 +121,9 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-          </v-row>
-        </div>
-        <div>
-          <v-row justify="center">
+          </v-col>
+       
+          <v-col>
             <v-dialog
               v-model="dialog.dialog2"
               scrollable
@@ -112,13 +138,13 @@
                   v-on="on"
                 >
                   <div>
-                    <h2 class="follow-margin">팔로잉</h2>
+                    <h2>팔로잉</h2>
                     <div>122</div>
                   </div>
                 </v-btn>
               </template>
               <v-card>
-                  <v-card-title class="title-close-inline">팔로잉
+                  <v-card-title>팔로잉
                     <v-btn
                       color="blue darken-1"
                       text
@@ -133,12 +159,11 @@
                   <div 
                     v-for="following in followings"
                     :key="following"
-                    class="name-follow">
+                    >
                     <a href="">{{ following }}</a>
                     <v-btn
                       color="primary"
                       small
-                      class="follow-margin"
                       >
                     팔로우
                     </v-btn>
@@ -148,11 +173,12 @@
                 </v-card-actions>
               </v-card>
             </v-dialog>
-          </v-row>
-        </div>
-      </div>
-    </div>
-</div>
+          </v-col>
+        </v-row>
+        
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -240,18 +266,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* 안됨..
-@import "./BasicUserInfo.scss"; */
+
 a {text-decoration: none;}
 
 @mixin between {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-@mixin margin {
-  margin: 2px;
 }
 
 .title-close-inline {
@@ -262,60 +283,32 @@ a {text-decoration: none;}
   @include between;
 }
 
-.follow-margin {
-  @include margin;
-}
-
-.inline-Info {
-  display: inline-block;
-  margin-top: 100px;
-}
-
-.profile-img {
-  margin-right: 150px;
-  margin-bottom: 180px;
+.container-size {
+  width: 60%;
 }
 
 .user-id {
   font-size: 30px;
-  margin-right: 30px;
 }
 
 .align-Id-follow-edit {
-  margin-bottom: 20px;
   display: flex;
   align-items: center;
 }
 
 .user-level {
   font-size: 15px;
-  margin-bottom: 20px;
 }
 
 .user-introduce {
   font-size: 20px;
-  margin-top: 10px;
-  margin-bottom: 20px;
 }
 
-.user-wallet {
-  margin-bottom: 50px;
-}
 
 .follow-info {
   font-size: 30px;
-  margin-right: 30px;
-  margin-top: 10px;
   display: flex;
   justify-content: space-around;
-}
-
-.btn-profile .btn-margin {
-  margin-right: 10px;
-}
-
-.positon-center {
-  justify-content: center;
 }
 
 .btn {
@@ -324,10 +317,6 @@ a {text-decoration: none;}
 
 .toggle-btn {
   color: skyblue;
-}
-
-.follow-margin {
-  margin-bottom: 10px;
 }
 
 </style>
