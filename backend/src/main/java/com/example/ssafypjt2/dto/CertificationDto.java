@@ -9,14 +9,14 @@ public class CertificationDto {
 	private String content;
 	private String create_date;
 	private int result;
+	private int like_cnt;
+
 
 	public CertificationDto() {
 		super();
 	}
 
-	public CertificationDto(int id, int cng_id, int user_id, String img, String content, String create_date,
-			int result) {
-		super();
+	public CertificationDto(int id, int cng_id, int user_id, String img, String content, String create_date, int result, int like_cnt) {
 		this.id = id;
 		this.cng_id = cng_id;
 		this.user_id = user_id;
@@ -24,6 +24,7 @@ public class CertificationDto {
 		this.content = content;
 		this.create_date = create_date;
 		this.result = result;
+		this.like_cnt = like_cnt;
 	}
 
 	public int getId() {
@@ -82,10 +83,25 @@ public class CertificationDto {
 		this.result = result;
 	}
 
-	@Override
-	public String toString() {
-		return "CertificationDto [id=" + id + ", cng_id=" + cng_id + ", user_id=" + user_id + ", img=" + img
-				+ ", content=" + content + ", create_date=" + create_date + ", result=" + result + "]";
+	public int getLike_cnt() {
+		return like_cnt;
 	}
 
+	public void setLike_cnt(int like_cnt) {
+		this.like_cnt = like_cnt;
+	}
+
+	@Override
+	public String toString() {
+		return "CertificationDto{" +
+				"id=" + id +
+				", cng_id=" + cng_id +
+				", user_id=" + user_id +
+				", img='" + img + '\'' +
+				", content='" + content + '\'' +
+				", create_date='" + create_date + '\'' +
+				", result=" + result +
+				", like_cnt=" + like_cnt +
+				'}';
+	}
 }

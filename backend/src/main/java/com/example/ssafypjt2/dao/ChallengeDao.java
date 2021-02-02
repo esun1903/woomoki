@@ -50,7 +50,7 @@ public interface ChallengeDao {
 			+ "WHERE id=#{cngId}")
 	public int challengeDelete(@Param("cngId")int cngId);
 	
-	
+
 	@Select("SELECT * FROM challenge")
 	public List<ChallengeDto> ChallengeAllList();
 	
@@ -66,7 +66,19 @@ public interface ChallengeDao {
 			+ " FROM challenge WHERE user_id = #{userId} ")
 	public List<ChallengeDto> challengeUserSelect(@Param("userId")int userId);
 
-
-	@Select("SELECT * FROM challenge  WHERE content like '%' ||  #{keyword} || '%' OR title like '%' ||  #{keyword} || '%'")
+	@Select("SELECT * FROM challenge  WHERE content like CONCAT('%', #{keyword}, '%') OR  title like CONCAT('%', #{keyword}, '%')")
 	public List<ChallengeDto> searchWordChallenge(@Param("keyword") String keyword);
 }
+
+/*
+   @Select("SELECT * FROM challenge  WHERE content like '%' ||  #{keyword} || '%' AND title like '%' ||  #{keyword} || '%'")
+	public List<ChallengeDto> searchWordChallenge(@Param("keyword") String keyword);
+
+
+	@Select("SELECT * FROM challenge  WHERE content like CONCAT('%', #{keyword}, '%')")
+
+    @Select("SELECT * FROM challenge  WHERE content like  '%' ||  #{keyword} || '%' ")  -> 이건 됨
+	public List<ChallengeDto> searchWordChallenge(@Param("keyword") String keyword);
+
+
+ */

@@ -60,8 +60,10 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 	@Override
 	public List<ChallengeDto> searchWordChallenge(String keyword) {
-		System.out.println("키워드로 챌린지 찾기"+keyword);
-		return dao.searchWordChallenge(keyword);
+		System.out.println("키워드로 챌린지 찾기 "+keyword);
+		List<ChallengeDto> result =  dao.searchWordChallenge(keyword);
+		System.out.println(result);
+		return result;
 	}
 
 }
