@@ -15,7 +15,7 @@ public class ChallengeDto {
 	private int join_deposit;
 	private int like_cnt;
 	private String writer;
-
+	
 	public ChallengeDto() {
 		super();
 	}

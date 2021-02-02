@@ -1,18 +1,16 @@
 <template>
-<div class="profile-img cursor_img">
   <v-avatar
+    class="cursor_img"
     width="300"
     height="300"
-    color="success"
+    color="green lighten-5"
     @click="onClickImageUpload"
     >{{ this.text }}
     <v-img
         v-if="imageUrl" :src="imageUrl"
     ></v-img>
+    <input ref="imageInput" type="file" hidden @change="onChangeImages">
   </v-avatar>
-
-  <input ref="imageInput" type="file" hidden @change="onChangeImages">
-</div>
 </template>
 
 <script>
@@ -40,11 +38,7 @@ export default {
 
 <style scoped>
 
-.profile-img {
-  margin-top: -120px;
-  margin-left: 125px;
-  margin-bottom: 50px;
-}
-
 .cursor_img {cursor: pointer;}
+
 </style>
+
