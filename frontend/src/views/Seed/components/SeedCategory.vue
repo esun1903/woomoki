@@ -1,5 +1,9 @@
 <template>
   <v-container>
+    <v-btn-toggle
+      v-model="CategoryValue"
+      >
+
     
       <v-row no-gutters>
 
@@ -116,7 +120,7 @@
         </v-col>
 
       </v-row>
-      
+    </v-btn-toggle>
   </v-container>
 </template>
 
@@ -127,12 +131,13 @@ export default {
     return {
       hidden: false,
       isSubmitCategory: false,
-      valueCategory: ""
+      CategoryValue: ""
     }
   },
   methods: {
     clickCategory: function () {
       this.isSubmitCategory = !this.isSubmitCategory
+      console.log(this.CategoryValue)
       this.$emit('input', this.isSubmitCategory)
     }
   }
