@@ -1,8 +1,10 @@
 <template>
   <v-footer
+    class="mt-5 mb-5"
     height="auto"
-    color="success lighten-1"
+    color="white"
     padless
+    app
   >
     <v-row
       justify="center"
@@ -18,10 +20,10 @@
         {{ link }}
       </v-btn>
       <v-col
-        class="success lighten-2 py-4 text-center white--text"
+        class="white py-4 text-center grey--text"
         cols="12"
       >
-        {{ new Date().getFullYear() }} — <strong>3팀</strong>
+        @{{ new Date().getFullYear() }} — <strong>copyright A303</strong>
       </v-col>
     </v-row>
   </v-footer>
@@ -33,12 +35,12 @@ export default {
   data: function () {
     return {
       links: [
-        'Home',
-        'About Us',
-        'Team',
-        'Services',
-        'Blog',
-        'Contact Us',
+        '홈',
+        '팀 소개',
+        '서비스',
+        '연락처',
+        '도움말',
+        '약관',
       ],
     }
   }
