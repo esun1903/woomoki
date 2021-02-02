@@ -6,7 +6,7 @@
         :class="`rounded-lg`"
         width="100%"
         height="250px"
-        color="grey"
+        color="grey lighten-2"
         class="cursor-img"
         @click="onClickImageUpload"
         >{{ this.text }}
@@ -33,6 +33,7 @@ export default {
   data: function () {
     return {
       text: "인증 예시 사진",
+      imageUrl : "",
       exampleImg: null,
     }
   },
@@ -47,7 +48,7 @@ export default {
         this.text = ""
     },
     onDeleteImage() {
-      this.text = "썸네일 사진 변경"
+      this.text = "인증 사진 변경"
       this.imageUrl = ""
     }
   }

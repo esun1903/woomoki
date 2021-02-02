@@ -1,8 +1,12 @@
 <template>
   <v-container class="container-size">
-    <v-stepper non-linear v-model="e1">
+    <v-stepper
+      non-linear
+      v-model="e1">
     <v-stepper-header>
       <v-stepper-step
+        color="success"
+        edit-icon="$complete"
         editable
         :complete="e1 > 1"
         step="1"
@@ -13,6 +17,8 @@
       <v-divider></v-divider>
 
       <v-stepper-step
+        color="success"
+        edit-icon="$complete"
         editable
         :complete="e1 > 2"
         step="2"
@@ -22,7 +28,9 @@
 
       <v-divider></v-divider>
 
-      <v-stepper-step 
+      <v-stepper-step
+        color="success"
+        edit-icon="$complete"
         step="3"
         editable
       >
@@ -32,11 +40,12 @@
 
     <v-stepper-items>
       <v-stepper-content step="1">
-        <SeedCategory class="pt-2"></SeedCategory>
+        <SeedCategory class="pt-3" v-model="isSubmitCategory"></SeedCategory>
 
         <v-btn
           color="success"
           @click="e1 = 2"
+          :disabled="isSubmitCategory === false"
         >
           다음
         </v-btn>
@@ -47,13 +56,14 @@
       </v-stepper-content>
 
       <v-stepper-content step="2">
-        <SeedThumbnail class="pt-2"></SeedThumbnail>
+        <SeedThumbnail class="pt-3"></SeedThumbnail>
         <SeedTitle></SeedTitle>
         <SeedContent></SeedContent>
       
         <v-btn
           color="success"
           @click="e1 = 3"
+          :disabled="isSubmitContent === false"
         >
           다음
         </v-btn>
@@ -64,7 +74,7 @@
       </v-stepper-content>
 
       <v-stepper-content step="3">
-        <SeedPeople class="pt-2"></SeedPeople>
+        <SeedPeople class="pt-3"></SeedPeople>
         <SeedCertificationImg></SeedCertificationImg>
         <SeedDate></SeedDate>
         <SeedButton></SeedButton>
@@ -100,13 +110,15 @@ export default {
   data: function () {
     return {
       e1: 1,
+      isSubmitCategory: false,
+      isSubmitContent: false,
+      isSubmitEtc: false,
     }
   },
   methods: {
     
   },
-  
-  watch: {
+  computed: {
   }
 }
 </script>
@@ -114,7 +126,7 @@ export default {
 <style scoped>
 
 .container-size {
-  width: 30%;
+  width: 40%;
 }
 
 </style>

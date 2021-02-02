@@ -1,6 +1,7 @@
 <template>
   <v-col class="pa-0">
     <v-textarea
+      color="success"
       v-model="content"
       :rules="contentRules"
       :counter="200"

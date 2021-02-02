@@ -1,6 +1,7 @@
 <template>
   <v-col class="pa-0">
     <v-text-field
+      color="success"
       v-model="title"
       :rules="titleRules"
       :counter="20"

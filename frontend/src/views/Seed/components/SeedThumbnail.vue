@@ -1,13 +1,12 @@
 <template>
   <v-col>
     <v-row>
-      
         <v-avatar
           tile
           :class="`rounded-lg`"
           width="100%"
           height="250px"
-          color="grey"
+          color="grey lighten-2"
           class="cursor-img"
           @click="onClickImageUpload"
           >{{ this.text }}

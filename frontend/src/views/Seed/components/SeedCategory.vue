@@ -1,14 +1,123 @@
 <template>
-  <!-- 네이버 밴드에 3x3 카드형태로 바꾸기 -->
-  <v-col class="pa-0">
-    <v-select
-      value="category"
-      :items="items"
-      label="카테고리 선택"
-      dense
-      outlined
-    ></v-select>
-  </v-col>
+  <v-container>
+    
+      <v-row no-gutters>
+
+        <v-col class="pa-1">
+              <v-btn
+                width="100%"
+                height="200px"
+                color="grey lighten-5"
+                input-value="color"
+                :ripple="false"
+                @click="clickCategory"
+                :class="[isSubmitCategory ? 'select' : 'unselect' ]"
+              >
+                <v-icon 
+                  size="64"
+                  color="light-green lighten-1"
+                >
+                  fas fa-dumbbell
+                </v-icon>
+
+                <!-- <div>건강</div> -->
+            
+              </v-btn>
+            
+        </v-col>
+
+        <v-col class="pa-1">
+          <v-btn
+            width="100%"
+            height="200px"
+            color="grey lighten-5"
+            :ripple="false"
+          >
+            <v-icon 
+              size="64"
+              color="orange lighten-1"
+            >
+              fas fa-utensils
+            </v-icon>
+            <!-- <h1>생활습관</h1> -->
+          </v-btn>
+        </v-col>
+
+        <v-col class="pa-1">
+          <v-btn
+            width="100%"
+            height="200px"
+            color="grey lighten-5"
+            :ripple="false"
+          >
+            <v-icon 
+              size="64"
+              color="teal lighten-1"
+            >
+            fas fa-book
+            </v-icon>
+            <!-- <h1>독서</h1> -->
+          </v-btn>
+        </v-col>
+      </v-row>
+
+      <v-row no-gutters>
+
+        <v-col class="pa-1">
+        <v-btn
+            width="100%"
+            height="200px"
+            color="grey lighten-5"
+            :ripple="false"
+            active-class=""
+          >
+            <v-icon 
+              size="64"
+              color="indigo lighten-1"
+            >
+            fas fa-chart-line
+            </v-icon>
+            <!-- <h1>자산</h1> -->
+          </v-btn>
+        </v-col>
+
+        <v-col class="pa-1">
+          <v-btn
+            width="100%"
+            height="200px"
+            color="grey lighten-5"
+            :ripple="false"
+          >
+            <v-icon 
+              size="64"
+              color="purple lighten-1"
+            >
+            fas fa-running
+            </v-icon>
+            <!-- <h1>자기계발</h1> -->
+          </v-btn>
+        </v-col>
+
+        <v-col class="pa-1">
+          <v-btn
+            width="100%"
+            height="200px"
+            color="grey lighten-5"
+            :ripple="false"
+          >
+            <v-icon 
+              size="64"
+              color="pink lighten-1"
+            >
+            fas fa-camera
+            </v-icon>
+            <!-- <h1>취미</h1> -->
+          </v-btn>
+        </v-col>
+
+      </v-row>
+      
+  </v-container>
 </template>
 
 <script>
@@ -16,13 +125,27 @@ export default {
   name: "SeedCategory",
   data: function () {
     return {
-      category: "",
-      items: ["건강", "생활습관", "독서", "자산", "자기계발", "취미"]
+      hidden: false,
+      isSubmitCategory: false,
+      valueCategory: ""
+    }
+  },
+  methods: {
+    clickCategory: function () {
+      this.isSubmitCategory = !this.isSubmitCategory
+      this.$emit('input', this.isSubmitCategory)
     }
   }
 }
 </script>
 
 <style scoped>
+
+.select {
+  color: red;
+}
+.unselect {
+  color: ivory;
+}
 
 </style>
