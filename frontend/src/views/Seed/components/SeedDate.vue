@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-col>
     <v-date-picker
       full-width="100%"
       v-model="dates"
@@ -13,7 +13,7 @@
       prepend-icon="mdi-calendar"
       readonly
     ></v-text-field>
-  </v-row>
+  </v-col>
 </template>
 
 <script>

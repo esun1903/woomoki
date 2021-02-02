@@ -1,4 +1,5 @@
 <template>
+  <!-- 네이버 밴드에 3x3 카드형태로 바꾸기 -->
   <v-col class="pa-0">
     <v-select
       value="category"

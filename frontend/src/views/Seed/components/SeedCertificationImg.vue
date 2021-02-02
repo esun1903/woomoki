@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-col>
   <v-row>
       <v-avatar
         tile
@@ -24,7 +24,7 @@
         >이미지 제거
       </v-btn>
     </v-row>
-  </div>
+  </v-col>
 </template>
 
 <script>
