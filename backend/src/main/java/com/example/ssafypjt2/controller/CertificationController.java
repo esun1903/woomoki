@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ssafypjt2.dto.CertificationDto;
-import com.example.ssafypjt2.dto.ChallengeDto;
 import com.example.ssafypjt2.service.CertificationService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -69,13 +68,13 @@ public class CertificationController {
 
 	}
 
-	@GetMapping("/searchWordCert/{keyword}")
-	public  List<CertificationDto> searchWordCert(@PathVariable(value = "keyword") String keyword){
-		System.out.println("인증리스트 중에서 "+ keyword +"로 검색해볼게요!");
-		return certificationService.searchWordCert(keyword);
-
+	@PutMapping("/likeUpCertification/{cngId}")
+	public int likeUp ( @PathVariable(value = "cngId") int id) {
+		return certificationService.likeUp(id);
 	}
-
-
+	@PutMapping("/likeDownCertification/{cngId}")
+	public int likeDown ( @PathVariable(value = "cngId") int id) {
+		return certificationService.likeDown(id);
+	}
 	
 }

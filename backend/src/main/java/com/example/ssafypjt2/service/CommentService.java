@@ -10,8 +10,16 @@ import java.util.List;
 @Service
 public interface CommentService {
     public CommentDto commentDetail(int id);
+
     public int commentInsert(CommentDto commentDto);
+
     public int commentUpdate(CommentDto commentDto);
+
     public int commentDelete(int id);
+
     public List<CommentDto> commentShowList(int certId);
+
+    public int likeUp(int id);
+
+    public int likeDown(int id);
 }
