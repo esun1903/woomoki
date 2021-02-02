@@ -21,4 +21,9 @@ public class CommentServiceImpl implements CommentService {
     public int commentInsert(CommentDto commentDto) {
         return dao.commentInsert(commentDto);
     }
+
+    @Override
+    public int commentUpdate(CommentDto commentDto) {
+        return dao.commentUpdate(commentDto);
+    }
 }

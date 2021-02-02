@@ -3,10 +3,7 @@ package com.example.ssafypjt2.dao;
 import com.example.ssafypjt2.dto.CertificationDto;
 import com.example.ssafypjt2.dto.ChallengeDto;
 import com.example.ssafypjt2.dto.CommentDto;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface CommentDao {
@@ -20,5 +17,12 @@ public interface CommentDao {
             + "#{commentDto.cert_id}, #{commentDto.user_id}, "
             + "#{commentDto.content}, now(), '0') ")
     public int commentInsert(@Param("commentDto") CommentDto commentDto);
+
+    @Update("Update comment SET "
+            + "content = #{commentDto.content},"
+            + "create_date =  now() "
+            + "WHERE id = #{commentDto.id}")
+    public int commentUpdate(@Param("commentDto") CommentDto commentDto);
+
 
 }

@@ -9,4 +9,5 @@ import org.springframework.stereotype.Service;
 public interface CommentService {
     public CommentDto commentDetail(int id);
     public int commentInsert(CommentDto commentDto);
+    public int commentUpdate(CommentDto commentDto);
 }
