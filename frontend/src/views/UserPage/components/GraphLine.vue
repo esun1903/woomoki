@@ -1,6 +1,6 @@
 <template>
   <div id="chart">
-    <apexchart type="line" width="250" height="250" :options="chartOptions" :series="series"></apexchart>
+    <apexchart type="line" width="400" height="400" :options="chartOptions" :series="series"></apexchart>
   </div>
 </template>
 
@@ -14,6 +14,7 @@ export default {
               data: [10, 4, 5, 1, 9, 6, 6, 9, 8, 12, 14, 10]
           }],
           chartOptions: {
+            colors : ['#80FF00'],
             chart: {
               height: 350,
               type: 'line',

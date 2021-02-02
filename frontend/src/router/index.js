@@ -14,6 +14,7 @@ import UserPage from "@/views/UserPage/UserPage.vue";
 import UserPageEdit from "@/views/UserPageEdit/UserPageEdit.vue";
 import CompareOriginPassword from "@/views/UserPageEdit/CompareOriginPassword.vue";
 import CertificationInsert from "@/views/Certification/CertificationInsert.vue";
+import CreateSeed from "@/views/Seed/CreateSeed.vue";
 // import KakaoTalk from "@/views/Login/callback/KakaoTalk.vue";
 Vue.use(VueRouter);
 
@@ -104,6 +105,11 @@ const routes = [
         component: () => import('@/views/Login/callback/KakaoTalk'),
       },
     ]
+  },
+  {
+    path: '/createSeed',
+    name: 'CreateSeed',
+    component: CreateSeed,        
   },
   
 ];
