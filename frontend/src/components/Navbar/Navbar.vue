@@ -1,27 +1,41 @@
 <template>
     <div>
-      <v-app-bar id="app-bar" fixed>
-        <h1 :ripple="false" id="service-name">
-          우목이
-        </h1>
-        <!-- 간격 띄우기 용 -->
+      <v-app-bar class="navbar" fixed>
+        <router-link to="/">
+          <p>우목이</p>
+        </router-link>
+        <v-spacer></v-spacer>
+        <SearchBar/>
         <v-spacer></v-spacer>
 
-        <!-- 누르면 스크랩 페이지로 이동 -->
-        <div id="right">
-          <v-btn id="btns" :ripple="false" @click="goChallengeCreate">
-            챌린지 생성하기
-          </v-btn>
 
-          <v-btn icon id="btns">
+
+        <div class="btn_group">
+          <v-menu offset-y open-on-hover bottom left>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon v-bind="attrs" v-on="on" class="btn">
+                <v-icon>mdi-lead-pencil</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item>
+                <v-list-item-title>씨앗 만들기</v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>씨앗 물 주기</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+          <v-btn icon class="btn">
             <v-icon>mdi-cart</v-icon>
           </v-btn>
 
-          <v-btn icon id="btns" @click="notice = true">
+          <v-btn icon class="btn" @click="notice = true">
             <v-icon>mdi-bell-ring</v-icon>
           </v-btn>
           <v-dialog v-model="notice">
-            <v-card id="notice-card">
+            <v-card class="notice-card">
               <v-tabs v-model="currentTab" grow dark>
                 <v-tabs-slider></v-tabs-slider>
                 <v-tab v-for="tab in tabs" :key="tab.title">
@@ -46,25 +60,24 @@
           
           <v-menu offset-y open-on-hover bottom>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn icon v-bind="attrs" v-on="on" id="btns">
+              <v-btn icon v-bind="attrs" v-on="on" class="btn">
                 <v-icon>mdi-account-circle</v-icon>
               </v-btn>
             </template>
-
             <v-list>
               <div v-if="login">
                 <v-list-item @click="goMyPage">
                   <v-list-item-title>마이페이지</v-list-item-title>
                 </v-list-item>
-                <v-list-item @click="goLogout">
+                <v-list-item>
                   <v-list-item-title>로그아웃</v-list-item-title>
                 </v-list-item>
               </div>
               <div v-else>
-                <v-list-item  @click="goLogin">
+                <v-list-item @click="goLogin">
                   <v-list-item-title>로그인</v-list-item-title>
                 </v-list-item>
-                <v-list-item @click="goJoin">
+                <v-list-item @click="goSignup">
                   <v-list-item-title>회원가입</v-list-item-title>
                 </v-list-item>
               </div>
@@ -77,9 +90,10 @@
 </template>
 
 <script>
+import SearchBar from "@/components/Navbar/SearchBar.vue"
 export default {
   name: 'Navbar',
-  components: {  },
+  components: { SearchBar },
   directives: {  },
   data: function () {
     return {
@@ -109,22 +123,19 @@ export default {
     // }
   },  
   methods: {
-    goMainpage: function () {
-      // this.$router.push({ name: 'Mainpage' }) 
-    },
     goMyPage: function () {
-      // this.$router.push({ name: 'UserPage' }) 
+      this.$router.push({ name: 'UserPage' }) 
     },
-    goLogout: function () {
-      // localStorage.removeItem('jwt')
-      // this.$emit('logout')
-      // this.$router.push({ name: 'Login' })
-    },
+    // goLogout: function () {
+    //   localStorage.removeItem('jwt')
+    //   this.$emit('logout')
+    //   this.$router.push({ name: 'Login' })
+    // },
     goLogin: function () {
-      // this.$router.push({ name: 'Login' }) 
+      this.$router.push({ name: 'Login' }) 
     },
     goJoin: function () {
-      this.$router.push({ name: 'Join' })  
+      this.$router.push({ name: 'Signup' })  
     },
     
   },
@@ -132,37 +143,47 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#app-bar {
-  background-color: #30ac7c;
+// 개발자 도구로 찍고 나서야 바꿀 수 있는 부분
+.v-sheet.v-app-bar.v-toolbar:not(.v-sheet--outlined) {
+  box-shadow: none;
 }
-#service-name {
-  font-size: 30px;
-  margin-left: 5px;
+.theme--light.v-app-bar.v-toolbar.v-sheet{
+  background: transparent;
 }
-.v-toolbar__content {
-  display: flex;
-  justify-content: space-between;
-  padding: 4px 16px 4px 40px;
+a:-webkit-any-link {
+    color: black;
+    cursor: pointer;
+    text-decoration: none;
 }
-#btns {
-  margin: 0px 10px 0px 5px;
-  background-color: #30ac7c;
-  border: 0;
-  outline:0;
+
+
+
+.navbar {
+  a {
+    :-webkit-any-link {
+    color: black;
+    text-decoration: none;
+    }
+    p {
+      font-size: 1.5rem;
+      color: black;
+    }
+  }
+}
+.v-dialog {
+
+}
+.v-dialog > * {
+  width: 25%;
+  // top: -33% !important;
+  // left: 73% !important;
 }
 .v-tabs-slider {
   color: red;
 }
-.v-dialog > * {
-  width: 25% !important;
-  box-shadow: none;
-}
 .v-dialog__content {
-  top: -33% !important;
-  left: 73% !important;
+  display: flex;
+  align-items: start;
 }
-.notice-card {
-  width: 50px;
-}
-$btn-border-radius : 0;
+
 </style>

@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class NotificationController {
 
-//	@Autowired
-//	private NotificationService notificationService;
 
 	// 개설자가 챌린지 참가를 수락/거절 하기
 //	@PostMapping("/challengeJoinResult/{cngid}")
