@@ -38,21 +38,23 @@ public interface CertificationDao {
 	@Delete("DELETE FROM certification "
 			+ "WHERE id=#{certId}")
 	public int challengeDelete(@Param("certId")int certId);
-	
-	
+
+
 	@Select("SELECT * FROM certification")
 	public List<CertificationDto> certificationAllList();
-	
+
 	@Select(" SELECT id, cng_id, img, content, create_date, result, user_id, like_cnt"
 			+ " FROM certification WHERE cng_id = #{cngId} ")
 	public List<CertificationDto> sameChallengeCrtList(@Param("cngId")int cngId);
-	
+
 	@Select(" SELECT id, cng_id, img, content, create_date , result, user_id, like_cnt"
 			+ " FROM certification WHERE user_id = #{userId} ")
 	public List<CertificationDto> userCrtList(@Param("userId")int userId);
-	
+
 	@Select(" SELECT id, cng_id, img, content, create_date , result, user_id, like_cnt"
 			+ " FROM certification WHERE user_id = #{userId} AND cng_id = #{cngId} ")
 	public List<CertificationDto> userCrtListSort(@Param("userId")int userId ,@Param("cngId")int cngId);
+	@Select("SELECT * FROM  certification WHERE content like CONCAT('%', #{keyword}, '%')")
+    public List<CertificationDto> searchWordCert(@Param("keyword") String keyword);
 }
 

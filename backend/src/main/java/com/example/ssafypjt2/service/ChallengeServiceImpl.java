@@ -24,6 +24,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return null;
 	}
 
+
 	@Override
 	public int challengeDelete(int id) {
 		int get = dao.challengeDelete(id);
@@ -55,6 +56,14 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@Override
 	public List<ChallengeDto> challengeUserSelect(int userId) {
 		return dao.challengeUserSelect(userId);
+	}
+
+	@Override
+	public List<ChallengeDto> searchWordChallenge(String keyword) {
+		System.out.println("키워드로 챌린지 찾기 "+keyword);
+		List<ChallengeDto> result =  dao.searchWordChallenge(keyword);
+		System.out.println(result);
+		return result;
 	}
 
 }

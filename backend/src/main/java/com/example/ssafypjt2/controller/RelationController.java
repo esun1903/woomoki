@@ -2,20 +2,16 @@ package com.example.ssafypjt2.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.example.ssafypjt2.dto.CertificationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ssafypjt2.dto.RelationDto;
-import com.example.ssafypjt2.dto.UserDto;
 import com.example.ssafypjt2.service.JwtService;
 import com.example.ssafypjt2.service.RelationService;
 
@@ -82,7 +78,18 @@ public class RelationController {
 		return result;
 	}
 	
-	
+
+	//내가 팔로잉하는 사람들의 인증 사진 보여주기
+
+	@CrossOrigin(origins = "*")
+	@GetMapping("/feed/follower/{userid}")
+	public List<CertificationDto> feedFollower(@PathVariable(value = "userid") int user_id ) {
+
+		System.out.println("이제 "+ user_id +"가 팔로잉하는 사람들의 인증 feed를 보여줄게요 !");
+		List<CertificationDto> List = relationService.feedFollower(user_id);
+		return List;
+	}
+
 	
 	
 }
