@@ -3,6 +3,7 @@
     height="auto"
     color="success lighten-1"
     padless
+    app
   >
     <v-row
       justify="center"
