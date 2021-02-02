@@ -4,8 +4,8 @@
     <v-col @click="goToListPage">
       <v-icon 
         class="challenge-icon"
-        size="100"
-        color="success"
+        size="75"
+        color="blue lighten-2"
         >
         fas fa-running</v-icon>
       <div class="challenge-state">참가</div>
@@ -14,8 +14,8 @@
     <v-col @click="goToListPage">
       <v-icon 
         class="challenge-icon"
-        size="100"
-        color="success"
+        size="75"
+        color="success lighten-2"
         >
         fas fa-check-circle</v-icon>
       <div class="challenge-state">성공</div>
@@ -24,8 +24,8 @@
     <v-col @click="goToListPage">
       <v-icon 
         class="challenge-icon"
-        size="100"
-        color="red"
+        size="75"
+        color="red lighten-2"
         >
         fas fa-ban</v-icon>
       <div class="challenge-state">실패</div>
@@ -34,8 +34,8 @@
     <v-col>
       <v-icon 
         class="challenge-icon"
-        size="100"
-        color="success"
+        size="75"
+        color="yellow lighten-2"
         >
         fas fa-pencil-alt</v-icon>
       <div class="challenge-state">개설</div>
@@ -68,24 +68,24 @@ export default {
   display: flex;
   -webkit-justify-content: space-around;
   justify-content: space-around;
-  margin-top: 100px;
+  margin-top: 2rem;
 }
 
 .challenge-results .challenge-state{
-  margin-bottom: 20px;
-  font-size: 30px;
+  margin-bottom: 1rem;
+  font-size: 1rem;
   display: flex;
   justify-content: center;
 }
 
 .challenge-results .challenge-count{
-  font-size: 30px;
+  font-size: 1rem;
   display: flex;
   justify-content: center;
 }
 
 .challenge-results .challenge-icon{
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
   display: flex;
   justify-content: center;
 }

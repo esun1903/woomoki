@@ -14,7 +14,7 @@ export default {
             data: [80, 50, 30, 40, 100, 20],
           }],
           chartOptions: {
-            colors : ['#80FF00'],
+            colors : ['#9CCC65'],
             chart: {
               height: 350,
               type: 'radar',
