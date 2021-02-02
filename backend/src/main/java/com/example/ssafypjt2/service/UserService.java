@@ -1,10 +1,13 @@
 package com.example.ssafypjt2.service;
 
+import com.example.ssafypjt2.dto.ChallengeDto;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.ssafypjt2.dto.UserDto;
+
+import java.util.List;
 
 @Service
 public interface UserService {
@@ -17,4 +20,6 @@ public interface UserService {
 	public int userPageDelete(int user_id) throws Exception ;
 
     public UserDto userPageDetail(int user_id) throws Exception;
+
+	public List<ChallengeDto> userPageJoincng(int user_id)  throws Exception ;
 }

@@ -1,5 +1,6 @@
 package com.example.ssafypjt2.controller;
 
+import com.example.ssafypjt2.dto.ChallengeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -186,6 +188,16 @@ public class UserController {
 		System.out.println(user_id+"에 대한 정보를 알려줄게!");
 
 		UserDto result = userService.userPageDetail(user_id);;
+		return result;
+	}
+
+	//유저정보의 가입된 챌린지를 보여주는 기능 !
+	@CrossOrigin(origins = "*")
+	@GetMapping("/userPage/joincng/{userid}")
+	public List<ChallengeDto> userPageJoincng(@PathVariable(value = "userid") int user_id ) throws Exception {
+
+		System.out.println(user_id+"가 가입한 챌린지들을 보여줄게");
+		List<ChallengeDto> result = userService.userPageJoincng(user_id);
 		return result;
 	}
 }

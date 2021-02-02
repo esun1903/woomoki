@@ -1,7 +1,9 @@
 package com.example.ssafypjt2.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import com.example.ssafypjt2.dto.ChallengeDto;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -46,6 +48,13 @@ public interface UserDao {
 
 	@Select(" SELECT * FROM user WHERE id = #{user_id} ")
 	public UserDto userPageDetail(int user_id) ;
+
+	//유저가 등록되어있는 챌린지의 리스트를 반환하기
+	@Select ("SELECT cha.id , cha.category_id, cha.user_id, cha.title, cha.title, cha.content, cha.sum_img, cha.start_date, cha.end_date, cha.cert_count, " +
+			"cha.max_people, cha.example_img, cha.join_deposit, cha.like_cnt, cha.writer " +
+			"FROM joined_challenge AS joy JOIN challenge AS cha " +
+			"ON joy.id = #{user_id} AND joy.cng_id = cha.id")
+   public   List<ChallengeDto> userPageJoincng(int user_id);
 }
 
 /*

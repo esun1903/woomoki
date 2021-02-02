@@ -24,7 +24,6 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return null;
 	}
 
-
 	@Override
 	public int challengeDelete(int id) {
 		int get = dao.challengeDelete(id);
@@ -56,6 +55,17 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@Override
 	public List<ChallengeDto> challengeUserSelect(int userId) {
 		return dao.challengeUserSelect(userId);
+	}
+
+
+	@Override
+	public int likeUp(int id) {
+		return dao.likeUp(id);
+	}
+
+	@Override
+	public int likeDown(int id) {
+		return dao.likeDown(id);
 	}
 
 	@Override
