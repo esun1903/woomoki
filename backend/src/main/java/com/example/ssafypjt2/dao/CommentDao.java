@@ -24,5 +24,9 @@ public interface CommentDao {
             + "WHERE id = #{commentDto.id}")
     public int commentUpdate(@Param("commentDto") CommentDto commentDto);
 
+    @Delete("DELETE FROM comment "
+            + "WHERE id=#{comId}")
+    public int commentDelete(@Param("comId")int comId);
+
 
 }

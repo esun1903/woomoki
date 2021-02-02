@@ -31,4 +31,10 @@ public class CommentController {
         int result = commentService.commentUpdate(commentDto);
         return result;
     }
+
+    @DeleteMapping("/deleteComment/{comId}")
+    public int challengeUpdate (@PathVariable(value = "comId") int comId) {
+        int result = commentService.commentDelete(comId);
+        return result;
+    }
 }
