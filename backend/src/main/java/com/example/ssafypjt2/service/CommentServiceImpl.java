@@ -6,6 +6,8 @@ import com.example.ssafypjt2.dto.CommentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CommentServiceImpl implements CommentService {
 
@@ -30,5 +32,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public int commentDelete(int id) {
         return dao.commentDelete(id);
+    }
+
+    @Override
+    public List<CommentDto> commentShowList(int certId) {
+        return dao.commentShowList(certId);
     }
 }

@@ -24,7 +24,7 @@ public interface CertificationDao {
 			+ "#{certificationDto.cng_id}, #{certificationDto.img}, "
 			+ "#{certificationDto.content}, now(), #{certificationDto.result}, #{certificationDto.user_id}, '0') ")
 	public int certificationInsert(@Param("certificationDto")CertificationDto certificationDto);
-	
+
 	@Update("Update certification SET "
 			+ "cng_id = #{certificationDto.cng_id},"
 			+ "img =  #{certificationDto.img}, "
@@ -33,7 +33,7 @@ public interface CertificationDao {
 			+ "user_id= #{certificationDto.user_id} "
 			+ "WHERE id = #{certificationDto.id}")
 	public int certificationUpdate(@Param("certificationDto")CertificationDto certificationDto);
-	
+
 
 	@Delete("DELETE FROM certification "
 			+ "WHERE id=#{certId}")

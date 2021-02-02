@@ -7,6 +7,8 @@ import com.example.ssafypjt2.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class CommentController {
@@ -36,5 +38,10 @@ public class CommentController {
     public int challengeUpdate (@PathVariable(value = "comId") int comId) {
         int result = commentService.commentDelete(comId);
         return result;
+    }
+
+    @GetMapping("/commentList/{certId}")
+    public List<CommentDto> commentShowList(@PathVariable(value = "certId") int certId){
+        return commentService.commentShowList(certId);
     }
 }
