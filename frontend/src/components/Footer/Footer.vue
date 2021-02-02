@@ -4,6 +4,7 @@
     height="auto"
     color="white"
     padless
+    app
   >
     <v-row
       justify="center"
