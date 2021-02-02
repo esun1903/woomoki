@@ -1,6 +1,7 @@
 <template>
   <v-col class="pa-0">
     <v-select
+      color="success"
       value="value"
       :items="people"
       label="최대 참여 인원 수"

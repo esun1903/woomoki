@@ -2,6 +2,7 @@ package com.example.ssafypjt2.dao;
 
 import java.util.List;
 
+import com.example.ssafypjt2.dto.CertificationDto;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -9,9 +10,8 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
 import com.example.ssafypjt2.dto.ChallengeDto;
-import com.example.ssafypjt2.dto.RelationDto;
+
 
 
 @Mapper
@@ -19,17 +19,17 @@ public interface ChallengeDao {
 
 	@Select(" SELECT category_id, user_id, title, content, "
 			+ "sum_img, start_date, end_date, cert_count, "
-			+ "max_people, example_img , join_deposit "
+			+ "max_people, example_img , join_deposit, like_cnt, writer"
 			+ " FROM challenge WHERE id = #{cngId} ")
 	public ChallengeDto challengeDetail(@Param("cngId")int cngId);
 
 
-	@Insert("Insert INTO challenge ( category_id, user_id, title, content, sum_img, start_date, end_date, cert_count, max_people, example_img , join_deposit)"
+	@Insert("Insert INTO challenge ( category_id, user_id, title, content, sum_img, start_date, end_date, cert_count, max_people, example_img, join_deposit, like_cnt, writer)"
 			+ " VALUES ( "
 			+ "#{challengeDto.category_id}, #{challengeDto.user_id}, "
 			+ "#{challengeDto.title}, #{challengeDto.content}, #{challengeDto.sum_img}, "
 			+ "now(), now(), #{challengeDto.cert_count}, "
-			+ "#{challengeDto.max_people}, #{challengeDto.example_img}, #{challengeDto.join_deposit})") 
+			+ "#{challengeDto.max_people}, #{challengeDto.example_img}, #{challengeDto.join_deposit}, '0', 'Y')")
 	@Options(useGeneratedKeys = true)
 	public int challengeInsert(@Param("challengeDto")ChallengeDto challengeDto);
 	
@@ -49,21 +49,42 @@ public interface ChallengeDao {
 			+ "WHERE id=#{cngId}")
 	public int challengeDelete(@Param("cngId")int cngId);
 	
-	
+
 	@Select("SELECT * FROM challenge")
 	public List<ChallengeDto> ChallengeAllList();
 	
 	@Select(" SELECT id, category_id, user_id, title, content, "
 			+ "sum_img, start_date, end_date, cert_count, "
-			+ "max_people, example_img , join_deposit "
+			+ "max_people, example_img , join_deposit, like_cnt, writer "
 			+ " FROM challenge WHERE category_id = #{cgId} ")
 	public List<ChallengeDto> challengeCategorySort(@Param("cgId")int cgId);
 
 	@Select(" SELECT id, category_id, user_id, title, content, "
 			+ "sum_img, start_date, end_date, cert_count, "
-			+ "max_people, example_img , join_deposit "
+			+ "max_people, example_img , join_deposit, like_cnt, writer "
 			+ " FROM challenge WHERE user_id = #{userId} ")
 	public List<ChallengeDto> challengeUserSelect(@Param("userId")int userId);
 
-	
+	@Update("Update challenge SET "
+			+"like_cnt = like_cnt+1 "
+			+ "WHERE id = #{cngId}")
+	public int likeUp(@Param("cngId")int cngId);
+
+	@Update("Update challenge SET "
+			+"like_cnt = like_cnt-1 "
+			+ "WHERE id = #{cngId}")
+	public int likeDown(@Param("cngId")int cngId);
 }
+
+/*
+   @Select("SELECT * FROM challenge  WHERE content like '%' ||  #{keyword} || '%' AND title like '%' ||  #{keyword} || '%'")
+	public List<ChallengeDto> searchWordChallenge(@Param("keyword") String keyword);
+
+
+	@Select("SELECT * FROM challenge  WHERE content like CONCAT('%', #{keyword}, '%')")
+
+    @Select("SELECT * FROM challenge  WHERE content like  '%' ||  #{keyword} || '%' ")  -> 이건 됨
+	public List<ChallengeDto> searchWordChallenge(@Param("keyword") String keyword);
+
+
+ */

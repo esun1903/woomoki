@@ -174,7 +174,6 @@ a:-webkit-any-link {
   }
 }
 .v-dialog {
-
 }
 .v-dialog > * {
   width: 25%;
@@ -188,5 +187,4 @@ a:-webkit-any-link {
   display: flex;
   align-items: start;
 }
-
 </style>

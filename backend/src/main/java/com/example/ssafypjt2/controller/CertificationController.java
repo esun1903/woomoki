@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ssafypjt2.dto.CertificationDto;
-import com.example.ssafypjt2.dto.ChallengeDto;
 import com.example.ssafypjt2.service.CertificationService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -66,7 +65,16 @@ public class CertificationController {
 	@GetMapping("/userCertificaionSort/{userId}/{cngId}")
 	public  List<CertificationDto> userCrtListSort(@PathVariable(value = "userId") int userId, @PathVariable(value = "cngId") int cngId){
 		return certificationService.userCrtListSort(userId, cngId);
-		
+
+	}
+
+	@PutMapping("/likeUpCertification/{cngId}")
+	public int likeUp ( @PathVariable(value = "cngId") int id) {
+		return certificationService.likeUp(id);
+	}
+	@PutMapping("/likeDownCertification/{cngId}")
+	public int likeDown ( @PathVariable(value = "cngId") int id) {
+		return certificationService.likeDown(id);
 	}
 	
 }

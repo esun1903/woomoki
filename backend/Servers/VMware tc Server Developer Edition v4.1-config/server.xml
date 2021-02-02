@@ -18,6 +18,7 @@
                 <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log." suffix=".txt"/>
             </Host>
         </Engine>
-        <Connector acceptCount="100" connectionTimeout="20000" executor="tomcatThreadPool" maxKeepAliveRequests="15" port="${nio.http.port}" protocol="org.apache.coyote.http11.Http11NioProtocol" redirectPort="${nio.https.port}"/>
+        <Connector acceptCount="100" connectionTimeout="20000" executor="tomcatThreadPool" maxKeepAliveRequests="15" port="${nio.http.port}"
+                   protocol="org.apache.coyote.http11.Http11NioProtocol" redirectPort="${nio.https.port}" URIEncoding="UTF-8"/>
     </Service>
 </Server>

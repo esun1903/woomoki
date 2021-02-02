@@ -5,20 +5,19 @@
       
       <v-col class="d-flex justify-center">
         <v-avatar 
-          color="success"
-          width="300"
-          height="300"
+          color="grey lighten-3"
+          width="250"
+          height="250"
           >
-          <span class="white--text headline">
+          <span class="black--text headline">
             사진
             <v-img
-              :src="require('@/assets/images/profile_img.jpg')">
+              src="">
             </v-img>
           </span>
         </v-avatar>
       </v-col>
-
-        
+ 
       <v-col>
         <v-row 
           class="d-flex align-center">
@@ -51,23 +50,22 @@
 
         <v-row>
           <v-col>
-            <div>👩‍💼 Lv. 17</div>
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col>
-            <div>씨앗에 매일매일 물주기!</div>
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col>
-            <div>나의 캐시 : 3000원</div>
+            <div>👩‍💼 Lv. 17 프로 정원사</div>
           </v-col>
         </v-row>
 
         <v-row class="d-flex justify-space-around">
+          <v-col>
+            <v-btn
+              plain
+              :ripple="false"
+            >
+              <div>
+                <h2>나의 캐시</h2>
+                <div>3000원</div>
+              </div>
+            </v-btn>
+          </v-col>
           <v-col class="d-flex justify-center">
             <v-dialog
               v-model="dialog.dialog"
@@ -181,18 +179,29 @@
           </v-col>
         </v-row>
         
+        <v-row>
+          <v-col>
+            <div>씨앗에 매일매일 물주기!</div>
+          </v-col>
+        </v-row>
+
       </v-col>
+    </v-row>
+    <v-row class="mt-0">
+      <ChallengeResults></ChallengeResults>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import ChallengeResults from "./ChallengeResults"
 // import axios from "axios";
 // import { mapState } from "vuex"
 
 export default {
   name: "BasicUserInfo",
   components: {
+    ChallengeResults,
     // mapState,
   },
   data: function () {
