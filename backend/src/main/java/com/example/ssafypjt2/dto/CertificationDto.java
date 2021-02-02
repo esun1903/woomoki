@@ -2,14 +2,14 @@ package com.example.ssafypjt2.dto;
 
 public class CertificationDto {
 
-	private int id;
-	private int cng_id;
-	private int user_id;
-	private String img;
-	private String content;
-	private String create_date;
-	private int result;
-	private int like_cnt;
+	public int id;
+	public int cng_id;
+	public int user_id;
+	public String img;
+	public String content;
+	public String create_date;
+	public int result;
+	public int like_cnt;
 
 
 	public CertificationDto() {

@@ -2,6 +2,7 @@ package com.example.ssafypjt2.dao;
 
 import java.util.List;
 
+import com.example.ssafypjt2.dto.CertificationDto;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -48,7 +49,7 @@ public interface ChallengeDao {
 			+ "WHERE id=#{cngId}")
 	public int challengeDelete(@Param("cngId")int cngId);
 	
-	
+
 	@Select("SELECT * FROM challenge")
 	public List<ChallengeDto> ChallengeAllList();
 	
@@ -74,3 +75,16 @@ public interface ChallengeDao {
 			+ "WHERE id = #{cngId}")
 	public int likeDown(@Param("cngId")int cngId);
 }
+
+/*
+   @Select("SELECT * FROM challenge  WHERE content like '%' ||  #{keyword} || '%' AND title like '%' ||  #{keyword} || '%'")
+	public List<ChallengeDto> searchWordChallenge(@Param("keyword") String keyword);
+
+
+	@Select("SELECT * FROM challenge  WHERE content like CONCAT('%', #{keyword}, '%')")
+
+    @Select("SELECT * FROM challenge  WHERE content like  '%' ||  #{keyword} || '%' ")  -> 이건 됨
+	public List<ChallengeDto> searchWordChallenge(@Param("keyword") String keyword);
+
+
+ */

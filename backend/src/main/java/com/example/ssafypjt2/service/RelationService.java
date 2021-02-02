@@ -2,6 +2,7 @@ package com.example.ssafypjt2.service;
 
 import java.util.List;
 
+import com.example.ssafypjt2.dto.CertificationDto;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ public interface RelationService {
 	int followingDelete(@Param("user_id") int user_id, @Param("delete_id") int delete_id);
 	int followerDelete(@Param("user_id") int user_id, @Param("delete_id") int delete_id);
 	int followingInsert(@Param("user_id") int user_id, @Param("following_id") int following_id);
-	
-	
+
+
+    public List<CertificationDto> feedFollower(@Param("user_id") int user_id);
 }

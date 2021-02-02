@@ -180,7 +180,7 @@ public class UserController {
 
 	//유저의 아이디를 알려주면 유저에 대한 정보를 주는 Detail
 	@CrossOrigin(origins = "*")
-	@GetMapping("/userPage/{userid}")
+	@GetMapping("/userPage/test/{userid}")
 	public UserDto userPageDetail(@PathVariable(value = "userid") int user_id ) throws Exception {
 
 		System.out.println(user_id+"에 대한 정보를 알려줄게!");

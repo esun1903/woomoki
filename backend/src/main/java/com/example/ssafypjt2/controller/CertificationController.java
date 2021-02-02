@@ -65,7 +65,7 @@ public class CertificationController {
 	@GetMapping("/userCertificaionSort/{userId}/{cngId}")
 	public  List<CertificationDto> userCrtListSort(@PathVariable(value = "userId") int userId, @PathVariable(value = "cngId") int cngId){
 		return certificationService.userCrtListSort(userId, cngId);
-		
+
 	}
 
 	@PutMapping("/likeUpCertification/{cngId}")
