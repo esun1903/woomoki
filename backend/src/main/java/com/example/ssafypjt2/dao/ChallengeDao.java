@@ -64,5 +64,13 @@ public interface ChallengeDao {
 			+ " FROM challenge WHERE user_id = #{userId} ")
 	public List<ChallengeDto> challengeUserSelect(@Param("userId")int userId);
 
-	
+	@Update("Update challenge SET "
+			+"like_cnt = like_cnt+1 "
+			+ "WHERE id = #{cngId}")
+	public int likeUp(@Param("cngId")int cngId);
+
+	@Update("Update challenge SET "
+			+"like_cnt = like_cnt-1 "
+			+ "WHERE id = #{cngId}")
+	public int likeDown(@Param("cngId")int cngId);
 }

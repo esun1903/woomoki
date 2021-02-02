@@ -65,6 +65,13 @@ public class ChallengeController {
 	public List<ChallengeDto> challengeUserSelect(@PathVariable(value = "userId") int userId){
 		return challengeService.challengeUserSelect(userId);	
 	}
-	
-	
+
+	@PutMapping("/likeUpChallenge/{cngId}")
+	public int likeUp ( @PathVariable(value = "cngId") int id) {
+		return challengeService.likeUp(id);
+	}
+	@PutMapping("/likeDownChallenge/{cngId}")
+	public int likeDown ( @PathVariable(value = "cngId") int id) {
+		return challengeService.likeDown(id);
+	}
 }

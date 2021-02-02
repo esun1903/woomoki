@@ -54,5 +54,16 @@ public interface CertificationDao {
 	@Select(" SELECT id, cng_id, img, content, create_date , result, user_id, like_cnt"
 			+ " FROM certification WHERE user_id = #{userId} AND cng_id = #{cngId} ")
 	public List<CertificationDto> userCrtListSort(@Param("userId")int userId ,@Param("cngId")int cngId);
+
+
+	@Update("Update certification SET "
+			+"like_cnt = like_cnt+1 "
+			+ "WHERE id = #{certId}")
+	public int likeUp(@Param("certId")int certId);
+
+	@Update("Update certification SET "
+			+"like_cnt = like_cnt-1 "
+			+ "WHERE id = #{certId}")
+	public int likeDown(@Param("certId")int certId);
 }
 
