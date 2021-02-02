@@ -1,5 +1,5 @@
 <template>
-  <v-col>
+  <v-col class="pa-0">
     <v-textarea
       v-model="content"
       :rules="contentRules"

@@ -3,43 +3,37 @@
     <v-stepper v-model="e1" non-linear>
       <v-stepper-header>
         <v-stepper-step
-          :rules="[() => false]"
           :complete="e1 > 1"
           editable
           step="1"
         >
-          카테고리를 선택해주세요
-          <small>Alert message</small>
+          씨앗 종류
         </v-stepper-step>
 
         <v-divider></v-divider>
 
         <v-stepper-step
-          :rules="[() => false]"
           :complete="e1 > 2"
           editable
           step="2"
         >
-          썸네일 이미지와 제목 내용
-          <small>Alert message</small>
+          씨앗 이름
         </v-stepper-step>
 
         <v-divider></v-divider>
 
         <v-stepper-step
-          :rules="[() => false]"
           editable
           step="3"
         >
           기타 등등
-          <small>Alert message</small>
         </v-stepper-step>
       </v-stepper-header>
 
       <v-stepper-items>
         <v-stepper-content step="1">
           
-          <SeedCategory></SeedCategory>
+          <SeedCategory class="pt-2"></SeedCategory>
 
           <v-btn
             color="primary"
@@ -54,7 +48,7 @@
         </v-stepper-content>
 
         <v-stepper-content step="2">
-          <SeedThumbnail></SeedThumbnail>
+          <SeedThumbnail class="pt-2"></SeedThumbnail>
           <SeedTitle></SeedTitle>
           <SeedContent></SeedContent>
 
@@ -71,11 +65,11 @@
         </v-stepper-content>
 
         <v-stepper-content step="3">
-          <SeedPeople></SeedPeople>
+          <SeedPeople class="pt-2"></SeedPeople>
+          <SeedCertificationCount></SeedCertificationCount>
           <SeedCertificationImg></SeedCertificationImg>
           <SeedDate></SeedDate>
           <SeedButton></SeedButton>
-
           </v-stepper-content>
         </v-stepper-items>
       </v-stepper>
@@ -91,6 +85,7 @@ import SeedButton from "./components/SeedButton.vue"
 import SeedCategory from "./components/SeedCategory.vue"
 import SeedPeople from "./components/SeedPeople.vue"
 import SeedCertificationImg from "./components/SeedCertificationImg.vue"
+import SeedCertificationCount from "./components/SeedCertificationCount.vue"
 
 export default {
   name: 'CreateSeed',
@@ -103,6 +98,7 @@ export default {
     SeedCategory,
     SeedPeople,
     SeedCertificationImg,
+    SeedCertificationCount,
   },
   data: function () {
     return {
@@ -122,7 +118,7 @@ export default {
 <style scoped>
 
 .container-size {
-  width: 30%;
+  width: 50%;
 }
 
 </style>

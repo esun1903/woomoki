@@ -1,5 +1,5 @@
 <template>
-  <v-col>
+  <v-col class="pa-0">
     <v-date-picker
       full-width="100%"
       v-model="dates"

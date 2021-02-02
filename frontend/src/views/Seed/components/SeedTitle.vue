@@ -1,5 +1,5 @@
 <template>
-  <v-col>
+  <v-col class="pa-0">
     <v-text-field
       v-model="title"
       :rules="titleRules"
