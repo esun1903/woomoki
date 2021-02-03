@@ -200,6 +200,8 @@ public class UserController {
 		List<ChallengeDto> result = userService.userPageJoincng(user_id);
 		return result;
 	}
+
+
 }
 
 /*

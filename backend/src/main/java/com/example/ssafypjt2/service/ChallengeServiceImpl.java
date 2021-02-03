@@ -76,4 +76,11 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return result;
 	}
 
+	@Override
+	public List<ChallengeDto> userPageCreatecng(int user_id) {
+		System.out.println(user_id+"가 생성한 챌린지들의 정보를 보여주기 ");
+		List<ChallengeDto> result =  dao.userPageCreatecng(user_id);
+		return result;
+	}
+
 }

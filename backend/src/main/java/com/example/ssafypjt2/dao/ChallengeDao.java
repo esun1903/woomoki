@@ -77,6 +77,9 @@ public interface ChallengeDao {
 
 	@Select("SELECT * FROM challenge  WHERE content like CONCAT('%', #{keyword}, '%') OR  title like CONCAT('%', #{keyword}, '%')")
 	public List<ChallengeDto> searchWordChallenge(@Param("keyword") String keyword);
+
+	@Select("SELECT * FROM challenge WHERE user_id = #{user_id} ")
+    public List<ChallengeDto> userPageCreatecng(@Param("user_id")int user_id);
 }
 
 /*

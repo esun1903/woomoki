@@ -80,5 +80,15 @@ public class ChallengeController {
 	public List<ChallengeDto> searchWordChallenge(@PathVariable(value = "keyword") String keyword){
 		return challengeService. searchWordChallenge(keyword);
 	}
+
+	//생성한 챌린지 리스트형태로 보여주기
+	@CrossOrigin(origins = "*")
+	@GetMapping("/userPage/createcng/{userid}")
+	public List<ChallengeDto> userPageCreatecng(@PathVariable(value = "userid") int user_id ) throws Exception {
+
+		System.out.println(user_id+"생성한 챌린지 리스트형태로 보여주기");
+		List<ChallengeDto> result = challengeService.userPageCreatecng(user_id);
+		return result;
+	}
 	
 }

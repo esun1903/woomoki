@@ -31,4 +31,6 @@ public interface ChallengeService {
     public int likeDown(int id);
 
     public List<ChallengeDto> searchWordChallenge(String keyword);
+
+    public List<ChallengeDto> userPageCreatecng(int user_id);
 }
