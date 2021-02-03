@@ -7,6 +7,7 @@ import com.example.ssafypjt2.dto.ChallengeDto;
 @Service
 public interface ChallengeService {
 
+
     public int challengeInsert(ChallengeDto challengeDto);
 
     public int challengeUpdate(ChallengeDto challengeDto);
@@ -27,5 +28,7 @@ public interface ChallengeService {
 
     public int likeDown(int id);
 
+    public List<ChallengeDto> searchWordChallenge(String keyword);
 
+    public List<ChallengeDto> userPageCreatecng(int user_id);
 }

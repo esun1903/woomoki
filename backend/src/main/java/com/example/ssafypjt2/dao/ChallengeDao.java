@@ -32,7 +32,7 @@ public interface ChallengeDao {
 			+ "#{challengeDto.max_people}, #{challengeDto.example_img}, #{challengeDto.join_deposit}, '0', 'Y')")
 	@Options(useGeneratedKeys = true)
 	public int challengeInsert(@Param("challengeDto")ChallengeDto challengeDto);
-	
+
 	@Update("Update challenge SET "
 			+ "category_id = #{challengeDto.category_id},"
 			+ "user_id =  #{challengeDto.user_id}, "
@@ -44,15 +44,15 @@ public interface ChallengeDao {
 			+ "join_deposit = #{challengeDto.join_deposit} "
 			+ "WHERE id = #{challengeDto.id}")
 	public int challengeUpdate(@Param("challengeDto")ChallengeDto challengeDto);
-	
+
 	@Delete("DELETE FROM challenge "
 			+ "WHERE id=#{cngId}")
 	public int challengeDelete(@Param("cngId")int cngId);
-	
+
 
 	@Select("SELECT * FROM challenge")
 	public List<ChallengeDto> ChallengeAllList();
-	
+
 	@Select(" SELECT id, category_id, user_id, title, content, "
 			+ "sum_img, start_date, end_date, cert_count, "
 			+ "max_people, example_img , join_deposit, like_cnt, writer "
@@ -74,6 +74,12 @@ public interface ChallengeDao {
 			+"like_cnt = like_cnt-1 "
 			+ "WHERE id = #{cngId}")
 	public int likeDown(@Param("cngId")int cngId);
+
+	@Select("SELECT * FROM challenge  WHERE content like CONCAT('%', #{keyword}, '%') OR  title like CONCAT('%', #{keyword}, '%')")
+	public List<ChallengeDto> searchWordChallenge(@Param("keyword") String keyword);
+
+	@Select("SELECT * FROM challenge WHERE user_id = #{user_id} ")
+    public List<ChallengeDto> userPageCreatecng(@Param("user_id")int user_id);
 }
 
 /*

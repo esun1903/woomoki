@@ -65,5 +65,8 @@ public interface CertificationDao {
 			+"like_cnt = like_cnt-1 "
 			+ "WHERE id = #{certId}")
 	public int likeDown(@Param("certId")int certId);
+
+	@Select("SELECT * FROM  certification WHERE content like CONCAT('%', #{keyword}, '%')")
+    public List<CertificationDto> searchWordCert(@Param("keyword") String keyword);
 }
 
