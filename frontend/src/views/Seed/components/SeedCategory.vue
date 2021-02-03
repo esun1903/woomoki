@@ -17,14 +17,15 @@
                 @click="clickCategory"
                 :class="[isSubmitCategory ? 'select' : 'unselect' ]"
               >
-                <v-icon 
-                  size="64"
-                  color="light-green lighten-1"
-                >
-                  fas fa-dumbbell
-                </v-icon>
-
-                <!-- <div>건강</div> -->
+                <div>
+                  <v-icon 
+                    size="64"
+                    color="light-green lighten-1"
+                  >
+                    fas fa-dumbbell
+                  </v-icon>
+                  <h2 class="black--text">건강</h2>
+                </div>
             
               </v-btn>
             
@@ -37,13 +38,15 @@
             color="grey lighten-5"
             :ripple="false"
           >
-            <v-icon 
-              size="64"
-              color="orange lighten-1"
-            >
-              fas fa-utensils
-            </v-icon>
-            <!-- <h1>생활습관</h1> -->
+            <div>
+              <v-icon 
+                size="64"
+                color="orange lighten-1"
+              >
+                fas fa-utensils
+              </v-icon>
+              <h2>생활습관</h2>
+            </div>
           </v-btn>
         </v-col>
 
@@ -54,13 +57,15 @@
             color="grey lighten-5"
             :ripple="false"
           >
-            <v-icon 
-              size="64"
-              color="teal lighten-1"
-            >
-            fas fa-book
-            </v-icon>
-            <!-- <h1>독서</h1> -->
+            <div>
+              <v-icon 
+                size="64"
+                color="teal lighten-1"
+              >
+              fas fa-book
+              </v-icon>
+              <h2>독서</h2>
+            </div>
           </v-btn>
         </v-col>
       </v-row>
@@ -75,13 +80,15 @@
             :ripple="false"
             active-class=""
           >
-            <v-icon 
-              size="64"
-              color="indigo lighten-1"
-            >
-            fas fa-chart-line
-            </v-icon>
-            <!-- <h1>자산</h1> -->
+            <div>
+              <v-icon 
+                size="64"
+                color="indigo lighten-1"
+              >
+              fas fa-chart-line
+              </v-icon>
+              <h2>자산</h2>
+            </div>
           </v-btn>
         </v-col>
 
@@ -92,13 +99,15 @@
             color="grey lighten-5"
             :ripple="false"
           >
-            <v-icon 
-              size="64"
-              color="purple lighten-1"
-            >
-            fas fa-running
-            </v-icon>
-            <!-- <h1>자기계발</h1> -->
+            <div>
+              <v-icon 
+                size="64"
+                color="purple lighten-1"
+              >
+              fas fa-running
+              </v-icon>
+              <h2>자기계발</h2>
+            </div>
           </v-btn>
         </v-col>
 
@@ -109,13 +118,15 @@
             color="grey lighten-5"
             :ripple="false"
           >
-            <v-icon 
-              size="64"
-              color="pink lighten-1"
-            >
-            fas fa-camera
-            </v-icon>
-            <!-- <h1>취미</h1> -->
+            <div>
+              <v-icon 
+                size="64"
+                color="pink lighten-1"
+              >
+              fas fa-camera
+              </v-icon>
+              <h2>취미</h2>
+            </div>
           </v-btn>
         </v-col>
 
