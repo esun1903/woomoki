@@ -1,16 +1,16 @@
 <template>
-  <div>
-    <div id="searched-title">
-      <h1>"조깅"에 관련된 씨앗입니다.</h1>
+  <v-container>
+    <div class="searched-title">
+      <p>"조깅"에 관련된 씨앗입니다.</p>
     </div>
-    <div class="container">
+    <div class="cards">
       <v-row dense>
-        <v-col cols="3" v-for="(challenge, index) in challenges" :key="index">
-          <ChallengeCard  id="challenge-card" :challenge="challenge"/>
+        <v-col cols="3" class="card" v-for="(challenge, index) in challenges" :key="index">
+          <ChallengeCard :challenge="challenge"/>
         </v-col>
       </v-row>
     </div>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -46,28 +46,34 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#searched-title {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 40px;
-}
-.v-text-title {
-  display: flex;
-  margin-top: 40px;
-}
-#title {
-  display: block;
-  width: 100%;
-}
 .container {
-  width:100%;
-  left:12% !important;
-  margin-left: 0;
-}
-#challenge-card {
-  display: flex;
-  justify-content: center;
   width: 100%;
+  height: 89.5vh;
+  margin-bottom: 10%;
+  .searched-title {
+    display: flex;
+    justify-content: center;
+    margin: 1% 0;
+    p {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+  }
+  .cards {
+    width: 100%;
+    height: 100%;
+    .row {
+      .card {
+        padding: 1%;
+        width: 100%;
+        height: 50%;
+        .v-card {
+          width: 100%;
+          height: 50%;
+        }
+      }    
+    }
+  }
 }
 
 </style>

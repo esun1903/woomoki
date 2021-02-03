@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-img :src=ChallengeImg @click="goChallengeDetail(challenge.id)"></v-img>
+    <v-img :src=ChallengeImg @click="goChallengeDetail(challenge.id)" aspect-ratio="1.5"></v-img>
     <div class="challenge-card-top">
       <v-chip id="category-chip" :ripple="false"> {{ challenge.category }}</v-chip>
       <v-btn icon @click.native="getScrap">
@@ -96,6 +96,10 @@ export default {
   font-weight: bold;
   margin: 2% 3%;
   padding: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
 }
   // .v-image {
   //   height: 30%;
