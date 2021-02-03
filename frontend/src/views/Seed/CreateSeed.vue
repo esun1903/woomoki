@@ -77,6 +77,7 @@
         <SeedPeople class="pt-3"></SeedPeople>
         <SeedCertificationImg></SeedCertificationImg>
         <SeedDate></SeedDate>
+        <SeedCheckbox></SeedCheckbox>
         <SeedButton></SeedButton>
       </v-stepper-content>
     </v-stepper-items>
@@ -94,6 +95,7 @@ import SeedButton from "./components/SeedButton.vue"
 import SeedCategory from "./components/SeedCategory.vue"
 import SeedPeople from "./components/SeedPeople.vue"
 import SeedCertificationImg from "./components/SeedCertificationImg.vue"
+import SeedCheckbox from "./components/SeedCheckbox.vue"
 
 export default {
   name: 'CreateSeed',
@@ -106,6 +108,7 @@ export default {
     SeedCategory,
     SeedPeople,
     SeedCertificationImg,
+    SeedCheckbox
   },
   data: function () {
     return {
