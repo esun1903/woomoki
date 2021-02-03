@@ -1,29 +1,31 @@
 <template>
-  <div>
-    <v-card>
-      <v-img :src=ChallengeImg @click="goChallengeDetail(challenge.id)"></v-img>
+  <v-card>
+    <v-img :src=ChallengeImg @click="goChallengeDetail(challenge.id)"></v-img>
+    <div class="challenge-card-top">
       <v-chip id="category-chip" :ripple="false"> {{ challenge.category }}</v-chip>
+      <v-btn icon @click.native="getScrap">
+        <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
+      </v-btn>
+    </div>
+
+    <div>
+      <v-card-title>
+        {{challenge.title}}
+      </v-card-title>
+    </div>
+    <div class="challenge-card-bottom">
       <div>
-        <v-card-title>
-          {{challenge.title}}
-        </v-card-title>
+        <v-chip label :ripple="false">
+          {{ challenge.term }}
+        </v-chip>
+        <v-chip label :ripple="false">
+          {{ challenge.time }}
+        </v-chip>
       </div>
-      <div id="card-bottom">
-        <div>
-          <v-chip label :ripple="false">
-            {{ challenge.term }}
-          </v-chip>
-          <v-chip label :ripple="false">
-            {{ challenge.time }}
-          </v-chip>
-        </div>
-        <v-btn icon @click.native="getScrap">
-          <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
-        </v-btn>
-      </div>
-    </v-card>
-  </div>
+    </div>
+  </v-card>
 </template>
+
 
 <script>
 export default {
@@ -39,7 +41,7 @@ export default {
     };
   },
   mounted() {
-    
+
   },
   methods: {
     // 해당 게시글 아이디 담아줘야해
@@ -63,49 +65,85 @@ export default {
 };
 </script>
 
+
 <style lang="scss" scoped>
-.v-card {
- height: 280px;
- width: 300px;
-}
-.v-responsive__content { 
-  max-height: 157.38px !important;
-  overflow: hidden !important;
-}
 .v-chip {
-  height: 25px !important;
-  font-size: 12px !important;
-  margin-top: 10px;
-  margin-left: 10px;
+  height: 100%;
+  font-size: 0.8rem;
   justify-content: center;
-}
-.v-responsive {
-  max-height: 55%;
+  }
+.challenge-card-top {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2%;
 }
 #category-chip {
-  width: 70px;
-  right: -68%;
-  font-weight: bold;
+  margin-top: 3%;
+  margin-left: 3%;
   background-color: rgb(143, 209, 165);
 }
-.v-chip--label {
-  margin-top: 5px;
+.challenge-card-bottom {
+  margin-left: 3%;
+  div {
+    .v-chip {
+      margin-bottom: 5%;
+      margin-right:2%;
+    }
+  }
 }
 .v-card__title {
-  // margin-top: 7px;
-  margin-left: 10px;
-  padding: 0;
+  font-size: 1.3em;
   font-weight: bold;
+  margin: 2% 3%;
+  padding: 0;
 }
-#card-bottom {
-  display: flex;
-  direction: column;
-  align-items: center;
-  justify-content: space-between;
-  margin-top:10px;
-}
-.v-btn {
-  background-color: trasparent;
-  margin-right: 5px;
+  // .v-image {
+  //   height: 30%;
+  // }
+
+// .v-card {
+//  height: 280px;
+//  width: 300px;
+// }
+
+
+// .v-responsive {
+//   max-height: 55%;
+// }
+// #category-chip {
+//   width: 70px;
+//   right: -68%;
+//   font-weight: bold;
+//   background-color: rgb(143, 209, 165);
+// }
+// .v-chip--label {
+//   margin-top: 5px;
+// }
+// .v-card__title {
+//   // margin-top: 7px;
+//   margin-left: 10px;
+//   padding: 0;
+//   font-weight: bold;
+// }
+// #card-bottom {
+//   display: flex;
+//   direction: column;
+//   align-items: center;
+//   justify-content: space-between;
+//   margin-top:10px;
+// }
+// .v-btn {
+//   background-color: trasparent;
+//   margin-right: 5px;
+// }
+
+
+.v-chip {
+
+  div {
+    .v-card__title {
+
+    }
+  }
 }
 </style>

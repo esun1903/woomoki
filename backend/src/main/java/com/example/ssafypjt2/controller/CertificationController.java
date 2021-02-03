@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ssafypjt2.dto.CertificationDto;
-import com.example.ssafypjt2.dto.ChallengeDto;
 import com.example.ssafypjt2.service.CertificationService;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -86,7 +85,5 @@ public class CertificationController {
 		return certificationService.searchWordCert(keyword);
 
 	}
-
-
 	
 }

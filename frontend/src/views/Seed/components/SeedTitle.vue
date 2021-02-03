@@ -1,14 +1,15 @@
 <template>
-  <v-row>
-      <v-text-field
-        v-model="title"
-        :rules="titleRules"
-        :counter="20"
-        label="씨앗 이름"
-        outlined
-        required
-      ></v-text-field>
-    </v-row>
+  <v-col class="pa-0">
+    <v-text-field
+      color="success"
+      v-model="title"
+      :rules="titleRules"
+      :counter="20"
+      label="씨앗 이름"
+      outlined
+      required
+    ></v-text-field>
+  </v-col>
 </template>
 
 <script>

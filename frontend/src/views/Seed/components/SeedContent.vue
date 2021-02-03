@@ -1,15 +1,16 @@
 <template>
-  <v-row>
-      <v-textarea
-        v-model="content"
-        :rules="contentRules"
-        :counter="200"
-        outlined
-        required
-        label="씨앗에 물주는 방법"
-        value="어떻게 해야 하나요?"
-      ></v-textarea>
-    </v-row>
+  <v-col class="pa-0">
+    <v-textarea
+      color="success"
+      v-model="content"
+      :rules="contentRules"
+      :counter="200"
+      outlined
+      required
+      label="씨앗에 물주는 방법"
+      value="어떻게 해야 하나요?"
+    ></v-textarea>
+  </v-col>
 </template>
 
 <script>

@@ -1,9 +1,9 @@
 <template>
   <v-avatar
-    class="cursor_img"
-    width="300"
-    height="300"
-    color="green lighten-5"
+    class="cursor_img profile-img-margin"
+    width="250"
+    height="250"
+    color="grey lighten-3"
     @click="onClickImageUpload"
     >{{ this.text }}
     <v-img
@@ -39,6 +39,10 @@ export default {
 <style scoped>
 
 .cursor_img {cursor: pointer;}
+
+.profile-img-margin {
+  margin-bottom: 10%;
+}
 
 </style>
 

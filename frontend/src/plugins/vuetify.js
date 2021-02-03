@@ -7,6 +7,6 @@ Vue.use(Vuetify);
 
 export default new Vuetify({
   icons: {
-    iconfont: "fa" // default - only for display purposes
+    iconfont: "fa", // default - only for display purposes
   }
 });
