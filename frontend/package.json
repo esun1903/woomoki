@@ -13,6 +13,7 @@
   "dependencies": {
     "@babel/core": "^7.12.10",
     "apexcharts": "^3.23.1",
+    "aws-sdk": "^2.834.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "email-validator": "^2.0.4",
