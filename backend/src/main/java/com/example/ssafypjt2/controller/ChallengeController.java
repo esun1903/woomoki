@@ -21,49 +21,49 @@ public class ChallengeController {
 
 	@Autowired
 	private ChallengeService challengeService;
-	
+
 	@PostMapping("/insertChallenge")
 	public int challengeInsert ( @RequestBody ChallengeDto challengeDto) {
 		int result = challengeService.challengeInsert(challengeDto);
-		
+
 		System.out.println(result);
 		return result;
 	}
-	
+
 	@PutMapping("/updateChallenge")
 	public int challengeUpdate ( @RequestBody ChallengeDto challengeDto) {
 		int result = challengeService.challengeUpdate(challengeDto);
 		System.out.println(result);
 		return result;
 	}
-	
+
 	@DeleteMapping("/deleteChallenge/{cngId}")
 	public int challengeUpdate (@PathVariable(value = "cngId") int id) {
 		int result = challengeService.challengeDelete(id);
 		System.out.println(result);
 		return result;
 	}
-	
+
 	@GetMapping("/detailChallenge/{cngId}")
-	public ChallengeDto challengeDetail (@PathVariable(value = "cngId") int id) {		
-		ChallengeDto result = challengeService.challengeDetail(id);	
+	public ChallengeDto challengeDetail (@PathVariable(value = "cngId") int id) {
+		ChallengeDto result = challengeService.challengeDetail(id);
 		return result;
 	}
-	
+
 	@GetMapping("/allChallenge")
 	public List<ChallengeDto> challengeAllList(){
 		return challengeService.challengeAllList();
-		
+
 	}
-	
+
 	@GetMapping("/categorySort/{cgId}")
 	public List<ChallengeDto> challengeCategorySort(@PathVariable(value = "cgId") int cgId){
-		return challengeService.challengeCategorySort(cgId);	
+		return challengeService.challengeCategorySort(cgId);
 	}
-	
+
 	@GetMapping("/challengeUserSelect/{userId}")
 	public List<ChallengeDto> challengeUserSelect(@PathVariable(value = "userId") int userId){
-		return challengeService.challengeUserSelect(userId);	
+		return challengeService.challengeUserSelect(userId);
 	}
 
 	@PutMapping("/likeUpChallenge/{cngId}")
@@ -74,4 +74,24 @@ public class ChallengeController {
 	public int likeDown ( @PathVariable(value = "cngId") int id) {
 		return challengeService.likeDown(id);
 	}
+
+	@PutMapping("/likeUpChallenge/{cngId}")
+	public int likeUp ( @PathVariable(value = "cngId") int id) {
+		return challengeService.likeUp(id);
+	}
+	@PutMapping("/likeDownChallenge/{cngId}")
+	public int likeDown ( @PathVariable(value = "cngId") int id) {
+		return challengeService.likeDown(id);
+	}
+
+	//생성한 챌린지 리스트형태로 보여주기
+	@CrossOrigin(origins = "*")
+	@GetMapping("/userPage/createcng/{userid}")
+	public List<ChallengeDto> userPageCreatecng(@PathVariable(value = "userid") int user_id ) throws Exception {
+
+		System.out.println(user_id+"생성한 챌린지 리스트형태로 보여주기");
+		List<ChallengeDto> result = challengeService.userPageCreatecng(user_id);
+		return result;
+	}
+	
 }

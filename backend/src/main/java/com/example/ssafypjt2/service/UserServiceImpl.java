@@ -1,10 +1,12 @@
 package com.example.ssafypjt2.service;
 
 import com.example.ssafypjt2.dao.UserDao;
+import com.example.ssafypjt2.dto.ChallengeDto;
 import com.example.ssafypjt2.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 
 
 @Service
@@ -64,4 +66,13 @@ public class UserServiceImpl implements UserService {
 		UserDto get = dao.userPageDetail(user_id);
 		return get;
 	}
+
+	@Override
+	public List<ChallengeDto> userPageJoincng(int user_id) throws Exception {
+		System.out.println("여기는 회원이 가입된 챌린지들을 보여주는 Service에 도달했습니다 ㅎㅎ "+user_id);
+		List<ChallengeDto> list = dao.userPageJoincng(user_id);
+		return list;
+	}
+
+
 }

@@ -19,48 +19,49 @@ import com.example.ssafypjt2.service.CertificationService;
 @RestController
 public class CertificationController {
 
+
 	@Autowired
 	private CertificationService certificationService;
-	
+
 	@GetMapping("/detailcertification/{certId}")
-	public CertificationDto certificationDetail (@PathVariable(value = "certId") int id) {		
-		CertificationDto result = certificationService.certificationDetail(id);	
+	public CertificationDto certificationDetail (@PathVariable(value = "certId") int id) {
+		CertificationDto result = certificationService.certificationDetail(id);
 		return result;
 	}
-	
-	
+
+
 	@PostMapping("/insertCertification")
 	public int certificationInsert ( @RequestBody CertificationDto certificationDto) {
 		int result = certificationService.certificationInsert(certificationDto);
 		return result;
 	}
-	
+
 	@PutMapping("/updateCertification")
 	public int challengeUpdate ( @RequestBody CertificationDto certificationDto) {
 		int result = certificationService.certificationUpdate(certificationDto);
 		return result;
 	}
-	
+
 	@DeleteMapping("/deleteCertification/{certId}")
 	public int certificationUpdate (@PathVariable(value = "certId") int id) {
 		int result = certificationService.certificationDelete(id);
 		return result;
 	}
-	
+
 	@GetMapping("/allCertificaion")
 	public  List<CertificationDto> certificationAllList(){
 		return certificationService.certificationAllList();
-		
+
 	}
 	@GetMapping("/sameChallengeCertificaion/{cngId}")
 	public  List<CertificationDto> sameChallengeCrtList(@PathVariable(value = "cngId") int cngId){
 		return certificationService.sameChallengeCrtList(cngId);
-		
+
 	}
 	@GetMapping("/userCertificaion/{userId}")
 	public  List<CertificationDto> userCrtList(@PathVariable(value = "userId") int userId){
 		return certificationService.userCrtList(userId);
-		
+
 	}
 	@GetMapping("/userCertificaionSort/{userId}/{cngId}")
 	public  List<CertificationDto> userCrtListSort(@PathVariable(value = "userId") int userId, @PathVariable(value = "cngId") int cngId){
@@ -72,9 +73,17 @@ public class CertificationController {
 	public int likeUp ( @PathVariable(value = "cngId") int id) {
 		return certificationService.likeUp(id);
 	}
+
 	@PutMapping("/likeDownCertification/{cngId}")
 	public int likeDown ( @PathVariable(value = "cngId") int id) {
 		return certificationService.likeDown(id);
+	}
+
+	@GetMapping("/searchWordCert/{keyword}")
+	public  List<CertificationDto> searchWordCert(@PathVariable(value = "keyword") String keyword){
+		System.out.println("인증리스트 중에서 "+ keyword +"로 검색해볼게요!");
+		return certificationService.searchWordCert(keyword);
+
 	}
 	
 }
