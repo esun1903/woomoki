@@ -85,15 +85,6 @@ public class ChallengeController {
 		return challengeService.likeDown(id);
 	}
 
-	@PutMapping("/likeUpChallenge/{cngId}")
-	public int likeUp ( @PathVariable(value = "cngId") int id) {
-		return challengeService.likeUp(id);
-	}
-	@PutMapping("/likeDownChallenge/{cngId}")
-	public int likeDown ( @PathVariable(value = "cngId") int id) {
-		return challengeService.likeDown(id);
-	}
-
 	//생성한 챌린지 리스트형태로 보여주기
 	@CrossOrigin(origins = "*")
 	@GetMapping("/userPage/createcng/{userid}")
@@ -113,6 +104,6 @@ public class ChallengeController {
 		System.out.println(result);
 		return result;
 	}
-
+// 이거 올릴겁니다 !:)
 
 }
