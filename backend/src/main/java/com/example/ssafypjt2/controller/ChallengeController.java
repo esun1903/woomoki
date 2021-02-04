@@ -2,7 +2,11 @@ package com.example.ssafypjt2.controller;
 
 import java.util.List;
 
+import com.example.ssafypjt2.dto.FavCategoryDto;
+import com.example.ssafypjt2.dto.UserDto;
+import com.example.ssafypjt2.service.FavCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ssafypjt2.dto.ChallengeDto;
 import com.example.ssafypjt2.service.ChallengeService;
 
+import javax.servlet.http.HttpServletResponse;
+
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class ChallengeController {
 
 	@Autowired
 	private ChallengeService challengeService;
+
+	@Autowired
+	private FavCategoryService favCategoryService;
 
 	@PostMapping("/insertChallenge")
 	public int challengeInsert ( @RequestBody ChallengeDto challengeDto) {
@@ -70,6 +79,7 @@ public class ChallengeController {
 	public int likeUp ( @PathVariable(value = "cngId") int id) {
 		return challengeService.likeUp(id);
 	}
+
 	@PutMapping("/likeDownChallenge/{cngId}")
 	public int likeDown ( @PathVariable(value = "cngId") int id) {
 		return challengeService.likeDown(id);
@@ -84,5 +94,16 @@ public class ChallengeController {
 		List<ChallengeDto> result = challengeService.userPageCreatecng(user_id);
 		return result;
 	}
-	
+
+	@CrossOrigin(origins = "*") // 메인 페이지 보여주기
+	@PostMapping("/")
+	public List<ChallengeDto> favCategory(@RequestBody UserDto userDto) {
+
+		System.out.println(userDto.getId()+"가 가장 관심이 있어하는 카테고리 리스트 보여주기");
+		List<ChallengeDto> result = favCategoryService.main_favCategory(userDto.getId());
+		System.out.println(result);
+		return result;
+	}
+// 이거 올릴겁니다 !:)
+
 }
