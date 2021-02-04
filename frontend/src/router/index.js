@@ -123,6 +123,7 @@ const routes = [
     name: 'Feed',
     component: Feed,        
   },
+  
 ];
 const router = new VueRouter({
   mode: "history",
