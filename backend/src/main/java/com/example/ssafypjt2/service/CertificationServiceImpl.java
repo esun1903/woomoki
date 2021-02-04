@@ -66,15 +66,6 @@ public class CertificationServiceImpl implements CertificationService {
         return dao.likeDown(id);
     }
 
-	@Override
-	public int likeUp(int id) {
-		return dao.likeUp(id);
-	}
-
-	@Override
-	public int likeDown(int id) {
-		return dao.likeDown(id);
-	}
 
 	@Override
 	public List<CertificationDto> searchWordCert(String keyword) {
