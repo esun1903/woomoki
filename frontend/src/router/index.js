@@ -13,9 +13,12 @@ import FindPasswordResult from "@/views/Login/components/FindPasswordResult.vue"
 import UserPage from "@/views/UserPage/UserPage.vue";
 import UserPageEdit from "@/views/UserPageEdit/UserPageEdit.vue";
 import CompareOriginPassword from "@/views/UserPageEdit/CompareOriginPassword.vue";
+<<<<<<< HEAD
 import CertificationInsert from "@/views/Certification/CertificationInsert.vue";
 import CertificationDetail from "@/views/Certification/CertificationDetail.vue";
 import CreateSeed from "@/views/Seed/CreateSeed.vue";
+=======
+>>>>>>> 9ef14b2d4eac9d4e1b584d6a9b3644a05409d6de
 import Feed from "@/views/Feed/Feed.vue";
 // import KakaoTalk from "@/views/Login/callback/KakaoTalk.vue";
 Vue.use(VueRouter);
@@ -114,16 +117,22 @@ const routes = [
     ]
   },
   {
+<<<<<<< HEAD
     path: '/createSeed',
     name: 'CreateSeed',
     component: CreateSeed,        
   },
   {
+=======
+>>>>>>> 9ef14b2d4eac9d4e1b584d6a9b3644a05409d6de
     path: '/feed',
     name: 'Feed',
     component: Feed,        
   },
+<<<<<<< HEAD
   
+=======
+>>>>>>> 9ef14b2d4eac9d4e1b584d6a9b3644a05409d6de
 ];
 const router = new VueRouter({
   mode: "history",
