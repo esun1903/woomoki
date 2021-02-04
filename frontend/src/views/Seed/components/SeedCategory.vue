@@ -6,6 +6,7 @@
     <v-btn-toggle
       v-model="category"
       class="d-flex justify-center flex-wrap"
+      color="blue"
       >
 
           <v-btn

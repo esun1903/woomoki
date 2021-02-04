@@ -71,17 +71,15 @@
           <v-menu offset-y open-on-hover bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" class="btn">
-                <v-icon>mdi-account-circle</v-icon>
+                <router-link to="/userPage">
+                  <v-icon color="grey darken-1">mdi-account-circle</v-icon>
+                </router-link>
               </v-btn>
             </template>
             <v-list>
               <div v-if="login">
                 <v-list-item @click="goMyPage">
-                  <v-list-item-title>
-                    <router-link to="/userPage">
-                      마이페이지
-                    </router-link>
-                  </v-list-item-title>
+                  <v-list-item-title>마이페이지</v-list-item-title>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>로그아웃</v-list-item-title>
