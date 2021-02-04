@@ -1,5 +1,6 @@
 <template>
   <v-container class="container-size">
+
     <v-stepper
       non-linear
       v-model="e1">
@@ -40,43 +41,56 @@
 
     <v-stepper-items>
       <v-stepper-content step="1">
-        <SeedCategory class="pt-3" v-model="isSubmitCategory"></SeedCategory>
+        <SeedCategory 
+          class="pt-3" 
+          @transferLifestyle="receiveLifestyle" 
+          @transferHealth="receiveHealth"
+          @transferBook="receiveBook"
+          @transferAssets="receiveAssets"
+          @transferGrown="receiveGrown"
+          @transferHobby="receiveHobby"
+          ></SeedCategory>
 
-        <v-btn
-          color="success"
-          @click="e1 = 2"
-          :disabled="isSubmitCategory === false"
-        >
-          다음
-        </v-btn>
+        <v-row class="d-flex justify-end mb-5">
+          <v-btn
+            color="success"
+            @click="e1 = 2"
+            :disabled="isSubmitCategory === false"
+          >
+            다음
+          </v-btn>
 
-        <v-btn text>
-          취소
-        </v-btn>
+          <v-btn text>
+            취소
+          </v-btn>
+        </v-row>
       </v-stepper-content>
 
       <v-stepper-content step="2">
         <SeedThumbnail class="pt-3"></SeedThumbnail>
         <SeedTitle></SeedTitle>
         <SeedContent></SeedContent>
-      
-        <v-btn
-          color="success"
-          @click="e1 = 3"
-          :disabled="isSubmitContent === false"
-        >
-          다음
-        </v-btn>
 
-        <v-btn text>
-          취소
-        </v-btn>
+        <v-row class="d-flex justify-end mb-5">
+          <v-btn
+            color="success"
+            @click="e1 = 3"
+            :disabled="isSubmitContent === false"
+          >
+            다음
+          </v-btn>
+
+          <v-btn text>
+            취소
+          </v-btn>
+        </v-row>
       </v-stepper-content>
 
       <v-stepper-content step="3">
         <SeedPeople class="pt-3"></SeedPeople>
         <SeedCertificationImg></SeedCertificationImg>
         <SeedDate></SeedDate>
+        <SeedCheckbox></SeedCheckbox>
         <SeedButton></SeedButton>
       </v-stepper-content>
     </v-stepper-items>
@@ -94,6 +108,7 @@ import SeedButton from "./components/SeedButton.vue"
 import SeedCategory from "./components/SeedCategory.vue"
 import SeedPeople from "./components/SeedPeople.vue"
 import SeedCertificationImg from "./components/SeedCertificationImg.vue"
+import SeedCheckbox from "./components/SeedCheckbox.vue"
 
 export default {
   name: 'CreateSeed',
@@ -106,17 +121,49 @@ export default {
     SeedCategory,
     SeedPeople,
     SeedCertificationImg,
+    SeedCheckbox
   },
   data: function () {
     return {
       e1: 1,
+      slides: 7,
+      category: "",
       isSubmitCategory: false,
       isSubmitContent: false,
       isSubmitEtc: false,
     }
   },
   methods: {
-    
+    receiveLifestyle: function (isSubmitCategory, lifestyle) {
+      this.isSubmitCategory = isSubmitCategory
+      this.category = lifestyle
+      console.log(this.category)
+    },
+    receiveHealth: function (isSubmitCategory, health) {
+      this.isSubmitCategory = isSubmitCategory
+      this.category = health
+      console.log(this.category)
+    },
+    receiveBook: function (isSubmitCategory, health) {
+      this.isSubmitCategory = isSubmitCategory
+      this.category = health
+      console.log(this.category)
+    },
+    receiveAssets: function (isSubmitCategory, health) {
+      this.isSubmitCategory = isSubmitCategory
+      this.category = health
+      console.log(this.category)
+    },
+    receiveGrown: function (isSubmitCategory, health) {
+      this.isSubmitCategory = isSubmitCategory
+      this.category = health
+      console.log(this.category)
+    },
+    receiveHobby: function (isSubmitCategory, health) {
+      this.isSubmitCategory = isSubmitCategory
+      this.category = health
+      console.log(this.category)
+    },
   },
   computed: {
   }

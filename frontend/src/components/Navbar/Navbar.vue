@@ -35,6 +35,7 @@
             <v-icon>mdi-bell-ring</v-icon>
           </v-btn>
           <v-dialog v-model="notice">
+          <div class="notification">
             <v-card class="notice-card">
               <v-tabs v-model="currentTab" grow dark>
                 <v-tabs-slider></v-tabs-slider>
@@ -56,6 +57,7 @@
                 </v-btn>
               </v-card-actions>
             </v-card>
+          </div>
           </v-dialog>
           
           <v-menu offset-y open-on-hover bottom>
@@ -144,6 +146,10 @@ export default {
 
 <style lang="scss" scoped>
 // 개발자 도구로 찍고 나서야 바꿀 수 있는 부분
+
+.notification{
+ float:right;
+}
 .v-sheet.v-app-bar.v-toolbar:not(.v-sheet--outlined) {
   box-shadow: none;
 }
