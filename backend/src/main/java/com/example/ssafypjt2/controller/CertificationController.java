@@ -47,22 +47,22 @@ public class CertificationController {
 		return result;
 	}
 
-	@GetMapping("/allCertificaion")
+	@GetMapping("/allCertification")
 	public  List<CertificationDto> certificationAllList(){
 		return certificationService.certificationAllList();
 
 	}
-	@GetMapping("/sameChallengeCertificaion/{cngId}")
+	@GetMapping("/sameChallengeCertification/{cngId}")
 	public  List<CertificationDto> sameChallengeCrtList(@PathVariable(value = "cngId") int cngId){
 		return certificationService.sameChallengeCrtList(cngId);
 
 	}
-	@GetMapping("/userCertificaion/{userId}")
+	@GetMapping("/userCertification/{userId}")
 	public  List<CertificationDto> userCrtList(@PathVariable(value = "userId") int userId){
 		return certificationService.userCrtList(userId);
 
 	}
-	@GetMapping("/userCertificaionSort/{userId}/{cngId}")
+	@GetMapping("/userCertificationSort/{userId}/{cngId}")
 	public  List<CertificationDto> userCrtListSort(@PathVariable(value = "userId") int userId, @PathVariable(value = "cngId") int cngId){
 		return certificationService.userCrtListSort(userId, cngId);
 	}
