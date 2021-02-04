@@ -16,7 +16,7 @@
                 rules="required"
               >
                 <v-text-field
-                  v-model="nickName"
+                  v-model="nickname"
                   :error-messages="errors"
                   label="닉네임"
                   required
@@ -52,7 +52,7 @@
                 }"
               >
                 <v-text-field
-                  v-model="phoneNumber"
+                  v-model="phone"
                   :counter="11"
                   :error-messages="errors"
                   label="핸드폰 번호(숫자만)"
@@ -142,7 +142,6 @@ import {
 } from "vee-validate";
 
 
-
 setInteractionMode("eager");
 
 extend("required", {
@@ -183,73 +182,41 @@ export default {
   },
   data: function() {
     return {
-      nickName: "",
+      nickname: "",
       email: "",
-      phoneNumber: "",
+      phone: "",
       password: "",
       passwordConfirmation: "",
       showPass: false,
     }
   },
   computed: {
-    signupParams: function () {
-      return {
-        nickName: this.nickName,
-        email: this.email,
-        phoneNumber: this.phoneNumber,
-        password: this.password
-      };
-    },
-    loginParams: function () {
-      return {
-        email: this.email,
-        password: this.password,  
-      }
-    }
   },
   methods: {
-    // submit() {
-    //   const credentials = {
-    //     nickName: this.nickName,
-    //     email: this.email,
-    //     phoneNumber: this.phoneNumber,
-    //     password: this.password
-    //   }
-    //   axios.post("http://localhost:8080/signup", credentials)
-    //     .then((res) => {
-    //       console.log(res)
-    //       console.log('회원가입 성공')
-    //       // localStorage.setItem('jwt', res.data.token)
-    //       // axios.post("http://localhost:8080/login/api-token-auth", this.loginParams)
-    //       // this.$router.push({ name: 'FavoriteCategory' })
-    //     })
-    //     .catch((err) => console.log(err))
-    // }
     async submit() {
       const valid = await this.$refs.observer.validate();
       const credentials = {
-        nickName: this.nickName,
+        nickname: this.nickname,
         email: this.email,
-        phoneNumber: this.phoneNumber,
+        phone: this.phone,
         password: this.password
       }
       if (valid) {
-        this.isSubmit = true;
         axios.post("http://localhost:8080/signup", credentials)
           .then((res) => {
             console.log(res)
             console.log('회원가입 성공')
             localStorage.setItem('jwt', res.data.token)
-            axios.post("http://localhost:8080/login/api-token-auth", this.loginParams)
+            // this.$emit('login')
+            this.$store.dispatch('loginSuccess')
             this.$router.push({ name: 'FavoriteCategory' })
           })
           .catch((err) => console.log(err))
       } else {
-        this.isSubmit = false;
         alert("내용을 확인해주세요")
       }
     },
-  },
+  }
 }
 </script>
 

@@ -69,3 +69,4 @@ new Vue({
 //   firebase.firestore().settings({ host: 'localhost:8080', ssl: false });
 //   firebase.functions().useFunctionsEmulator('http://localhost:5001');
 // }
+
