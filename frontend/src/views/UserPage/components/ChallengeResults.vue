@@ -4,7 +4,7 @@
     <v-col @click="goToListPage">
       <v-icon 
         class="challenge-icon"
-        size="75"
+        size="50"
         color="blue lighten-2"
         >
         fas fa-running</v-icon>
@@ -14,7 +14,7 @@
     <v-col @click="goToListPage">
       <v-icon 
         class="challenge-icon"
-        size="75"
+        size="50"
         color="success lighten-2"
         >
         fas fa-check-circle</v-icon>
@@ -24,7 +24,7 @@
     <v-col @click="goToListPage">
       <v-icon 
         class="challenge-icon"
-        size="75"
+        size="50"
         color="red lighten-2"
         >
         fas fa-ban</v-icon>
@@ -34,7 +34,7 @@
     <v-col>
       <v-icon 
         class="challenge-icon"
-        size="75"
+        size="50"
         color="yellow lighten-2"
         >
         fas fa-pencil-alt</v-icon>
