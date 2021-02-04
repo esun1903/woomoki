@@ -1,7 +1,7 @@
 <template>
 
   <v-row class="challenge-results">
-    <v-col @click="goToListPage">
+    <v-col @click="SeedJoin">
       <v-icon 
         class="challenge-icon"
         size="50"
@@ -11,7 +11,7 @@
       <div class="challenge-state">참가</div>
       <div class="challenge-count">5</div>
     </v-col>
-    <v-col @click="goToListPage">
+    <v-col @click="SeedSuccess">
       <v-icon 
         class="challenge-icon"
         size="50"
@@ -21,7 +21,7 @@
       <div class="challenge-state">성공</div>
       <div class="challenge-count">5</div>
     </v-col>
-    <v-col @click="goToListPage">
+    <v-col @click="SeedFail">
       <v-icon 
         class="challenge-icon"
         size="50"
@@ -31,7 +31,7 @@
       <div class="challenge-state">실패</div>
       <div class="challenge-count">5</div>
     </v-col>
-    <v-col>
+    <v-col @click="SeedCreated">
       <v-icon 
         class="challenge-icon"
         size="50"
@@ -53,10 +53,18 @@ export default {
     }
   },
   methods: {
-    goToListPage: function () {
-      console.log("go to list")
-      // this.$router.push()
-    }
+    SeedJoin: function () {
+      this.$router.push({ name: 'SeedJoin' })
+    },
+    SeedSuccess: function () {
+      this.$router.push({ name: 'SeedSuccess' })
+    },
+    SeedFail: function () {
+      this.$router.push({ name: 'SeedFail' })
+    },
+    SeedCreated: function () {
+      this.$router.push({ name: 'SeedCreated' })
+    },
   }
 }
 </script>
