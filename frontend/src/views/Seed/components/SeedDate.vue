@@ -1,7 +1,8 @@
 <template>
-  <v-row>
+  <v-col class="pa-0">
     <v-date-picker
-      full-width="100%"
+      color="success"
+      :full-width="true"
       v-model="dates"
       range
       event-color="green lighten-1"
@@ -13,7 +14,7 @@
       prepend-icon="mdi-calendar"
       readonly
     ></v-text-field>
-  </v-row>
+  </v-col>
 </template>
 
 <script>

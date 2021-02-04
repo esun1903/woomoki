@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="navbar-block"> 
       <v-app-bar class="navbar" fixed>
         <router-link to="/">
           <p>우목이</p>
@@ -157,6 +157,9 @@ a:-webkit-any-link {
 }
 
 
+.navbar-block {
+  margin-bottom: 5%;
+}
 
 .navbar {
   a {
@@ -171,7 +174,6 @@ a:-webkit-any-link {
   }
 }
 .v-dialog {
-
 }
 .v-dialog > * {
   width: 25%;
@@ -185,5 +187,4 @@ a:-webkit-any-link {
   display: flex;
   align-items: start;
 }
-
 </style>

@@ -1,7 +1,9 @@
 <template>
 <v-app id="app">
   <Navbar></Navbar>
+  <v-main>
       <router-view></router-view>
+  </v-main>
   <Footer></Footer>
 </v-app>
 </template>
@@ -25,6 +27,8 @@ export default {
 </script>
 
 <style>
-
+#app {
+  min-height: 100vh;
+}
 
 </style>

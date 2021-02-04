@@ -14,7 +14,7 @@ export default {
               data: [10, 4, 5, 1, 9, 6, 6, 9, 8, 12, 14, 10]
           }],
           chartOptions: {
-            colors : ['#80FF00'],
+            colors : ['#9CCC65'],
             chart: {
               height: 350,
               type: 'line',

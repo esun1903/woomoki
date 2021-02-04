@@ -13,6 +13,7 @@
   "dependencies": {
     "@babel/core": "^7.12.10",
     "apexcharts": "^3.23.1",
+    "aws-sdk": "^2.834.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "email-validator": "^2.0.4",
@@ -21,6 +22,7 @@
     "firebase-admin": "^9.4.2",
     "firebase-functions": "^3.13.1",
     "firebase-tools": "^9.2.2",
+    "fullpage.js": "^3.0.9",
     "global": "^4.4.0",
     "password-validator": "^5.1.1",
     "request-promise": "^4.2.6",

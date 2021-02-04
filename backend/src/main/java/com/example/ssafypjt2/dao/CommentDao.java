@@ -1,10 +1,7 @@
 package com.example.ssafypjt2.dao;
 
-import com.example.ssafypjt2.dto.CertificationDto;
-import com.example.ssafypjt2.dto.ChallengeDto;
 import com.example.ssafypjt2.dto.CommentDto;
 import org.apache.ibatis.annotations.*;
-
 import java.util.List;
 
 @Mapper
@@ -33,4 +30,14 @@ public interface CommentDao {
     @Select(" SELECT id, cert_id, user_id, content, create_date, like_cnt"
             + " FROM comment WHERE cert_id = #{certId} ")
     public List<CommentDto> commentShowList(@Param("certId")int certId);
+
+    @Update("Update comment SET "
+            +"like_cnt = like_cnt+1 "
+            + "WHERE id = #{comId}")
+    public int likeUp(@Param("comId")int comId);
+
+    @Update("Update comment SET "
+            +"like_cnt = like_cnt-1 "
+            + "WHERE id = #{comId}")
+    public int likeDown(@Param("comId")int comId);
 }

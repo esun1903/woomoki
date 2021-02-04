@@ -1,22 +1,22 @@
 <template>
-  <div>
-  <v-row>
-      <v-avatar
-        tile
-        :class="`rounded-lg`"
-        width="100%"
-        height="250px"
-        color="grey"
-        class="cursor-img"
-        @click="onClickImageUpload"
-        >{{ this.text }}
-        <v-img
-            v-if="imageUrl" :src="imageUrl"
-        ></v-img>
-      </v-avatar>
+  <v-col>
+    <v-row>
+        <v-avatar
+          tile
+          :class="`rounded-lg`"
+          width="100%"
+          height="250px"
+          color="grey lighten-2"
+          class="cursor-img"
+          @click="onClickImageUpload"
+          >{{ this.text }}
+          <v-img
+              v-if="imageUrl" :src="imageUrl"
+          ></v-img>
+        </v-avatar>
 
-      <input ref="imageInput" type="file" hidden @change="onChangeImages">
-        
+        <input ref="imageInput" type="file" hidden @change="onChangeImages">
+          
     </v-row>
     <v-row class="d-flex justify-end align-end">
       <v-btn
@@ -24,7 +24,7 @@
         >이미지 제거
       </v-btn>
     </v-row>
-  </div>
+  </v-col>
 </template>
 
 <script>

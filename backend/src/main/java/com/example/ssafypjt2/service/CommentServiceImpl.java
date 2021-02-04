@@ -1,6 +1,6 @@
 package com.example.ssafypjt2.service;
 
-import com.example.ssafypjt2.dao.ChallengeDao;
+
 import com.example.ssafypjt2.dao.CommentDao;
 import com.example.ssafypjt2.dto.CommentDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,4 +38,16 @@ public class CommentServiceImpl implements CommentService {
     public List<CommentDto> commentShowList(int certId) {
         return dao.commentShowList(certId);
     }
+
+    @Override
+    public int likeUp(int id) {
+        return dao.likeUp(id);
+    }
+
+    @Override
+    public int likeDown(int id) {
+        return dao.likeDown(id);
+    }
+
+
 }

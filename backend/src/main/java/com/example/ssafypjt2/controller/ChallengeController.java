@@ -85,10 +85,13 @@ public class ChallengeController {
 		return challengeService.likeDown(id);
 	}
 
-	// 키워드별 챌린지 보여주기
-	@GetMapping("/searchWordChallenge/{keyword}")
-	public List<ChallengeDto> searchWordChallenge(@PathVariable(value = "keyword") String keyword){
-		return challengeService. searchWordChallenge(keyword);
+	@PutMapping("/likeUpChallenge/{cngId}")
+	public int likeUp ( @PathVariable(value = "cngId") int id) {
+		return challengeService.likeUp(id);
+	}
+	@PutMapping("/likeDownChallenge/{cngId}")
+	public int likeDown ( @PathVariable(value = "cngId") int id) {
+		return challengeService.likeDown(id);
 	}
 
 	//생성한 챌린지 리스트형태로 보여주기
