@@ -43,7 +43,7 @@ export default {
   methods: {
     UserCertification: function () {
       const userid = 0 
-      axios.get(`http://127.0.0.1:8080/userCertificaion/${userid}`)
+      axios.get(`http://127.0.0.1:8080/userCertification/${userid}`)
         .then((res) => {
           this.cards = res.data
         })

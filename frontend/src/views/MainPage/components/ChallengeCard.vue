@@ -1,8 +1,45 @@
 <template>
   <v-card>
     <v-img :src=ChallengeImg @click="goChallengeDetail(challenge.id)" aspect-ratio="1.5"></v-img>
-    <div class="challenge-card-top">
-      <v-chip id="category-chip" :ripple="false"> {{ challenge.category }}</v-chip>
+
+    <!-- 하나 하나 v-if, v-else-if 로 색을 지정해주었는데 코드가 너무 길어져서 간결하게 바꾸는 방법을 생각해봐야함 v- -->
+    <div v-if="this.challenge.category === '건강'" class="challenge-card-top">
+      <v-chip id="category-chip" :ripple="false" color="light-green lighten-1"> {{ challenge.category }}</v-chip>
+      <v-btn icon @click.native="getScrap">
+        <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
+      </v-btn>
+    </div>
+
+    <div v-else-if="this.challenge.category === '생활습관'" class="challenge-card-top">
+      <v-chip id="category-chip" :ripple="false" color="orange lighten-1"> {{ challenge.category }}</v-chip>
+      <v-btn icon @click.native="getScrap">
+        <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
+      </v-btn>
+    </div>
+
+    <div v-else-if="this.challenge.category === '독서'" class="challenge-card-top">
+      <v-chip id="category-chip" :ripple="false" color="teal lighten-1"> {{ challenge.category }}</v-chip>
+      <v-btn icon @click.native="getScrap">
+        <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
+      </v-btn>
+    </div>
+
+    <div v-else-if="this.challenge.category === '자산'" class="challenge-card-top">
+      <v-chip id="category-chip" :ripple="false" color="indigo lighten-1"> {{ challenge.category }}</v-chip>
+      <v-btn icon @click.native="getScrap">
+        <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
+      </v-btn>
+    </div>
+
+    <div v-else-if="this.challenge.category === '자기계발'" class="challenge-card-top">
+      <v-chip id="category-chip" :ripple="false" color="purple lighten-1"> {{ challenge.category }}</v-chip>
+      <v-btn icon @click.native="getScrap">
+        <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
+      </v-btn>
+    </div>
+
+    <div v-else-if="this.challenge.category === '취미'" class="challenge-card-top">
+      <v-chip id="category-chip" :ripple="false" color="pink lighten-1"> {{ challenge.category }}</v-chip>
       <v-btn icon @click.native="getScrap">
         <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
       </v-btn>
