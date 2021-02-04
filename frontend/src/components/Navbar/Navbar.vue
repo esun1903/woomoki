@@ -179,8 +179,7 @@ a:-webkit-any-link {
     }
   }
 }
-.v-dialog {
-}
+
 .v-dialog > * {
   width: 25%;
   // top: -33% !important;
