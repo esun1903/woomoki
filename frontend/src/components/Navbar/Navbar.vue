@@ -2,7 +2,11 @@
     <div class="navbar-block"> 
       <v-app-bar class="navbar" fixed>
         <router-link to="/">
-          <p>우목이</p>
+          <v-img 
+            width="4vw"
+            class="mt-3"
+            :src="require('@/assets/images/logo.png')"
+          ></v-img>
         </router-link>
         <v-spacer></v-spacer>
         <SearchBar/>
@@ -17,7 +21,11 @@
             </template>
             <v-list>
               <v-list-item>
-                <v-list-item-title>씨앗 만들기</v-list-item-title>
+                <v-list-item-title>
+                  <router-link to="/createSeed">
+                    씨앗 만들기
+                  </router-link>
+                </v-list-item-title>
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>씨앗 물 주기</v-list-item-title>
@@ -61,7 +69,9 @@
           <v-menu offset-y open-on-hover bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" class="btn">
-                <v-icon>mdi-account-circle</v-icon>
+                <router-link to="/userPage">
+                  <v-icon color="grey darken-1">mdi-account-circle</v-icon>
+                </router-link>
               </v-btn>
             </template>
             <v-list>

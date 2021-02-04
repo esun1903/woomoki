@@ -1,40 +1,40 @@
 <template>
 
   <v-row class="challenge-results">
-    <v-col @click="goToListPage">
+    <v-col @click="SeedJoin">
       <v-icon 
         class="challenge-icon"
-        size="75"
+        size="50"
         color="blue lighten-2"
         >
         fas fa-running</v-icon>
       <div class="challenge-state">참가</div>
       <div class="challenge-count">5</div>
     </v-col>
-    <v-col @click="goToListPage">
+    <v-col @click="SeedSuccess">
       <v-icon 
         class="challenge-icon"
-        size="75"
+        size="50"
         color="success lighten-2"
         >
         fas fa-check-circle</v-icon>
       <div class="challenge-state">성공</div>
       <div class="challenge-count">5</div>
     </v-col>
-    <v-col @click="goToListPage">
+    <v-col @click="SeedFail">
       <v-icon 
         class="challenge-icon"
-        size="75"
+        size="50"
         color="red lighten-2"
         >
         fas fa-ban</v-icon>
       <div class="challenge-state">실패</div>
       <div class="challenge-count">5</div>
     </v-col>
-    <v-col>
+    <v-col @click="SeedCreated">
       <v-icon 
         class="challenge-icon"
-        size="75"
+        size="50"
         color="yellow lighten-2"
         >
         fas fa-pencil-alt</v-icon>
@@ -53,10 +53,18 @@ export default {
     }
   },
   methods: {
-    goToListPage: function () {
-      console.log("go to list")
-      // this.$router.push()
-    }
+    SeedJoin: function () {
+      this.$router.push({ name: 'SeedJoin' })
+    },
+    SeedSuccess: function () {
+      this.$router.push({ name: 'SeedSuccess' })
+    },
+    SeedFail: function () {
+      this.$router.push({ name: 'SeedFail' })
+    },
+    SeedCreated: function () {
+      this.$router.push({ name: 'SeedCreated' })
+    },
   }
 }
 </script>

@@ -66,6 +66,7 @@ public class CertificationServiceImpl implements CertificationService {
         return dao.likeDown(id);
     }
 
+
 	@Override
 	public List<CertificationDto> searchWordCert(String keyword) {
 		System.out.println("서비스단 들어왔어~");

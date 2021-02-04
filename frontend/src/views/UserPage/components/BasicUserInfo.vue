@@ -12,7 +12,7 @@
           <span class="black--text headline">
             사진
             <v-img
-              src="">
+              :src="this.UserInfo.userImg">
             </v-img>
           </span>
         </v-avatar>
@@ -23,7 +23,7 @@
           class="d-flex align-center">
           <v-col>
             <h2>
-              rladydals123
+              {{ this.UserInfo.userNickname }}
             </h2>
           </v-col>
 
@@ -35,6 +35,7 @@
                 color="primary"
                 width="60"
                 height="30"
+                @click="BasicUserInfo"
                 >
                 팔로우
               </v-btn>
@@ -50,7 +51,7 @@
 
         <v-row>
           <v-col>
-            <div>👩‍💼 Lv. 17 프로 정원사</div>
+            <div>👩‍💼 Lv. {{ this.UserInfo.userLevelNum }} {{ this.UserInfo.userLevelTitle }}</div>
           </v-col>
         </v-row>
 
@@ -62,7 +63,7 @@
             >
               <div>
                 <h2>나의 캐시</h2>
-                <div>3000원</div>
+                <div>{{ this.UserInfo.userDeposit }}원</div>
               </div>
             </v-btn>
           </v-col>
@@ -181,7 +182,7 @@
         
         <v-row>
           <v-col>
-            <div>씨앗에 매일매일 물주기!</div>
+            <div>{{ this.UserInfo.userIntroduce }}</div>
           </v-col>
         </v-row>
 
@@ -195,7 +196,7 @@
 
 <script>
 import ChallengeResults from "./ChallengeResults"
-// import axios from "axios";
+import axios from "axios";
 // import { mapState } from "vuex"
 
 export default {
@@ -208,7 +209,16 @@ export default {
     return {
       myId: "",
       myState: "",
-      userState: "", 
+      userState: "",
+      UserInfo: {
+        userNickname: "",
+        userEmail: "",
+        userImg: "",
+        userIntroduce: "",
+        userLevelNum: "",
+        userLevelTitle: "",
+        userDeposit: "",
+        },
       dialog: {
         dialogm1: "",
         dialog: false,
@@ -246,36 +256,45 @@ export default {
     // router로 페이지 이동과 함께 params or query로 유저 아이디를 vuex state에 저장한다.
     // 그리고 UserPage.vue가 렌더링 될때 vuex state에 있는 아이디를 post에 보내서 유저 정보를 렌더링
     // jwt토큰을 가져와서 그 유저정보와 지금 렌더링 되는 유저 정보가 같으면 마이페이지 렌더링, 아니면 유저페이지 렌더링
-    // BasicUserInfo: function () {
-    //   axios.get(`http://127.0.0.1:8000/userPage/${userid}`)
-    //     .then((res) => {
-    //       this.userInfo = res.data
-    //       if (this.myId === userid) {
-    //         // 내 페이지
-    //         // myState에 따라 태그에 v-if 렌더링
-    //         this.myState = true;
-    //       } else {
-    //         // 다른 유저 페이지
-    //         this.myState = false;
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // },
+    BasicUserInfo: function () {
+      const userid = 0
+      axios.get(`http://127.0.0.1:8080/userPage/test/${userid}`)
+        .then((res) => {
+          this.UserInfo.userImg = res.data.img
+          this.UserInfo.userNickname = res.data.nickname
+          this.UserInfo.userIntroduce = res.data.introduce
+          this.UserInfo.userLevelNum = res.data.levelnum
+          this.UserInfo.userLevelTitle = res.data.leveltitle
+          this.UserInfo.userDeposit = res.data.deposit
+          console.log(this.userInfo)
+ 
+          // if (this.myId === userid) {
+          //   // 내 페이지
+          //   // myState에 따라 태그에 v-if 렌더링
+          //   this.myState = true;
+          // } else {
+          //   // 다른 유저 페이지
+          //   this.myState = false;
+          // }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
     // UserFollowerBtn: function () {
       
     // },
-    // created() {
-    //   // this.setToken()
-    //   // this.BasicUserInfo()
-    // },
+    
     // computed: {
     //   ...mapState({
     //     userid: 'state에서 유저닉네임이 저장되어있는 변수'
     //   })
     // }
-  }
+  },
+  created() {
+    // this.setToken()
+    this.BasicUserInfo()
+  },
 }
 </script>
 

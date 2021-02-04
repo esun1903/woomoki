@@ -17,6 +17,11 @@ import CertificationInsert from "@/views/Certification/CertificationInsert.vue";
 import CertificationDetail from "@/views/Certification/CertificationDetail.vue";
 import CreateSeed from "@/views/Seed/CreateSeed.vue";
 import Feed from "@/views/Feed/Feed.vue";
+import SeedCreated from "@/views/SeedList/SeedCreated.vue"
+import SeedFail from "@/views/SeedList/SeedFail.vue"
+import SeedJoin from "@/views/SeedList/SeedJoin.vue"
+import SeedScrap from "@/views/SeedList/SeedScrap.vue"
+import SeedSuccess from "@/views/SeedList/SeedSuccess.vue"
 // import KakaoTalk from "@/views/Login/callback/KakaoTalk.vue";
 Vue.use(VueRouter);
 
@@ -123,8 +128,33 @@ const routes = [
     name: 'Feed',
     component: Feed,        
   },
-  
+  {
+    path: '/seedCreated',
+    name: 'SeedCreated',
+    component: SeedCreated,        
+  },
+  {
+    path: '/seedFail',
+    name: 'SeedFail',
+    component: SeedFail,        
+  },
+  {
+    path: '/seedJoin',
+    name: 'SeedJoin',
+    component: SeedJoin,        
+  },
+  {
+    path: '/seedScrap',
+    name: 'SeedScrap',
+    component: SeedScrap,        
+  },
+  {
+    path: '/seedSuccess',
+    name: 'SeedSuccess',
+    component: SeedSuccess,        
+  },
 ];
+
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
