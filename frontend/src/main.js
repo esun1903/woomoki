@@ -8,7 +8,9 @@ import axios from "axios";
 import firebase from 'firebase';
 import VueApexCharts from 'vue-apexcharts';
 import "./common/filters";
+import Carousel3d from 'vue-carousel-3d';
 
+Vue.use(Carousel3d);
 Vue.config.productionTip = false;
 
 // apexcharts 사용

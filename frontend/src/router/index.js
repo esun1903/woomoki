@@ -16,6 +16,7 @@ import CompareOriginPassword from "@/views/UserPageEdit/CompareOriginPassword.vu
 import CertificationInsert from "@/views/Certification/CertificationInsert.vue";
 import CertificationDetail from "@/views/Certification/CertificationDetail.vue";
 import CreateSeed from "@/views/Seed/CreateSeed.vue";
+import Feed from "@/views/Feed/Feed.vue";
 // import KakaoTalk from "@/views/Login/callback/KakaoTalk.vue";
 Vue.use(VueRouter);
 
@@ -116,6 +117,11 @@ const routes = [
     path: '/createSeed',
     name: 'CreateSeed',
     component: CreateSeed,        
+  },
+  {
+    path: '/feed',
+    name: 'Feed',
+    component: Feed,        
   },
   
 ];
