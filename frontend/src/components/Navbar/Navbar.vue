@@ -2,7 +2,11 @@
     <div class="navbar-block"> 
       <v-app-bar class="navbar" fixed>
         <router-link to="/">
-          <p>우목이</p>
+          <v-img 
+            width="4vw"
+            class="mt-3"
+            :src="require('@/assets/images/logo.png')"
+          ></v-img>
         </router-link>
         <v-spacer></v-spacer>
         <SearchBar/>
@@ -19,7 +23,11 @@
             </template>
             <v-list>
               <v-list-item>
-                <v-list-item-title>씨앗 만들기</v-list-item-title>
+                <v-list-item-title>
+                  <router-link to="/createSeed">
+                    씨앗 만들기
+                  </router-link>
+                </v-list-item-title>
               </v-list-item>
               <v-list-item>
                 <v-list-item-title>씨앗 물 주기</v-list-item-title>
@@ -69,7 +77,11 @@
             <v-list>
               <div v-if="login">
                 <v-list-item @click="goMyPage">
-                  <v-list-item-title>마이페이지</v-list-item-title>
+                  <v-list-item-title>
+                    <router-link to="/userPage">
+                      마이페이지
+                    </router-link>
+                  </v-list-item-title>
                 </v-list-item>
                 <v-list-item>
                   <v-list-item-title>로그아웃</v-list-item-title>

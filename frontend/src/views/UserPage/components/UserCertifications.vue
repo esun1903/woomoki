@@ -1,14 +1,14 @@
 <template>
   <v-row>
     <v-col
-      v-for="n in 9"
-      :key="n"
+      v-for="(card, idx) in cards"
+      :key="idx"
       class="d-flex child-flex"
       cols="4"
     >
       <v-img
-        :src="`https://picsum.photos/500/300?image=${n * 5 + 10}`"
-        :lazy-src="`https://picsum.photos/10/6?image=${n * 5 + 10}`"
+        :src="card.img"
+        :lazy-src="card.img"
         aspect-ratio="1"
         class="grey lighten-2 cursor_test"
         @click="CertificationDetail"
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: "UserCertifications",
   data: function () {
@@ -40,13 +42,23 @@ export default {
   },
   methods: {
     UserCertification: function () {
-      // axios.post("?")
+      const userid = 0 
+      axios.get(`http://127.0.0.1:8080/userCertificaion/${userid}`)
+        .then((res) => {
+          this.cards = res.data
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     CertificationDetail: function () {
       console.log("CertificationDetail")
       // 인증 디테일 페이지로 이동
       // this.$push()
     }
+  },
+  created() {
+    this.UserCertification();
   }
 }
 </script>
