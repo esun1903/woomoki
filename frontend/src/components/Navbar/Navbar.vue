@@ -12,8 +12,6 @@
         <SearchBar/>
         <v-spacer></v-spacer>
 
-
-
         <div class="btn_group">
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
@@ -77,11 +75,11 @@
               </v-btn>
             </template>
             <v-list>
-              <div v-if="login">
+              <div v-if="isLogin">
                 <v-list-item @click="goMyPage">
                   <v-list-item-title>마이페이지</v-list-item-title>
                 </v-list-item>
-                <v-list-item>
+                <v-list-item @click="goLogout">
                   <v-list-item-title>로그아웃</v-list-item-title>
                 </v-list-item>
               </div>
@@ -102,16 +100,20 @@
 </template>
 
 <script>
-import SearchBar from "@/components/Navbar/SearchBar.vue"
+import SearchBar from "@/components/Navbar/SearchBar.vue";
+import { mapState } from "vuex";
+
 export default {
   name: 'Navbar',
   components: { SearchBar },
   directives: {  },
+  props: {
+    login: Boolean,
+  },
   data: function () {
     return {
       notice: false,
       currentTab: null,
-      login: false,
       tabs: [
         {
           title: '알림',
@@ -127,26 +129,23 @@ export default {
   mounted() {
     
   },
-  created: function () {
-    // const token = localStorage.getItem('jwt')
-
-    // if (token) {
-    //   this.login = true
-    // }
+  computed:  {
+    ...mapState([
+      'isLogin'
+    ]),
   },  
   methods: {
     goMyPage: function () {
       this.$router.push({ name: 'UserPage' }) 
     },
-    // goLogout: function () {
-    //   localStorage.removeItem('jwt')
-    //   this.$emit('logout')
-    //   this.$router.push({ name: 'Login' })
-    // },
+    goLogout: function () {
+      this.$store.dispatch('logoutSuccess')
+      this.$router.push({ name: 'Login' })
+    },
     goLogin: function () {
       this.$router.push({ name: 'Login' }) 
     },
-    goJoin: function () {
+    goSignup: function () {
       this.$router.push({ name: 'Signup' })  
     },
     
@@ -189,17 +188,14 @@ a:-webkit-any-link {
     }
   }
 }
-
 .v-dialog > * {
   width: 25%;
-  // top: -33% !important;
-  // left: 73% !important;
 }
 .v-tabs-slider {
   color: red;
 }
 .v-dialog__content {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
 }
 </style>

@@ -20,9 +20,16 @@ export default {
     Footer,
   },
 
-  data: () => ({
-    //
-  })
+  data: function () {
+    return {
+      // login: false,
+    } 
+  },
+  computed: {
+  },
+  methods: {
+
+  }
 };
 </script>
 

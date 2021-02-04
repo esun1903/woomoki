@@ -13,7 +13,7 @@
           <v-row align="center" justify="start">
             <v-col
               v-for="(selection, i) in getSelections"
-              :key="selection.text"
+              :key="selection.category"
               class="shrink"
             >
               <v-chip outlined
@@ -25,7 +25,7 @@
                   left
                   v-text="selection.icon"
                 ></v-icon>
-                {{ selection.text }}
+                {{ selection.category }}
               </v-chip>
             </v-col>
           </v-row>
@@ -37,7 +37,7 @@
           <template v-for="item in items">
             <v-list-item
               v-if="!selected.includes(item)"
-              :key="item.text"
+              :key="item.category"
               :disabled="loading"
               @click="selected.push(item)"
             >
@@ -48,7 +48,7 @@
                 ></v-icon>
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-title v-text="item.text"></v-list-item-title>
+                <v-list-item-title v-text="item.category"></v-list-item-title>
                 <v-list-item-subtitle v-text="item.content"></v-list-item-subtitle>
               </v-list-item-content>
 
@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "FavoriteCategory",
   components: {},
@@ -83,32 +84,32 @@ export default {
           // favoriteCategories 관련 state
     items: [
         {
-          text: '건강',
+          category: '건강',
           icon: 'mdi-dumbbell',
           content: '식이조절, 복근 만들기, 클로이팅 챌린지, 식단일기 쓰기 등이 있어요! '
         },
         {
-          text: '생활습관',
+          category: '생활습관',
           icon: 'mdi-calendar-check',
           content: '미라클 모닝, 스크린 타임 4시간, 물 2L 마시기, 매일 일기쓰기 등이 있어요!'
         },
         {
-          text: '독서',
+          category: '독서',
           icon: 'mdi-bookshelf',
           content: '30분 책읽기, 코스모스 끝내기, 독서 기록장 쓰기, 한 달 두 권 읽기 등이 있어요!'
         },
         {
-          text: '자산',
+          category: '자산',
           icon: 'mdi-cash-usd-outline',
           content: '경제 기사 스크랩, 가계부 쓰기, 출근 길 택시 안 타기, 주식일기 쓰기 등이 있어요!'
         },
         {
-          text: '자기계발',
+          category: '자기계발',
           icon: 'mdi-school',
           content: '1일 2알고리즘, 매일 영단어 20개, 뉴스레터 밀리지 않기, 컴활 공부하기 등이 있어요'
         },
         {
-          text: '취미',
+          category: '취미',
           icon: 'mdi-piano',
           content: '매일 크로키, 기타 연습하기, 영상 편집하기, 프랑스자수-기초 스티치 마스터 등이 있어요!'
         },
@@ -135,11 +136,14 @@ export default {
     },
     // 선택된 카테고리명만 백엔드에 넘기기 위함
     getFavoriteCategories: function (state) {
-      const favoriteCategories = []
+      const favoriteCategories = {}
       
-      for (const favoriteCategory of state.selected)
-        favoriteCategories.push(favoriteCategory.text)
-        console.log(favoriteCategories)
+      const selectedCategories = []
+      for (const favoriteCategory of state.selected) {
+        selectedCategories.push(favoriteCategory.category)
+      }
+      favoriteCategories["category_id"] = selectedCategories
+      console.log(favoriteCategories)
       return favoriteCategories
     }
   },
@@ -151,12 +155,17 @@ export default {
       setTimeout(() => {
         
         // !!!!!!!!!! 빽에 고른 카테고리 넘겨주기!!!!!!!!!! 
-        // axios.post(`${SERVER_URL}/signup/favCategory`, this.getFavoriteCategories)
-        //   .then(() => {
-        //     // console.log('로그인 성공')
-        //     this.$router.push({ name: 'MainPage' })
-        //   })
-        //   .catch(err => console.log(err))
+        axios.post("http://localhost:8080/signup/favCategory", this.getFavoriteCategories)
+          .then(() => {
+            console.log('카테고리 담기 성공')
+            console.log(this.getFavoriteCategories)
+            this.$router.push({ name: 'MainPage' })
+          })
+          .catch(err => {
+            console.log(err)
+            console.log('카테고리 담기 실패')
+            console.log(this.getFavoriteCategories)
+          })
 
         state.search = ''
         state.selected = []
@@ -174,10 +183,6 @@ export default {
   left: 25%;
   padding: 0px 50px;
 }
-// .v-toolbar-title {
-//   font-weight: bold;
-//   text: center;
-// }
 .v-divider {
   margin-top: 20px;
 }
