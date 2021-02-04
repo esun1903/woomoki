@@ -213,7 +213,7 @@ export default {
       if (valid) {
         this.isSubmit = true;
         axios.post("http://localhost:8080/signup", this.signupParams)
-          .then(() => {
+          .then((res) => {
             localStorage.setItem('jwt', res.data.token)
             axios.post("http://localhost:8080/login/api-token-auth", this.loginParams)
             this.$router.push({ name: 'FavoriteCategory' })
