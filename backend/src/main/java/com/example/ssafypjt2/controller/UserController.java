@@ -119,7 +119,7 @@ public class UserController {
 	//로그아웃 기능 
 	@CrossOrigin(origins = "*")
 	@GetMapping("/logout")
-	public String join(HttpSession session) {
+	public String logout(HttpSession session) {
 
 		System.out.println("로그아웃 기능");
 		session.invalidate();
@@ -182,12 +182,13 @@ public class UserController {
 
 	//유저의 아이디를 알려주면 유저에 대한 정보를 주는 Detail
 	@CrossOrigin(origins = "*")
-	@GetMapping("/userPage/test/{userid}")
+	@GetMapping("/userPage/{userid}")
 	public UserDto userPageDetail(@PathVariable(value = "userid") int user_id ) throws Exception {
 
 		System.out.println(user_id+"에 대한 정보를 알려줄게!");
 
-		UserDto result = userService.userPageDetail(user_id);;
+		UserDto result = userService.userPageDetail(user_id);
+
 		return result;
 	}
 
@@ -198,6 +199,7 @@ public class UserController {
 
 		System.out.println(user_id+"가 가입한 챌린지들을 보여줄게");
 		List<ChallengeDto> result = userService.userPageJoincng(user_id);
+		System.out.println(result);
 		return result;
 	}
 
