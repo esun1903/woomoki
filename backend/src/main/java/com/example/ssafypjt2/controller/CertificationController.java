@@ -18,6 +18,7 @@ import com.example.ssafypjt2.service.CertificationService;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class CertificationController {
+	// test
 
 	@Autowired
 	private CertificationService certificationService;
