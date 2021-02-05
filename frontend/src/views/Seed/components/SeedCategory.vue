@@ -1,14 +1,9 @@
 <template>
   <v-container>
-    Selected category: {{ category }}
-    <br>
-    isSubmit: {{ isSubmitCategory }}
     <v-btn-toggle
       v-model="category"
       class="d-flex justify-center flex-wrap"
-      color="blue"
       >
-
           <v-btn
             :value="lifestyle"
             width="10vw"

@@ -1,6 +1,7 @@
 <template>
   <v-col class="pa-0">
     <v-text-field
+      placeholder="EX) 매일매일 코딩 공부하기"
       color="success"
       v-model="title"
       :rules="titleRules"
