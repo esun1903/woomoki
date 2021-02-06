@@ -208,26 +208,47 @@ export default {
     }
   },
   methods: {
+    // submit() {
+    //   const credentials = {
+    //     nickName: this.nickName,
+    //     email: this.email,
+    //     phoneNumber: this.phoneNumber,
+    //     password: this.password
+    //   }
+    //   axios.post("http://localhost:8080/signup", credentials)
+    //     .then((res) => {
+    //       console.log(res)
+    //       console.log('회원가입 성공')
+    //       // localStorage.setItem('jwt', res.data.token)
+    //       // axios.post("http://localhost:8080/login/api-token-auth", this.loginParams)
+    //       // this.$router.push({ name: 'FavoriteCategory' })
+    //     })
+    //     .catch((err) => console.log(err))
+    // }
     async submit() {
       const valid = await this.$refs.observer.validate();
+      const credentials = {
+        nickName: this.nickName,
+        email: this.email,
+        phoneNumber: this.phoneNumber,
+        password: this.password
+      }
       if (valid) {
         this.isSubmit = true;
-        axios.post("http://localhost:8080/signup", this.signupParams)
-          .then(() => {
-            axios.post("http://localhost:8080/login", this.loginParams)
+        axios.post("http://localhost:8080/signup", credentials)
+          .then((res) => {
+            console.log(res)
+            console.log('회원가입 성공')
+            localStorage.setItem('jwt', res.data.token)
+            axios.post("http://localhost:8080/login/api-token-auth", this.loginParams)
+            this.$router.push({ name: 'FavoriteCategory' })
           })
           .catch((err) => console.log(err))
-        this.$router.push({ name: 'FavoriteCategory' })
       } else {
         this.isSubmit = false;
         alert("내용을 확인해주세요")
       }
     },
-    clear() {
-      this.email = "";
-      this.password = "";
-      this.$refs.observer.reset();
-    }
   },
 }
 </script>

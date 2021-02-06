@@ -8,6 +8,7 @@
       label="씨앗 이름"
       outlined
       required
+      @input="transferTitle"
     ></v-text-field>
   </v-col>
 </template>
@@ -23,6 +24,11 @@ export default {
         v => v.length >= 5 || '제목은 5자 이상 적어주세요',
         v => v.length <= 20 || '제목은 20자 이하로 적어주세요',
       ],
+    }
+  },
+  methods: {
+    transferTitle: function () {
+      this.$emit('transferTitle', this.title)
     }
   }
 }
