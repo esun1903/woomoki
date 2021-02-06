@@ -38,7 +38,7 @@ public class FavCategoryServiceImpl implements FavCategoryService {
 		
 		//관심카테고리 넣기 
 		int get = favcategoryDao.favCategory(favCategoryDto);
-		System.out.println(get);
+		System.out.println("카테고리 수정 변경 결과" +get);
 		return get;
 	}
 
