@@ -40,6 +40,7 @@
     </v-stepper-header>
 
     <v-stepper-items>
+      
       <v-stepper-content step="1">
         <SeedCategory 
           class="pt-3" 
