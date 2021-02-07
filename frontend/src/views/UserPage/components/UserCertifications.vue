@@ -1,8 +1,8 @@
 <template>
   <v-row>
     <v-col
-      v-for="(card, idx) in cards"
-      :key="idx"
+      v-for="(card, $idx) in cards"
+      :key="$idx"
       class="d-flex child-flex"
       cols="4"
     >
@@ -27,6 +27,7 @@
         </template>
       </v-img>
     </v-col>
+    
   </v-row>
 </template>
 
@@ -38,26 +39,35 @@ export default {
   data: function () {
     return {
       cards: [],
+      limit : 0,
     }
   },
   methods: {
-    UserCertification: function () {
+    UserCertification($state) {
       const userid = 0 
-      axios.get(`http://127.0.0.1:8080/userCertification/${userid}`)
-        .then((res) => {
-          this.cards = res.data
+      axios.get(`http://127.0.0.1:8080/userCertification/${userid}`, {
+        params: {
+          limit : this.limit ,
+          },
         })
-        .catch((err) => {
-          console.log(err)
+        .then(({data}) => {
+          console.log(data)
+          if (data.length) {
+            this.cards = this.cards.concat(data);
+            this.limit += 3;
+            $state.loaded();
+          } else {
+            $state.complete();
+          }
         })
     },
     CertificationDetail: function () {
       console.log("CertificationDetail")
       // 인증 디테일 페이지로 이동
       // this.$push()
-    }
+    },
   },
-  created() {
+  mounted() {
     this.UserCertification();
   }
 }

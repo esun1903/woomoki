@@ -59,8 +59,8 @@ export default {
     },
     data: function () {
         return {
-            tab: null,
-        items: ['피드', '통계'],
+          tab: null,
+          items: ['피드', '통계'],
         };
     },
     methods: {

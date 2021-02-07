@@ -9,6 +9,7 @@ import firebase from 'firebase';
 import VueApexCharts from 'vue-apexcharts';
 import "./common/filters";
 import Carousel3d from 'vue-carousel-3d';
+import InfiniteLoading from "vue-infinite-loading";
 
 Vue.use(Carousel3d);
 Vue.config.productionTip = false;
@@ -16,6 +17,9 @@ Vue.config.productionTip = false;
 // apexcharts 사용
 Vue.use(VueApexCharts)
 Vue.component('apexchart', VueApexCharts)
+
+// infinit-loading 사용
+Vue.use(InfiniteLoading)
 
 Vue.use(Vuex);
 
