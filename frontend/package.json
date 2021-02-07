@@ -33,7 +33,8 @@
     "vue-carousel-3d": "^1.0.1",
     "vue-router": "^3.4.9",
     "vuetify": "^2.2.11",
-    "vuex": "^3.6.0"
+    "vuex": "^3.6.0",
+    "vuex-persistedstate": "^4.0.0-beta.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.13",

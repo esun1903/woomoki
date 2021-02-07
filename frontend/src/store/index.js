@@ -1,32 +1,21 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
+import UserStore from "@/store/modules/UserStore.js";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-    isLogin: false,
+  modules: {
+    UserStore: UserStore,
   },
-  getters: {
+  plugins: [
+    createPersistedState({
+      // 여기다 놓은 모듈들의 store값들은 localstorage에 저장됨 == 새로고침해도 날라가지 않음
+      paths: ['UserStore'],
+    })
+  ]
+})
 
-  },
-  mutations: {
-    LOGIN_SUCCESS (state) {
-      state.isLogin = true
-    },
-    LOGOUT_SUCCESS (state) {
-      state.isLogin = false
-      localStorage.removeItem('jwt')
-      location.reload()
-    }
-  },
-  actions: {
-    loginSuccess({commit}) {
-      commit('LOGIN_SUCCESS')
-    },
-    logoutSuccess({commit}) {
-      commit('LOGOUT_SUCCESS')
-    },
-  },
-  modules: {}
-});
+// export default store;
+

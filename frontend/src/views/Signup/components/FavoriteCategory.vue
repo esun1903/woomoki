@@ -136,29 +136,55 @@ export default {
     },
     // 선택된 카테고리명만 백엔드에 넘기기 위함
     getFavoriteCategories: function (state) {
-      const favoriteCategories = {}
+      const favoriteCategories = []
       
-      const selectedCategories = []
-      for (const favoriteCategory of state.selected) {
-        selectedCategories.push(favoriteCategory.category)
+      // const selectedCategories = []
+      for (const selectedCategory of state.selected) {
+        const favoriteCategory = {}
+        favoriteCategory["user_id"] = "29"
+        favoriteCategory["category_id"] = selectedCategory.category
+        favoriteCategories.push(favoriteCategory)
       }
-      favoriteCategories["category_id"] = selectedCategories
       console.log(favoriteCategories)
+      console.log(this.user)
       return favoriteCategories
-    }
+    },
+
   },
   mounted() {},
   methods: {
+      setToken: function () {
+        const token = localStorage.getItem("jwt");
+        const config = {
+          headers: {
+            Authorization: `JWT ${token}`,
+          },
+        };
+        console.log(config)
+        return config;
+    },
     goMainPage: function (state) {
+      // const config = this.setToken();
+      // axios
+      //   .get("http://127.0.0.1:8080/userPage/test/29", config)
+      //   .then((res) => {
+      //     console.log(res.data);
+      //     this.username = res.data.username;
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
       state.loading = true
+      
 
       setTimeout(() => {
         
         // !!!!!!!!!! 빽에 고른 카테고리 넘겨주기!!!!!!!!!! 
         axios.post("http://localhost:8080/signup/favCategory", this.getFavoriteCategories)
-          .then(() => {
+          .then((res) => {
             console.log('카테고리 담기 성공')
-            console.log(this.getFavoriteCategories)
+            console.log(res)
+            // console.log(this.getFavoriteCategories)
             this.$router.push({ name: 'MainPage' })
           })
           .catch(err => {
