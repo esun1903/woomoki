@@ -207,7 +207,7 @@ export default {
   },
   data: function () {
     return {
-      myId: "",
+      myNickname: "",
       myState: "",
       userState: "",
       UserInfo: {
@@ -230,34 +230,36 @@ export default {
     }
   },
   methods: {
-    // setToken: function () {
-    //   const token = localStorage.getItem("jwt");
-    //   const config = {
-    //     headers: {
-    //       Authorization: `JWT ${token}`,
-    //     },
-    //   };
-    //   return config;
-    // },
+    setToken: function () {
+      const token = localStorage.getItem("jwt");
+      const config = {
+        headers: {
+          Authorization: `JWT ${token}`,
+        },
+      };
+      return config;
+    },
 
-    // jwt 토큰
-    // setToken: function () {
-    //   const config = this.setToken();
-    //   axios.get("??", config)
-    //     .then((res) => {
-    //       this.myId = res.data
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // },
-
-    // 마이페이지 아이콘 or 다른사람의 닉네임을 누르면 
+    getUsername: function () {
+      const config = this.setToken();
+      axios
+        .get("http://127.0.0.1:8000/accounts/username/", config)
+          .then((res) => {
+            console.log(res.data);
+            this.nickname = res.data.nickname;
+            return this.nickname
+          })
+          .catch((err) => {
+            console.log(err);
+            return "error"
+          });
+    },
+    // 마이페이지 아이콘(아이콘을 누를 때 아이디를 this.MyNickname으로 저장해줘야함 그래야 비교 가능) or 다른사람의 닉네임을 누르면 
     // router로 페이지 이동과 함께 params or query로 유저 아이디를 vuex state에 저장한다.
     // 그리고 UserPage.vue가 렌더링 될때 vuex state에 있는 아이디를 post에 보내서 유저 정보를 렌더링
-    // jwt토큰을 가져와서 그 유저정보와 지금 렌더링 되는 유저 정보가 같으면 마이페이지 렌더링, 아니면 유저페이지 렌더링
+    // jwt토큰을 가져와서 그 로그인 되어 있는 유저정보와 지금 렌더링 되는 페이지의 유저 정보가 같으면 마이페이지 렌더링, 아니면 유저페이지 렌더링
     BasicUserInfo: function () {
-      const userid = 0
+      const userid = 1
       axios.get(`http://127.0.0.1:8080/userPage/test/${userid}`)
         .then((res) => {
           this.UserInfo.userImg = res.data.img
@@ -267,7 +269,8 @@ export default {
           this.UserInfo.userLevelTitle = res.data.leveltitle
           this.UserInfo.userDeposit = res.data.deposit
           console.log(this.userInfo)
- 
+
+          this.this.myNickname = this.getUsername()
           // if (this.myId === userid) {
           //   // 내 페이지
           //   // myState에 따라 태그에 v-if 렌더링
