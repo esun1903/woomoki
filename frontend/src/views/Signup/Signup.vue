@@ -201,26 +201,6 @@ export default {
       } else {
         alert("내용을 확인해주세요.")
       }
-
-
-    // async submit() {
-    //   const valid = await this.$refs.observer.validate();
-    //   if (valid) {
-    //     axios.post("http://localhost:8080/signup", this.credentials)
-    //       .then((res) => {
-    //         console.log(res)
-    //         console.log('회원가입 성공')
-    //         localStorage.setItem('jwt', res.data.token)
-            
-    //         this.$store.dispatch('UserStore/signup', this.crendentials)
-    //         this.$store.dispatch('loginSuccess')
-    //         this.$router.push({ name: 'FavoriteCategory' })
-    //       })
-    //       .catch((err) => console.log(err))
-    //   } else {
-    //     alert("내용을 확인해주세요")
-    //   }
-    // },
     }
   }
 }
