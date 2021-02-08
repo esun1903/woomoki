@@ -10,6 +10,7 @@
       required
       label="씨앗에 물주는 방법"
       value="어떻게 해야 하나요?"
+      @input="transferContent"
     ></v-textarea>
   </v-col>
 </template>
@@ -25,6 +26,11 @@ export default {
         v => v.length >= 10 || '참여자들을 위해 내용을 자세히 적어주세요',
         v => v.length <= 200 || '200자를 초과할 수 없습니다',
       ],
+    }
+  },
+  methods: {
+    transferContent: function () {
+      this.$emit('transferContent', this.content)
     }
   }
 }

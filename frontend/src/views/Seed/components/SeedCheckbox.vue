@@ -17,6 +17,11 @@ export default {
       value: false,
       sheet: false,
     }
+  },
+  methods: {
+    transferCheckbox: function () {
+      this.$emit('transferCheckbox', this.value)
+    }
   }
 }
 </script>
