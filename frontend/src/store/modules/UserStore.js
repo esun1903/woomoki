@@ -12,16 +12,14 @@ const UserStore = {
       accessToken: null,
       user_id: "",
       nickname: "",
-      email: "",
-      phone: "",
-      password: "",    
+      email: "",   
     },
     isLogin: false,
   },
   getters: {
     // getAccessToken(state){
-    //   if(localStorage.accessToken && typeof localStorage.accessToken != "undefined")
-    //     return localStorage.accessToken;
+    //   if(state.user.accessToken && typeof stateuser.accessToken != "undefined")
+    //     return state.user.accessToken;
     //   console.log("getAccessToken: " + localStorage.accessToken + " " + state.user.accessToken)
     //   if(state.user.accessToken=null)
     //     return false;
@@ -38,37 +36,21 @@ const UserStore = {
     LOGIN(state, payload){
       console.log("payload[auth-token]: "+payload["auth-token"]);
       state.user.accessToken = payload["auth-token"];
-      state.user.user_id = payload["user_id"];
-      state.user.nickname = payload["nickname"];
-      state.user.email = payload["email"];
-      localStorage.accessToken = state.accessToken;
-      localStorage.user_id = state.user_id;
+      state.user.user_id = payload["user-id"];
+      state.user.nickname = payload["user-name"];
+      state.user.email = payload["user-email"];
+      state.isLogin = true;
     },
-    SIGN_UP(state, payload) {
-      axios.post("http://localhost:8080/signup", payload)
-        .then((res) => {
-          console.log(res);
-          console.log('회원가입 성공');
-          localStorage.setItem('jwt', res.data.token);
-          localStorage.setItem('user_id',res.data.user_id);
-          localStorage.setItem('isLogin', true);
-          state.isLogin=true;
-          router.push({ name: 'FavoriteCategory' });
-        })
-        .catch((err) => {
-          alert("회원가입에 실패했습니다.")
-          console.log(err)
-        })
+    LOGOUT(state) {
+      state.user.accessToken = null;
+      state.user.user_id = "";
+      state.user.nickname = "";
+      state.user.email = "";  
+      state.isLogin = false;
     },
-    LOG_OUT() {
-      localStorage.removeItem('jwt');
-      localStorage.setItem('isLogin', false);
-      localStorage.setItem('user_id', null);
-      router.push({ name: 'Login' });
-    }
   },
   actions: {
-       LOGIN(context, user){
+      LOGIN(context, user){
       console.log(SERVER_URL);
       return axios
         .post(`${SERVER_URL}/login`, user)
@@ -83,11 +65,32 @@ const UserStore = {
           alert("이메일, 비밀번호 확인");
         })
     },
-    signUp({commit}, payload) {
-      commit('SIGN_UP', payload)
+    signUp({commit}, user) {
+      return axios
+      .post(`${SERVER_URL}/signup`, user)
+      .then((response) => {
+        console.log(response);
+        console.log('회원가입 성공');
+        commit('LOGIN', response.data)
+        axios.defaults.headers.common[
+          "auth-token"
+        ] = `${response.data["auth-token"]}`;
+        // localStorage.setItem('jwt', res.data.token);
+        // localStorage.setItem('user_id',res.data.user_id);
+        // localStorage.setItem('isLogin', true);
+        router.push({ name: 'FavoriteCategory' });
+      })
+      .catch((err) => {
+        alert("회원가입에 실패했습니다.")
+        console.log(err)
+      })
+      
     },
     logOut({commit}) {
-      commit('LOG_OUT')
+      axios.defaults.headers.common[
+        "auth-token"
+      ] = undefined;
+      commit('LOGOUT')
     }
   }
 }
