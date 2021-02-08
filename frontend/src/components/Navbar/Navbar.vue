@@ -75,7 +75,7 @@
               </v-btn>
             </template>
             <v-list>
-              <div v-if="isLogined">
+              <div v-if="this.isLogin">
                 <v-list-item @click="goMyPage">
                   <v-list-item-title>마이페이지</v-list-item-title>
                 </v-list-item>
@@ -101,7 +101,7 @@
 
 <script>
 import SearchBar from "@/components/Navbar/SearchBar.vue";
-
+import {mapState} from "vuex";
 export default {
   name: 'Navbar',
   components: { SearchBar },
@@ -126,9 +126,7 @@ export default {
     
   },
   computed:  {
-    isLogined () {
-      return localStorage.getItem('isLogin') 
-    }
+    ...mapState(['isLogin'])
   },  
   methods: {
     
