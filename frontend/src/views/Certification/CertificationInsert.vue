@@ -6,19 +6,20 @@
                 <v-col cols="6" class="left">
                     <!-- <v-layout wrap align-center> -->
                     <v-col cols="4" md="6">
-                        <v-text-field dense label="Title"></v-text-field>
+                        <v-text-field v-model="certForm.title" dense label="Title"></v-text-field>
                     </v-col>
                     <v-col cols="4" md="6">
-                        <v-textarea outlined name="input-7-4" label="Content" value=""></v-textarea>
+                        <v-textarea v-model="certForm.content" outlined name="input-7-4" label="Content" value="">
+                        </v-textarea>
                     </v-col>
                     <v-col cols="4" md="6">
-                        <v-file-input label="인증사진" outlined multiple dense :rules="rules"
+                        <v-file-input v-model="certForm.photo" label="인증사진" outlined multiple dense :rules="rules"
                             accept="image/png, image/jpeg, image/bmp, image/jpg" prepend-icon="mdi-camera">
                         </v-file-input>
                     </v-col>
                     <v-col cols="4" md="6">
-                        <v-combobox multiple v-model="select" label="Tags" small-chips deletable-chips class="tag-input"
-                            :search-input.sync="search"></v-combobox>
+                        <v-combobox multiple v-model="certForm.select" label="Tags" small-chips deletable-chips
+                            class="tag-input" :search-input.sync="search"></v-combobox>
                     </v-col>
                     <v-col cols="4" md="6">
                         <router-link :to="'/'">
@@ -77,13 +78,15 @@
                 fileList: [],
                 select: [],
                 items: [],
-                search: "" //sync search
-            }
-
-            ;
-        }
-
-        ,
+                search: "", //sync search
+                certForm: {
+                    title: "",
+                    content: "",
+                    photo: "",
+                    select: [],
+                }
+            };
+        },
         created() {
             this.getFiles()
             console.log(this.photoURL)
@@ -92,10 +95,12 @@
         methods: {
             submit() {
                 // 값 보내주기
-                alert('인증글 등록 완료!');
-          
-                // 해당 챌린지의 인증 리스트 화면으로 이동
-                // this.$router.push("/");
+                console.log(this.certForm.title);
+                console.log(this.certForm.content);
+                console.log(this.certForm.photo);
+                console.log(this.certForm.select);
+                this.$store.dispatch("CertStore/writeCert", this.certForm);
+
             },
             handleFileUpload() {
                 this.file = this.$refs.file.files[0]
@@ -254,6 +259,7 @@
         -webkit-font-feature-settings: 'liga';
         -webkit-font-smoothing: antialiased;
     }
+
     .cert-insert-btn {
         width: 100%;
         color: #be5656;
