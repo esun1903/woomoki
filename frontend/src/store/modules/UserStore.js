@@ -18,7 +18,7 @@ const UserStore = {
   },
   getters: {
     // getAccessToken(state){
-    //   if(state.user.acessToken && typeof stateuser.accessToken != "undefined")
+    //   if(state.user.accessToken && typeof stateuser.accessToken != "undefined")
     //     return state.user.accessToken;
     //   console.log("getAccessToken: " + localStorage.accessToken + " " + state.user.accessToken)
     //   if(state.user.accessToken=null)
@@ -48,6 +48,7 @@ const UserStore = {
       state.user.email = "";  
       state.isLogin = false;
     },
+    SEND_COM(state, )
   },
   actions: {
       LOGIN(context, user){
@@ -65,9 +66,8 @@ const UserStore = {
           alert("이메일, 비밀번호 확인");
         })
     },
-    signUp({commit}, user) {
-      return axios
-      .post(`${SERVER_URL}/signup`, user)
+    signup({commit}, user) {
+      return axios.post(`${SERVER_URL}/signup`, user)
       .then((response) => {
         console.log(response);
         console.log('회원가입 성공');
@@ -86,12 +86,12 @@ const UserStore = {
       })
       
     },
-    logOut({commit}) {
+    logout({commit}) {
       axios.defaults.headers.common[
         "auth-token"
       ] = undefined;
       commit('LOGOUT')
-    }
+    },
   }
 }
 
