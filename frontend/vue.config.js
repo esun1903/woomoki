@@ -1,6 +1,12 @@
 module.exports = {
-  transpileDependencies: ["vuetify"],
-  devServer: {
-    port: 3000
-  }
-};
+    transpileDependencies: ["vuetify"],
+    configureWebpack: {
+    // other webpack options to merge in ...
+    },
+    // devServer options dont belong into `configureWebpack`
+    devServer: {
+    host: "0.0.0.0",
+    hot: true,
+    disableHostCheck: true
+    }
+}

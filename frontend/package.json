@@ -11,6 +11,7 @@
   },
   "main": "index.js",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.2",
     "apexcharts": "^3.23.1",
     "aws-sdk": "^2.834.0",
     "axios": "^0.21.1",
@@ -32,12 +33,12 @@
     "vue-carousel-3d": "^1.0.1",
     "vue-router": "^3.4.9",
     "vuetify": "^2.2.11",
-    "vuex": "^3.6.0"
+    "vuex": "^3.6.0",
+    "vuex-persistedstate": "^4.0.0-beta.3"
   },
   "devDependencies": {
     "@babel/core": "^7.12.13",
     "@babel/preset-env": "^7.12.13",
-    "@fortawesome/fontawesome-free": "^5.15.2",
     "@mdi/font": "^5.9.55",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",

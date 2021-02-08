@@ -1,34 +1,41 @@
 <template>
     <v-app>
         <v-container>
+            <h2>인증하기</h2>
             <v-row>
-                <v-layout wrap align-center>
-                    <v-flex>
-                        <h2>인증하기</h2>
-                            <v-col cols="12" md="6">
-                                <v-text-field dense label="Title"></v-text-field>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-textarea outlined name="input-7-4" label="Content" value=""></v-textarea>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-file-input label="인증사진" outlined multiple dense :rules="rules"
-                                    accept="image/png, image/jpeg, image/bmp, image/jpg" prepend-icon="mdi-camera">
-                                </v-file-input>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-combobox multiple v-model="select" label="Tags" small-chips deletable-chips
-                                    class="tag-input" :search-input.sync="search"></v-combobox>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <router-link :to="'/'">
-                                    <BackBtn />
-                                </router-link>
-                            </v-col>
-                            <v-img lazy-src="https://picsum.photos/id/11/10/6" max-height="150" max-width="250"
-                                src="https://picsum.photos/id/11/500/300"></v-img>
-                    </v-flex>
-                </v-layout>
+                <v-col cols="6" class="left">
+                    <!-- <v-layout wrap align-center> -->
+                    <v-col cols="4" md="6">
+                        <v-text-field dense label="Title"></v-text-field>
+                    </v-col>
+                    <v-col cols="4" md="6">
+                        <v-textarea outlined name="input-7-4" label="Content" value=""></v-textarea>
+                    </v-col>
+                    <v-col cols="4" md="6">
+                        <v-file-input label="인증사진" outlined multiple dense :rules="rules"
+                            accept="image/png, image/jpeg, image/bmp, image/jpg" prepend-icon="mdi-camera">
+                        </v-file-input>
+                    </v-col>
+                    <v-col cols="4" md="6">
+                        <v-combobox multiple v-model="select" label="Tags" small-chips deletable-chips class="tag-input"
+                            :search-input.sync="search"></v-combobox>
+                    </v-col>
+                    <v-col cols="4" md="6">
+                        <router-link :to="'/'">
+                            <BackBtn />
+                        </router-link>
+                        <v-btn class="cert-insert-btn" rounded color="white" type="submit">
+                            인증글 등록하기
+                        </v-btn>
+                    </v-col>
+
+                    <!-- </v-layout> -->
+                </v-col>
+                <v-col cols="6" class="right">
+                    <v-img lazy-src="https://picsum.photos/id/11/10/6" max-height="750" max-width="600"
+                        src="https://picsum.photos/id/11/500/300"></v-img>
+                </v-col>
+
                 <!-- <h1>파일 리스트 </h1>
                 <div v-for="(file, index) in fileList" :key="file.Key">#{{index+1}} {{file.Key}}
 
@@ -83,6 +90,13 @@
         },
         mounted() {},
         methods: {
+            submit() {
+                // 값 보내주기
+                alert('인증글 등록 완료!');
+          
+                // 해당 챌린지의 인증 리스트 화면으로 이동
+                // this.$router.push("/");
+            },
             handleFileUpload() {
                 this.file = this.$refs.file.files[0]
                 console.log(this.file, '파일이 업로드 되었습니다.')
@@ -239,5 +253,11 @@
         direction: ltr;
         -webkit-font-feature-settings: 'liga';
         -webkit-font-smoothing: antialiased;
+    }
+    .cert-insert-btn {
+        width: 100%;
+        color: #be5656;
+        margin-top: 20px;
+        text-decoration: none;
     }
 </style>
