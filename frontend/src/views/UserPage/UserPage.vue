@@ -34,7 +34,7 @@
                 >
                 <v-card-text v-if="item === '피드'"><UserCertifications></UserCertifications></v-card-text>
                 <!-- <v-card-text v-if="item === '챌린지'"><ChallengeResults></ChallengeResults></v-card-text> -->
-                <v-card-text v-if="item === '통계'"><UserStat></UserStat></v-card-text>
+                <v-card-text v-if-else="item === '통계'"><UserStat></UserStat></v-card-text>
               </v-card>
             </v-tab-item>
           </v-tabs-items>
@@ -59,8 +59,8 @@ export default {
     },
     data: function () {
         return {
-            tab: null,
-        items: ['피드', '통계'],
+          tab: null,
+          items: ['피드', '통계'],
         };
     },
     methods: {
