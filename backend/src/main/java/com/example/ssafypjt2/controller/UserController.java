@@ -42,24 +42,26 @@ public class UserController {
 	public static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@PostMapping("/login")
-	public ResponseEntity<Map<String, Object>> login(@RequestBody UserDto userDto, HttpServletResponse response,
-			HttpSession session) {
+	public ResponseEntity<Map<String, Object>> login(@RequestBody UserDto userDto, HttpServletResponse response) {
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = null;
 		try {
 			UserDto loginUser = userService.login(userDto);
-			System.out.println("loginUser 들어가기전에 ! " + loginUser.getEmail() + " " + loginUser.getPassword());
+			System.out.println("loginUser 들어가기전에 ! " + loginUser.getEmail() + " " + loginUser.getPassword() + " "+loginUser.getId()
+			+loginUser.getIntroduce()+" "+loginUser.getPhone()+" ");
 			if (loginUser != null) {
 //				jwt.io에서 확인
 //				로그인 성공했다면 토큰을 생성한다.
 				String token = jwtService.create(loginUser);
 				logger.trace("로그인 토큰정보 : {}", token);
 
+				System.out.println("로그인"+loginUser.getId());
 //	                           토큰 정보는 response의 헤더로 보내고 나머지는 Map에 담는다.
 //             	response.setHeader("auth-token", token);
 				resultMap.put("auth-token", token);
 				resultMap.put("user-name", loginUser.getNickname());
 				resultMap.put("user-email", loginUser.getEmail());
+				resultMap.put("user-id", loginUser.getId());
 				status = HttpStatus.ACCEPTED;
 			} else {
 				resultMap.put("message", "로그인 실패");
@@ -76,8 +78,7 @@ public class UserController {
 
 	@CrossOrigin(origins = "*")
 	@PostMapping("/signup")
-	public ResponseEntity<Map<String, Object>> signup(@RequestBody UserDto userDto, HttpServletResponse response,
-			HttpSession session) { // 회원가입후 로그인이 되게끔 하기
+	public ResponseEntity<Map<String, Object>> signup(@RequestBody UserDto userDto, HttpServletResponse response) { // 회원가입후 로그인이 되게끔 하기
 
 		HttpStatus status = null;
 		Map<String, Object> resultMap = new HashMap<>();
@@ -89,6 +90,7 @@ public class UserController {
 			try {
 				UserDto loginUser = userService.login(userDto);
 				System.out.println("loginUser 들어가기전에 ! " + loginUser.getEmail() + " " + loginUser.getPassword());
+				System.out.println("아이디" + loginUser.getId());
 				if (loginUser != null) {
 //					jwt.io에서 확인
 //					로그인 성공했다면 토큰을 생성한다.
@@ -100,6 +102,7 @@ public class UserController {
 					resultMap.put("auth-token", token);
 					resultMap.put("user-name", loginUser.getNickname());
 					resultMap.put("user-email", loginUser.getEmail());
+					resultMap.put("user-id", loginUser.getId());
 					status = HttpStatus.CREATED;
 				} else {
 					resultMap.put("message", "로그인 실패");

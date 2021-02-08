@@ -81,6 +81,9 @@ export default {
     onDeleteImage() {
       this.text = "썸네일 사진 변경"
       this.imageUrl = ""
+    },
+    transferThumbnail: function () {
+      this.$emit('transferThumbnail', this.imageUrl)
     }
   }
 }

@@ -12,6 +12,9 @@ target/
 .settings
 .springBeans
 .sts4-cache
+application.properties
+.gradle/
+Servers/
 
 ### IntelliJ IDEA ###
 .idea

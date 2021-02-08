@@ -20,7 +20,13 @@ public class UserServiceImpl implements UserService {
 	public UserDto login(UserDto userDto) throws Exception {
 		System.out.println(userDto.getNickname());
 		System.out.println(dao.login(userDto.getEmail()).getJoin_date());
-		return dao.login(userDto.getEmail());
+		UserDto result =  dao.login(userDto.getEmail());
+
+		System.out.println("아이디를 받아와 ~ "+ result.getId());
+		System.out.println("이메일을 받아와 ~ "+ result.getEmail());
+		System.out.println("이메일을 받아와 ~ "+ result.getIntroduce());
+		System.out.println("레벨을 받아와 ~ "+ result.getLevelnum());
+		return result;
 		
 	}
 

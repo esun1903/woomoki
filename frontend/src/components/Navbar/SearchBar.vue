@@ -12,7 +12,10 @@
   :loading="loading"
   :items="items"
   :search-input.sync="search"
-  cache-items
+  append-icon=""
+  append-outer-icon="fas fa-search"
+  auto-select-first="true"
+  click="onSearch"
   class="mx-4"
   flat
   hide-no-data
@@ -35,29 +38,14 @@ export default {
         items: [],
         search: null,
         select: null,
-        states: [
-          'Alabama',
-          'Alaska',
-          'American Samoa',
-          'Arizona',
-          'Arkansas',
-          'California',
-          'Colorado',
-          'Connecticut',
-          'Delaware',
-          'District of Columbia',
-          'Federated States of Micronesia',
-          'Florida',
-          'Georgia',
-          'Guam',
-          'Hawaii',
-          'Idaho',
-          'Illinois',
-          'Indiana',
-          'Iowa',
-          'Kansas',
-          'Kentucky',
-          'Louisiana',
+        foods: [
+          '고추장',
+          '감자',
+          '고구마',
+          '감자채볶음',
+          '고기리 막국수',
+          '고기국수',
+          '고기리 김치찜'
         ],
       }
     },
@@ -74,12 +62,15 @@ export default {
         this.loading = true
         // Simulated ajax query
         setTimeout(() => {
-          this.items = this.states.filter(e => {
+          this.items = this.foods.filter(e => {
             return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
           })
           this.loading = false
         }, 500)
       },
+      onSearch: function () {
+        console.log('검색중')
+      }
     },
 };
 </script>
