@@ -12,7 +12,6 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
-            @input="transferDate"
             v-model="dateRangeText"
             label="인증 기간을 선택해주세요"
             prepend-icon="mdi-calendar"
@@ -30,18 +29,25 @@
           <v-spacer></v-spacer>
           <v-btn
             text
-            color="primary"
+            color="success"
             @click="menu = false"
           >
             Cancel
           </v-btn>
           <v-btn
             text
-            color="primary"
-            @click="$refs.menu.save(dates)"
+            color="success"
+            @click="transferDate"
           >
             OK
           </v-btn>
+          <!-- <v-btn
+            text
+            color="success"
+            @click="[$refs.menu.save(dates), transferDate]"
+          >
+            OK
+          </v-btn> -->
         </v-date-picker>
       </v-menu>
     </v-col>
@@ -75,12 +81,13 @@ export default {
   },
   methods: {
     transferDate: function () {
+      this.$refs.menu.save(this.dates)
       this.$emit('transferDate', this.dates)
     }
   },
   computed: {
     dateRangeText () {
-      console.log(this.dates)
+      // console.log(this.dates)
       return this.dates.join(' ~ ')
     },
   },
