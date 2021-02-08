@@ -18,7 +18,7 @@ const UserStore = {
   },
   getters: {
     // getAccessToken(state){
-    //   if(state.user.accessToken && typeof stateuser.accessToken != "undefined")
+    //   if(state.user.acessToken && typeof stateuser.accessToken != "undefined")
     //     return state.user.accessToken;
     //   console.log("getAccessToken: " + localStorage.accessToken + " " + state.user.accessToken)
     //   if(state.user.accessToken=null)

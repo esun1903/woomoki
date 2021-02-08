@@ -55,7 +55,7 @@ export default {
   methods: {
     async SeedDetailInfo () {
     
-      const seedId = 6
+      const seedId = 1
       const SeedInfo = await axios.get(`http://127.0.0.1:8080/detailChallenge/${seedId}`)
       this.SeedInfo = SeedInfo.data
       console.log("seed 데이터 응답")

@@ -9,6 +9,7 @@ import firebase from 'firebase';
 import VueApexCharts from 'vue-apexcharts';
 import "./common/filters";
 import Carousel3d from 'vue-carousel-3d';
+import { UserStore } from "./store/modules/UserStore"
 
 Vue.use(Carousel3d);
 Vue.config.productionTip = false;
@@ -42,6 +43,7 @@ if(window.location.hostname === 'localhost') {
 new Vue({
   router,
   store,
+  UserStore,
   vuetify,
   axios,
   firebase,
