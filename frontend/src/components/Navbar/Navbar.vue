@@ -131,6 +131,7 @@ export default {
     }
   },  
   methods: {
+    
     goMyPage: function () {
       this.$router.push({ name: 'UserPage' }) 
     },
