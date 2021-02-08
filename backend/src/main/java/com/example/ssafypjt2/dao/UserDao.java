@@ -16,14 +16,15 @@ import com.example.ssafypjt2.dto.UserDto;
 
 @Mapper
 public interface UserDao {
- 
-	
-
-	@Select(" SELECT id AS UserId, nickname AS NickName, password AS PassWord, "
+ /*	@Select(" SELECT id AS UserId, nickname AS NickName, password AS PassWord, "
 			+ " phone AS Phone, email AS Email, introduce AS Introduce, "
 			+ " levelnum AS LevelNum, leveltitle AS LevelTitle, img AS Img, "
 			+ " deposit AS Deposit, DATE_FORMAT(join_date,'%Y.%m.%d.') AS userJoin_Date "
 			+ " FROM user WHERE email = #{Email} ")
+ * */
+	
+
+	@Select(" SELECT * FROM user WHERE email = #{Email} ")
 	public UserDto login(String email) throws SQLException;
 
 	
