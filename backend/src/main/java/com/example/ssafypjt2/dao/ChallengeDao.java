@@ -28,7 +28,7 @@ public interface ChallengeDao {
 			+ " VALUES ( "
 			+ "#{challengeDto.category_id}, #{challengeDto.user_id}, "
 			+ "#{challengeDto.title}, #{challengeDto.content}, #{challengeDto.sum_img}, "
-			+ "now(), now(), #{challengeDto.cert_count}, "
+			+ "#{challengeDto.start_date}, #{challengeDto.end_date}, #{challengeDto.cert_count}, "
 			+ "#{challengeDto.max_people}, #{challengeDto.example_img}, #{challengeDto.join_deposit} )")
 	@Options(useGeneratedKeys = true)
 	public int challengeInsert(@Param("challengeDto")ChallengeDto challengeDto);

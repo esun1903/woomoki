@@ -98,12 +98,12 @@ public class ChallengeController {
 	@CrossOrigin(origins = "*") // 메인 페이지 보여주기
 	@PostMapping("/")
 	public List<ChallengeDto> favCategory(@RequestBody UserDto userDto) {
-
 		System.out.println(userDto.getId()+"가 가장 관심이 있어하는 카테고리 리스트 보여주기");
 		List<ChallengeDto> result = favCategoryService.main_favCategory(userDto.getId());
 		System.out.println(result);
 		return result;
 	}
+
 // 이거 올릴겁니다 !:)
 
 }

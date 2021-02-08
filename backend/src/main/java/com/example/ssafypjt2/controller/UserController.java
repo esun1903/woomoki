@@ -102,6 +102,7 @@ public class UserController {
 					resultMap.put("auth-token", token);
 					resultMap.put("user-name", loginUser.getNickname());
 					resultMap.put("user-email", loginUser.getEmail());
+					resultMap.put("user-id", loginUser.getId());
 					status = HttpStatus.CREATED;
 				} else {
 					resultMap.put("message", "로그인 실패");
