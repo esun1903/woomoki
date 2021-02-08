@@ -65,7 +65,7 @@
             :loading="loading"
             color="green"
             text
-            @click="goMainPage"
+            @click="sendFavoriteCategories"
           >GRITREE 시작하기!</v-btn>
         </v-card-actions>
       </v-card>
@@ -75,6 +75,7 @@
 
 <script>
 import axios from "axios";
+import {mapState} from "vuex";
 export default {
   name: "FavoriteCategory",
   components: {},
@@ -85,31 +86,37 @@ export default {
     items: [
         {
           category: '건강',
+          category_id: '1',
           icon: 'mdi-dumbbell',
           content: '식이조절, 복근 만들기, 클로이팅 챌린지, 식단일기 쓰기 등이 있어요! '
         },
         {
           category: '생활습관',
+          category_id: '2',
           icon: 'mdi-calendar-check',
           content: '미라클 모닝, 스크린 타임 4시간, 물 2L 마시기, 매일 일기쓰기 등이 있어요!'
         },
         {
           category: '독서',
+          category_id: '3',
           icon: 'mdi-bookshelf',
           content: '30분 책읽기, 코스모스 끝내기, 독서 기록장 쓰기, 한 달 두 권 읽기 등이 있어요!'
         },
         {
           category: '자산',
+          category_id: '4',
           icon: 'mdi-cash-usd-outline',
           content: '경제 기사 스크랩, 가계부 쓰기, 출근 길 택시 안 타기, 주식일기 쓰기 등이 있어요!'
         },
         {
           category: '자기계발',
+          category_id: '5',
           icon: 'mdi-school',
           content: '1일 2알고리즘, 매일 영단어 20개, 뉴스레터 밀리지 않기, 컴활 공부하기 등이 있어요'
         },
         {
           category: '취미',
+          category_id: '6',
           icon: 'mdi-piano',
           content: '매일 크로키, 기타 연습하기, 영상 편집하기, 프랑스자수-기초 스티치 마스터 등이 있어요!'
         },
@@ -119,7 +126,8 @@ export default {
     };
   },
   computed: {
-    // ----------------- FavoriteCategory용-----------------
+    ...mapState('UserStore', ['user']),
+
     // 모든 아이템이 골라졌을 때 구분선 없애기 위함
     isAllSelected: function (state) {
       return state.selected.length === state.items.length
@@ -137,66 +145,48 @@ export default {
     // 선택된 카테고리명만 백엔드에 넘기기 위함
     getFavoriteCategories: function (state) {
       const favoriteCategories = []
-      
-      // const selectedCategories = []
       for (const selectedCategory of state.selected) {
         const favoriteCategory = {}
-        favoriteCategory["user_id"] = "29"
-        favoriteCategory["category_id"] = selectedCategory.category
+        const user_id = this.user.user_id
+        favoriteCategory["user_id"] = user_id
+        favoriteCategory["category_id"] = selectedCategory.category_id
         favoriteCategories.push(favoriteCategory)
       }
-      console.log(favoriteCategories)
-      console.log(this.user)
+      console.log(userFavoriteCateogories)
       return favoriteCategories
     },
-
   },
   mounted() {},
   methods: {
-      setToken: function () {
-        const token = localStorage.getItem("jwt");
-        const config = {
-          headers: {
-            Authorization: `JWT ${token}`,
-          },
-        };
-        console.log(config)
-        return config;
-    },
-    goMainPage: function (state) {
-      // const config = this.setToken();
-      // axios
-      //   .get("http://127.0.0.1:8080/userPage/test/29", config)
-      //   .then((res) => {
-      //     console.log(res.data);
-      //     this.username = res.data.username;
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+    sendFavoriteCategories: function (state) {
       state.loading = true
-      
-
       setTimeout(() => {
-        
-        // !!!!!!!!!! 빽에 고른 카테고리 넘겨주기!!!!!!!!!! 
-        axios.post("http://localhost:8080/signup/favCategory", this.getFavoriteCategories)
-          .then((res) => {
-            console.log('카테고리 담기 성공')
-            console.log(res)
-            // console.log(this.getFavoriteCategories)
-            this.$router.push({ name: 'MainPage' })
-          })
-          .catch(err => {
-            console.log(err)
-            console.log('카테고리 담기 실패')
-            console.log(this.getFavoriteCategories)
-          })
-
-        state.search = ''
+        this.$store.dispatch('UserStore/sendFavoriteCategories', this.getFavoriteCategories)
+        this.$store.dispatch('UserStore/saveFavoriteCategories', this.userFavoriteCategories)
         state.selected = []
         state.loading = false
-      }, 2000)
+      },2000)
+      
+      // setTimeout(() => {
+        
+      //   // !!!!!!!!!! 빽에 고른 카테고리 넘겨주기!!!!!!!!!! 
+      //   axios.post("http://localhost:8080/signup/favCategory", this.getFavoriteCategories)
+      //     .then((res) => {
+      //       console.log('카테고리 담기 성공')
+      //       console.log(res)
+      //       // console.log(this.getFavoriteCategories)
+      //       this.$router.push({ name: 'MainPage' })
+      //     })
+      //     .catch(err => {
+      //       console.log(err)
+      //       console.log('카테고리 담기 실패')
+      //       console.log(this.getFavoriteCategories)
+      //     })
+
+      //   state.search = ''
+      //   state.selected = []
+      //   state.loading = false
+      // }, 2000)
     },
   }
 };
