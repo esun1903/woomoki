@@ -8,7 +8,7 @@
       <v-stepper-step
         color="success"
         edit-icon="$complete"
-        editable
+        
         :complete="e1 > 1"
         step="1"
       >
@@ -20,7 +20,7 @@
       <v-stepper-step
         color="success"
         edit-icon="$complete"
-        editable
+        
         :complete="e1 > 2"
         step="2"
       >
@@ -33,7 +33,7 @@
         color="success"
         edit-icon="$complete"
         step="3"
-        editable
+        
       >
         기타
       </v-stepper-step>
@@ -133,13 +133,14 @@
             <template v-slot:activator="{ on, attrs }">
             
               <v-btn
-                color="success lighten-2"
-                dark
+                color="success"
                 v-bind="attrs"
                 v-on="on"
-                :disabled="isSubmitTotalSeedData === false"
+                @click="InsertSeed"
+                :disabled="EtcInfo.isSubmitEtc === false"
               >생성
               </v-btn>
+
             </template>
             <v-sheet
               class="text-center"
@@ -172,6 +173,12 @@
             >
             <router-link to="/">취소</router-link>
           </v-btn>
+          <v-btn 
+            text
+            @click="e1 = 2"
+          >
+            뒤로가기
+          </v-btn>
         </div>
 
 
@@ -187,12 +194,12 @@ import SeedThumbnail from "./components/SeedThumbnail.vue"
 import SeedTitle from "./components/SeedTitle.vue"
 import SeedContent from "./components/SeedContent.vue"
 import SeedDate from "./components/SeedDate.vue"
-// import SeedButton from "./components/SeedButton.vue"
 import SeedCategory from "./components/SeedCategory.vue"
 import SeedPeople from "./components/SeedPeople.vue"
 import SeedDeposit from "./components/SeedDeposit.vue"
 import SeedCertificationImg from "./components/SeedCertificationImg.vue"
 import SeedCheckbox from "./components/SeedCheckbox.vue"
+import axios from 'axios'
 
 export default {
   name: 'CreateSeed',
@@ -201,7 +208,6 @@ export default {
     SeedTitle,
     SeedContent,
     SeedDate,
-    // SeedButton,
     SeedCategory,
     SeedPeople,
     SeedDeposit,
@@ -213,12 +219,16 @@ export default {
       e1: 1,
       slides: 7,
       sheet: false,
+      // userId: this.$UserStore.state.user_id,
       category: "",
       thumbnail: "",
       title: "",
       content: "",
       certificationImg: "",
+      like_cnt: 0,
       date: "",
+      start_date: "",
+      end_date: "",
       people: 0,
       joinDeposit: "",
       checkbox: false,
@@ -245,35 +255,60 @@ export default {
     }
   },
   methods: {
+    // 씨앗 생성
+    InsertSeed: function () {
+      const SeedData = {
+        category_id: this.category,
+        cert_count: 0,
+        content: this.content,
+        end_date: this.date[0],
+        example_img: this.certificationImg,
+        join_deposit: Number(this.joinDeposit),
+        like_cnt: this.like_cnt,
+        max_people: this.people,
+        start_date: this.date[0],
+        sum_img: this.thumbnail,
+        title: this.title,
+        user_id: this.userId
+      }
+      axios.post("http://127.0.0.1:8080/insertChallenge", SeedData)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
     // 컴포넌트에서 데이터 받아오기
-    receiveLifestyle: function (isSubmitCategory, lifestyle) {
+    // receiveHealth: function (isSubmitCategory, health) {
+    receiveHealth: function (isSubmitCategory) {
       this.isSubmitCategory = isSubmitCategory
-      this.category = lifestyle
+      this.category = 1
       console.log(this.category)
     },
-    receiveHealth: function (isSubmitCategory, health) {
+    receiveLifestyle: function (isSubmitCategory) {
       this.isSubmitCategory = isSubmitCategory
-      this.category = health
+      this.category = 2
       console.log(this.category)
     },
-    receiveBook: function (isSubmitCategory, health) {
+    receiveBook: function (isSubmitCategory) {
       this.isSubmitCategory = isSubmitCategory
-      this.category = health
+      this.category = 3
       console.log(this.category)
     },
-    receiveAssets: function (isSubmitCategory, health) {
+    receiveAssets: function (isSubmitCategory) {
       this.isSubmitCategory = isSubmitCategory
-      this.category = health
+      this.category = 4
       console.log(this.category)
     },
-    receiveGrown: function (isSubmitCategory, health) {
+    receiveGrown: function (isSubmitCategory) {
       this.isSubmitCategory = isSubmitCategory
-      this.category = health
+      this.category = 5
       console.log(this.category)
     },
-    receiveHobby: function (isSubmitCategory, health) {
+    receiveHobby: function (isSubmitCategory) {
       this.isSubmitCategory = isSubmitCategory
-      this.category = health
+      this.category = 6
       console.log(this.category)
     },
     receiveThumbnail: function (thumbnail) {
@@ -322,34 +357,34 @@ export default {
     },
     checkFormEtc: function () {
       // 예시 이미지 검사
-      if (this.EtcInfo.certificationImg.length > 0) {
+      if (this.certificationImg.length > 0) {
         this.EtcInfo.isSubmit.isCertificationImg = true
       } else {
         this.EtcInfo.isSubmit.isCertificationImg = false
       }
 
       // 날짜 검사
-      if (this.EtcInfo.date.length > 0) {
+      if (this.date.length > 0) {
         this.EtcInfo.isSubmit.isDate = true
       } else {
         this.EtcInfo.isSubmit.isDate = false
       }
 
       // 참여 인원
-      if (this.EtcInfo.people > 0) {
+      if (this.people > 0) {
         this.EtcInfo.isSubmit.isPeople = true
       } else {
         this.EtcInfo.isSubmit.isPeople = false
       
       // 참여 금액 검사
-      if (/^[0-9]+$/.test(this.EtcInfo.joinDeposit)) {
+      if (this.joinDeposit.length <= 5 && /^[0-9]+$/.test(this.joinDeposit)) {
         this.EtcInfo.isSubmit.isjoinDeposit = true
       } else {
         this.EtcInfo.isSubmit.isjoinDeposit = false
       }
 
       // 체크박스 검사
-      if (this.EtcInfo.checkbox === true) {
+      if (this.checkbox === true) {
         this.EtcInfo.isSubmit.isCheckbox = true
       } else {
         this.EtcInfo.isSubmit.isCheckbox = false
@@ -359,6 +394,7 @@ export default {
         if (!v) { this.EtcInfo.isSubmitEtc = false; }
         else {this.EtcInfo.isSubmitEtc = true;}
       })
+      console.log(this.EtcInfo.isSubmitEtc)
     }}
   },
   watch: {

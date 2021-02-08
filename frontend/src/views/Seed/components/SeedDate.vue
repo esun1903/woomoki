@@ -12,6 +12,7 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
+            @input="transferDate"
             v-model="dateRangeText"
             label="인증 기간을 선택해주세요"
             prepend-icon="mdi-calendar"

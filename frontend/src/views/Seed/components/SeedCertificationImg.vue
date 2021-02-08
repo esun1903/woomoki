@@ -15,7 +15,7 @@
           <v-img
               v-if="imageUrl"
               :src="imageUrl"
-              contain
+              
           ></v-img>
         
         <v-fade-transition>

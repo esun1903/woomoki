@@ -7,6 +7,7 @@
       label="최대 참여 인원 수"
       dense
       outlined
+      @input="transferPeople"
     ></v-select>
         <!-- <v-col class="pr-4">
           <v-slider

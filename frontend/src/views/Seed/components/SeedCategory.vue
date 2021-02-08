@@ -160,7 +160,7 @@ export default {
       //   isSubmit: this.isSubmitCategory,
       //   category: this.lifestyle
       // }
-      this.$emit('transferLifestyle', this.isSubmitCategory, this.lifestyle)
+      this.$emit('transferLifestyle', this.isSubmitCategory)
     },
     clickHealth: function () {
       if (this.category === undefined) {
@@ -172,7 +172,7 @@ export default {
       else {
         this.isSubmitCategory = false
       }
-      this.$emit('transferHealth', this.isSubmitCategory, this.health)
+      this.$emit('transferHealth', this.isSubmitCategory)
     },
     clickBook: function () {
       if (this.category === undefined) {
@@ -184,7 +184,7 @@ export default {
       else {
         this.isSubmitCategory = false
       }
-      this.$emit('transferBook', this.isSubmitCategory, this.book)
+      this.$emit('transferBook', this.isSubmitCategory)
     },
     clickAssets: function () {
       if (this.category === undefined) {
@@ -196,7 +196,7 @@ export default {
       else {
         this.isSubmitCategory = false
       }
-      this.$emit('transferAssets', this.isSubmitCategory, this.assets)
+      this.$emit('transferAssets', this.isSubmitCategory)
     },
     clickGrown: function () {
       if (this.category === undefined) {
@@ -208,7 +208,7 @@ export default {
       else {
         this.isSubmitCategory = false
       }
-      this.$emit('transferGrown', this.isSubmitCategory, this.grown)
+      this.$emit('transferGrown', this.isSubmitCategory)
     },
     clickHobby: function () {
       if (this.category === undefined) {
@@ -220,7 +220,8 @@ export default {
       else {
         this.isSubmitCategory = false
       }
-      this.$emit('transferHobby', this.isSubmitCategory, this.hobby)
+      // this.$emit('transferHobby', this.isSubmitCategory, this.hobby)
+      this.$emit('transferHobby', this.isSubmitCategory)
     },
       // // 여러 값 중 하나만 true가 한개만 있어도
       // // isSubmitCategory 가 true로 바뀌고
