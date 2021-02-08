@@ -16,14 +16,15 @@ import com.example.ssafypjt2.dto.UserDto;
 
 @Mapper
 public interface UserDao {
- 
-	
-
-	@Select(" SELECT id AS UserId, nickname AS NickName, password AS PassWord, "
+ /*	@Select(" SELECT id AS UserId, nickname AS NickName, password AS PassWord, "
 			+ " phone AS Phone, email AS Email, introduce AS Introduce, "
 			+ " levelnum AS LevelNum, leveltitle AS LevelTitle, img AS Img, "
 			+ " deposit AS Deposit, DATE_FORMAT(join_date,'%Y.%m.%d.') AS userJoin_Date "
 			+ " FROM user WHERE email = #{Email} ")
+ * */
+	
+
+	@Select(" SELECT * FROM user WHERE email = #{Email} ")
 	public UserDto login(String email) throws SQLException;
 
 	
@@ -52,7 +53,7 @@ public interface UserDao {
 
 	//유저가 등록되어있는 챌린지의 리스트를 반환하기
 	@Select ("SELECT cha.id , cha.category_id, cha.user_id, cha.title, cha.title, cha.content, cha.sum_img, cha.start_date, cha.end_date, cha.cert_count, " +
-			"cha.max_people, cha.example_img, cha.join_deposit, cha.like_cnt, cha.writer " +
+			"cha.max_people, cha.example_img, cha.join_deposit, cha.like_cnt " +
 			"FROM joined_challenge AS joy JOIN challenge AS cha " +
 			"ON joy.id = #{user_id} AND joy.cng_id = cha.id")
    public   List<ChallengeDto> userPageJoincng(int user_id);

@@ -12,11 +12,11 @@
           <validation-observer v-slot="{ invalid }" ref="observer">
             <v-form @submit.prevent="submit">
               <validation-provider v-slot="{ errors }" name="email" rules="required|email">
-                <v-text-field v-model="email" :error-messages="errors" label="Email" required outlined dark filled
+                <v-text-field v-model="user.email" :error-messages="errors" label="Email" required outlined dark filled
                   dense></v-text-field>
               </validation-provider>
               <validation-provider v-slot="{ errors }" name="password" rules="required|password">
-                <v-text-field v-model="password" :error-messages="errors" label="Password"
+                <v-text-field v-model="user.password" :error-messages="errors" label="Password"
                   :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'" @click:append="showPass = !showPass" required
                   outlined dense dark filled :type="showPass ? 'text' : 'password'"></v-text-field>
               </validation-provider>
@@ -105,25 +105,27 @@
       Naver,
       Google,
     },
-    data: () => ({
-      email: '',
-      password: '',
-      showPass: false,
-    }),
-    computed: {
-      params() {
-        return {
-          email: this.email,
-          password: this.password
-        }
-      }
+    data: function () {
+      return {
+        user: {
+        email: "",
+        password: "",
+      },
+        showPass: false,
+      };
+    },
+  computed: {
+
     },
     methods: {
       async submit() {
         const valid = await this.$refs.observer.validate()
         if (valid) {
-          // this.login(this.params) // action to login
-          this.$router.push("/");
+          console.log(this.user.email);
+          console.log(this.user.password);
+          this.$store.dispatch("UserStore/LOGIN", this.user);
+        }else{
+          alert("이메일, 비밀번호를 확인해주세요")
         }
       },
     }

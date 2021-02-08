@@ -4,7 +4,7 @@
     <v-checkbox
         color="success lighten-2"
         v-model="value"
-        :label="`함께하는 사람이 있으면 씨앗을 없앨 수 없습니다 ${value.toString()}`"
+        :label="'참여자가 있다면 중간에 씨앗을 없앨 수 없어요!'"
     ></v-checkbox>
   </v-col>
 </template>
@@ -16,6 +16,11 @@ export default {
     return {
       value: false,
       sheet: false,
+    }
+  },
+  methods: {
+    transferCheckbox: function () {
+      this.$emit('transferCheckbox', this.value)
     }
   }
 }

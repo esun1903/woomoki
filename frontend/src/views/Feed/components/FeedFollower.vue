@@ -1,17 +1,14 @@
 <template>
-  <carousel-3d
-    @after-slide-change="onAfterSlideChange"
-    @before-slide-change="onBeforeSlideChange"
-    @last-slide="onLastSlide"
-  >
-    <slide
-      v-for="(certification, i) in certifications"
-      :index="i"
-      :key="certification"
-    >
-      <card>
-        <img :src="certification['src']" />
-      </card>
+  <carousel-3d @after-slide-change="onAfterSlideChange" @before-slide-change="onBeforeSlideChange" @last-slide="onLastSlide">
+    <slide v-for="(certification, i) in certifications" :index="i" :key="certification">
+      <figure>
+        <img :src="certification['src']">
+        <figcaption>
+          {{ certification.title }}	
+          <br>
+          {{ certification.user }}
+        </figcaption>
+      </figure>
     </slide>
   </carousel-3d>
 </template>
@@ -141,5 +138,25 @@ export default {
 
 <style lang="scss" scoped>
 .img {
+  max-width: 100%;
+  height: auto;
+}
+.carousel-3d-container figure {
+  margin:0;
+}
+
+.carousel-3d-container figcaption {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  bottom: 0;
+  position: absolute;
+  bottom: 0;
+  padding: 15px;
+  font-size: 12px;
+  min-width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  height: 30%;
 }
 </style>

@@ -1,5 +1,36 @@
 <template>
-  <v-col>
+  <v-hover>
+  <template v-slot:default="{ hover }"> 
+    <v-avatar
+        tile
+        :class="`rounded-lg`"
+        width="100%"
+        height="450px"
+        max-width="100%"
+        max-height="100%"
+        color="grey lighten-3"
+        class="cursor-img"
+        @click="onClickImageUpload"
+        >
+        <v-img
+            v-if="imageUrl"
+            :src="imageUrl"
+            contain
+        ></v-img>
+        
+        <v-fade-transition>
+          <v-overlay
+            v-if="hover"
+            absolute
+            color="#036358"
+          >
+            <v-btn>대표사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
+          </v-overlay>
+        </v-fade-transition>
+      </v-avatar>
+    </template>
+  </v-hover>
+  <!-- <v-col>
     <v-row>
         <v-avatar
           tile
@@ -16,7 +47,7 @@
         </v-avatar>
 
         <input ref="imageInput" type="file" hidden @change="onChangeImages">
-          
+
     </v-row>
     <v-row class="d-flex justify-end align-end">
       <v-btn
@@ -24,7 +55,7 @@
         >이미지 제거
       </v-btn>
     </v-row>
-  </v-col>
+  </v-col> -->
 </template>
 
 <script>
@@ -32,9 +63,9 @@ export default {
   name: "SeedThumbnail",
   data: function () {
     return {
-      imageUrl: null,
+      imageUrl: "https://t1.daumcdn.net/cfile/tistory/995A17455A409C9A28",
       text: "썸네일 사진 변경",
-
+      overlay: false,
     }
   },
   methods: {
@@ -50,6 +81,9 @@ export default {
     onDeleteImage() {
       this.text = "썸네일 사진 변경"
       this.imageUrl = ""
+    },
+    transferThumbnail: function () {
+      this.$emit('transferThumbnail', this.imageUrl)
     }
   }
 }
@@ -57,9 +91,9 @@ export default {
 
 <style scoped>
 
-.cursor-img {
+/* .cursor-img {
   cursor: pointer;
-  }
+  } */
 
 
 </style>

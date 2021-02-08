@@ -9,14 +9,14 @@
           <h2>회원가입</h2>
           <h4>이메일 회원가입하기</h4>
           <validation-observer v-slot="{ invalid }" ref="observer">
-            <v-form @submit.prevent="submit">
+            <v-form @submit.prevent="signUp">
               <validation-provider
                 v-slot="{ errors }"
                 name="닉네임"
                 rules="required"
               >
                 <v-text-field
-                  v-model="nickname"
+                  v-model="credentials.nickname"
                   :error-messages="errors"
                   label="닉네임"
                   required
@@ -32,7 +32,7 @@
                 rules="required|email"
               >
                 <v-text-field
-                  v-model="email"
+                  v-model="credentials.email"
                   :error-messages="errors"
                   label="이메일"
                   required
@@ -52,7 +52,7 @@
                 }"
               >
                 <v-text-field
-                  v-model="phone"
+                  v-model="credentials.phone"
                   :counter="11"
                   :error-messages="errors"
                   label="핸드폰 번호(숫자만)"
@@ -70,7 +70,7 @@
                   rules="required|password"
                 >
                   <v-text-field
-                    v-model="password"
+                    v-model="credentials.password"
                     :error-messages="errors"
                     label="비밀번호"
                     :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
@@ -129,7 +129,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import Kakao from "@/components/BaseSocial/Kakao.vue";
 import Naver from "@/components/BaseSocial/Naver.vue";
 import Google from "@/components/BaseSocial/Google.vue";
@@ -182,10 +181,12 @@ export default {
   },
   data: function() {
     return {
-      nickname: "",
-      email: "",
-      phone: "",
-      password: "",
+      credentials: {
+        nickname: "",
+        email: "",
+        phone: "",
+        password: "",
+      },
       passwordConfirmation: "",
       showPass: false,
     }
@@ -193,29 +194,14 @@ export default {
   computed: {
   },
   methods: {
-    async submit() {
+    async signUp () {
       const valid = await this.$refs.observer.validate();
-      const credentials = {
-        nickname: this.nickname,
-        email: this.email,
-        phone: this.phone,
-        password: this.password
-      }
       if (valid) {
-        axios.post("http://localhost:8080/signup", credentials)
-          .then((res) => {
-            console.log(res)
-            console.log('회원가입 성공')
-            localStorage.setItem('jwt', res.data.token)
-            // this.$emit('login')
-            this.$store.dispatch('loginSuccess')
-            this.$router.push({ name: 'FavoriteCategory' })
-          })
-          .catch((err) => console.log(err))
+        this.$store.dispatch('UserStore/signUp', this.credentials)
       } else {
-        alert("내용을 확인해주세요")
+        alert("내용을 확인해주세요.")
       }
-    },
+    }
   }
 }
 </script>

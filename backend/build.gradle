@@ -22,12 +22,11 @@ compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.5.0'
 compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.5.0'
   
   
-	//�뿉�윭硫붿떆吏�瑜� �쐞�븳 lombok 異붽�
+	//lombok
 	implementation 'org.projectlombok:lombok'
 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4'
-	
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'mysql:mysql-connector-java'
@@ -36,15 +35,20 @@ compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.5.0'
 	
 	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
 	compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+   // 마리아 db
+	compile("org.mariadb.jdbc:mariadb-java-client")
 
-	 
-    //Firebase
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client' // MariaDB
+	compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.4.0'
+
+	apply plugin: 'io.spring.dependency-management'
+
+	//Firebase
     //implementation 'com.google.firebase:firebase-database:16.0.5'
     //implementation 'com.google.firebase:firebase-auth:16.0.5'
     //Google Login
     //implementation 'com.google.android.gms:play-services-auth:16.0.1'
 }
-//apply plugin: "com.google.gms.google-services"
  
 
 test {

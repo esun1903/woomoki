@@ -82,8 +82,9 @@ export default {
   },
   methods: {
     // 해당 게시글 아이디 담아줘야해
-    goChallengeDetail: function (challengeId) {
-      this.$router.push({ name: 'ChallengeDetail', params: { challengeId: challengeId } }) 
+    goChallengeDetail: function () {
+      // this.$router.push({ name: 'ChallengeDetail', params: { challengeId: challengeId } })
+      this.$router.push({ name: "SeedDetail" })
     },
     getScrap: function () {
       if (this.scrapped) {
