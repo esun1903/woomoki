@@ -160,9 +160,22 @@ export default {
   methods: {
     sendFavoriteCategories: function (state) {
       state.loading = true
+      
       setTimeout(() => {
-        this.$store.dispatch('UserStore/sendFavoriteCategories', this.getFavoriteCategories)
-        this.$store.dispatch('UserStore/saveFavoriteCategories', this.userFavoriteCategories)
+        
+        // !!!!!!!!!! 빽에 고른 카테고리 넘겨주기!!!!!!!!!! 
+        axios.post("http://localhost:8080/signup/favCategory", this.getFavoriteCategories)
+          .then((res) => {
+            console.log('카테고리 담기 성공')
+            console.log(res)
+            this.$router.push({ name: 'MainPage' })
+          })
+          .catch(err => {
+            console.log(err)
+            console.log('카테고리 담기 실패')
+            console.log(this.getFavoriteCategories)
+          })
+
         state.selected = []
         state.loading = false
       },2000)
