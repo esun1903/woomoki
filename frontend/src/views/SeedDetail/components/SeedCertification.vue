@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     getSeedCertification: function () {
-      const seedId = 4
+      const seedId = 32
       axios.get(`http://127.0.0.1:8080/sameChallengeCertification/${seedId}`)
         .then((res) => {
           this.cards = res.data
