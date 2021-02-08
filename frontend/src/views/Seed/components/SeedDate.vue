@@ -72,6 +72,11 @@ export default {
       menu: false,
     }
   },
+  methods: {
+    transferDate: function () {
+      this.$emit('transferDate', this.dates)
+    }
+  },
   computed: {
     dateRangeText () {
       console.log(this.dates)
