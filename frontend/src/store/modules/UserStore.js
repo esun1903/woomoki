@@ -16,22 +16,6 @@ const UserStore = {
     },
     isLogin: false,
   },
-  getters: {
-    // getAccessToken(state){
-    //   if(state.user.accessToken && typeof stateuser.accessToken != "undefined")
-    //     return state.user.accessToken;
-    //   console.log("getAccessToken: " + localStorage.accessToken + " " + state.user.accessToken)
-    //   if(state.user.accessToken=null)
-    //     return false;
-    //   return state.user.accessToken;
-    // },
-    // getUserId(state){
-    //   return state.user.user_id;
-    // },
-    // getNickname(state){
-    //   return state.user.nickname;
-    // }
-  }, 
   mutations: {
     LOGIN(state, payload){
       console.log("payload[auth-token]: "+payload["auth-token"]);
@@ -40,6 +24,7 @@ const UserStore = {
       state.user.nickname = payload["user-name"];
       state.user.email = payload["user-email"];
       state.isLogin = true;
+ 
     },
     LOGOUT(state) {
       state.user.accessToken = null;
@@ -48,10 +33,15 @@ const UserStore = {
       state.user.email = "";  
       state.isLogin = false;
     },
-    SEND_COM(state, )
   },
+  getters: {
+
+    getCheckLogin(state){
+      return state.isLogin;
+    }
+  }, 
   actions: {
-      LOGIN(context, user){
+      login(context, user){
       console.log(SERVER_URL);
       return axios
         .post(`${SERVER_URL}/login`, user)
@@ -66,8 +56,9 @@ const UserStore = {
           alert("이메일, 비밀번호 확인");
         })
     },
-    signup({commit}, user) {
-      return axios.post(`${SERVER_URL}/signup`, user)
+    signUp({commit}, user) {
+      return axios
+      .post(`${SERVER_URL}/signup`, user)
       .then((response) => {
         console.log(response);
         console.log('회원가입 성공');
@@ -86,12 +77,12 @@ const UserStore = {
       })
       
     },
-    logout({commit}) {
+    logOut({commit}) {
       axios.defaults.headers.common[
         "auth-token"
       ] = undefined;
       commit('LOGOUT')
-    },
+    }
   }
 }
 

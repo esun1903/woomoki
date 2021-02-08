@@ -152,7 +152,6 @@ export default {
         favoriteCategory["category_id"] = selectedCategory.category_id
         favoriteCategories.push(favoriteCategory)
       }
-      console.log(userFavoriteCateogories)
       return favoriteCategories
     },
   },
@@ -179,27 +178,6 @@ export default {
         state.selected = []
         state.loading = false
       },2000)
-      
-      // setTimeout(() => {
-        
-      //   // !!!!!!!!!! 빽에 고른 카테고리 넘겨주기!!!!!!!!!! 
-      //   axios.post("http://localhost:8080/signup/favCategory", this.getFavoriteCategories)
-      //     .then((res) => {
-      //       console.log('카테고리 담기 성공')
-      //       console.log(res)
-      //       // console.log(this.getFavoriteCategories)
-      //       this.$router.push({ name: 'MainPage' })
-      //     })
-      //     .catch(err => {
-      //       console.log(err)
-      //       console.log('카테고리 담기 실패')
-      //       console.log(this.getFavoriteCategories)
-      //     })
-
-      //   state.search = ''
-      //   state.selected = []
-      //   state.loading = false
-      // }, 2000)
     },
   }
 };
