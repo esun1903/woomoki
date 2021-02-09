@@ -75,7 +75,7 @@
               </v-btn>
             </template>
             <v-list>
-              <div v-if="this.isLogin">
+              <div v-if="getCheckLogin">
                 <v-list-item @click="goMyPage">
                   <v-list-item-title>마이페이지</v-list-item-title>
                 </v-list-item>
@@ -101,7 +101,7 @@
 
 <script>
 import SearchBar from "@/components/Navbar/SearchBar.vue";
-import {mapState} from "vuex";
+
 export default {
   name: 'Navbar',
   components: { SearchBar },
@@ -128,7 +128,9 @@ export default {
     
   },
   computed:  {
-    ...mapState(['isLogin'])
+    getCheckLogin () {
+      return this.$store.getters["UserStore/getCheckLogin"];
+    }
   },  
   methods: {
     

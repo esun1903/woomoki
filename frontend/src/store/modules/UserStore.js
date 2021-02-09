@@ -16,22 +16,6 @@ const UserStore = {
     },
     isLogin: false,
   },
-  getters: {
-    // getAccessToken(state){
-    //   if(state.user.acessToken && typeof stateuser.accessToken != "undefined")
-    //     return state.user.accessToken;
-    //   console.log("getAccessToken: " + localStorage.accessToken + " " + state.user.accessToken)
-    //   if(state.user.accessToken=null)
-    //     return false;
-    //   return state.user.accessToken;
-    // },
-    // getUserId(state){
-    //   return state.user.user_id;
-    // },
-    // getNickname(state){
-    //   return state.user.nickname;
-    // }
-  }, 
   mutations: {
     LOGIN(state, payload){
       console.log("payload[auth-token]: "+payload["auth-token"]);
@@ -40,6 +24,7 @@ const UserStore = {
       state.user.nickname = payload["user-name"];
       state.user.email = payload["user-email"];
       state.isLogin = true;
+ 
     },
     LOGOUT(state) {
       state.user.accessToken = null;
@@ -49,8 +34,14 @@ const UserStore = {
       state.isLogin = false;
     },
   },
+  getters: {
+
+    getCheckLogin(state){
+      return state.isLogin;
+    }
+  }, 
   actions: {
-      LOGIN(context, user){
+      login(context, user){
       console.log(SERVER_URL);
       return axios
         .post(`${SERVER_URL}/login`, user)
