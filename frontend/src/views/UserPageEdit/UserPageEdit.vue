@@ -10,21 +10,23 @@
         <form @submit.prevent="submit">
 
           <v-text-field
-            value="rladydals123"
+            :value="UserInfo.nickname"
             label="아이디"
             readonly
             outlined
           ></v-text-field>
           <v-text-field
-            value="ssafy44@naver.com"
+            :value="UserInfo.email"
             label="이메일"
             readonly
             outlined
           ></v-text-field>
         
-          <validation-provider v-slot="{ errors }" name="한 줄 소개">
+          <validation-provider 
+            v-slot="{ errors }" 
+            name="한 줄 소개">
             <v-text-field
-              v-model="introduce"
+              v-model="UserInfo.introduce"
               :error-messages="errors"
               label="한 줄 소개"
               counter="20"
@@ -42,7 +44,7 @@
             }"
           >
             <v-text-field
-              v-model="phoneNumber"
+              v-model="UserInfo.phone"
               :counter="11"
               :error-messages="errors"
               label="핸드폰 번호(-없이 입력해주세요)"
@@ -103,13 +105,16 @@
           </validation-provider>
 
           <v-row class="d-flex justify-end">
-            <v-btn 
-              class="mr-4" 
-              type="submit" 
-              :disabled="invalid"
-              color="success">
-              적용
-            </v-btn>
+            <router-link :to="{ name: 'UserPage', params: { userNickname: UserInfo.nickname }}">
+              <v-btn 
+                class="mr-4" 
+                type="submit" 
+                :disabled="invalid"
+                @click="updataUserInfo"
+                color="success">
+                적용
+              </v-btn>
+            </router-link>
 
             <v-btn 
               @click="clear"
@@ -198,11 +203,12 @@ export default {
     // CategoryEdit,
     ImgEdit,
   },
+  props: {
+    userId: Number,
+  },
   data: function() {
     return {
-      name: "",
-      phoneNumber: "",
-      introduce: "",
+      UserInfo: [],
       newPassword: "",
       passwordConfirmation: "",
       showPass: false,
@@ -211,11 +217,30 @@ export default {
   },
   methods: {
     originUserInfo: function() {
-      // 기존 정보?..
+      const userId = this.$store.state.UserStore.user.user_id 
+      axios.get(`http://localhost:8080/userPage/${userId}`)
+        .then((res) => {
+          this.UserInfo = res.data
+          console.log(res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
     updataUserInfo: function() {
-      axios
-        .post("/update")
+      const userId = this.$store.state.UserStore.user.user_id 
+      const ChangedUserInfo = {
+        email: this.UserInfo.email,
+        nickname: this.UserInfo.nickname,
+        password: this.UserInfo.password,
+        phone: this.UserInfo.phone,
+        id: userId,
+        newPassword: this.newPassword,
+        // img: this.UserInfo.img,
+        // introduce: this.UserInfo.introduce,
+      }
+      // const nickname = this.$store.state.UserStore.user.nickname 
+      axios.post("http://localhost:8080/userPage/changePassword", ChangedUserInfo)
         .then(res => {
           console.log(res);
         })
@@ -227,15 +252,14 @@ export default {
       this.$refs.observer.validate();
     },
     clear() {
-      this.name = "";
-      this.phoneNumber = "";
-      this.originPassword = "",
-      this.newPassword = "",
-      this.passwordConfirmation = "",
+      this.UserInfo = "",
       this.checkbox = null;
       this.$refs.observer.reset();
     }
   },
+  created() {
+    this.originUserInfo()
+  }
 };
 </script>
 

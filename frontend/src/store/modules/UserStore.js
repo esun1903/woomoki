@@ -11,6 +11,7 @@ const UserStore = {
     user: {
       accessToken: null,
       user_id: "",
+      compareId: "",
       nickname: "",
       email: "",   
     },
@@ -33,6 +34,9 @@ const UserStore = {
       state.user.email = "";  
       state.isLogin = false;
     },
+    COMPARE(state, compareId) {
+      state.user.compareId = compareId
+    }
   },
   getters: {
 
@@ -82,6 +86,9 @@ const UserStore = {
         "auth-token"
       ] = undefined;
       commit('LOGOUT')
+    },
+    compareId(context, compareId) {
+      context.commit("COMPARE", compareId);
     }
   }
 }

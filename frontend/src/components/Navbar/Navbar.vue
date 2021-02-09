@@ -135,8 +135,7 @@ export default {
   methods: {
     
     goMyPage: function () {
-      // this.$router.push({ name: 'UserPage', params: { userId: this.userId, test: '???' }})
-      console.log(this.userId)
+      this.$store.dispatch("UserStore/compareId", this.$store.state.UserStore.user.user_id);
     },
     goLogout: function () {
       this.$store.dispatch('UserStore/logOut')
