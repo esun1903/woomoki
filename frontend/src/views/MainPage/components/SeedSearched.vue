@@ -30,32 +30,36 @@ export default {
     
   },
   methods: {
-    
+    arrangeRule: function (cat, opt) {
+      const cgId_num = cat
+      const cgId = {};
+      cgId["cgId"] = cgId_num
+      console.log(cgId_num)
+      console.log(cgId)
+      axios.get(`http://localhost:8080/categorySort/${cgId_num}`, cgId)
+        .then((res) => {
+          const seeds = res.data
+          console.log('로직 안')
+          console.log(opt)
+          if (opt == "인기") {
+            seeds.sort(function(a,b) {
+              return a.like_cnt > b.like_cnt ? -1 : a.like_cnt < b.like_cnt ? 1 : 0;
+            })
+          } else {
+            seeds.sort(function(a,b) {
+              return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
+            })
+          }
+          seeds.splice(8)
+          this.seeds = seeds
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
   },
   created () {
-    const cgId_num = this.selectedCategory
-    const cgId = {};
-    cgId["cgId"] = cgId_num
-    console.log(cgId_num)
-    console.log(cgId)
-    axios.get(`http://localhost:8080/categorySort/${cgId_num}`, cgId)
-      .then((res) => {
-        const seeds = res.data
-        if (this.option == "인기") {
-          seeds.sort(function(a,b) {
-            return a.like_cnt > b.like_cnt ? -1 : a.like_cnt < b.like_cnt ? 1 : 0;
-          })
-        } else {
-          seeds.sort(function(a,b) {
-            return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
-          })
-        }
-        seeds.splice(8)
-        this.seeds = seeds
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    this.arrangeRule(this.selectedCategory, this.option)
   },
   computed: {
     selectedCategory: function () {
@@ -79,14 +83,17 @@ export default {
       if (newVal !== oldVal) {
         return newVal
       }
+
     },
     option(newVal, oldVal) {
       if (newVal!== oldVal) {
+        this.arrangeRule(this.selectedCategory, newVal)
         return newVal
       }
     },
     selectedCategory(newVal, oldVal) {
       if (newVal!== oldVal) {
+        this.arrangeRule(newVal, this.option)
         return newVal
       }
     },

@@ -75,16 +75,7 @@ export default {
     }
   },
   created () {
-    // const id = {};
-    // id["id"] = this.user.user_id
-    // axios.post("http://localhost:8080", id)
-    //   .then((res) => {
-    //     const seeds = res.data
-    //     this.seeds = seeds
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   }) 
+
   }
 
 };
