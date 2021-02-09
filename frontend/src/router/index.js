@@ -158,12 +158,12 @@ const routes = [
     component: SeedSuccess,        
   },
   {
-    path: '/seedDetail',
+    path: '/seedDetail/:seedId',
     name: 'SeedDetail',
     component: SeedDetail,        
   },
   {
-    path: '/seedUpdate',
+    path: '/seedUpdate/:seedId',
     name: 'SeedUpdate',
     component: SeedUpdate,        
   },

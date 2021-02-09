@@ -19,6 +19,9 @@
       <v-col class="d-flex align-center">
         <v-row>
           <v-btn>참여하기</v-btn>
+          <router-link :to="{ name: 'SeedUpdate', params: { seedId: this.seedId }}">
+            <v-btn>수정하기</v-btn>
+          </router-link>
           <SeedShare></SeedShare>
         </v-row>
       </v-col>
@@ -62,15 +65,14 @@ export default {
   },
   data: function () {
     return {
+      seedId: this.$route.params.seedId,
       SeedInfo: [],
       UserInfo: [],
     }
   },
   methods: {
     async SeedDetailInfo () {
-    
-      const seedId = 5
-      const SeedInfo = await axios.get(`http://127.0.0.1:8080/detailChallenge/${seedId}`)
+      const SeedInfo = await axios.get(`http://127.0.0.1:8080/detailChallenge/${this.seedId}`)
       this.SeedInfo = SeedInfo.data
       console.log("seed 데이터 응답")
       console.log(this.SeedInfo)
