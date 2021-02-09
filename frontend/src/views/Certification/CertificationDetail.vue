@@ -1,19 +1,14 @@
 <template>
     <v-container>
-        <div class="test">
-            <v-row class="title">
-
-                제목제목제목제목제목제목제목제목제목제목
-
-
+        <div class="detail">
+            <v-row class="user-id">
+                {{CertInfo.user_id}}
             </v-row>
             <v-row class="img">
-                <v-img max-height="500" max-width="500" src="https://picsum.photos/500/500/"></v-img>
-
+                <v-img :src="photoUrl + CertInfo.img"></v-img>
             </v-row>
             <v-row class="content">
-                내용내용내용
-
+                {{CertInfo.content}}
             </v-row>
             <v-row class="like-btn">
                 <v-btn icon color="pink" x-large @click="active = true">
@@ -48,7 +43,9 @@
                 </v-dialog>
 
             </v-row>
+        </div>
 
+        <div>
             <v-divider></v-divider>
             <CommentInsert />
             <CommentList />
@@ -59,7 +56,7 @@
 <script>
     import CommentInsert from '@/views/Certification/components/CommentInsert.vue'
     import CommentList from '@/views/Certification/components/CommentList.vue'
-
+    import axios from "axios";
 
     export default {
         name: 'CertificationDetail',
@@ -70,13 +67,30 @@
         directives: {},
         data() {
             return {
+                CertInfo: [],
+                photoUrl:"https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
                 dialog: false,
             };
         },
         mounted() {
 
         },
+        created() {
+            this.detailCert();
+        },
         methods: {
+            detailCert: function () {
+                // certid 가져오기 -> store에 계속 저장?
+                const certId = 21;
+                axios.get(`http://localhost:8080//detailcertification/${certId}`)
+                    .then((response) => {
+                        this.CertInfo = response.data;
+                        console.log(response.data)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            },
             deleteCert() {
                 // 해당 챌린지 인증글 리스트로 돌아가기
                 this.$router.push("/");
@@ -86,8 +100,8 @@
 </script>
 
 <style lang="scss" scoped>
-    .test {
-        margin-top: 10%
+    .detail {
+        margin: 10% 30% 0% 30%;
     }
 
     .v-divider {
@@ -96,12 +110,20 @@
 
     .like-btn {
         float: right;
+        margin-top:5%;
+        margin-bottom:5%;
     }
 
-    .title,
     .img,
     .content,
     .edit-del-btn {
         justify-content: center;
+        margin-top:15%;
+    }
+
+    .user-id {
+        justify-content: center;
+        font-style: italic;
+        margin-bottom: 3%;
     }
 </style>

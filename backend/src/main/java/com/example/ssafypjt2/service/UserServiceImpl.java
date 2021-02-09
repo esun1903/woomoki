@@ -80,5 +80,13 @@ public class UserServiceImpl implements UserService {
 		return list;
 	}
 
+	//user정보 변경
+	@Override
+	public int changeUser(UserDto userDto) throws Exception {
+		System.out.println("여기는 회원정보를 변경하는 Service 도달하기");
+		int  get = dao.changeUser(userDto);
+		return get;
+	}
+
 
 }

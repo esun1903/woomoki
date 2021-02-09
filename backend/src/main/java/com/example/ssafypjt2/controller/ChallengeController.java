@@ -113,4 +113,12 @@ public class ChallengeController {
 		return challengeService.searchWordChallenge(keyword);
 	}
 
+	@GetMapping("/Challenge")
+	public  List<String> Challenge(){
+		System.out.println("챌린지의 title을 리턴하기 ");
+		List<String> list = challengeService.Challenge();
+		return list;
+	}
+
+
 }

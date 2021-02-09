@@ -206,6 +206,19 @@ public class UserController {
 		return result;
 	}
 
+	//User의 정보변경하기
+	@CrossOrigin(origins = "*")
+	@PostMapping("/userPage/changeUser")
+	public ResponseEntity  changeUser(@RequestBody UserDto userDto) throws Exception {
+		System.out.println(userDto.getId()+"의 정보에 대해 변경");
+		int result = userService.changeUser(userDto);
+		String returnMessage = "정보 변경 실패";
+		if(result == 1)
+			returnMessage =  "정보 변경 성공";
+		System.out.println("변경된 user정보" + result);
+
+		return new ResponseEntity<>(new ResponseData(returnMessage, null), HttpStatus.OK);
+	}
 
 }
 

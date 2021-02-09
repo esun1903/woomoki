@@ -1,58 +1,95 @@
 <template>
-  <div id="fullpage">
-      <!-- <div class="section">
-        <ChallengeSearched id="mainpage-component-result"/> 
-      </div> -->
-
-      <div class="section">
-        <ChallengeRecommended id="mainpage-component-result"/>
-      </div>
-      <div class="section">
-        <ChallengeFamous id="mainpage-component-result"/>
-      </div>
-      <div class="section">
-        <ChallengeNew id="mainpage-component-result"/>
-      </div>
- 
+  <div>
+    <div class="selectbox1">
+      <v-select
+        v-model="valSelect1"
+        :items="select1"
+        label="인기/신규"
+        dense
+        outlined
+      ></v-select>
+    </div>
+    <div class="selectbox2">
+      <v-select
+        v-model="valSelect2"
+        :items="select2"
+        label="카테고리"
+        dense
+        outlined
+      ></v-select>
+    </div>
+    <div v-if="onSearch">
+      <SeedSearched :option="valSelect1" :category="valSelect2" id="mainpage-component-result"/> 
+    </div>
+    <div v-else>
+      <SeedRecommended id="mainpage-component-result"/>
+      <!-- <SeedFamous id="mainpage-component-result"/>
+      <SeedNew id="mainpage-component-result"/> -->
+    </div>
   </div>
 </template>
 
 <script>
-// import ChallengeSearched from "@/views/MainPage/components/ChallengeSearched.vue"
-import ChallengeRecommended from "@/views/MainPage/components/ChallengeRecommended.vue"
-import ChallengeFamous from "@/views/MainPage/components/ChallengeFamous.vue"
-import ChallengeNew from "@/views/MainPage/components/ChallengeNew.vue"
+import SeedSearched from "@/views/MainPage/components/SeedSearched.vue"
+import SeedRecommended from "@/views/MainPage/components/SeedRecommended.vue"
+// import SeedFamous from "@/views/MainPage/components/SeedFamous.vue"
+// import SeedNew from "@/views/MainPage/components/SeedNew.vue"
 export default {
   name: 'MainPage',
-  components: { ChallengeRecommended, ChallengeFamous, ChallengeNew },
+  components: { SeedSearched, SeedRecommended },
   directives: {  },
   data() {
     return {
-      isSearching: false,
-      isNotSearching: true,
-      searchedKeyword: [],
+      select1: ['인기', '신규'],
+      select2: ['전체','건강', '생활습관', '독서', '자산', '자기계발', '취미'],
+      valSelect1: '',
+      valSelect2: '',
+
     }
   },
   mounted() {
     
   },
+  computed: {
+    onSearch: function () {
+      if (this.valSelect1 && this.valSelect2) {
+        return true
+      } else {
+        return false
+      }
+    }
+  },
   methods: {
     
   },
+  watch: {
+    valSearch1(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        return newVal
+      }
+    },
+    valSearch2(newVal, oldVal) {
+      if (newVal!== oldVal) {
+        return newVal
+      }
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-// #mainpage-component {
-//   display: flex;
-//   justify-content: center;
-//   height: 98px;
-//   margin-top: 50px;
-// }
-// #mainpage-component-result {
-//   display: block;
-//   justify-content: center;
-//   margin-top: 40px;
-//   margin-bottom: 800px;
-// }
+div {
+  div {
+    .select1{
+      .v-input{
+        max-width: 7%;
+      }
+    }
+    .select2{
+      v-input{
+        max-width: 7%;
+      }
+    }
+  }
+}
 </style>
