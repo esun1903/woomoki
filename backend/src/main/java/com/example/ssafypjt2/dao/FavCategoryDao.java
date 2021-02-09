@@ -13,8 +13,8 @@ public interface FavCategoryDao {
  
 
 	@Insert("INSERT INTO fav_category ( user_id, category_id ) VALUES ( #{favCategoryDto.user_id} , #{favCategoryDto.category_id} ) ")
-	@Options(useGeneratedKeys = true) // myBatis 에서 자동생성키를 true를 했을 때 
-	 public int favCategory(@Param("favCategoryDto")FavCategoryDto favCategoryDto);
+	@Options(useGeneratedKeys = true) // myBatis 에서 자동생성키를 true를 했을 때
+	public int favCategory(@Param("favCategoryDto")FavCategoryDto favCategoryDto);
 
 	@Delete("DELETE FROM fav_category WHERE user_id = #{user_id}")
 	public int DeletefavCategory(@Param("user_id") int user_id);

@@ -78,10 +78,16 @@ public class CertificationController {
 		return certificationService.likeDown(id);
 	}
 
+
 	@GetMapping("/searchWordCert/{keyword}")
 	public  List<CertificationDto> searchWordCert(@PathVariable(value = "keyword") String keyword){
 		System.out.println("인증리스트 중에서 "+ keyword +"로 검색해볼게요!");
 		return certificationService.searchWordCert(keyword);
 	}
+
+
+
 	
 }
+
+
