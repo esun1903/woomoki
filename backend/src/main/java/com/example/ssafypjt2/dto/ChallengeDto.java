@@ -29,6 +29,8 @@ public class ChallengeDto {
 	private int join_deposit;
 	private int like_cnt;
 	private int result;
+	private int week;
+
 
 	public int getId() {
 		return id;
@@ -116,6 +118,12 @@ public class ChallengeDto {
 		this.result = result;
 	}
 
+	public int getWeek() {
+		return week;
+	}
+	public void setWeek(int week) {
+		this.week = week;
+	}
 	public ChallengeDto() {
 		super();
 	}
