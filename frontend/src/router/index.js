@@ -35,7 +35,6 @@ const routes = [
     path: "/",
     name: "Main",
     component: Main,
-    props: true
   },
   {
     path: "/signup",
@@ -89,14 +88,15 @@ const routes = [
     props: true     
   },
   {
-    path: '/userPage/userPageEdit',
+    path: '/userPageEdit',
     name: 'UserPageEdit',
-    component: UserPageEdit,        
+    component: UserPageEdit,   
   },
   {
-    path: '/userPage/password',
+    path: '/comparepwd',
     name: 'CompareOriginPassword',
-    component: CompareOriginPassword,        
+    component: CompareOriginPassword,
+    props: true,        
   },
   {
     path: '/certification/insert',
