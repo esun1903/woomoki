@@ -2,6 +2,7 @@ package com.example.ssafypjt2.controller;
 
 import java.util.List;
 
+import com.example.ssafypjt2.dto.CertificationDto;
 import com.example.ssafypjt2.dto.FavCategoryDto;
 import com.example.ssafypjt2.dto.UserDto;
 import com.example.ssafypjt2.service.FavCategoryService;
@@ -104,6 +105,13 @@ public class ChallengeController {
 		System.out.println(result);
 		return result;
 	}
+
+	@GetMapping("/searchWordChallenge/{keyword}")
+	public  List<ChallengeDto> searchWordChallenge(@PathVariable(value = "keyword") String keyword){
+		System.out.println("챌린지 중에서 "+ keyword +"로 검색해볼게요!");
+		return challengeService.searchWordChallenge(keyword);
+	}
+
 // 이거 올릴겁니다 !:)
 
 }

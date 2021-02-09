@@ -69,8 +69,8 @@
           <v-menu offset-y open-on-hover bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" class="btn">
-                <router-link to="/userPage">
-                  <v-icon color="grey darken-1">mdi-account-circle</v-icon>
+                <router-link :to="{ name: 'UserPage', params: { userId: userId, userNickname: userNickname }}">
+                  <v-icon @click="goMyPage" color="grey darken-1">mdi-account-circle</v-icon>
                 </router-link>
               </v-btn>
             </template>
@@ -108,6 +108,8 @@ export default {
   directives: {  },
   data: function () {
     return {
+      userId: this.$store.state.UserStore.user.user_id,
+      userNickname: this.$store.state.UserStore.user.nickname,
       notice: false,
       currentTab: null,
       tabs: [
@@ -133,7 +135,8 @@ export default {
   methods: {
     
     goMyPage: function () {
-      this.$router.push({ name: 'UserPage' }) 
+      // this.$router.push({ name: 'UserPage', params: { userId: this.userId, test: '???' }})
+      console.log(this.userId)
     },
     goLogout: function () {
       this.$store.dispatch('UserStore/logOut')
@@ -144,7 +147,7 @@ export default {
     goSignup: function () {
       this.$router.push({ name: 'Signup' })  
     },
-    
+
   },
 };
 </script>

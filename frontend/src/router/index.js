@@ -34,7 +34,8 @@ const routes = [
   {
     path: "/",
     name: "Main",
-    component: Main
+    component: Main,
+    props: true
   },
   {
     path: "/signup",
@@ -82,9 +83,10 @@ const routes = [
     component: FindPasswordResult,        
   },
   {
-    path: '/userPage',
+    path: '/userPage/:userNickname',
     name: 'UserPage',
-    component: UserPage,        
+    component: UserPage,
+    props: true     
   },
   {
     path: '/userPage/userPageEdit',

@@ -1,4 +1,9 @@
 package com.example.ssafypjt2.dto;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
+
 
 public class ChallengeDto {
 	private int id;
@@ -7,13 +12,23 @@ public class ChallengeDto {
 	private String title;
 	private String content;
 	private String sum_img;
-	private String start_date;
-	private String end_date;
+
+	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+	//@JsonFormat(Timpattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	private LocalDate start_date;
+
+	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	private LocalDate end_date;
 	private int cert_count;
 	private int max_people;
 	private String example_img;
 	private int join_deposit;
 	private int like_cnt;
+	private int result;
 
 	public int getId() {
 		return id;
@@ -51,16 +66,16 @@ public class ChallengeDto {
 	public void setSum_img(String sum_img) {
 		this.sum_img = sum_img;
 	}
-	public String getStart_date() {
+	public LocalDate getStart_date() {
 		return start_date;
 	}
-	public void setStart_date(String start_date) {
+	public void setStart_date(LocalDate start_date) {
 		this.start_date = start_date;
 	}
-	public String getEnd_date() {
+	public LocalDate getEnd_date() {
 		return end_date;
 	}
-	public void setEnd_date(String end_date) {
+	public void setEnd_date(LocalDate end_date) {
 		this.end_date = end_date;
 	}
 	public int getCert_count() {
@@ -93,26 +108,17 @@ public class ChallengeDto {
 	public void setLike_cnt(int like_cnt) {
 		this.like_cnt = like_cnt;
 	}
+
+	public int getResult() {
+		return result;
+	}
+	public void setResult(int result) {
+		this.result = result;
+	}
+
 	public ChallengeDto() {
 		super();
 	}
-	public ChallengeDto(int id, int category_id, int user_id, String title, String content, String sum_img,
-						String start_date, String end_date, int cert_count, int max_people, String example_img, int join_deposit,
-						int like_cnt) {
-		super();
-		this.id = id;
-		this.category_id = category_id;
-		this.user_id = user_id;
-		this.title = title;
-		this.content = content;
-		this.sum_img = sum_img;
-		this.start_date = start_date;
-		this.end_date = end_date;
-		this.cert_count = cert_count;
-		this.max_people = max_people;
-		this.example_img = example_img;
-		this.join_deposit = join_deposit;
-		this.like_cnt = like_cnt;
-	}
+
 
 }
