@@ -23,6 +23,7 @@ import SeedJoin from "@/views/SeedList/SeedJoin.vue"
 import SeedScrap from "@/views/SeedList/SeedScrap.vue"
 import SeedSuccess from "@/views/SeedList/SeedSuccess.vue"
 import SeedDetail from "@/views/SeedDetail/SeedDetail.vue"
+import SeedUpdate from "@/views/SeedUpdate/SeedUpdate.vue"
 // import KakaoTalk from "@/views/Login/callback/KakaoTalk.vue";
 Vue.use(VueRouter);
 
@@ -160,6 +161,11 @@ const routes = [
     path: '/seedDetail',
     name: 'SeedDetail',
     component: SeedDetail,        
+  },
+  {
+    path: '/seedUpdate',
+    name: 'SeedUpdate',
+    component: SeedUpdate,        
   },
 ];
 
