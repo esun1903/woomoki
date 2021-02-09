@@ -81,8 +81,6 @@
         methods: {
             detailCert: function () {
                 // certid 가져오기 -> store에 계속 저장?
-
-
                 const certId = 21;
                 axios.get(`http://localhost:8080//detailcertification/${certId}`)
                     .then((response) => {
