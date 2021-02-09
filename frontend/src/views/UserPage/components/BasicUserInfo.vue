@@ -10,7 +10,7 @@
           height="250"
           >
           <span class="black--text headline">
-            사진
+            
             <v-img
               :src="this.UserInfo.img">
             </v-img>
@@ -206,12 +206,8 @@ export default {
     ChallengeResults,
     // mapState,
   },
-  props: {
-    userId: Number,
-  },
   data: function () {
     return {
-      myId: "",
       isMyPage: false,
       UserInfo: [],
       dialog: {
@@ -253,17 +249,26 @@ export default {
     // 그리고 UserPage.vue가 렌더링 될때 vuex state에 있는 로그인한 사람의 myId와 params로 받은 userId를 비교하여 같으면
     // 마이페이지를 렌더링 하고 다르면 유저페이지를 렌더링한다.
     BasicUserInfo: function () {
-      const myId = this.$store.state.UserStore.user.user_id
-      const userId = this.$route.params.userId
-      console.log(myId, userId)
-      axios.get(`http://127.0.0.1:8080/userPage/${myId}`)
+      const MyNickname = this.$store.state.UserStore.user.nickname
+      const user_id = this.$store.state.UserStore.user.user_id
+      // query사용
+      // const UserNickname = this.$route.query.userNickname
+      const UserNickname = this.$route.params.userNickname
+  
+      // 얘가 한번만 실행되야하는데...
+      this.$store.dispatch("UserStore/compareId", user_id);
+
+      console.log(MyNickname, UserNickname)
+      axios.get(`http://127.0.0.1:8080/userPage/${user_id}`)
         .then((res) => {
           this.UserInfo = res.data
-          if (myId === userId) {
+          if (MyNickname === UserNickname) {
+            
             // 내 페이지
             // myState에 따라 태그에 v-if 렌더링
             this.isMyPage = true;
           } else {
+            
             // 다른 유저 페이지
             this.isMyPage = false;
           }

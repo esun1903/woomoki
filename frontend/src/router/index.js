@@ -24,6 +24,7 @@ import SeedScrap from "@/views/SeedList/SeedScrap.vue"
 import SeedSuccess from "@/views/SeedList/SeedSuccess.vue"
 import SeedDetail from "@/views/SeedDetail/SeedDetail.vue"
 import SearchedPage from "@/views/SearchedPage/SearchedPage.vue"
+import SeedUpdate from "@/views/SeedUpdate/SeedUpdate.vue"
 // import KakaoTalk from "@/views/Login/callback/KakaoTalk.vue";
 Vue.use(VueRouter);
 
@@ -83,6 +84,8 @@ const routes = [
     component: FindPasswordResult,        
   },
   {
+    // query사용
+    // path: '/userPage',
     path: '/userPage/:userNickname',
     name: 'UserPage',
     component: UserPage,
@@ -158,7 +161,7 @@ const routes = [
     component: SeedSuccess,        
   },
   {
-    path: '/seedDetail',
+    path: '/seedDetail/:seedId',
     name: 'SeedDetail',
     component: SeedDetail,        
   },
@@ -167,6 +170,11 @@ const routes = [
     name: 'SearchedPage',
     component: SearchedPage,
     props: true        
+  },
+  {
+    path: '/seedUpdate/:seedId',
+    name: 'SeedUpdate',
+    component: SeedUpdate,        
   },
 ];
 

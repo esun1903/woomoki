@@ -22,6 +22,7 @@ const UserStore = {
       console.log("payload[auth-token]: "+payload["auth-token"]);
       state.user.accessToken = payload["auth-token"];
       state.user.user_id = payload["user-id"];
+      // state.user.compareId = payload["user-id"];
       state.user.nickname = payload["user-name"];
       state.user.email = payload["user-email"];
       state.isLogin = true;
@@ -30,6 +31,7 @@ const UserStore = {
     LOGOUT(state) {
       state.user.accessToken = null;
       state.user.user_id = "";
+      state.user.compareId = "";
       state.user.nickname = "";
       state.user.email = "";  
       state.isLogin = false;

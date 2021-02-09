@@ -74,8 +74,11 @@
             </template>
             <v-list>
               <div v-if="getCheckLogin">
-                <v-list-item @click="goMyPage">
-                  <router-link :to="{ name: 'UserPage', params: { userId: userId, userNickname: userNickname }}">
+                <!-- <v-list-item @click="goMyPage"> -->
+                <v-list-item>
+                  <!-- query사용 -->
+                  <!-- <router-link :key="$route.fullPath" :to="{ name: 'UserPage', query: { userNickname: userNickname }}"> -->
+                  <router-link :key="$route.fullPath" :to="{ name: 'UserPage', params: { userNickname: userNickname }}">
                     <v-list-item-title>마이페이지</v-list-item-title>
                    </router-link>
                 </v-list-item>
@@ -134,9 +137,9 @@ export default {
   },  
   methods: {
     
-    goMyPage: function () {
-      this.$store.dispatch("UserStore/compareId", this.$store.state.UserStore.user.user_id);
-    },
+    // goMyPage: function () {
+    //   this.$store.dispatch("UserStore/compareId", this.$store.state.UserStore.user.user_id);
+    // },
     goLogout: function () {
       this.$store.dispatch('UserStore/logOut')
     },
