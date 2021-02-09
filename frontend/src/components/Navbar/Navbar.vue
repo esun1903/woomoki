@@ -69,15 +69,15 @@
           <v-menu offset-y open-on-hover bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" class="btn">
-                <router-link :to="{ name: 'UserPage', params: { userId: userId, userNickname: userNickname }}">
-                  <v-icon @click="goMyPage" color="grey darken-1">mdi-account-circle</v-icon>
-                </router-link>
+                  <v-icon color="grey darken-1">mdi-account-circle</v-icon>
               </v-btn>
             </template>
             <v-list>
               <div v-if="getCheckLogin">
                 <v-list-item @click="goMyPage">
-                  <v-list-item-title>마이페이지</v-list-item-title>
+                  <router-link :to="{ name: 'UserPage', params: { userId: userId, userNickname: userNickname }}">
+                    <v-list-item-title>마이페이지</v-list-item-title>
+                   </router-link>
                 </v-list-item>
                 <v-list-item @click="goLogout">
                   <v-list-item-title>로그아웃</v-list-item-title>
