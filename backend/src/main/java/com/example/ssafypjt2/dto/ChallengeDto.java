@@ -1,7 +1,9 @@
 package com.example.ssafypjt2.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 public class ChallengeDto {
 	private int id;
@@ -12,12 +14,15 @@ public class ChallengeDto {
 	private String sum_img;
 
 	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime start_date;
+	//@JsonFormat(Timpattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	private LocalDate start_date;
 
 	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "Asia/Seoul")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime  end_date;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	private LocalDate end_date;
 	private int cert_count;
 	private int max_people;
 	private String example_img;
@@ -61,16 +66,16 @@ public class ChallengeDto {
 	public void setSum_img(String sum_img) {
 		this.sum_img = sum_img;
 	}
-	public LocalDateTime getStart_date() {
+	public LocalDate getStart_date() {
 		return start_date;
 	}
-	public void setStart_date(LocalDateTime start_date) {
+	public void setStart_date(LocalDate start_date) {
 		this.start_date = start_date;
 	}
-	public LocalDateTime getEnd_date() {
+	public LocalDate getEnd_date() {
 		return end_date;
 	}
-	public void setEnd_date(LocalDateTime end_date) {
+	public void setEnd_date(LocalDate end_date) {
 		this.end_date = end_date;
 	}
 	public int getCert_count() {

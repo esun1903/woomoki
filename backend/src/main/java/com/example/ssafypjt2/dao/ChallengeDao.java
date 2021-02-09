@@ -41,8 +41,8 @@ public interface ChallengeDao {
 			+ "sum_img = #{challengeDto.sum_img},"
 			+ "max_people = #{challengeDto.max_people},"
 			+ "example_img = #{challengeDto.example_img},"
-			+ "join_deposit = #{challengeDto.join_deposit} "
-			+ " result = #{challengeDto.result} "
+			+ "join_deposit = #{challengeDto.join_deposit}, "
+			+ " result =  #{challengeDto.result} "
 			+ "WHERE id = #{challengeDto.id}" )
 	public int challengeUpdate(@Param("challengeDto")ChallengeDto challengeDto);
 
