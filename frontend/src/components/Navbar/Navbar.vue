@@ -69,7 +69,7 @@
           <v-menu offset-y open-on-hover bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" class="btn">
-                  <v-icon color="grey darken-1">mdi-account-circle</v-icon>
+                <v-icon color="grey darken-1">mdi-account-circle</v-icon>
               </v-btn>
             </template>
             <v-list>
