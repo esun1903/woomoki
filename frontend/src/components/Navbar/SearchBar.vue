@@ -1,13 +1,6 @@
 <template>
-  <!-- <div id="search-bar">
-    <form class="search" @submit="getSearchResult">
-      <input type="text" class="searchTerm" placeholder="어떤 씨앗을 심을까요?" @input="searchQuery = $event.target.value" autocomplete="on">
-      <v-btn type="submit" class="searchButton">
-        <v-icon>mdi-cloud-search-outline</v-icon>
-      </v-btn>
-    </form>
-  </div> -->
   <v-autocomplete
+  click:append-outer="goSearchedPage"
   v-model="select"
   :loading="loading"
   :items="items"
@@ -15,6 +8,8 @@
   append-icon=""
   append-outer-icon="fas fa-search"
   auto-select-first
+  color="success"
+  background-color="light-grey"
   click="onSearch"
   class="mx-4"
   flat
@@ -27,7 +22,7 @@
 
 <script>
 
-// import axios from "axios";
+import axios from "axios";
 export default {
   name: 'SearchBar',
   components: {  },
@@ -38,18 +33,6 @@ export default {
       items: [],
       search: null,
       select: null,
-      foods: [
-        '고추장',
-        '감자',
-        '고구마',
-        '감자채볶음',
-        '고기리 막국수',
-        '고기국수',
-        '고기리 김치찜',
-        '조깅',
-        '8시 조깅',
-        '9시 조깅',
-      ],
       seeds: [],
     }
   },
@@ -60,22 +43,37 @@ export default {
     search (val) {
       val && val !== this.select && this.querySelections(val)
     },
+    select () {
+      if (this.select) {
+        const keyword = this.select
+        this.goSearchedPage(keyword)
+      }
+    }
   },
   methods: {
     querySelections () {
       this.loading = true
       // Simulated ajax query
       setTimeout(() => {
-        this.items = this.foods
+        this.items = this.seeds
         this.loading = false
       }, 500)
-    },
-    onSearch: function () {
-      console.log('검색중')
+    },  
+    goSearchedPage (val) {
+      console.log('되나?')
+      console.log(val)
+      this.$router.push({ name: "SearchedPage", query: {id: val}})
+      this.select = ""
     }
   },
   created () {
-
+    axios.get("http://localhost:8080/Challenge")
+      .then((res) => {
+        this.seeds = res.data
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
 };

@@ -23,8 +23,6 @@
     </div>
     <div v-else>
       <SeedRecommended id="mainpage-component-result"/>
-      <!-- <SeedFamous id="mainpage-component-result"/>
-      <SeedNew id="mainpage-component-result"/> -->
     </div>
   </div>
 </template>
@@ -32,8 +30,6 @@
 <script>
 import SeedSearched from "@/views/MainPage/components/SeedSearched.vue"
 import SeedRecommended from "@/views/MainPage/components/SeedRecommended.vue"
-// import SeedFamous from "@/views/MainPage/components/SeedFamous.vue"
-// import SeedNew from "@/views/MainPage/components/SeedNew.vue"
 export default {
   name: 'MainPage',
   components: { SeedSearched, SeedRecommended },
@@ -41,7 +37,7 @@ export default {
   data() {
     return {
       select1: ['인기', '신규'],
-      select2: ['전체','건강', '생활습관', '독서', '자산', '자기계발', '취미'],
+      select2: ['건강', '생활습관', '독서', '자산', '자기계발', '취미'],
       valSelect1: '',
       valSelect2: '',
 
