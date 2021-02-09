@@ -267,6 +267,7 @@ export default {
             // 다른 유저 페이지
             this.isMyPage = false;
           }
+          console.log(this.isMyPage)
         })
         .catch((err) => {
           console.log(err)
