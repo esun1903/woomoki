@@ -44,8 +44,8 @@
           </v-col>
 
           <v-col>
-            <router-link v-if="isMyPage === true" to="/userPage/password">
-              <v-icon>fas fa-user-cog</v-icon>
+            <router-link to="/comparepwd">
+              <v-icon v-if="isMyPage === true">fas fa-user-cog</v-icon>
             </router-link>    
           </v-col>
         </v-row>
@@ -267,6 +267,7 @@ export default {
             // 다른 유저 페이지
             this.isMyPage = false;
           }
+          console.log(this.isMyPage)
         })
         .catch((err) => {
           console.log(err)

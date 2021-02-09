@@ -19,7 +19,7 @@
         @click="comparePassword" 
         :disabled="this.originPassword.length < 4"
         class="confirm-btn-right">
-        <router-link to="/userPage/UserPageEdit" class="confirm-btn-textcolor">확인</router-link>
+        <router-link to="/userPageEdit" class="confirm-btn-textcolor">확인</router-link>
       </v-btn>
     </v-row>
 
@@ -27,30 +27,34 @@
 </template>
 
 <script>
+import axios from "axios"
+
 export default {
   name: "CompareOriginPassword",
   data: function () {
     return {
       originPassword: "",
-      savedPassword: "1q2w3e4r!",
+      savedPassword: "",
       isSubmit: false,
     }
   },
   methods:  {
     // db에서 로그인 정보와 일치하는 패스워드 불러오기
-    // getPassword : function () {
-    //   axios.post("http://localhost:8088/", ??)
-    //     .then((res) => {
-    //       console.log(res)
-    //       this.savedPassword = res.data
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // },
+    getPassword : function () {
+      const myId = this.$store.state.UserStore.user.user_id 
+      axios.get(`http://localhost:8080/userPage/${myId}`)
+        .then((res) => {
+          console.log(res)
+          this.savedPassword = res.data.password
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
     comparePassword: function () {
       if (this.originPassword === this.savedPassword) {
         console.log("패스워드 일치!")
+        this.$router.push({ name: "UserPageEdit" })
       } else {
         alert("패스워드 불일치!")
       }
@@ -70,6 +74,9 @@ export default {
       }
       return this.isSubmit;
     }
+  },
+  created() {
+    this.getPassword()
   },
   computed: {
     isComplete() {
