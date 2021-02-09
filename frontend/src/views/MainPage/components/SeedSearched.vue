@@ -1,12 +1,12 @@
 <template>
   <v-container>
-    <div class="new-title">
-      <p>새로운 씨앗이 들어왔어요!</p>
+    <div class="searched-title">
+      <p>"조깅"에 관련된 씨앗입니다.</p>
     </div>
     <div class="cards">
       <v-row dense>
-        <v-col cols="3" class="card" v-for="(challenge, index) in challenges" :key="index">
-          <ChallengeCard :challenge="challenge"/>
+        <v-col cols="3" class="card" v-for="(seed, index) in seeds" :key="index">
+          <SeedCard :seed="seed"/>
         </v-col>
       </v-row>
     </div>
@@ -14,10 +14,10 @@
 </template>
 
 <script>
-import ChallengeCard from "@/views/MainPage/components/ChallengeCard.vue"
+import SeedCard from "@/views/MainPage/components/SeedCard.vue"
 export default {
-  name: 'ChallengeNew',
-  components: { ChallengeCard },
+  name: 'SeedRecommended',
+  components: { SeedCard },
   directives: {  },
   props: {
     // isSearching,
@@ -50,7 +50,7 @@ export default {
   width: 100%;
   height: 89.5vh;
   margin-bottom: 10%;
-  .new-title {
+  .searched-title {
     display: flex;
     justify-content: center;
     margin: 1% 0;

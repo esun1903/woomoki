@@ -27,51 +27,63 @@
 
 <script>
 
-
+import axios from "axios";
 export default {
   name: 'SearchBar',
   components: {  },
   directives: {  },
-    data () {
-      return {
-        loading: false,
-        items: [],
-        search: null,
-        select: null,
-        foods: [
-          '고추장',
-          '감자',
-          '고구마',
-          '감자채볶음',
-          '고기리 막국수',
-          '고기국수',
-          '고기리 김치찜'
-        ],
-      }
+  data () {
+    return {
+      loading: false,
+      items: [],
+      search: null,
+      select: null,
+      foods: [
+        '고추장',
+        '감자',
+        '고구마',
+        '감자채볶음',
+        '고기리 막국수',
+        '고기국수',
+        '고기리 김치찜'
+      ],
+      seeds: [],
+    }
+  },
+  mounted() {
+  
+  },
+  watch: {
+    search (val) {
+      val && val !== this.select && this.querySelections(val)
     },
-    mounted() {
-    
+  },
+  methods: {
+    querySelections () {
+      this.loading = true
+      // Simulated ajax query
+      setTimeout(() => {
+        this.items = this.foods
+        this.loading = false
+      }, 500)
     },
-    watch: {
-      search (val) {
-        val && val !== this.select && this.querySelections(val)
-      },
-    },
-    methods: {
-      querySelections (v) {
-        this.loading = true
-        // Simulated ajax query
-        setTimeout(() => {
-          this.items = this.foods.filter(e => {
-            return (e || '').toLowerCase().indexOf((v || '').toLowerCase()) > -1
-          })
-          this.loading = false
-        }, 500)
-      },
-      onSearch: function () {
-        console.log('검색중')
-      }
-    },
+    onSearch: function () {
+      console.log('검색중')
+    }
+  },
+  created () {
+    const id = {};
+    id["id"] = this.user.user_id
+    axios.post("http://localhost:8080", id)
+      .then((res) => {
+        const seeds = res.data
+        this.seeds = seeds
+      })
+      .catch((err) => {
+        console.log(err)
+      }) 
+  }
+
 };
 </script>
 

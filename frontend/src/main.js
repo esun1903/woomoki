@@ -9,9 +9,12 @@ import firebase from 'firebase';
 import VueApexCharts from 'vue-apexcharts';
 import "./common/filters";
 import Carousel3d from 'vue-carousel-3d';
+import VueGlide from 'vue-glide-js'
+import 'vue-glide-js/dist/vue-glide.css'
 import { UserStore } from "./store/modules/UserStore"
 
 Vue.use(Carousel3d);
+Vue.use(VueGlide);
 Vue.config.productionTip = false;
 
 // apexcharts 사용

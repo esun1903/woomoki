@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import createPersistedState from "vuex-persistedstate";
 import UserStore from "@/store/modules/UserStore.js";
 import CertStore from "@/store/modules/CertStore.js";
+import ChallengeStore from "@/store/modules/CertStore.js";
 
 Vue.use(Vuex);
 
@@ -10,6 +11,7 @@ export default new Vuex.Store({
   modules: {
     UserStore: UserStore,
     CertStore : CertStore,
+    ChallengeStore: ChallengeStore,
   },
   plugins: [
     createPersistedState({
