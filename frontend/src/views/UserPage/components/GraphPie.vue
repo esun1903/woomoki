@@ -5,6 +5,7 @@
 </template>
 
 <script>
+// import axios from 'axios'
 
 export default {
   name: "GraphLine",
@@ -45,8 +46,14 @@ export default {
               show: false
             }
           },
-  }
-}
+      }
+    },
+    methods: {
+      CategoryPer: function () {
+        // axios.
+      }
+    }
+
 }
 </script>
 
