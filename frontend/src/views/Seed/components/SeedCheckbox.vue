@@ -2,7 +2,7 @@
   <!-- snackbar 또는 dialog-->
   <v-col>
     <v-checkbox
-        color="success lighten-2"
+        color="success"
         v-model="value"
         :label="'참여자가 있다면 중간에 씨앗을 없앨 수 없어요!'"
     ></v-checkbox>
@@ -21,6 +21,11 @@ export default {
   methods: {
     transferCheckbox: function () {
       this.$emit('transferCheckbox', this.value)
+    }
+  },
+  watch: {
+    value: function () {
+      this.transferCheckbox();
     }
   }
 }

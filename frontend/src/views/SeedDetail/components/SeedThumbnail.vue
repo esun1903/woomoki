@@ -17,7 +17,12 @@
             <div class="content">
               <h1>{{ SeedInfo.title }}</h1>
               <br>
-              <div>{{ SeedInfo.category_id }}</div>
+              <div v-if="SeedInfo.category_id === 1">건강</div>
+              <div v-if="SeedInfo.category_id === 2">생활습관</div>
+              <div v-if="SeedInfo.category_id === 3">독서</div>
+              <div v-if="SeedInfo.category_id === 4">자산</div>
+              <div v-if="SeedInfo.category_id === 5">자기계발</div>
+              <div v-if="SeedInfo.category_id === 6">취미</div>
             </div>
             <div class="img-cover"></div>
           </v-img>
@@ -35,12 +40,12 @@ export default {
       SeedInfo: [],
       titme: "",
       summary: "",
-      imageUrl: "https://t1.daumcdn.net/cfile/tistory/995A17455A409C9A28",
+      imageUrl: "https://lh3.googleusercontent.com/proxy/gcelZf3h5JPsSdZCaCj38iN8ZHcLTKsWUZann9BfsPARcn2L_SB7LHQex6NCR592vRCvQWUvpNwHemE91u4MKx_a0TVNvh_y8E_2HZSXx4KG85i5f9VcUTp1ZEZFosnG87fYica8",
     }
   },
   methods: {
     async getSeedThumbnail () {
-      const seedId = 6
+      const seedId = 5
       const SeedInfo = await axios.get(`http://127.0.0.1:8080/detailChallenge/${seedId}`)
       this.SeedInfo = SeedInfo.data 
       //카테고리 이름을 불러와야함

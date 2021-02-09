@@ -8,7 +8,7 @@
       <v-stepper-step
         color="success"
         edit-icon="$complete"
-        editable
+        
         :complete="e1 > 1"
         step="1"
       >
@@ -20,7 +20,7 @@
       <v-stepper-step
         color="success"
         edit-icon="$complete"
-        editable
+        
         :complete="e1 > 2"
         step="2"
       >
@@ -33,7 +33,7 @@
         color="success"
         edit-icon="$complete"
         step="3"
-        editable
+        
       >
         기타
       </v-stepper-step>
@@ -133,13 +133,14 @@
             <template v-slot:activator="{ on, attrs }">
             
               <v-btn
-                color="success lighten-2"
-                dark
+                color="success"
                 v-bind="attrs"
                 v-on="on"
-                :disabled="isSubmitTotalSeedData === false"
+                @click="InsertSeed"
+                :disabled="EtcInfo.isSubmitEtcInfo === false"
               >생성
               </v-btn>
+
             </template>
             <v-sheet
               class="text-center"
@@ -172,6 +173,12 @@
             >
             <router-link to="/">취소</router-link>
           </v-btn>
+          <v-btn 
+            text
+            @click="e1 = 2"
+          >
+            뒤로가기
+          </v-btn>
         </div>
 
 
@@ -187,12 +194,12 @@ import SeedThumbnail from "./components/SeedThumbnail.vue"
 import SeedTitle from "./components/SeedTitle.vue"
 import SeedContent from "./components/SeedContent.vue"
 import SeedDate from "./components/SeedDate.vue"
-// import SeedButton from "./components/SeedButton.vue"
 import SeedCategory from "./components/SeedCategory.vue"
 import SeedPeople from "./components/SeedPeople.vue"
 import SeedDeposit from "./components/SeedDeposit.vue"
 import SeedCertificationImg from "./components/SeedCertificationImg.vue"
 import SeedCheckbox from "./components/SeedCheckbox.vue"
+import axios from 'axios'
 
 export default {
   name: 'CreateSeed',
@@ -201,7 +208,6 @@ export default {
     SeedTitle,
     SeedContent,
     SeedDate,
-    // SeedButton,
     SeedCategory,
     SeedPeople,
     SeedDeposit,
@@ -213,19 +219,23 @@ export default {
       e1: 1,
       slides: 7,
       sheet: false,
+      userId: this.$store.state.UserStore.user.user_id,
       category: "",
       thumbnail: "",
       title: "",
       content: "",
       certificationImg: "",
-      date: "",
+      like_cnt: 0,
+      dates: "",
+      start_date: "",
+      end_date: "",
       people: 0,
       joinDeposit: "",
       checkbox: false,
       isSubmitCategory: false,
       BasicInfo: {
         isSubmit: {
-          isSubmitThumbnail: false,
+          isSubmitThumbnail: true,
           isSubmitTitle: false,
           isSubmitContent: false,
         },
@@ -233,47 +243,76 @@ export default {
       },
       EtcInfo: {
         isSubmit: {
-          isCertificationImg: false,
+          isCertificationImg: true,
           isDate: false,
           isPeople: false,
           isjoinDeposit: false,
           isCheckbox: false,
         },
-        isSubmitEtc: false,
+        isSubmitEtcInfo: false,
       },
       isSubmitTotalSeedData: false,  
     }
   },
   methods: {
+    // 씨앗 생성
+    InsertSeed: function () {
+      const SeedData = {
+        category_id: this.category,
+        cert_count: 0,
+        content: this.content,
+        end_date: this.dates[1],
+        example_img: this.certificationImg,
+        join_deposit: Number(this.joinDeposit),
+        like_cnt: this.like_cnt,
+        max_people: this.people,
+        start_date: this.dates[0],
+        sum_img: this.thumbnail,
+        title: this.title,
+        user_id: this.userId
+      }
+      axios.post("http://127.0.0.1:8080/insertChallenge", SeedData)
+        .then((res) => {
+          console.log(res)
+          console.log(this.end_date)
+          console.log(this.dates)
+          // console.log(this.date[0], this.date[1])
+          this.$router.push({ name: "Main"})
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
     // 컴포넌트에서 데이터 받아오기
-    receiveLifestyle: function (isSubmitCategory, lifestyle) {
+    // receiveHealth: function (isSubmitCategory, health) {
+    receiveHealth: function (isSubmitCategory) {
       this.isSubmitCategory = isSubmitCategory
-      this.category = lifestyle
+      this.category = 1
       console.log(this.category)
     },
-    receiveHealth: function (isSubmitCategory, health) {
+    receiveLifestyle: function (isSubmitCategory) {
       this.isSubmitCategory = isSubmitCategory
-      this.category = health
+      this.category = 2
       console.log(this.category)
     },
-    receiveBook: function (isSubmitCategory, health) {
+    receiveBook: function (isSubmitCategory) {
       this.isSubmitCategory = isSubmitCategory
-      this.category = health
+      this.category = 3
       console.log(this.category)
     },
-    receiveAssets: function (isSubmitCategory, health) {
+    receiveAssets: function (isSubmitCategory) {
       this.isSubmitCategory = isSubmitCategory
-      this.category = health
+      this.category = 4
       console.log(this.category)
     },
-    receiveGrown: function (isSubmitCategory, health) {
+    receiveGrown: function (isSubmitCategory) {
       this.isSubmitCategory = isSubmitCategory
-      this.category = health
+      this.category = 5
       console.log(this.category)
     },
-    receiveHobby: function (isSubmitCategory, health) {
+    receiveHobby: function (isSubmitCategory) {
       this.isSubmitCategory = isSubmitCategory
-      this.category = health
+      this.category = 6
       console.log(this.category)
     },
     receiveThumbnail: function (thumbnail) {
@@ -288,8 +327,8 @@ export default {
     receiveCertificationImg: function (certificationImg) {
       this.certificationImg = certificationImg
     },
-    receiveDate: function (date) {
-      this.date = date
+    receiveDate: function (dates) {
+      this.dates = dates
     },
     receivePeople: function (people) {
       this.people = people
@@ -305,63 +344,79 @@ export default {
       // 씨앗 이름 검사
       if (this.title.length >= 5 && this.title.length <= 20) {
         this.BasicInfo.isSubmit.isSubmitTitle = true
+        console.log("이름:", this.BasicInfo.isSubmit.isSubmitTitle)
       } else {
         this.BasicInfo.isSubmit.isSubmitTitle = false
       }
       // 씨앗 내용 검사
       if (this.content.length >= 10 && this.content.length <= 200) {
         this.BasicInfo.isSubmit.isSubmitContent = true
+        console.log("내용:", this.BasicInfo.isSubmit.isSubmitContent)
       } else {
         this.BasicInfo.isSubmit.isSubmitContent = false
       }
       // 씨앗 사진, 이름, 내용 중 하나라도 false면 isSubmitBasicInfo는 false
-      Object.values(this.BasicInfo.isSubmit).map(v => {
-        if (!v) { this.BasicInfo.isSubmitBasicInfo = false; }
-        else {this.BasicInfo.isSubmitBasicInfo = true;}
-      })
+      const isAllSubmitBasicInfo = Object.values(this.BasicInfo.isSubmit).every(v => { return v === true })
+      if (isAllSubmitBasicInfo) {
+        this.BasicInfo.isSubmitBasicInfo = true;
+      } else {
+        this.BasicInfo.isSubmitBasicInfo = false;
+      }
     },
     checkFormEtc: function () {
       // 예시 이미지 검사
-      if (this.EtcInfo.certificationImg.length > 0) {
-        this.EtcInfo.isSubmit.isCertificationImg = true
-      } else {
-        this.EtcInfo.isSubmit.isCertificationImg = false
-      }
+      // if (this.certificationImg.length > 0) {
+      //   this.EtcInfo.isSubmit.isCertificationImg = true
+      // } else {
+      //   this.EtcInfo.isSubmit.isCertificationImg = false
+      // }
 
       // 날짜 검사
-      if (this.EtcInfo.date.length > 0) {
+      if (this.dates.length > 1) {
         this.EtcInfo.isSubmit.isDate = true
+        console.log("날짜:", this.EtcInfo.isSubmit.isDate)
       } else {
         this.EtcInfo.isSubmit.isDate = false
       }
 
       // 참여 인원
-      if (this.EtcInfo.people > 0) {
+      if (this.people > 0) {
         this.EtcInfo.isSubmit.isPeople = true
+        console.log("사람:", this.EtcInfo.isSubmit.isPeople)
       } else {
         this.EtcInfo.isSubmit.isPeople = false
-      
+      }
+
       // 참여 금액 검사
-      if (/^[0-9]+$/.test(this.EtcInfo.joinDeposit)) {
+      if (this.joinDeposit.length <= 5 && /^[0-9]+$/.test(this.joinDeposit)) {
         this.EtcInfo.isSubmit.isjoinDeposit = true
+        console.log("금액:", this.EtcInfo.isSubmit.isjoinDeposit)
       } else {
         this.EtcInfo.isSubmit.isjoinDeposit = false
       }
 
       // 체크박스 검사
-      if (this.EtcInfo.checkbox === true) {
+      if (this.checkbox === true) {
         this.EtcInfo.isSubmit.isCheckbox = true
+        console.log("체크박스:", this.EtcInfo.isSubmit.isCheckbox)
       } else {
         this.EtcInfo.isSubmit.isCheckbox = false
       }
 
-      Object.values(this.EtcInfo.isSubmit).map(v => {
-        if (!v) { this.EtcInfo.isSubmitEtc = false; }
-        else {this.EtcInfo.isSubmitEtc = true;}
-      })
-    }}
+      const isAllSubmitEtcInfo = Object.values(this.EtcInfo.isSubmit).every(v => { return v === true })
+      console.log(Object.values(this.EtcInfo.isSubmit))
+      console.log("전체:", isAllSubmitEtcInfo)
+      if (isAllSubmitEtcInfo) {
+        this.EtcInfo.isSubmitEtcInfo = true;
+      } else {
+        this.EtcInfo.isSubmitEtcInfo = false;
+      }
+    }
   },
   watch: {
+    thumbnail: function() {
+      this.checkFormBasicInfo();
+    },
     title: function() {
       this.checkFormBasicInfo();
     },
@@ -371,7 +426,7 @@ export default {
     certificationImg: function() {
       this.checkFormEtc();
     },
-    date: function() {
+    dates: function() {
       this.checkFormEtc();
     },
     people: function() {
