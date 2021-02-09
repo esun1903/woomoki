@@ -56,7 +56,11 @@ public interface UserDao {
 			"cha.max_people, cha.example_img, cha.join_deposit, cha.like_cnt " +
 			"FROM joined_challenge AS joy JOIN challenge AS cha " +
 			"ON joy.id = #{user_id} AND joy.cng_id = cha.id")
-   public   List<ChallengeDto> userPageJoincng(int user_id);
+    public List<ChallengeDto> userPageJoincng(int user_id);
+
+   // 한 줄 소개, 핸드폰 번호, 비밀번호 변경
+	@Update("UPDATE user SET introduce =  #{userDto.introduce}, phone =  #{userDto.phone},  password =  #{userDto.password} WHERE id = #{userDto.id}")
+    public int changeUser(@Param("userDto") UserDto userDto);
 }
 
 /*
