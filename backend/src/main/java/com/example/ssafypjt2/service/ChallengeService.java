@@ -31,4 +31,6 @@ public interface ChallengeService {
     public List<ChallengeDto> searchWordChallenge(String keyword);
 
     public List<ChallengeDto> userPageCreatecng(int user_id);
+
+    public  List<String> Challenge();
 }
