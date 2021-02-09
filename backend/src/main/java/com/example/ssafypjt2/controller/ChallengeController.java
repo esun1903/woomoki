@@ -32,6 +32,7 @@ public class ChallengeController {
 	@Autowired
 	private FavCategoryService favCategoryService;
 
+
 	@PostMapping("/insertChallenge")
 	public int challengeInsert ( @RequestBody ChallengeDto challengeDto) {
 		int result = challengeService.challengeInsert(challengeDto);
@@ -111,7 +112,5 @@ public class ChallengeController {
 		System.out.println("챌린지 중에서 "+ keyword +"로 검색해볼게요!");
 		return challengeService.searchWordChallenge(keyword);
 	}
-
-// 이거 올릴겁니다 !:)
 
 }
