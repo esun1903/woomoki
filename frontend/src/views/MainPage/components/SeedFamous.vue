@@ -18,7 +18,7 @@ import SeedCard from "@/views/MainPage/components/SeedCard.vue";
 import axios from "axios";
 import {mapState} from "vuex";
 export default {
-  name: 'SeedRecommended',
+  name: 'SeedFamous',
   components: { SeedCard },
   directives: {  },
   props: {
