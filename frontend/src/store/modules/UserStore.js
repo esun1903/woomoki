@@ -54,7 +54,7 @@ const UserStore = {
           axios.defaults.headers.common[
             "auth-token"
           ] = `${response.data["auth-token"]}`;
-          router.push({ name: 'Main' });
+          router.push('/seedDetail');
         }).catch((error) => {
           console.log(error);
           alert("이메일, 비밀번호 확인");
