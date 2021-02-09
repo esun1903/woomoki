@@ -251,7 +251,9 @@ export default {
     BasicUserInfo: function () {
       const MyNickname = this.$store.state.UserStore.user.nickname
       const user_id = this.$store.state.UserStore.user.user_id
-      const UserNickname = this.$route.query.userNickname
+      // query사용
+      // const UserNickname = this.$route.query.userNickname
+      const UserNickname = this.$route.params.userNickname
   
       // 얘가 한번만 실행되야하는데...
       this.$store.dispatch("UserStore/compareId", user_id);
