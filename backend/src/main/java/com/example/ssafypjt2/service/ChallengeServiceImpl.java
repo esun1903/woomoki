@@ -82,4 +82,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return result;
 	}
 
+	@Override
+	public List<String> Challenge() {
+		System.out.println("모든 챌린지 title 리턴해줄 service에 도착 ~ ");
+		List<String> result =  dao.challenge();
+		System.out.println(result);
+		return result;
+	}
+
 }

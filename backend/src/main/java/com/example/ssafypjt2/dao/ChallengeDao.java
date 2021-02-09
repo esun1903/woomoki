@@ -80,6 +80,9 @@ public interface ChallengeDao {
 
 	@Select("SELECT * FROM challenge WHERE user_id = #{user_id} ")
     public List<ChallengeDto> userPageCreatecng(@Param("user_id")int user_id);
+
+	@Select("SELECT title FROM challenge ")
+     public   List<String> challenge();
 }
 
 /*
