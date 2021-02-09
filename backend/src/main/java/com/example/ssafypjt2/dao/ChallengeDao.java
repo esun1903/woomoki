@@ -19,17 +19,17 @@ public interface ChallengeDao {
 
 	@Select(" SELECT category_id, user_id, title, content, "
 			+ "sum_img, start_date, end_date, cert_count, "
-			+ "max_people, example_img , join_deposit, like_cnt "
+			+ "max_people, example_img , join_deposit, like_cnt + result "
 			+ " FROM challenge WHERE id = #{cngId} ")
 	public ChallengeDto challengeDetail(@Param("cngId")int cngId);
 
 
-	@Insert("Insert INTO challenge ( category_id, user_id, title, content, sum_img, start_date, end_date, cert_count, max_people, example_img, join_deposit )"
+	@Insert("Insert INTO challenge ( category_id, user_id, title, content, sum_img, start_date, end_date, cert_count, max_people, example_img, join_deposit, result )"
 			+ " VALUES ( "
 			+ "#{challengeDto.category_id}, #{challengeDto.user_id}, "
 			+ "#{challengeDto.title}, #{challengeDto.content}, #{challengeDto.sum_img}, "
-			+ "now(), now(), #{challengeDto.cert_count}, "
-			+ "#{challengeDto.max_people}, #{challengeDto.example_img}, #{challengeDto.join_deposit} )")
+			+ "#{challengeDto.start_date}, #{challengeDto.end_date}, #{challengeDto.cert_count}, "
+			+ "#{challengeDto.max_people}, #{challengeDto.example_img}, #{challengeDto.join_deposit}, #{challengeDto.result})")
 	@Options(useGeneratedKeys = true)
 	public int challengeInsert(@Param("challengeDto")ChallengeDto challengeDto);
 
@@ -42,7 +42,8 @@ public interface ChallengeDao {
 			+ "max_people = #{challengeDto.max_people},"
 			+ "example_img = #{challengeDto.example_img},"
 			+ "join_deposit = #{challengeDto.join_deposit} "
-			+ "WHERE id = #{challengeDto.id}")
+			+ " result = #{challengeDto.result} "
+			+ "WHERE id = #{challengeDto.id}" )
 	public int challengeUpdate(@Param("challengeDto")ChallengeDto challengeDto);
 
 	@Delete("DELETE FROM challenge "
@@ -55,13 +56,13 @@ public interface ChallengeDao {
 
 	@Select(" SELECT id, category_id, user_id, title, content, "
 			+ "sum_img, start_date, end_date, cert_count, "
-			+ "max_people, example_img , join_deposit, like_cnt  "
+			+ "max_people, example_img , join_deposit, like_cnt, result  "
 			+ " FROM challenge WHERE category_id = #{cgId} ")
 	public List<ChallengeDto> challengeCategorySort(@Param("cgId")int cgId);
 
 	@Select(" SELECT id, category_id, user_id, title, content, "
 			+ "sum_img, start_date, end_date, cert_count, "
-			+ "max_people, example_img , join_deposit, like_cnt "
+			+ "max_people, example_img , join_deposit, like_cnt, result "
 			+ " FROM challenge WHERE user_id = #{userId} ")
 	public List<ChallengeDto> challengeUserSelect(@Param("userId")int userId);
 
