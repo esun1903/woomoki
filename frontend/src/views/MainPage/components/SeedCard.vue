@@ -52,8 +52,9 @@ export default {
   methods: {
     // 해당 게시글 아이디 담아줘야해
     goSeedDetail: function () {
-      // this.$router.push({ name: 'SeedDetail', params: { seedId: seedId } })
-      this.$router.push({ name: "SeedDetail" })
+      // console.log(this.seed)
+      this.$router.push({ name: 'SeedDetail', params: { seedId: this.seed.id } })
+      // this.$router.push({ name: "SeedDetail" })
     },
     getScrap: function () {
       if (this.scrapped) {
