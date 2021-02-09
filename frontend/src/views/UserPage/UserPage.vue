@@ -127,7 +127,7 @@ export default {
           } else {
             $state.complete();
           }
-        }, 1000)
+        }, 2000)
       }
     },
     created() {
