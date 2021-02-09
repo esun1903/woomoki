@@ -1,8 +1,5 @@
 <template>
   <v-container>
-    <div class="searched-title">
-      <p>"조깅"에 관련된 씨앗입니다.</p>
-    </div>
     <div class="cards">
       <v-row dense>
         <v-col cols="3" class="card" v-for="(seed, index) in seeds" :key="index">
@@ -14,26 +11,19 @@
 </template>
 
 <script>
-import SeedCard from "@/views/MainPage/components/SeedCard.vue"
+import SeedCard from "@/views/MainPage/components/SeedCard.vue";
+import axios from "axios";
 export default {
-  name: 'SeedRecommended',
+  name: 'SeedSearched',
   components: { SeedCard },
   directives: {  },
   props: {
-    // isSearching,
+    "category": String,
+    "option": String,
   },
   data() {
     return {
-      challenges: [
-        { title: '새벽 러닝', category: '건강', term: '2주', time: "주 3회", src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'},
-        { title: '미라클모닝', category: '생활습관', term: '1주', time: "주 3회", src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'},
-        { title: '코스모스 읽기', category: '독서', term: '4주', time: "주 2회", src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'},
-        { title: '영화노트 작성하기', category: '취미', term: '2주', time: "주 7회", src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'},
-        { title: '영상 편집하기', category: '자기계발', term: '2주', time: "주 2회", src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'},
-        { title: '기타 초급 떼기', category: '취미', term: '1주', time: "주 5회", src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'},
-        { title: '프랑스자수 기본 스티치', category: '취미', term: '3주', time: "주 1회", src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'},
-        { title: '주식 매매일지 쓰기', category: '자산', term: '1주', time: "주 6회", src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'},
-      ],
+      seeds: [],
     };
   },
   mounted() {
@@ -42,6 +32,65 @@ export default {
   methods: {
     
   },
+  created () {
+    const cgId_num = this.selectedCategory
+    const cgId = {};
+    cgId["cgId"] = cgId_num
+    console.log(cgId_num)
+    console.log(cgId)
+    axios.get(`http://localhost:8080/categorySort/${cgId_num}`, cgId)
+      .then((res) => {
+        const seeds = res.data
+        if (this.option == "인기") {
+          seeds.sort(function(a,b) {
+            return a.like_cnt > b.like_cnt ? -1 : a.like_cnt < b.like_cnt ? 1 : 0;
+          })
+        } else {
+          seeds.sort(function(a,b) {
+            return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
+          })
+        }
+        seeds.splice(8)
+        this.seeds = seeds
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  },
+  computed: {
+    selectedCategory: function () {
+      if (this.category === '건강') {
+        return 1
+      } else if (this.category === '생활습관') {
+        return 2
+      } else if (this.category === '독서') {
+        return 3
+      } else if (this.category === '자산') {
+        return 4
+      } else if (this.category === '자기계발') {
+        return 5
+      } else {
+        return 6
+      }
+    },
+  },
+  watch: {
+    category(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        return newVal
+      }
+    },
+    option(newVal, oldVal) {
+      if (newVal!== oldVal) {
+        return newVal
+      }
+    },
+    selectedCategory(newVal, oldVal) {
+      if (newVal!== oldVal) {
+        return newVal
+      }
+    },
+  }
 };
 </script>
 
@@ -50,15 +99,6 @@ export default {
   width: 100%;
   height: 89.5vh;
   margin-bottom: 10%;
-  .searched-title {
-    display: flex;
-    justify-content: center;
-    margin: 1% 0;
-    p {
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-  }
   .cards {
     width: 100%;
     height: 100%;

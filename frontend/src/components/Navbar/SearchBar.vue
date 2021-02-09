@@ -14,7 +14,7 @@
   :search-input.sync="search"
   append-icon=""
   append-outer-icon="fas fa-search"
-  auto-select-first="true"
+  auto-select-first
   click="onSearch"
   class="mx-4"
   flat
@@ -22,12 +22,12 @@
   hide-details
   label="검색"
   solo-inverted
-></v-autocomplete>
+  ></v-autocomplete>
 </template>
 
 <script>
 
-import axios from "axios";
+// import axios from "axios";
 export default {
   name: 'SearchBar',
   components: {  },
@@ -45,7 +45,10 @@ export default {
         '감자채볶음',
         '고기리 막국수',
         '고기국수',
-        '고기리 김치찜'
+        '고기리 김치찜',
+        '조깅',
+        '8시 조깅',
+        '9시 조깅',
       ],
       seeds: [],
     }
@@ -72,16 +75,16 @@ export default {
     }
   },
   created () {
-    const id = {};
-    id["id"] = this.user.user_id
-    axios.post("http://localhost:8080", id)
-      .then((res) => {
-        const seeds = res.data
-        this.seeds = seeds
-      })
-      .catch((err) => {
-        console.log(err)
-      }) 
+    // const id = {};
+    // id["id"] = this.user.user_id
+    // axios.post("http://localhost:8080", id)
+    //   .then((res) => {
+    //     const seeds = res.data
+    //     this.seeds = seeds
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   }) 
   }
 
 };

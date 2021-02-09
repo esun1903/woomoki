@@ -1,25 +1,31 @@
 <template>
   <v-card>
-    <v-img :src=ChallengeImg @click="goChallengeDetail(challenge.id)" aspect-ratio="1.5"></v-img>
-    <div class="challenge-card-top">
-      <v-chip id="category-chip" :ripple="false"> {{ challenge.category }}</v-chip>
+    <v-img :src=SeedImg @click="goSeedDetail(seed.id)" aspect-ratio="1.5"></v-img>
+
+    <div class="seed-card-top">
+      <v-chip id="category-chip" :ripple="false" :color=this.color> {{ this.category }}</v-chip>
       <v-btn icon @click.native="getScrap">
         <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
       </v-btn>
     </div>
 
     <div>
-      <v-card-title>
-        {{challenge.title}}
-      </v-card-title>
+      <v-tooltip bottom> 
+        <template v-slot:activator="{ on }">
+          <v-card-title v-on="on">
+            {{seed.title}}
+          </v-card-title>
+        </template>
+        <span class="full-title">{{seed.title}}</span>
+      </v-tooltip>
     </div>
-    <div class="challenge-card-bottom">
+    <div class="seed-card-bottom">
       <div>
         <v-chip label :ripple="false">
-          {{ challenge.term }}
+          <!-- {{ seed.term }} -->4주
         </v-chip>
         <v-chip label :ripple="false">
-          {{ challenge.time }}
+          <!-- {{ seed.time }} -->주 2회
         </v-chip>
       </div>
     </div>
@@ -33,7 +39,7 @@ export default {
   components: {  },
   directives: {  },
   props: {
-    challenge: Object, 
+    seed: Object, 
   },
   data() {
     return {
@@ -45,8 +51,9 @@ export default {
   },
   methods: {
     // 해당 게시글 아이디 담아줘야해
-    goChallengeDetail: function (challengeId) {
-      this.$router.push({ name: 'ChallengeDetail', params: { challengeId: challengeId } }) 
+    goSeedDetail: function () {
+      // this.$router.push({ name: 'SeedDetail', params: { seedId: seedId } })
+      this.$router.push({ name: "SeedDetail" })
     },
     getScrap: function () {
       if (this.scrapped) {
@@ -58,9 +65,39 @@ export default {
     }
   },
   computed: {
-    ChallengeImg: function () {
-      return this.challenge.src 
+    SeedImg: function () {
+      return this.seed.sum_img 
     },
+    category: function () {
+      if (this.category_id === 1) {
+        return '건강'
+      } else if (this.seed.category_id === 2) {
+        return '생활습관'
+      } else if (this.seed.category_id === 3) {
+        return '독서'
+      } else if (this.seed.category_id === 4) {
+        return '자산'
+      } else if (this.seed.category_id === 5) {
+        return '자기계발'
+      } else {
+        return '취미'
+      }
+    },
+    color: function () {
+      if (this.seed.category_id === 1) {
+        return 'light-green lighten-1'
+      } else if (this.seed.category_id === 2) {
+        return 'orange lighten-1'
+      } else if (this.seed.category_id === 3) {
+        return 'teal lighten-1'
+      } else if (this.seed.category_id === 4) {
+        return 'indigo lighten-1'
+      } else if (this.seed.category_id === 5) {
+        return 'purple lighten-1'
+      } else {
+        return 'pink lighten-1'
+      }
+    }
   }
 };
 </script>
@@ -72,7 +109,7 @@ export default {
   font-size: 0.8rem;
   justify-content: center;
   }
-.challenge-card-top {
+.seed-card-top {
   display: flex;
   justify-content: space-between;
   margin-top: 2%;
@@ -80,9 +117,9 @@ export default {
 #category-chip {
   margin-top: 3%;
   margin-left: 3%;
-  background-color: rgb(143, 209, 165);
+  // background-color: rgb(143, 209, 165);
 }
-.challenge-card-bottom {
+.seed-card-bottom {
   margin-left: 3%;
   div {
     .v-chip {
@@ -101,53 +138,7 @@ export default {
   -webkit-line-clamp: 1;
   overflow: hidden;
 }
-  // .v-image {
-  //   height: 30%;
-  // }
-
-// .v-card {
-//  height: 280px;
-//  width: 300px;
-// }
-
-
-// .v-responsive {
-//   max-height: 55%;
-// }
-// #category-chip {
-//   width: 70px;
-//   right: -68%;
-//   font-weight: bold;
-//   background-color: rgb(143, 209, 165);
-// }
-// .v-chip--label {
-//   margin-top: 5px;
-// }
-// .v-card__title {
-//   // margin-top: 7px;
-//   margin-left: 10px;
-//   padding: 0;
-//   font-weight: bold;
-// }
-// #card-bottom {
-//   display: flex;
-//   direction: column;
-//   align-items: center;
-//   justify-content: space-between;
-//   margin-top:10px;
-// }
-// .v-btn {
-//   background-color: trasparent;
-//   margin-right: 5px;
-// }
-
-
-.v-chip {
-
-  div {
-    .v-card__title {
-
-    }
-  }
+.full-title {
+  font-size: 0.8em;
 }
 </style>
