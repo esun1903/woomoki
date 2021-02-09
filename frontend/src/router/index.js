@@ -83,7 +83,8 @@ const routes = [
     component: FindPasswordResult,        
   },
   {
-    path: '/userPage/:userNickname',
+    // path: '/userPage/:userNickname',
+    path: '/userPage',
     name: 'UserPage',
     component: UserPage,
     props: true     
