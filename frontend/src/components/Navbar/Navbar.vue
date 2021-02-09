@@ -76,7 +76,9 @@
               <div v-if="getCheckLogin">
                 <!-- <v-list-item @click="goMyPage"> -->
                 <v-list-item>
-                  <router-link :key="$route.fullPath" :to="{ name: 'UserPage', query: { userNickname: userNickname }}">
+                  <!-- query사용 -->
+                  <!-- <router-link :key="$route.fullPath" :to="{ name: 'UserPage', query: { userNickname: userNickname }}"> -->
+                  <router-link :key="$route.fullPath" :to="{ name: 'UserPage', params: { userNickname: userNickname }}">
                     <v-list-item-title>마이페이지</v-list-item-title>
                    </router-link>
                 </v-list-item>
