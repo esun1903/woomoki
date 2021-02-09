@@ -1,5 +1,6 @@
 <template>
-  <v-row>
+  <div></div>
+  <!-- <v-row>
     <v-col
       v-for="(card, $idx) in cards"
       :key="$idx"
@@ -27,40 +28,40 @@
         </template>
       </v-img>
     </v-col>
-    
-  </v-row>
+    <infinite-loading @infinite="UserCertification"></infinite-loading>
+  </v-row> -->
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 
 export default {
   name: "UserCertifications",
   data: function () {
     return {
+      page : 1,
       cards: [],
-      limit : 0,
     }
   },
   methods: {
-    // UserCertification($state) {
-    //   const userid = 0 
-    //   axios.get(`http://127.0.0.1:8080/userCertification/${userid}`, {
-    //     params: {
-    //       limit : this.limit ,
-    //       },
-    //     })
-    //     .then(({data}) => {
-    //       console.log(data)
-    //       if (data.length) {
-    //         this.cards = this.cards.concat(data);
-    //         this.limit += 3;
-    //         $state.loaded();
-    //       } else {
-    //         $state.complete();
-    //       }
-    //     })
-    // },
+    UserCertification($state) {
+      const userid = this.$store.state.UserStore.user.user_id
+      console.log(userid)
+      axios.get(`http://127.0.0.1:8080/userCertification/${userid}`, {
+        params: {
+          page : this.page ,
+          },
+        })
+        .then(({data}) => {
+          if (data.length) {
+            this.cards.push(...data)
+            this.page += 1;
+            $state.loaded();
+          } else {
+            $state.complete();
+          }
+        })
+    },
     CertificationDetail: function () {
       console.log("CertificationDetail")
       // 인증 디테일 페이지로 이동
@@ -68,7 +69,7 @@ export default {
     },
   },
   mounted() {
-    // this.UserCertification();
+    this.UserCertification();
   }
 }
 </script>
