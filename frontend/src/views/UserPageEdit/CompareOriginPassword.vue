@@ -8,10 +8,12 @@
     <v-row>
       <v-text-field
         v-model="originPassword"
+        label="비밀번호"
         type="password"
         outlined
-        >
-      </v-text-field>
+        dense
+      ></v-text-field>
+      
     </v-row>
 
     <v-row class="d-flex justify-end">
@@ -91,7 +93,7 @@ export default {
 a { text-decoration:none } 
 
 .container-size {
-  width: 20%;
+  width: 40%;
   margin-top: 16%;
   margin-bottom: 15%;
 }
