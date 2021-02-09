@@ -69,7 +69,7 @@ export default {
       return this.seed.sum_img 
     },
     category: function () {
-      if (this.category_id === 1) {
+      if (this.seed.category_id === 1) {
         return '건강'
       } else if (this.seed.category_id === 2) {
         return '생활습관'
