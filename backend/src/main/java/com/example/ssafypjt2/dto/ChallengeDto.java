@@ -29,7 +29,8 @@ public class ChallengeDto {
 	private int join_deposit;
 	private int like_cnt;
 	private int result;
-	private int week;
+	private int week; // 몇 주
+	private int day;  // 며칠
 
 
 	public int getId() {
@@ -123,6 +124,13 @@ public class ChallengeDto {
 	}
 	public void setWeek(int week) {
 		this.week = week;
+	}
+
+	public int getDay() {
+		return day;
+	}
+	public void setDay(int day) {
+		this.day = day;
 	}
 	public ChallengeDto() {
 		super();
