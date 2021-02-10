@@ -72,6 +72,7 @@ export default {
   data: function () {
     return {
       seedId: this.$route.params.seedId,
+      userId: "",
       SeedInfo: [],
       UserInfo: [],
       results: [],
@@ -94,13 +95,16 @@ export default {
       const UserInfo = await axios.get(`http://127.0.0.1:8080/userPage/${user_id}`)
       this.UserInfo = UserInfo.data
       console.log(UserInfo)
-    },
-    isMySeedCheck: function () {
+
       const SeedUserId = this.$store.state.UserStore.user.user_id 
       const UserId = this.SeedInfo.user_id
       if (SeedUserId === UserId) {
-        this.isMySeed = ture;
+        this.isMySeed = true;
       }
+
+    },
+    isMySeedCheck: function () {
+      
     }
   },
   created() {
