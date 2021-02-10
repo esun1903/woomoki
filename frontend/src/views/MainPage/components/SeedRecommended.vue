@@ -4,11 +4,19 @@
       <p>{{ this.user.nickname }}님, 이런 씨앗은 어때요?</p>
     </div>
     <div class="cards">
-      <v-row dense>
+      <v-row>
         <v-col cols="3" class="card" v-for="(seed, index) in seeds" :key="index">
           <SeedCard :seed="seed"/>
         </v-col>
       </v-row>
+    </div>
+    <div class="pagination">
+      <v-pagination
+        v-model="page"
+        :length="4"
+        prev-icon="mdi-menu-left"
+        next-icon="mdi-menu-right"
+      ></v-pagination>
     </div>
   </v-container>
 </template>
@@ -25,7 +33,8 @@ export default {
   },
   data() {
     return {
-      seeds: []
+      seeds: [],
+      page: 1,
     };
   },
   computed: {
@@ -37,13 +46,14 @@ export default {
   created () {
     const id = {};
     id["id"] = this.user.user_id
-    axios.post("http://localhost:8080", id)
+    console.log(id)
+    axios.post("http://localhost:8080/", id)
       .then((res) => {
         const seeds = res.data
         seeds.sort(function(a,b) {
           return a.like_cnt > b.like_cnt ? -1 : a.like_cnt < b.like_cnt ? 1 : 0;
         })
-        seeds.splice(8)
+        // seeds.splice(8)
         this.seeds = seeds
       })
       .catch((err) => {
@@ -56,7 +66,7 @@ export default {
 <style lang="scss" scoped>
 .container {
   width: 100%;
-  height: 89.5vh;
+  height: 100%;
   margin-bottom: 10%;
   .recommend-title {
     display: flex;
@@ -70,6 +80,7 @@ export default {
   .cards {
     width: 100%;
     height: 100%;
+    margin-bottom: 5%;
     .row {
       .card {
         padding: 1%;

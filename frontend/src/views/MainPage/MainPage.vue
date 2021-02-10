@@ -1,22 +1,24 @@
 <template>
   <div>
-    <div class="selectbox1">
-      <v-select
-        v-model="valSelect1"
-        :items="select1"
-        label="인기/신규"
-        dense
-        outlined
-      ></v-select>
-    </div>
-    <div class="selectbox2">
-      <v-select
-        v-model="valSelect2"
-        :items="select2"
-        label="카테고리"
-        dense
-        outlined
-      ></v-select>
+    <div class="selectBoxes">
+      <div class="selectBox1">
+        <v-select
+          v-model="valSelect1"
+          :items="select1"
+          label="인기/신규"
+          dense
+          outlined
+        ></v-select>
+      </div>
+      <div class="selectBox2">
+        <v-select
+          v-model="valSelect2"
+          :items="select2"
+          label="카테고리"
+          dense
+          outlined
+        ></v-select>
+      </div>
     </div>
     <div v-if="onSearch">
       <SeedSearched :option="valSelect1" :category="valSelect2" id="mainpage-component-result"/> 
@@ -37,7 +39,7 @@ export default {
   data() {
     return {
       select1: ['인기', '신규'],
-      select2: ['건강', '생활습관', '독서', '자산', '자기계발', '취미'],
+      select2: ['전체', '건강', '생활습관', '독서', '자산', '자기계발', '취미'],
       valSelect1: '',
       valSelect2: '',
 
@@ -75,16 +77,17 @@ export default {
 
 <style lang="scss" scoped>
 div {
-  div {
-    .select1{
-      .v-input{
-        max-width: 7%;
-      }
+  .selectBoxes {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 5%;
+    .selectBox1{
+      margin-right: 0.5%;
+      width: 10%;
     }
-    .select2{
-      v-input{
-        max-width: 7%;
-      }
+    .selectBox2{
+      margin-right: 12%;
+      width: 10%;
     }
   }
 }
