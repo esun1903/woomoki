@@ -7,6 +7,7 @@
       :rules="joinDepositRules"
       :counter="5"
       label="참여 금액(원)"
+      suffix="원"
       outlined
       required
       @input="transferDeposit"
