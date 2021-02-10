@@ -1,6 +1,8 @@
 package com.example.ssafypjt2.service;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import com.example.ssafypjt2.dto.ChallengeDto;
 
@@ -33,4 +35,6 @@ public interface ChallengeService {
     public List<ChallengeDto> userPageCreatecng(int user_id);
 
     public  List<String> Challenge();
+
+    public List<ChallengeDto> challengeListResultSort(int user_id , int result_num );
 }

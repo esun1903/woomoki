@@ -88,7 +88,6 @@ public class ChallengeController {
 	}
 
 	//생성한 챌린지 리스트형태로 보여주기
-	@CrossOrigin(origins = "*")
 	@GetMapping("/userPage/createcng/{userid}")
 	public List<ChallengeDto> userPageCreatecng(@PathVariable(value = "userid") int user_id ) throws Exception {
 
@@ -97,7 +96,7 @@ public class ChallengeController {
 		return result;
 	}
 
-	@CrossOrigin(origins = "*") // 메인 페이지 보여주기
+	// 메인 페이지 보여주기
 	@PostMapping("/")
 	public List<ChallengeDto> favCategory(@RequestBody UserDto userDto) {
 
@@ -113,12 +112,16 @@ public class ChallengeController {
 		return challengeService.searchWordChallenge(keyword);
 	}
 
-	@GetMapping("/Challenge")
-	public  List<String> Challenge(){
+	@GetMapping("/challenge")
+	public  List<String> challenge(){
 		System.out.println("챌린지의 title을 리턴하기 ");
 		List<String> list = challengeService.Challenge();
 		return list;
 	}
 
+	@GetMapping("/challengeResultSort/{userId}/{resultNum}")
+	public List<ChallengeDto> challengeListResultSort(@PathVariable(value = "userId") int userId, @PathVariable(value = "resultNum") int resultNum){
+		return challengeService.challengeListResultSort(userId,resultNum);
+	}
 
 }
