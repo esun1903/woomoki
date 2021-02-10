@@ -238,7 +238,7 @@
 
     .img,
     .content,
-    .nickname-date-row,
+    .nickname-date-row
         {
         justify-content: center;
         margin-top: 5%;
