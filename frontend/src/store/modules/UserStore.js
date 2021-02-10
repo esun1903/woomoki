@@ -11,6 +11,7 @@ const UserStore = {
     user: {
       accessToken: null,
       user_id: "",
+      compareId: "",
       nickname: "",
       email: "",   
     },
@@ -21,6 +22,7 @@ const UserStore = {
       console.log("payload[auth-token]: "+payload["auth-token"]);
       state.user.accessToken = payload["auth-token"];
       state.user.user_id = payload["user-id"];
+      // state.user.compareId = payload["user-id"];
       state.user.nickname = payload["user-name"];
       state.user.email = payload["user-email"];
       state.isLogin = true;
@@ -29,10 +31,14 @@ const UserStore = {
     LOGOUT(state) {
       state.user.accessToken = null;
       state.user.user_id = "";
+      state.user.compareId = "";
       state.user.nickname = "";
       state.user.email = "";  
       state.isLogin = false;
     },
+    COMPARE(state, compareId) {
+      state.user.compareId = compareId
+    }
   },
   getters: {
 
@@ -50,7 +56,7 @@ const UserStore = {
           axios.defaults.headers.common[
             "auth-token"
           ] = `${response.data["auth-token"]}`;
-          router.push({ name: 'Main' });
+          router.push('/seedDetail');
         }).catch((error) => {
           console.log(error);
           alert("이메일, 비밀번호 확인");
@@ -82,6 +88,9 @@ const UserStore = {
         "auth-token"
       ] = undefined;
       commit('LOGOUT')
+    },
+    compareId(context, compareId) {
+      context.commit("COMPARE", compareId);
     }
   }
 }

@@ -3,16 +3,16 @@
 
     <v-row class="d-flex justify-space-around align-center">
       
-      <v-col class="d-flex justify-center">
+      <v-col class="d-flex justify-start">
         <v-avatar 
           color="grey lighten-3"
           width="250"
           height="250"
           >
           <span class="black--text headline">
-            사진
+            
             <v-img
-              :src="this.UserInfo.userImg">
+              :src="this.UserInfo.img">
             </v-img>
           </span>
         </v-avatar>
@@ -23,7 +23,7 @@
           class="d-flex align-center">
           <v-col>
             <h2>
-              {{ this.UserInfo.userNickname }}
+              {{ this.UserInfo.nickname }}
             </h2>
           </v-col>
 
@@ -31,6 +31,7 @@
             <v-btn-toggle
               active-class="toggle-btn">
               <v-btn
+                v-if="isMyPage === false"
                 :ripple="false"
                 color="primary"
                 width="60"
@@ -43,15 +44,15 @@
           </v-col>
 
           <v-col>
-            <router-link to="/userPage/password">
-              <v-icon>fas fa-user-cog</v-icon>
+            <router-link to="/comparepwd">
+              <v-icon v-if="isMyPage === true">fas fa-user-cog</v-icon>
             </router-link>    
           </v-col>
         </v-row>
 
         <v-row>
           <v-col>
-            <div>👩‍💼 Lv. {{ this.UserInfo.userLevelNum }} {{ this.UserInfo.userLevelTitle }}</div>
+            <div>👩‍💼 Lv. {{ this.UserInfo.levelnum }} {{ this.UserInfo.leveltitle }}</div>
           </v-col>
         </v-row>
 
@@ -61,9 +62,9 @@
               plain
               :ripple="false"
             >
-              <div>
+              <div v-if="isMyPage === true">
                 <h2>나의 캐시</h2>
-                <div>{{ this.UserInfo.userDeposit }}원</div>
+                <div>{{ this.UserInfo.deposit }}원</div>
               </div>
             </v-btn>
           </v-col>
@@ -182,7 +183,7 @@
         
         <v-row>
           <v-col>
-            <div>{{ this.UserInfo.userIntroduce }}</div>
+            <div>{{ this.UserInfo.introduce }}</div>
           </v-col>
         </v-row>
 
@@ -207,18 +208,8 @@ export default {
   },
   data: function () {
     return {
-      myId: "",
-      myState: "",
-      userState: "",
-      UserInfo: {
-        userNickname: "",
-        userEmail: "",
-        userImg: "",
-        userIntroduce: "",
-        userLevelNum: "",
-        userLevelTitle: "",
-        userDeposit: "",
-        },
+      isMyPage: false,
+      UserInfo: [],
       dialog: {
         dialogm1: "",
         dialog: false,
@@ -230,6 +221,7 @@ export default {
     }
   },
   methods: {
+    // jwt 토큰 활용
     // setToken: function () {
     //   const token = localStorage.getItem("jwt");
     //   const config = {
@@ -239,43 +231,48 @@ export default {
     //   };
     //   return config;
     // },
-
-    // jwt 토큰
-    // setToken: function () {
+    // getUserId: function () {
     //   const config = this.setToken();
-    //   axios.get("??", config)
+    //   axios
+    //     .get("http://127.0.0.1:8000/userPage/", config)
     //     .then((res) => {
-    //       this.myId = res.data
+    //       console.log(res.data);
+    //       this.myId = res.data.user_id;
     //     })
     //     .catch((err) => {
-    //       console.log(err)
-    //     })
+    //       console.log(err);
+    //     });
     // },
 
     // 마이페이지 아이콘 or 다른사람의 닉네임을 누르면 
-    // router로 페이지 이동과 함께 params or query로 유저 아이디를 vuex state에 저장한다.
-    // 그리고 UserPage.vue가 렌더링 될때 vuex state에 있는 아이디를 post에 보내서 유저 정보를 렌더링
-    // jwt토큰을 가져와서 그 유저정보와 지금 렌더링 되는 유저 정보가 같으면 마이페이지 렌더링, 아니면 유저페이지 렌더링
+    // router로 페이지 이동과 함께 params로 vuex state에 저장되어 있는 userId를 보낸다.
+    // 그리고 UserPage.vue가 렌더링 될때 vuex state에 있는 로그인한 사람의 myId와 params로 받은 userId를 비교하여 같으면
+    // 마이페이지를 렌더링 하고 다르면 유저페이지를 렌더링한다.
     BasicUserInfo: function () {
-      const userid = this.$UserStore.state.user_id
-      axios.get(`http://127.0.0.1:8080/userPage/test/${userid}`)
+      const MyNickname = this.$store.state.UserStore.user.nickname
+      const user_id = this.$store.state.UserStore.user.user_id
+      // query사용
+      // const UserNickname = this.$route.query.userNickname
+      const UserNickname = this.$route.params.userNickname
+  
+      // 얘가 한번만 실행되야하는데...
+      this.$store.dispatch("UserStore/compareId", user_id);
+
+      console.log(MyNickname, UserNickname)
+      axios.get(`http://127.0.0.1:8080/userPage/${user_id}`)
         .then((res) => {
-          this.UserInfo.userImg = res.data.img
-          this.UserInfo.userNickname = res.data.nickname
-          this.UserInfo.userIntroduce = res.data.introduce
-          this.UserInfo.userLevelNum = res.data.levelnum
-          this.UserInfo.userLevelTitle = res.data.leveltitle
-          this.UserInfo.userDeposit = res.data.deposit
-          console.log(this.userInfo)
- 
-          // if (this.myId === userid) {
-          //   // 내 페이지
-          //   // myState에 따라 태그에 v-if 렌더링
-          //   this.myState = true;
-          // } else {
-          //   // 다른 유저 페이지
-          //   this.myState = false;
-          // }
+          this.UserInfo = res.data
+          if (MyNickname === UserNickname) {
+            
+            // 내 페이지
+            // myState에 따라 태그에 v-if 렌더링
+            this.isMyPage = true;
+          } else {
+            
+            // 다른 유저 페이지
+            this.isMyPage = false;
+          }
+          console.log(this.isMyPage)
         })
         .catch((err) => {
           console.log(err)
@@ -284,17 +281,16 @@ export default {
     // UserFollowerBtn: function () {
       
     // },
-    
-    // computed: {
-    //   ...mapState({
-    //     userid: 'state에서 유저닉네임이 저장되어있는 변수'
-    //   })
-    // }
+
   },
   created() {
     // this.setToken()
     this.BasicUserInfo()
+    // this.getUserId()
   },
+  computed: {
+      // ...mapState('UserStore', ['user_id'])
+    }
 }
 </script>
 

@@ -52,8 +52,9 @@ export default {
   methods: {
     // 해당 게시글 아이디 담아줘야해
     goSeedDetail: function () {
-      // this.$router.push({ name: 'SeedDetail', params: { seedId: seedId } })
-      this.$router.push({ name: "SeedDetail" })
+      // console.log(this.seed)
+      this.$router.push({ name: 'SeedDetail', params: { seedId: this.seed.id } })
+      // this.$router.push({ name: "SeedDetail" })
     },
     getScrap: function () {
       if (this.scrapped) {
@@ -69,7 +70,7 @@ export default {
       return this.seed.sum_img 
     },
     category: function () {
-      if (this.category_id === 1) {
+      if (this.seed.category_id === 1) {
         return '건강'
       } else if (this.seed.category_id === 2) {
         return '생활습관'

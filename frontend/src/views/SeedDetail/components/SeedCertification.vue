@@ -10,7 +10,7 @@
         :src="card.img"
         :lazy-src="card.img"
         aspect-ratio="1"
-        class="grey lighten-2 cursor_test"
+        class="grey lighten-2"
       >
         <template v-slot:placeholder>
           <v-row
@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     getSeedCertification: function () {
-      const seedId = 4
+      const seedId = 5
       axios.get(`http://127.0.0.1:8080/sameChallengeCertification/${seedId}`)
         .then((res) => {
           this.cards = res.data

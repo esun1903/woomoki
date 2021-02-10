@@ -69,15 +69,18 @@
           <v-menu offset-y open-on-hover bottom>
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" class="btn">
-                <router-link to="/userPage">
-                  <v-icon color="grey darken-1">mdi-account-circle</v-icon>
-                </router-link>
+                <v-icon color="grey darken-1">mdi-account-circle</v-icon>
               </v-btn>
             </template>
             <v-list>
               <div v-if="getCheckLogin">
-                <v-list-item @click="goMyPage">
-                  <v-list-item-title>마이페이지</v-list-item-title>
+                <!-- <v-list-item @click="goMyPage"> -->
+                <v-list-item>
+                  <!-- query사용 -->
+                  <!-- <router-link :key="$route.fullPath" :to="{ name: 'UserPage', query: { userNickname: userNickname }}"> -->
+                  <router-link :key="$route.fullPath" :to="{ name: 'UserPage', params: { userNickname: userNickname }}">
+                    <v-list-item-title>마이페이지</v-list-item-title>
+                   </router-link>
                 </v-list-item>
                 <v-list-item @click="goLogout">
                   <v-list-item-title>로그아웃</v-list-item-title>
@@ -108,6 +111,8 @@ export default {
   directives: {  },
   data: function () {
     return {
+      userId: this.$store.state.UserStore.user.user_id,
+      userNickname: this.$store.state.UserStore.user.nickname,
       notice: false,
       currentTab: null,
       tabs: [
@@ -132,9 +137,9 @@ export default {
   },  
   methods: {
     
-    goMyPage: function () {
-      this.$router.push({ name: 'UserPage' }) 
-    },
+    // goMyPage: function () {
+    //   this.$store.dispatch("UserStore/compareId", this.$store.state.UserStore.user.user_id);
+    // },
     goLogout: function () {
       this.$store.dispatch('UserStore/logOut')
     },
@@ -144,7 +149,7 @@ export default {
     goSignup: function () {
       this.$router.push({ name: 'Signup' })  
     },
-    
+
   },
 };
 </script>

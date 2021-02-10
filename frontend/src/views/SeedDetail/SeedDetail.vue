@@ -32,7 +32,7 @@
       </v-tabs-items>
 
     </v-row>
-  </v-container>
+    </v-container>
 </template>
 
 <script>

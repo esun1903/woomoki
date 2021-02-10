@@ -2,11 +2,12 @@
   <v-col class="pa-0">
     <v-select
       color="success"
-      value="value"
+      v-model="value"
       :items="people"
       label="최대 참여 인원 수"
       dense
       outlined
+      @input="transferPeople"
     ></v-select>
         <!-- <v-col class="pr-4">
           <v-slider
