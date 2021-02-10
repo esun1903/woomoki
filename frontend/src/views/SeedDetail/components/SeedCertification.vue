@@ -39,15 +39,18 @@ export default {
   },
   data: function () {
     return {
+      seedId: this.$route.params.seedId,
       cards: [],
     }
   },
   methods: {
     getSeedCertification: function () {
-      const seedId = 5
+      const seedId = this.seedId
+      console.log(this.seedId)
       axios.get(`http://127.0.0.1:8080/sameChallengeCertification/${seedId}`)
         .then((res) => {
           this.cards = res.data
+          console.log("인증:",res.data)
         })
         .catch((err) => {
           console.log(err)

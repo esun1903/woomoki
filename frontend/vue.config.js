@@ -1,4 +1,5 @@
 module.exports = {
+    lintOnSave: false,
     transpileDependencies: ["vuetify"],
     configureWebpack: {
     // other webpack options to merge in ...

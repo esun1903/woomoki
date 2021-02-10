@@ -8,7 +8,7 @@
         :return-value.sync="dates"
         transition="scale-transition"
         offset-y
-        min-width="auto"
+        width="50%"
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
@@ -21,6 +21,7 @@
           ></v-text-field>
         </template>
         <v-date-picker
+          width="43.5vw"
           range
           v-model="dates"
           no-title

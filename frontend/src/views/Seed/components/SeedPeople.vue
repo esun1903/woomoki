@@ -1,6 +1,16 @@
 <template>
   <v-col class="pa-0">
-    <v-select
+    <v-slider
+      v-model="value"
+      label="최대 인원"
+      color="grey"
+      track-color="grey"
+      thumb-color="grey"
+      :thumb-label="true"
+      min="0"
+      max="50"
+    ></v-slider>
+    <!-- <v-select
       color="success"
       v-model="value"
       :items="people"
@@ -8,7 +18,7 @@
       dense
       outlined
       @input="transferPeople"
-    ></v-select>
+    ></v-select> -->
         <!-- <v-col class="pr-4">
           <v-slider
             v-model="maxPeople"
@@ -43,6 +53,17 @@ export default {
   methods: {
     transferPeople: function () {
       this.$emit('transferPeople', this.value)
+    }
+  },
+  // computed: {
+  //   valueChange () {
+  //     // console.log(this.dates)
+  //     return this.value.join(' ~ ')
+  //   },
+  // },
+  watch: {
+    value: function() {
+      this.transferPeople();
     }
   }
 }
