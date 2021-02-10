@@ -16,18 +16,23 @@
           <div class="d-inline-flex">👩‍💼 Lv.{{ UserInfo.levelnum }} {{ UserInfo.title }}</div>
         </div>
       </v-col>
+      <v-col>
+      </v-col>
       <v-col class="d-flex align-center">
         <v-row class="d-flex justify-end">
-          <v-btn>참여하기</v-btn>
           <router-link v-if="isMySeed === true" :to="{ name: 'SeedUpdate', params: { seedId: this.seedId }}">
-            <v-btn>수정하기</v-btn>
+            <v-btn color="success">
+              수정하기
+            </v-btn>
           </router-link>
+          <v-btn v-if="isMySeed === true" color="success" @click="deleteSeed">삭제</v-btn>
+          <v-btn v-if="isMySeed === false" color="success">참여하기</v-btn>
           <SeedShare></SeedShare>
         </v-row>
       </v-col>
     </v-row>
     <v-row justify="center" class="mb-5">
-      <v-expansion-panels multiple focusable>
+      <v-expansion-panels multiple popout>
         <v-expansion-panel
           v-for="(result, idx) in results"
           :key="idx"
@@ -81,6 +86,7 @@ export default {
   },
   methods: {
     async SeedDetailInfo () {
+      // 씨앗 정보 가져오기
       const SeedInfo = await axios.get(`http://127.0.0.1:8080/detailChallenge/${this.seedId}`)
       this.SeedInfo = SeedInfo.data
       this.results.push({key: "내용", value: this.SeedInfo.content})
@@ -88,14 +94,13 @@ export default {
       this.results.push({key: "참여 기간", value: `${this.SeedInfo.start_date} ~ ${this.SeedInfo.end_date}`})
       this.results.push({key: "참여 금액", value: `${this.SeedInfo.join_deposit}원`})
       this.results.push({key: "예시 이미지", value: this.SeedInfo.example_img})
-      console.log("seed 데이터 응답")
-      console.log(this.SeedInfo)
-
+      
+      // 유저 정보 가져오기
       const user_id = this.SeedInfo.user_id
       const UserInfo = await axios.get(`http://127.0.0.1:8080/userPage/${user_id}`)
       this.UserInfo = UserInfo.data
-      console.log(UserInfo)
 
+      // 내가 만든 씨앗인지 구분
       const SeedUserId = this.$store.state.UserStore.user.user_id 
       const UserId = this.SeedInfo.user_id
       if (SeedUserId === UserId) {
@@ -103,13 +108,22 @@ export default {
       }
 
     },
-    isMySeedCheck: function () {
-      
+    // 씨앗 제거
+    deleteSeed: function () {
+      const seedId = this.seedId
+      console.log(seedId)
+      axios.delete(`http://127.0.0.1:8080/deleteChallenge/${seedId}`)
+        .then((res) => {
+          console.log(res)
+          this.$router.push({ name: "Main" })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   created() {
     this.SeedDetailInfo();
-    this.isMySeedCheck();
   },
   computed: {
     color: function () {

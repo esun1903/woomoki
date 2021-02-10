@@ -20,13 +20,30 @@
               <v-chip :color=this.color class="white--text">{{this.category}}</v-chip>
               <v-row>
                 <v-col>
-                  <div>참여</div>
+                  <div>참여: / {{ this.SeedInfo.max_people }}</div>
                 </v-col>
                 <v-col>
                   <div>인증률: </div>
                 </v-col>
               </v-row>
+              <v-row>
+                <v-progress-linear
+                  :value="percentage"
+                  :color="color"
+                  height="25"
+                >
+                  <template>
+                    <strong>{{ percentage }}%</strong>
+                  </template>
+                </v-progress-linear>
+              </v-row>
             </div>
+            <v-btn v-if="isMySeed === false" class="star-position" icon @click="getScrap">
+              <v-icon size="48" :color="scrapped ? 'yellow' : 'white' ">fas fa-star</v-icon>
+            </v-btn>
+            <v-btn v-if="isMySeed === false" class="star-position" icon @click="getScrap">
+              <v-icon size="48" :color="scrapped ? 'red' : 'white' ">fas fa-heart</v-icon>
+            </v-btn>
             <div class="img-cover"></div>
           </v-img>
     </v-avatar>
@@ -44,17 +61,92 @@ export default {
       SeedInfo: [],
       titme: "",
       summary: "",
+      scrapped: false,
+      isMySeed: false,
+      percentage: 20
     }
   },
   methods: {
     async getSeedThumbnail () {
+      // 씨앗 정보 가져오기
       const seedId = this.seedId
       const SeedInfo = await axios.get(`http://127.0.0.1:8080/detailChallenge/${seedId}`)
       this.SeedInfo = SeedInfo.data 
+
+      // 오늘 날짜
+      // const today = new Date();
+      // console.log(today)
+      // // 시작 날짜
+      // const start_year = this.SeedInfo.start_date.slice(0, 4)
+      // const startDate = new Date(Number(start_year), Number(this.SeedInfo.start_date[5]), Number(this.SeedInfo.start_date[6]), Number(this.SeedInfo.start_date[8]), Number(this.SeedInfo.start_date[9]));
+      // // 끝나는 날짜
+      // const end_year = this.SeedInfo.end_date.slice(0, 4)
+      // const endDate = new Date(Number(end_year), Number(this.SeedInfo.end_date[5]), Number(this.SeedInfo.end_date[6]), Number(this.SeedInfo.end_date[8]), Number(this.SeedInfo.end_date[9]));
+      // console.log(Number(end_year), Number(this.SeedInfo.end_date[5]), Number(this.SeedInfo.end_date[6]), Number(this.SeedInfo.end_date[8]), Number(this.SeedInfo.end_date[9]))
+      // console.log(startDate, endDate)
+      // // 전체 기간 계산
+      // const deltaDate = Math.floor((endDate - startDate) / (1000*60*60*24))
+      // // 시작부터 오늘까지 날짜 계산
+      // const progressDate = Math.floor((today - startDate) / (1000*60*60*24))
+      // console.log(deltaDate, progressDate)
+      // 퍼센트로 환산
+      // const percentage = (progressDate / deltaDate) 
+      // this.percentage = Math.round(percentage)
+
+      // 내가 만든 씨앗인지 구분
+      const SeedUserId = this.$store.state.UserStore.user.user_id 
+      const UserId = this.SeedInfo.user_id
+      if (SeedUserId === UserId) {
+        this.isMySeed = true;
       }
+    },
+    // 스크랩(좋아요) 하기
+    getScrap () {
+      // 클릭 때 마다 scrapped가 토글
+      this.scrapped = !this.scrapped
+      const seedId = this.seedId
+      const userId = this.$store.state.UserStore.user.user_id
+      // 스크랩이 되어있지 않을 때 스크랩
+      if (this.scrapped) {
+        axios.get(`http://127.0.0.1:8080/userPage/favChallenge/${userId}/${seedId}`)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      } else {
+        // 스크랩 되어 있을 때 스크랩 취소
+        axios.get(`http://127.0.0.1:8080/userPage/DeletefavChallenge/${userId}/${seedId}`)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      }
+    },
+    // progressPer () {
+    //   // 오늘 날짜
+    //   const today = new Date();
+    //   // 시작 날짜
+    //   const start_year = this.SeedInfo.start_date.slice(0, 4)
+    //   const startDate = new Date(start_year, this.SeedInfo.start_date[5], this.SeedInfo.start_date[6], this.SeedInfo.start_date[8], this.SeedInfo.start_date[9]);
+    //   // 끝나는 날짜
+    //   const end_year = this.SeedInfo.end_date.slice(0, 4)
+    //   const endDate = new Date(end_year, this.SeedInfo.end_date[5], this.SeedInfo.end_date[6], this.SeedInfo.end_date[8], this.SeedInfo.end_date[9]);
+    //   // 전체 기간 계산
+    //   const deltaDate = endDate - startDate
+    //   // 시작부터 오늘까지 날짜 계산
+    //   const progressDate = today - startDate
+    //   // 퍼센트로 환산
+    //   const percentage = deltaDate / progressDate * 100
+    //   return percentage
+    // }
   },
   created() {
     this.getSeedThumbnail();
+    // this.getProgressPer();
   },
   computed: {
     category: function () {
@@ -86,7 +178,7 @@ export default {
       } else {
         return 'pink lighten-1'
       }
-    }
+    },
   }
 }
 </script>
@@ -116,6 +208,13 @@ export default {
      color: white;
      z-index: 2;
      text-align: center;
+}
+
+.star-position {
+  z-index: 3;
+  position: absolute;
+  right: 30px;
+  bottom: 165px;
 }
 
 </style>
