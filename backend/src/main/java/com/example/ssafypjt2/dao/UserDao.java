@@ -59,7 +59,7 @@ public interface UserDao {
     public List<ChallengeDto> userPageJoincng(int user_id);
 
    // 한 줄 소개, 핸드폰 번호, 비밀번호 변경
-	@Update("UPDATE user SET introduce =  #{userDto.introduce}, phone =  #{userDto.phone},  password =  #{userDto.password} WHERE id = #{userDto.id}")
+	@Update("UPDATE user SET img = #{userDto.img} , introduce =  #{userDto.introduce}, phone =  #{userDto.phone},  password =  #{userDto.password} , img = #{userDto.img} WHERE id = #{userDto.id}")
     public int changeUser(@Param("userDto") UserDto userDto);
 }
 
