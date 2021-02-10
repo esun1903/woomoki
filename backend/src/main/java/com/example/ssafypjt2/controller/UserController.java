@@ -123,7 +123,6 @@ public class UserController {
 	@CrossOrigin(origins = "*")
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-
 		System.out.println("로그아웃 기능");
 		session.invalidate();
 		return "redirect:/";
