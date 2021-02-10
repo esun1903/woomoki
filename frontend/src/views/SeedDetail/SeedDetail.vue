@@ -9,7 +9,7 @@
 
       <v-tabs
         v-model="tab"
-        color="deep-purple accent-4"
+        color="success"
         right
       >
         <v-tab
@@ -24,10 +24,10 @@
           v-for="item in items"
           :key="item"
           >
-          <v-card>
-            <v-card-text v-if="item === '씨앗 정보'"><SeedBasicInfo></SeedBasicInfo></v-card-text>
+          <!-- <v-card> -->
+            <v-card-text class="d-flex justify-center width-size" v-if="item === '씨앗 정보'"><SeedBasicInfo></SeedBasicInfo></v-card-text>
             <v-card-text class="d-flex justify-center" v-if="item === '보살핌 후기'"><SeedCertification></SeedCertification></v-card-text>
-          </v-card>
+          <!-- </v-card> -->
         </v-tab-item>
       </v-tabs-items>
 
@@ -57,5 +57,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.width-size {
+  width: 77vw;
+}
 
 </style>

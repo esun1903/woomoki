@@ -12,17 +12,20 @@
           >
           <v-img
             class="img"
-            :src="imageUrl"
+            :src="this.SeedInfo.sum_img"
           >
             <div class="content">
               <h1>{{ SeedInfo.title }}</h1>
               <br>
-              <div v-if="SeedInfo.category_id === 1">건강</div>
-              <div v-if="SeedInfo.category_id === 2">생활습관</div>
-              <div v-if="SeedInfo.category_id === 3">독서</div>
-              <div v-if="SeedInfo.category_id === 4">자산</div>
-              <div v-if="SeedInfo.category_id === 5">자기계발</div>
-              <div v-if="SeedInfo.category_id === 6">취미</div>
+              <v-chip :color=this.color class="white--text">{{this.category}}</v-chip>
+              <v-row>
+                <v-col>
+                  <div>참여</div>
+                </v-col>
+                <v-col>
+                  <div>인증률: </div>
+                </v-col>
+              </v-row>
             </div>
             <div class="img-cover"></div>
           </v-img>
@@ -37,23 +40,53 @@ export default {
   name: "SeedThumbnail",
   data: function () {
     return {
+      seedId: this.$route.params.seedId,
       SeedInfo: [],
       titme: "",
       summary: "",
-      imageUrl: "https://lh3.googleusercontent.com/proxy/gcelZf3h5JPsSdZCaCj38iN8ZHcLTKsWUZann9BfsPARcn2L_SB7LHQex6NCR592vRCvQWUvpNwHemE91u4MKx_a0TVNvh_y8E_2HZSXx4KG85i5f9VcUTp1ZEZFosnG87fYica8",
     }
   },
   methods: {
     async getSeedThumbnail () {
-      const seedId = 5
+      const seedId = this.seedId
       const SeedInfo = await axios.get(`http://127.0.0.1:8080/detailChallenge/${seedId}`)
       this.SeedInfo = SeedInfo.data 
-      //카테고리 이름을 불러와야함
-      // const CategoryName = await axios.get(`???`)
-    }
+      }
   },
   created() {
     this.getSeedThumbnail();
+  },
+  computed: {
+    category: function () {
+      if (this.SeedInfo.category_id === 1) {
+        return '건강'
+      } else if (this.SeedInfo.category_id === 2) {
+        return '생활습관'
+      } else if (this.SeedInfo.category_id === 3) {
+        return '독서'
+      } else if (this.SeedInfo.category_id === 4) {
+        return '자산'
+      } else if (this.SeedInfo.category_id === 5) {
+        return '자기계발'
+      } else {
+        return '취미'
+      }
+    },
+    color: function () {
+      if (this.SeedInfo.category_id === 1) {
+        return 'light-green lighten-1'
+      } else if (this.SeedInfo.category_id === 2) {
+        return 'orange lighten-1'
+      } else if (this.SeedInfo.category_id === 3) {
+        return 'teal lighten-1'
+      } else if (this.SeedInfo.category_id === 4) {
+        return 'indigo lighten-1'
+      } else if (this.SeedInfo.category_id === 5) {
+        return 'purple lighten-1'
+      } else {
+        return 'pink lighten-1'
+      }
+    }
   }
 }
 </script>
@@ -61,8 +94,7 @@ export default {
 <style lang="scss" scoped>
 
 .img{
-    position: relative;
-    background-image: url("https://t1.daumcdn.net/cfile/tistory/995A17455A409C9A28");                                                               
+    position: relative;                                                             
     height: 100vh;
     background-size: cover;
 }
