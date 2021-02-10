@@ -27,15 +27,15 @@
       </v-col>
     </v-row>
     <v-row justify="center" class="mb-5">
-      <v-expansion-panels focusable>
+      <v-expansion-panels multiple focusable>
         <v-expansion-panel
           v-for="(result, idx) in results"
           :key="idx"
         >
-          <v-expansion-panel-header :color="color">
-            <span class="font-color">
+          <v-expansion-panel-header :color="color" :ripple="false">
+            <h3 class="white--text">
               {{ result.key }}  
-            </span>
+            </h3>
           </v-expansion-panel-header>
           <v-expansion-panel-content v-if="result.key === '예시 이미지'" class="mt-4">
             <v-img :src="result.value"></v-img>
@@ -129,9 +129,5 @@ export default {
 
 <style lang="scss" scoped>
 
-.font-color {
-  color: white;
-  font: bold;
-}
 
 </style>
