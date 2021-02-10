@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col class="d-flex justify-center">
+      <v-col class="d-flex justify-start align-center">
         <v-avatar
           size="64"
           color="grey lighten-3"
@@ -11,36 +11,42 @@
             :src="UserInfo.img"
           ></v-img>
         </v-avatar>
+        <div>
+          <h1 class="d-inline-flex">{{ UserInfo.nickname }}</h1>
+          <div class="d-inline-flex">👩‍💼 Lv.{{ UserInfo.levelnum }} {{ UserInfo.title }}</div>
+        </div>
       </v-col>
       <v-col class="d-flex align-center">
-        <div>심은이: {{ UserInfo.nickname }}</div>
-        <div>레벨: {{ UserInfo.levelnum }} {{ UserInfo.title }}</div>
-      </v-col>
-      <v-col class="d-flex align-center">
-        <v-row>
+        <v-row class="d-flex justify-end">
           <v-btn>참여하기</v-btn>
-          <router-link :to="{ name: 'SeedUpdate', params: { seedId: this.seedId }}">
+          <router-link v-if="isMySeed === true" :to="{ name: 'SeedUpdate', params: { seedId: this.seedId }}">
             <v-btn>수정하기</v-btn>
           </router-link>
           <SeedShare></SeedShare>
         </v-row>
       </v-col>
     </v-row>
-    <v-row>
-      <div>내용: {{ SeedInfo.content }}</div>
+    <v-row justify="center" class="mb-5">
+      <v-expansion-panels focusable>
+        <v-expansion-panel
+          v-for="(result, idx) in results"
+          :key="idx"
+        >
+          <v-expansion-panel-header :color="color">
+            <span class="font-color">
+              {{ result.key }}  
+            </span>
+          </v-expansion-panel-header>
+          <v-expansion-panel-content v-if="result.key === '예시 이미지'" class="mt-4">
+            <v-img :src="result.value"></v-img>
+          </v-expansion-panel-content>
+          <v-expansion-panel-content v-else class="mt-4">
+            {{ result.value }}
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
     </v-row>
-    <v-row>
-      <div>최대 인원: {{ SeedInfo.max_people }}</div>
-    </v-row>
-    <v-row>
-      <div>시작 날짜: {{ SeedInfo.start_date }}</div>
-    </v-row>
-    <v-row>
-      <div>종료 날짜: {{ SeedInfo.end_date }}</div>
-    </v-row>
-    <v-row>
-      <div>참여 금액: {{ SeedInfo.join_deposit }}</div>
-    </v-row>
+    
     <v-row>
       <h2>씨앗 관리 규칙 안내</h2>
     </v-row>
@@ -68,12 +74,19 @@ export default {
       seedId: this.$route.params.seedId,
       SeedInfo: [],
       UserInfo: [],
+      results: [],
+      isMySeed: false,
     }
   },
   methods: {
     async SeedDetailInfo () {
       const SeedInfo = await axios.get(`http://127.0.0.1:8080/detailChallenge/${this.seedId}`)
       this.SeedInfo = SeedInfo.data
+      this.results.push({key: "내용", value: this.SeedInfo.content})
+      this.results.push({key: "참여 인원", value: `${this.SeedInfo.max_people}명`})
+      this.results.push({key: "참여 기간", value: `${this.SeedInfo.start_date} ~ ${this.SeedInfo.end_date}`})
+      this.results.push({key: "참여 금액", value: `${this.SeedInfo.join_deposit}원`})
+      this.results.push({key: "예시 이미지", value: this.SeedInfo.example_img})
       console.log("seed 데이터 응답")
       console.log(this.SeedInfo)
 
@@ -81,14 +94,44 @@ export default {
       const UserInfo = await axios.get(`http://127.0.0.1:8080/userPage/${user_id}`)
       this.UserInfo = UserInfo.data
       console.log(UserInfo)
+    },
+    isMySeedCheck: function () {
+      const SeedUserId = this.$store.state.UserStore.user.user_id 
+      const UserId = this.SeedInfo.user_id
+      if (SeedUserId === UserId) {
+        this.isMySeed = ture;
+      }
     }
   },
   created() {
     this.SeedDetailInfo();
+    this.isMySeedCheck();
+  },
+  computed: {
+    color: function () {
+      if (this.SeedInfo.category_id === 1) {
+        return 'light-green lighten-1'
+      } else if (this.SeedInfo.category_id === 2) {
+        return 'orange lighten-1'
+      } else if (this.SeedInfo.category_id === 3) {
+        return 'teal lighten-1'
+      } else if (this.SeedInfo.category_id === 4) {
+        return 'indigo lighten-1'
+      } else if (this.SeedInfo.category_id === 5) {
+        return 'purple lighten-1'
+      } else {
+        return 'pink lighten-1'
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+
+.font-color {
+  color: white;
+  font: bold;
+}
 
 </style>
