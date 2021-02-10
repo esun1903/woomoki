@@ -16,19 +16,20 @@ import com.example.ssafypjt2.dto.ChallengeDto;
 
 @Mapper
 public interface ChallengeDao {
+	//다시 test
 	@Select(" SELECT category_id, user_id, title, content, "
 			+ "sum_img, start_date, end_date, cert_count, "
-			+ "max_people, example_img , join_deposit, like_cnt, result, week"
+			+ "max_people, example_img , join_deposit, like_cnt, result, week,  day"
 			+ " FROM challenge WHERE id = #{cngId} ")
 	public ChallengeDto challengeDetail(@Param("cngId")int cngId);
 
 
-	@Insert("Insert INTO challenge ( category_id, user_id, title, content, sum_img, start_date, end_date, cert_count, max_people, example_img, join_deposit, result, week )"
+	@Insert("Insert INTO challenge ( category_id, user_id, title, content, sum_img, start_date, end_date, cert_count, max_people, example_img, join_deposit, result, week , day)"
 			+ " VALUES ( "
 			+ "#{challengeDto.category_id}, #{challengeDto.user_id}, "
 			+ "#{challengeDto.title}, #{challengeDto.content}, #{challengeDto.sum_img}, "
 			+ "#{challengeDto.start_date}, #{challengeDto.end_date}, #{challengeDto.cert_count}, \n"
-			+ "#{challengeDto.max_people}, #{challengeDto.example_img}, #{challengeDto.join_deposit}, #{challengeDto.result} , #{challengeDto.week} )")
+			+ "#{challengeDto.max_people}, #{challengeDto.example_img}, #{challengeDto.join_deposit}, #{challengeDto.result} , #{challengeDto.week} ,#{challengeDto.day} )")
 	@Options(useGeneratedKeys = true)
 	public int challengeInsert(@Param("challengeDto")ChallengeDto challengeDto);
 
@@ -41,7 +42,9 @@ public interface ChallengeDao {
 			+ "max_people = #{challengeDto.max_people},"
 			+ "example_img = #{challengeDto.example_img},"
 			+ "join_deposit = #{challengeDto.join_deposit}, "
-			+ " result =  #{challengeDto.result} , week = #{challengeDto.week} "
+			+ " result =  #{challengeDto.result} ," +
+			" week = #{challengeDto.week} , " +
+			" day = #{challengeDto.day} "
 			+ "WHERE id = #{challengeDto.id}" )
 	public int challengeUpdate(@Param("challengeDto")ChallengeDto challengeDto);
 
@@ -55,13 +58,13 @@ public interface ChallengeDao {
 
 	@Select(" SELECT id, category_id, user_id, title, content, "
 			+ "sum_img, start_date, end_date, cert_count, "
-			+ "max_people, example_img , join_deposit, like_cnt, result, week  "
+			+ "max_people, example_img , join_deposit, like_cnt, result, week, day "
 			+ " FROM challenge WHERE category_id = #{cgId} ")
 	public List<ChallengeDto> challengeCategorySort(@Param("cgId")int cgId);
 
 	@Select(" SELECT id, category_id, user_id, title, content, "
 			+ "sum_img, start_date, end_date, cert_count, "
-			+ "max_people, example_img , join_deposit, like_cnt, result, week "
+			+ "max_people, example_img , join_deposit, like_cnt, result, week ,day "
 			+ " FROM challenge WHERE user_id = #{userId} ")
 	public List<ChallengeDto> challengeUserSelect(@Param("userId")int userId);
 
