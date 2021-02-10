@@ -16,6 +16,7 @@ import com.example.ssafypjt2.dto.ChallengeDto;
 
 @Mapper
 public interface ChallengeDao {
+	//챌린지 커밋 test
 	@Select(" SELECT category_id, user_id, title, content, "
 			+ "sum_img, start_date, end_date, cert_count, "
 			+ "max_people, example_img , join_deposit, like_cnt, result, week,  day"
