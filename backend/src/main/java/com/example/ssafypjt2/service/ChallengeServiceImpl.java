@@ -90,4 +90,9 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return result;
 	}
 
+	@Override
+	public List<ChallengeDto> challengeListResultSort(int user_id, int result_num) {
+		return dao.challengeListResultSort(user_id,result_num);
+	}
+
 }
