@@ -15,6 +15,7 @@ import UserPageEdit from "@/views/UserPageEdit/UserPageEdit.vue";
 import CompareOriginPassword from "@/views/UserPageEdit/CompareOriginPassword.vue";
 import CertificationInsert from "@/views/Certification/CertificationInsert.vue";
 import CertificationDetail from "@/views/Certification/CertificationDetail.vue";
+import CertificationUpdate from "@/views/Certification/CertificationUpdate.vue";
 import CreateSeed from "@/views/Seed/CreateSeed.vue";
 import Feed from "@/views/Feed/Feed.vue";
 import SeedCreated from "@/views/SeedList/SeedCreated.vue"
@@ -106,9 +107,14 @@ const routes = [
     component: CertificationInsert,        
   },
   {
-    path: '/certification/detail',
+    path: '/certification/detail/:cngid?/:certid?',
     name: 'CertificationDetail',
     component: CertificationDetail,        
+  }, 
+  {
+    path: '/certification/update/:cngid?/:certid?',
+    name: 'CertificationUpdate',
+    component: CertificationUpdate,        
   },
   {
     path: '/callback',
