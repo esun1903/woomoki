@@ -133,8 +133,8 @@ public class UserController {
 	@CrossOrigin(origins = "*")
 	@PostMapping("/userPage/changePassword")
 	public ResponseEntity changepassword(@RequestBody UserDto userDto) throws Exception {
-		System.out.println(userDto.getId() + " " + userDto.getNewPassword());
-		int result = userService.changepassword(userDto.getId(), userDto.getNewPassword());
+		System.out.println(userDto.getId() + " " + userDto.getPassword());
+		int result = userService.changepassword(userDto.getId(), userDto.getPassword());
 		String returnMessage = "비밀번호 변경 실패";
 		if(result == 1) {
 			returnMessage = "비밀번호 변경 성공";

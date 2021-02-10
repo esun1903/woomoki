@@ -34,7 +34,7 @@ public interface UserDao {
 	@Options(useGeneratedKeys = true)
 	public int signup(@Param("userDto")UserDto userDto);
 
-  
+   //password 변경
 	@Update("UPDATE user SET PASSWORD = #{user_password} WHERE id = #{user_id}")
 	public int changepassword(@Param("user_id")int user_id, @Param("user_password")String user_password);
 
