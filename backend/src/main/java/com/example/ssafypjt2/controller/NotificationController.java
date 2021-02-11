@@ -26,14 +26,14 @@ public class NotificationController {
         return notificationService.notificationConfirm(notificationId);
     }
 
-    @PostMapping("/notificationRequestFollow/{userId}/{followId}")
-    public int notificationRequestFollow(@PathVariable int userId ,@PathVariable int followId ){
-        return notificationService.notificationRequestFollow(userId, followId);
+    @PostMapping("/notificationFollow/{userId}/{followId}/{type}")
+    public int notificationFollow(@PathVariable int userId ,@PathVariable int followId, @PathVariable String type){
+        return notificationService.notificationFollow(userId, followId, type);
     }
 
-    @PostMapping("/notificationRequestChallenge/{userId}/{cngUserId}/{cngId}")
-    public int notificationRequestChallenge(@PathVariable int userId ,@PathVariable int cngUserId ,@PathVariable int cngId){
-        return notificationService.notificationRequestChallenge(userId, cngUserId,cngId);
+    @PostMapping("/notificationRequestChallenge/{userId}/{cngUserId}/{cngId}/{type}")
+    public int notificationChallenge(@PathVariable int userId ,@PathVariable int cngUserId ,@PathVariable int cngId,@PathVariable String type){
+        return notificationService.notificationChallenge(userId, cngUserId,cngId, type);
     }
 
     @DeleteMapping("/notificationDelete/{notificationId}")
