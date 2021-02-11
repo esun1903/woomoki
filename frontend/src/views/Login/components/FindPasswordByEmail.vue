@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import axios from "axios";
   import emailjs from 'emailjs-com';
   import {
     required,
@@ -75,17 +76,28 @@
       }
     },
     methods: {
-      async submit() {
-        const valid = await this.$refs.observer.validate()
+      async submit(temp_pw) {
+        const valid = await this.$refs.observer.validate();
         if (valid) {
+          const temp_pw = Math.random().toString(36).substr(2, 11);
           emailjs.send('service_y8xub6u', 'template_fyxfdgh', {
             from_name: "우목이",
             to_name: "김싸피",
             user_email: this.email,
             admin_email: "admin@a303.com",
-            temp_pw: "1234abcd*"
+            temp_pw: temp_pw,
           }, 'user_jsT9VLscfRQIahhEQbuiv').then((
             result) => {
+              const cngPasswordInfo = {
+                // id를 이메일로 바꾸기
+                email: this.email,
+                password: temp_pw,
+              }
+              console.log(cngPasswordInfo);
+            axios.post("http://localhost:8080/userPage/changePassword", cngPasswordInfo)
+              .then((response) => {
+                console.log(response.data);
+              })
             console.log('SUCCESS!', result.status, result.text);
           }, (error) => {
             console.log('FAILED...', error);

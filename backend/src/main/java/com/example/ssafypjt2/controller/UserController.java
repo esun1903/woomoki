@@ -128,12 +128,12 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-    //비밀번호 찾기 
+    //임시비밀번호 발급받기
 	@CrossOrigin(origins = "*")
 	@PostMapping("/userPage/changePassword")
 	public ResponseEntity changepassword(@RequestBody UserDto userDto) throws Exception {
-		System.out.println(userDto.getId() + " " + userDto.getPassword());
-		int result = userService.changepassword(userDto.getId(), userDto.getPassword());
+		System.out.println(userDto.getEmail() + " " + userDto.getPassword());
+		int result = userService.changepassword(userDto.getEmail(), userDto.getPassword());
 		String returnMessage = "비밀번호 변경 실패";
 		if(result == 1) {
 			returnMessage = "비밀번호 변경 성공";
