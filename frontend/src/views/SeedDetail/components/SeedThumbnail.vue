@@ -27,13 +27,31 @@
                 </v-col>
               </v-row>
               <v-row>
+                <div>
+                  진행률:
+                </div>
                 <v-progress-linear
+                  v-if="this.isEnd === false"
                   :value="percentage"
                   :color="color"
                   height="25"
                 >
                   <template>
-                    <strong>{{ percentage }}%</strong>
+                    <strong class="white--text">{{ percentage }}%</strong>
+                  </template>
+                </v-progress-linear>
+
+                <v-progress-linear
+                  v-else
+                  value="100"
+                  :color="color"
+                  height="25"
+                >
+                  <template v-if="this.isEnd === false">
+                    <strong>100%</strong>
+                  </template>
+                  <template v-else>
+                    <strong class="white--text">이미 부화한 씨앗입니다</strong>
                   </template>
                 </v-progress-linear>
               </v-row>
@@ -63,7 +81,8 @@ export default {
       summary: "",
       scrapped: false,
       isMySeed: false,
-      percentage: 20
+      percentage: 20,
+      isEnd: false,
     }
   },
   methods: {
@@ -74,24 +93,26 @@ export default {
       this.SeedInfo = SeedInfo.data 
 
       // 오늘 날짜
-      // const today = new Date();
-      // console.log(today)
-      // // 시작 날짜
-      // const start_year = this.SeedInfo.start_date.slice(0, 4)
-      // const startDate = new Date(Number(start_year), Number(this.SeedInfo.start_date[5]), Number(this.SeedInfo.start_date[6]), Number(this.SeedInfo.start_date[8]), Number(this.SeedInfo.start_date[9]));
-      // // 끝나는 날짜
-      // const end_year = this.SeedInfo.end_date.slice(0, 4)
-      // const endDate = new Date(Number(end_year), Number(this.SeedInfo.end_date[5]), Number(this.SeedInfo.end_date[6]), Number(this.SeedInfo.end_date[8]), Number(this.SeedInfo.end_date[9]));
-      // console.log(Number(end_year), Number(this.SeedInfo.end_date[5]), Number(this.SeedInfo.end_date[6]), Number(this.SeedInfo.end_date[8]), Number(this.SeedInfo.end_date[9]))
-      // console.log(startDate, endDate)
-      // // 전체 기간 계산
-      // const deltaDate = Math.floor((endDate - startDate) / (1000*60*60*24))
-      // // 시작부터 오늘까지 날짜 계산
-      // const progressDate = Math.floor((today - startDate) / (1000*60*60*24))
-      // console.log(deltaDate, progressDate)
+      const today = new Date();
+      // // 시작 날짜 (월이 한달씩 밀려서 출력되는데 왜 그러지?.....)
+      const start_year = this.SeedInfo.start_date.slice(0, 4)
+      const startDate = new Date(Number(start_year), Number(this.SeedInfo.start_date.slice(5, 7))-1, Number(this.SeedInfo.start_date.slice(8, 10)));
+      // // 끝나는 날짜 (월이 한달씩 밀려서 출력되는데 왜 그러지?.....)
+      const end_year = this.SeedInfo.end_date.slice(0, 4)
+      const endDate = new Date(Number(end_year), Number(this.SeedInfo.end_date.slice(5, 7))-1, Number(this.SeedInfo.end_date.slice(8, 10)));
+      // 종료 날짜 - 오늘 날짜가 마이너스면 이미 종료된 씨앗
+      if (endDate - today < 0) {
+        this.isEnd = true
+      } else {
+        // 전체 기간 계산
+      const deltaDate = Math.floor((endDate - startDate) / (1000*60*60*24))
+      // 시작부터 오늘까지 날짜 계산
+      const progressDate = Math.floor((today - startDate) / (1000*60*60*24))
+      console.log(deltaDate, progressDate)
       // 퍼센트로 환산
-      // const percentage = (progressDate / deltaDate) 
-      // this.percentage = Math.round(percentage)
+      const percentage = (progressDate / deltaDate) * 100
+      this.percentage = Math.round(percentage)
+      }
 
       // 내가 만든 씨앗인지 구분
       const SeedUserId = this.$store.state.UserStore.user.user_id 
@@ -201,6 +222,7 @@ export default {
 
 .img .content{
      position: absolute;
+     width: 50%;
      top:50%;
      left:50%;
      transform: translate(-50%, -50%);                                                                   
