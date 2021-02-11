@@ -86,7 +86,6 @@
 <script>
 import BasicUserInfo from "./components/BasicUserInfo"
 // import ChallengeResults from "./components/ChallengeResults"
-// import UserCertifications from "./components/UserCertifications"
 import UserStat from "./components/UserStat"
 import axios from 'axios'
 
@@ -95,7 +94,6 @@ export default {
     components: {
         BasicUserInfo,
         // ChallengeResults,
-        // UserCertifications,
         UserStat,
     },
     data: function () {
@@ -114,17 +112,17 @@ export default {
       axios.get(`http://127.0.0.1:8080/userCertification/${userid}`)
         .then((res) => {
           this.total = res.data
-          console.log("생성되었을 때 tmp: ", this.total)
+          // console.log("생성되었을 때 tmp: ", this.total)
         })
     },
       infiniteHandler($state) {
         setTimeout(() => {
         if (this.total.length) {
-          console.log("옮겨지기 전 cards: ", this.cards)
-          console.log("옮겨지기 전 total: ", this.total)
+          // console.log("옮겨지기 전 cards: ", this.cards)
+          // console.log("옮겨지기 전 total: ", this.total)
           this.cards.push(...this.total.splice(0, 3))
-          console.log("옮겨진 후 cards: ", this.cards)
-          console.log("옮겨진 후 total: ", this.total)
+          // console.log("옮겨진 후 cards: ", this.cards)
+          // console.log("옮겨진 후 total: ", this.total)
           $state.loaded();
         } else {
           $state.complete();

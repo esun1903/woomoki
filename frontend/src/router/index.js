@@ -16,7 +16,7 @@ import CompareOriginPassword from "@/views/UserPageEdit/CompareOriginPassword.vu
 import CertificationInsert from "@/views/Certification/CertificationInsert.vue";
 import CertificationDetail from "@/views/Certification/CertificationDetail.vue";
 import CertificationUpdate from "@/views/Certification/CertificationUpdate.vue";
-import CreateSeed from "@/views/Seed/CreateSeed.vue";
+import SeedCreate from "@/views/SeedCreate/CreateSeed.vue";
 import Feed from "@/views/Feed/Feed.vue";
 import SeedCreated from "@/views/SeedList/SeedCreated.vue"
 import SeedFail from "@/views/SeedList/SeedFail.vue"
@@ -133,8 +133,8 @@ const routes = [
   },
   {
     path: '/createSeed',
-    name: 'CreateSeed',
-    component: CreateSeed,        
+    name: 'SeedCreate',
+    component: SeedCreate,        
   },
   {
     path: '/feed',
