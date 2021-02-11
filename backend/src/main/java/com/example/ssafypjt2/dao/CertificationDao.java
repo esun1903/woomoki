@@ -37,7 +37,7 @@ public interface CertificationDao {
 
 	@Delete("DELETE FROM certification "
 			+ "WHERE id=#{certId}")
-	public int challengeDelete(@Param("certId")int certId);
+	public int ceriticationDelete(@Param("certId")int certId);
 
 
 	@Select("SELECT * FROM certification")
