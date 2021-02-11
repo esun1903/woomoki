@@ -44,10 +44,11 @@
               </router-link>
             </span>
             <v-btn
-              color="success"
+              color="grey"
               small
+              class="white--text"
               >
-            팔로우
+              <span>팔로잉</span>
             </v-btn>
           </div>
         </v-card-text>

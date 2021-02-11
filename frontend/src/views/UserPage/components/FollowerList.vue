@@ -47,9 +47,10 @@
             <v-btn
               :color="isFollow(follower.nickname) ? 'grey' : 'success' "
               small
+              class="white--text"
               >
-              <span v-if="isFollow(follower.nickname)">팔로잉중이에요ㅎㅎ</span>
-              <span v-else>팔로우해라</span>
+              <span v-if="isFollow(follower.nickname)">팔로잉</span>
+              <span v-else>팔로우</span>
             </v-btn>
           </div>
         </v-card-text>

@@ -25,6 +25,9 @@ Vue.component('apexchart', VueApexCharts)
 // infinit-loading 사용
 Vue.use(InfiniteLoading)
 
+// 쓰면 Object 키값에 .으로 접근이 안되고 ['key'] 이렇게 써야함..
+// Vue.prototype.$axios = axios
+
 Vue.use(Vuex);
 
 window.Kakao.init("dc7cf69baf1f6d8d13dbb622f40e287f");
