@@ -15,12 +15,15 @@ public class NotificationController {
     @Autowired
     NotificationService notificationService;
 
-    @GetMapping("/notificationRequestList/{userId}")
-    public List<NotificationDto> notificationRequestList(@PathVariable int userId ) {
-        List<NotificationDto> list =notificationService.notificationRequestList(userId);
-        return list;
+    @GetMapping("/notificationList/{userId}")
+    public List<NotificationDto> notificationList(@PathVariable int userId ) {
+        return notificationService.notificationList(userId);
     }
 
+    @PostMapping("/notificationConfirm/{notificationId}")
+    public int notificationConfirm(@PathVariable int notificationId){
+        return notificationService.notificationConfirm(notificationId);
+    }
 
 	// 개설자가 챌린지 참가를 수락/거절 하기
 //	@PostMapping("/challengeJoinResult/{cngid}")

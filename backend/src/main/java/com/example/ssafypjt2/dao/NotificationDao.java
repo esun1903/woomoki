@@ -11,9 +11,13 @@ import java.util.List;
 public interface NotificationDao {
 
     @Select("SELECT id, get_user, request_user, type, cng_id, msg, url, create_date, confirm_date FROM notification " +
-            "WHERE request_user = #{userId} AND type ='request' ")
+            "WHERE request_user = #{userId}")
     public List<NotificationDto> notificationList(@Param("userId")int userId);
 
+    @Update("Update notification SET "
+            + "confirm_date = now()"
+            + "WHERE id = #{notificationId}" )
+    public int notificationConfirm(@Param("notificationId")int notificationId);
 
 
 

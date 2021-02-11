@@ -14,7 +14,12 @@ public class NotificationServiceImpl implements NotificationService {
     NotificationDao dao;
 
     @Override
-    public List<NotificationDto> notificationRequestList(int userId) {
+    public List<NotificationDto> notificationList(int userId) {
         return dao.notificationList(userId);
+    }
+
+    @Override
+    public int notificationConfirm(int id) {
+        return dao.notificationConfirm(id);
     }
 }

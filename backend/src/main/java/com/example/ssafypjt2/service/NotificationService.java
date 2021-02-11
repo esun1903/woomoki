@@ -8,5 +8,6 @@ import java.util.List;
 @Service
 public interface NotificationService {
 
-    public List<NotificationDto> notificationRequestList (int userId);
+    public List<NotificationDto> notificationList (int userId);
+    public int notificationConfirm (int notificationId);
 }
