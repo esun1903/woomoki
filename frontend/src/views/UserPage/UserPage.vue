@@ -114,7 +114,7 @@ export default {
           this.total = res.data
           // console.log("생성되었을 때 tmp: ", this.total)
         })
-    },
+      },
       infiniteHandler($state) {
         setTimeout(() => {
         if (this.total.length) {

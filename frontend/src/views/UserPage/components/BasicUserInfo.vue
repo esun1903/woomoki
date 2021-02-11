@@ -27,11 +27,12 @@
             </h2>
           </v-col>
 
-          <v-col class="d-flex justify-center">
+          <v-col
+            v-if="isMyPage === false" 
+            class="d-flex justify-center">
             <v-btn-toggle
               active-class="toggle-btn">
               <v-btn
-                v-if="isMyPage === false"
                 :ripple="false"
                 color="primary"
                 width="60"
@@ -43,9 +44,9 @@
             </v-btn-toggle>
           </v-col>
 
-          <v-col>
+          <v-col v-if="isMyPage === true">
             <router-link to="/comparepwd">
-              <v-icon v-if="isMyPage === true">fas fa-user-cog</v-icon>
+              <v-icon>fas fa-user-cog</v-icon>
             </router-link>    
           </v-col>
         </v-row>
@@ -82,6 +83,7 @@
 
       </v-col>
     </v-row>
+    
     <v-row class="mt-0">
       <ChallengeResults></ChallengeResults>
     </v-row>
