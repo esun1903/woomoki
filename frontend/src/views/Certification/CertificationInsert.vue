@@ -81,7 +81,7 @@
                 // bucketRegion: "ap-northeast-2",
                 // IdentityPoolId: "ap-northeast-2:8cf7cb29-d051-4f38-885f-09b1e4dd8153",
                 // // 
-                // selectedImage: null,
+                selectedImage: null,
                 // photoURL: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
                 // fileList: [],
                 // select: [],
