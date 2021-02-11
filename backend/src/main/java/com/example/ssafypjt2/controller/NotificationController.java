@@ -30,6 +30,11 @@ public class NotificationController {
         return notificationService.notificationRequestFollow(userId, followId);
     }
 
+    @PostMapping("/notificationRequestChallenge/{userId}/{cngUserId}/{cngId}")
+    public int notificationRequestChallenge(@PathVariable int userId ,@PathVariable int cngUserId ,@PathVariable int cngId){
+        return notificationService.notificationRequestChallenge(userId, cngUserId,cngId);
+    }
+
 	// 개설자가 챌린지 참가를 수락/거절 하기
 //	@PostMapping("/challengeJoinResult/{cngid}")
 //	public List<NotificationDto> challengeJoinResult(@RequestBody NotificationDto notificationDto, @RequestBody JoinedchallengeDto joinedChallengeDto) {

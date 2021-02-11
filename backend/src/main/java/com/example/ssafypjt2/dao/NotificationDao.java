@@ -23,5 +23,8 @@ public interface NotificationDao {
             + " VALUES ( #{userId}, #{followId},'request', now())" )
     public int notificationRequestFollow(@Param("userId") int userId , @Param("followId") int followId);
 
+    @Insert("Insert INTO notification ( get_user, request_user, type, cng_Id, create_date) "
+            + " VALUES ( #{userId}, #{cngUserId},'request', #{cngId}, now())" )
+    public int notificationRequestChallenge(@Param("userId") int userId , @Param("cngUserId") int cngUserId , @Param("cngId") int cngId);
 
 }

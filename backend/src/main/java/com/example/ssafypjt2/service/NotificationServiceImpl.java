@@ -28,5 +28,10 @@ public class NotificationServiceImpl implements NotificationService {
         return dao.notificationRequestFollow(notificationId, followId);
     }
 
+    @Override
+    public int notificationRequestChallenge(int notificationId, int cngUserId, int cngId) {
+        return dao.notificationRequestChallenge(notificationId, cngUserId, cngId);
+    }
+
 
 }

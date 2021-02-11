@@ -11,4 +11,5 @@ public interface NotificationService {
     public List<NotificationDto> notificationList (int userId);
     public int notificationConfirm (int notificationId);
     public int notificationRequestFollow (int notificationId ,int followId);
+    public int notificationRequestChallenge (int notificationId ,int cngUserId, int cngId);
 }
