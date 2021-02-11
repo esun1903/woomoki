@@ -16,8 +16,8 @@
             <v-row class="img">
                 <!-- s3 주소 주석 풀기
                 <v-img :src="photoUrl + CertInfo.img"></v-img> -->
-                <div class = "div-img">
-                <v-img :src="CertInfo.img"></v-img>
+                <div class="div-img">
+                    <v-img :src="CertInfo.img"></v-img>
                 </div>
             </v-row>
             <v-row class="content">
@@ -50,7 +50,7 @@
                             <v-btn color="green darken-1" text @click="dialog = false">
                                 취소
                             </v-btn>
-                            <v-btn color="red darken-1" text @click="dialog = false">
+                            <v-btn color="red darken-1" text @click="dialog = false; deleteCert()">
                                 삭제
                             </v-btn>
                         </v-card-actions>
@@ -106,7 +106,7 @@
             detailCert: function () {
 
                 const certId = this.$route.params.certid;
-                axios.get(`http://localhost:8080//detailcertification/${certId}`)
+                axios.get(`http://localhost:8080/detailCertification/${certId}`)
                     .then((response) => {
                         this.CertInfo = response.data;
                         console.log(response.data)
@@ -125,8 +125,22 @@
                 });
             },
             deleteCert() {
-                // 해당 챌린지 인증글 리스트로 돌아가기
-                this.$router.push("/");
+                console.log("delete 들어옴");
+                const certId = this.$route.params.certid;
+                axios.delete(`http://localhost:8080/deleteCertification/${certId}`)
+                    .then((response) => {
+                        console.log(response.data)
+                        this.$router.push({
+                            name: 'SeedDetail',
+                            params: {
+                                cngid: this.$route.params.cngid
+                            }
+                        });
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+
             }
         },
     };
@@ -163,7 +177,8 @@
     .div-content {
         word-break: break-all; // 영어 범위 벗어남 해결
     }
-    .div-img{
+
+    .div-img {
         max-width: 100%;
         max-height: 100%;
     }
