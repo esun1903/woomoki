@@ -39,9 +39,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int changepassword(int user_id, String user_password) {
-		System.out.println("여기는 비밀번호를 변경하는 Service 도달했습니다 ~ " + user_id +" password"+ user_password);
-        int get = dao.changepassword(user_id ,user_password);
+	public int changepassword(String user_email, String user_password) {
+		System.out.println("여기는 비밀번호를 변경하는 Service 도달했습니다 ~ " + user_email +" password"+ user_password);
+        int get = dao.changepassword( user_email ,user_password);
+		System.out.println("여기는 서비스의 끝 "+ get);
 		return get;
 	}
 

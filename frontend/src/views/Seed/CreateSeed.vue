@@ -52,7 +52,7 @@
           @transferHobby="receiveHobby"
           ></SeedCategory>
 
-        <v-row class="d-flex justify-end mb-5">
+        <div class="d-flex justify-end mb-1">
           <v-btn
             color="success"
             @click="e1 = 2"
@@ -64,8 +64,8 @@
           <v-btn text>
             취소
           </v-btn>
+        </div>
 
-        </v-row>
       </v-stepper-content>
 
       <v-stepper-content step="2">
@@ -73,7 +73,7 @@
         <SeedTitle @transferTitle="receiveTitle"></SeedTitle>
         <SeedContent @transferContent="receiveContent"></SeedContent>
 
-        <v-row class="d-flex justify-end mb-5">
+        <div class="d-flex justify-end mb-1">
           <v-btn
             color="success"
             @click="e1 = 3"
@@ -93,7 +93,7 @@
             뒤로가기
           </v-btn>
           
-        </v-row>
+        </div>
       </v-stepper-content>
 
       <v-stepper-content step="3">

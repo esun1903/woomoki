@@ -75,7 +75,11 @@
           </v-tabs-items>
         </v-col>
       </v-row>
-      <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+      <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
+        <div slot="no-more">
+          데이터가 없습니다
+        </div>
+      </infinite-loading>
     </v-container>
 </template>
 
@@ -110,23 +114,21 @@ export default {
       axios.get(`http://127.0.0.1:8080/userCertification/${userid}`)
         .then((res) => {
           this.total = res.data
-          // 얘도 멀쩡
           console.log("생성되었을 때 tmp: ", this.total)
         })
     },
       infiniteHandler($state) {
-        // 얘랑
-        console.log("스크롤때 때 tmp: ", this.total)
-        // 얘는 멀쩡함
-        console.log("잘려진 tmp tmp: ", this.total.splice(0, 3))
         setTimeout(() => {
-          if (this.total.length) {
-            this.cards.push(...this.total.splice(0, 3))
-            console.log("추가된 때 cards: ", this.cards)
-            $state.loaded();
-          } else {
-            $state.complete();
-          }
+        if (this.total.length) {
+          console.log("옮겨지기 전 cards: ", this.cards)
+          console.log("옮겨지기 전 total: ", this.total)
+          this.cards.push(...this.total.splice(0, 3))
+          console.log("옮겨진 후 cards: ", this.cards)
+          console.log("옮겨진 후 total: ", this.total)
+          $state.loaded();
+        } else {
+          $state.complete();
+        }
         }, 1000)
       }
     },
