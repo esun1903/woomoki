@@ -62,5 +62,10 @@ public class FavCategoryServiceImpl implements FavCategoryService {
 		return list;
 	}
 
+	@Override
+	public List<CategoryDto> favCategoryName(String nickName) {
+		return favcategoryDao.favCategoryName(nickName);
+	}
+
 
 }
