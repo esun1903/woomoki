@@ -26,21 +26,32 @@
         </div>
       </div>
     </div>
-    <div class="cards">
-      <v-row dense>
-        <v-col cols="3" class="card" :pagination.sync="pagination"  v-for="(seed, index) in seeds" :key="index">
-          <SeedCard :seed="seed"/>
-        </v-col>
-      </v-row>
-    </div>
-    <div class="pagination">
-      <v-pagination
-        v-model="pagination.page"
-        :length="pages"
-        prev-icon="mdi-menu-left"
-        next-icon="mdi-menu-right"
-      ></v-pagination>
-    </div>
+    <v-data-iterator
+      hide-default-footer
+      :items="seeds"
+      :items-per-page.sync="itemsPerPage"
+      :page.sync="page"
+      @page-count="pageCount=$event"
+      :total-visible="5"
+    >
+      <template v-slot:default="{items}">
+        <div class="cards">
+          <v-row>
+            <v-col cols="3" class="card" v-for="(seed, index) in items" :key="index">
+              <SeedCard :seed="seed"/>
+            </v-col>
+          </v-row>
+        </div>
+      </template>
+      <template v-slot:footer>
+        <v-pagination
+          v-model="page"
+          :length="pageCount"
+          prev-icon="mdi-menu-left"
+          next-icon="mdi-menu-right"
+        ></v-pagination>
+      </template>
+    </v-data-iterator>
   </v-container>
 </template>
 
@@ -58,9 +69,9 @@ export default {
   data() {
     return {
       seeds: [],
-      pagination: {}
-
-
+      page: 1,
+      pageCount: 0,
+      itemsPerPage: 16,
     };
   },
   mounted() {
@@ -170,39 +181,43 @@ export default {
 .container {
   width: 100%;
   height: 100%;
-  margin-bottom: 10%;
-  .searched-option{
+  margin-bottom: 5%;
+  .searched-option {
     display: flex;
     justify-content: center;
-    margin: 1% 0;
+    margin: 1% 0 3% 0;  
     div {
-      p {
-        font-size: 1.5em;
-        font-weight: bold;
-        span {
-          font-size: 1.2em;
+      div {
+        p {
+          font-size: 1.5em;
+          font-weight: bold;
+          span {
+            font-size: 1.2em;
+          }
         }
       }
     }
   }
-  .cards {
-    width: 100%;
-    height: 100%;
-    margin-bottom: 500px !important;
-    .row {
-      .card {
-        padding: 1%;
-        width: 100%;
-        height: 50%;
-        .v-card {
+  .v-data-iterator {
+    .cards {
+      width: 100%;
+      height: 100%;
+      margin-bottom: 10%;
+      .row {
+        .card {
+          padding: 1%;
           width: 100%;
           height: 50%;
-        }
-      }    
+          .v-card {
+            width: 100%;
+            height: 50%;
+          }
+        }    
+      }
     }
   }
-  .pagination {
-  }
 }
+
+
 
 </style>
