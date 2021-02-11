@@ -37,7 +37,7 @@
                   height="25"
                 >
                   <template>
-                    <strong>{{ percentage }}%</strong>
+                    <strong class="white--text">{{ percentage }}%</strong>
                   </template>
                 </v-progress-linear>
 
@@ -51,7 +51,7 @@
                     <strong>100%</strong>
                   </template>
                   <template v-else>
-                    <strong>이미 부화한 씨앗입니다</strong>
+                    <strong class="white--text">이미 부화한 씨앗입니다</strong>
                   </template>
                 </v-progress-linear>
               </v-row>
