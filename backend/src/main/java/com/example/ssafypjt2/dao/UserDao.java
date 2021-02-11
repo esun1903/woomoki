@@ -21,7 +21,7 @@ public interface UserDao {
 			+ " levelnum AS LevelNum, leveltitle AS LevelTitle, img AS Img, "
 			+ " deposit AS Deposit, DATE_FORMAT(join_date,'%Y.%m.%d.') AS userJoin_Date "
 			+ " FROM user WHERE email = #{Email} ")
- * */
+  */
 	
 
 	@Select(" SELECT * FROM user WHERE email = #{Email} ")
@@ -35,8 +35,8 @@ public interface UserDao {
 	public int signup(@Param("userDto")UserDto userDto);
 
    //password 변경
-	@Update("UPDATE user SET PASSWORD = #{user_password} WHERE id = #{user_id}")
-	public int changepassword(@Param("user_id")int user_id, @Param("user_password")String user_password);
+	@Update("UPDATE user SET PASSWORD = #{user_password} WHERE email = #{user_email} ")
+	public int changepassword(@Param("user_email")String user_email, @Param("user_password")String user_password);
 
 	@Update("UPDATE user SET nickname = #{user_newNickname} WHERE id = #{user_id}")
 	public int changenickname(@Param("user_id")int user_id, @Param("user_newNickname")String user_newNickname);
