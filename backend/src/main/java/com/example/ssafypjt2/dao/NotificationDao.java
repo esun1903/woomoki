@@ -19,6 +19,9 @@ public interface NotificationDao {
             + "WHERE id = #{notificationId}" )
     public int notificationConfirm(@Param("notificationId")int notificationId);
 
+    @Insert("Insert INTO notification ( get_user, request_user, type, create_date) "
+            + " VALUES ( #{userId}, #{followId},'request', now())" )
+    public int notificationRequestFollow(@Param("userId") int userId , @Param("followId") int followId);
 
 
 }

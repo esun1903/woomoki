@@ -20,9 +20,14 @@ public class NotificationController {
         return notificationService.notificationList(userId);
     }
 
-    @PostMapping("/notificationConfirm/{notificationId}")
+    @PutMapping("/notificationConfirm/{notificationId}")
     public int notificationConfirm(@PathVariable int notificationId){
         return notificationService.notificationConfirm(notificationId);
+    }
+
+    @PostMapping("/notificationRequestFollow/{userId}/{followId}")
+    public int notificationRequestFollow(@PathVariable int userId ,@PathVariable int followId ){
+        return notificationService.notificationRequestFollow(userId, followId);
     }
 
 	// 개설자가 챌린지 참가를 수락/거절 하기

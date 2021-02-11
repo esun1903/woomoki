@@ -22,4 +22,11 @@ public class NotificationServiceImpl implements NotificationService {
     public int notificationConfirm(int id) {
         return dao.notificationConfirm(id);
     }
+
+    @Override
+    public int notificationRequestFollow(int notificationId, int followId) {
+        return dao.notificationRequestFollow(notificationId, followId);
+    }
+
+
 }
