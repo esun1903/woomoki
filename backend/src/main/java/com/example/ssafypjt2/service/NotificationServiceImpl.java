@@ -33,5 +33,10 @@ public class NotificationServiceImpl implements NotificationService {
         return dao.notificationRequestChallenge(notificationId, cngUserId, cngId);
     }
 
+    @Override
+    public int notificationDelete(int notificationId) {
+        return dao.notificationDelete(notificationId);
+    }
+
 
 }

@@ -27,4 +27,8 @@ public interface NotificationDao {
             + " VALUES ( #{userId}, #{cngUserId},'request', #{cngId}, now())" )
     public int notificationRequestChallenge(@Param("userId") int userId , @Param("cngUserId") int cngUserId , @Param("cngId") int cngId);
 
+    @Delete("DELETE FROM notification "
+            + "WHERE id=#{notificationId}")
+    public int notificationDelete(@Param("notificationId")int notificationId);
+
 }
