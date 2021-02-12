@@ -48,8 +48,8 @@ public interface UserDao {
 	public int userPageDelete(@Param("user_id") int user_id);
 
 
-	@Select(" SELECT * FROM user WHERE id = #{user_id} ")
-	public UserDto userPageDetail(int user_id) ;
+	@Select(" SELECT * FROM user WHERE nickname = #{nickname} ")
+	public UserDto userPageDetail(@Param("nickname") String nickname) ;
 
 	//유저가 등록되어있는 챌린지의 리스트를 반환하기
 	@Select ("SELECT cha.id , cha.category_id, cha.user_id, cha.title, cha.title, cha.content, cha.sum_img, cha.start_date, cha.end_date, cha.cert_count, " +
