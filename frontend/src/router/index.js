@@ -111,7 +111,8 @@ const routes = [
   {
     path: '/certification/detail/:cngid?/:certid?',
     name: 'CertificationDetail',
-    component: CertificationDetail,        
+    component: CertificationDetail,    
+    props: true        
   }, 
   {
     path: '/certification/update/:cngid?/:certid?',
