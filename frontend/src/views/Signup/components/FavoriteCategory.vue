@@ -167,7 +167,7 @@ export default {
           .then((res) => {
             console.log('카테고리 담기 성공')
             console.log(res)
-            this.$router.push({ name: 'MainPage' })
+            this.$router.push({ name: 'Main' })
           })
           .catch(err => {
             console.log(err)
