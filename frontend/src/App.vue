@@ -2,7 +2,7 @@
 <v-app id="app">
   <Navbar></Navbar>
   <v-main>
-      <router-view></router-view>
+      <router-view :key="$route.fullPath"></router-view>
   </v-main>
   <Footer></Footer>
 </v-app>

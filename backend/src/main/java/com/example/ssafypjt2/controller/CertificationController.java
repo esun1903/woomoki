@@ -23,7 +23,7 @@ public class CertificationController {
 	@Autowired
 	private CertificationService certificationService;
 
-	@GetMapping("/detailcertification/{certId}")
+	@GetMapping("/detailCertification/{certId}")
 	public CertificationDto certificationDetail (@PathVariable(value = "certId") int id) {
 		CertificationDto result = certificationService.certificationDetail(id);
 		return result;

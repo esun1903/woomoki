@@ -27,11 +27,12 @@
             </h2>
           </v-col>
 
-          <v-col class="d-flex justify-center">
+          <v-col
+            v-if="isMyPage === false" 
+            class="d-flex justify-center">
             <v-btn-toggle
               active-class="toggle-btn">
               <v-btn
-                v-if="isMyPage === false"
                 :ripple="false"
                 color="primary"
                 width="60"
@@ -43,9 +44,9 @@
             </v-btn-toggle>
           </v-col>
 
-          <v-col>
+          <v-col v-if="isMyPage === true">
             <router-link to="/comparepwd">
-              <v-icon v-if="isMyPage === true">fas fa-user-cog</v-icon>
+              <v-icon>fas fa-user-cog</v-icon>
             </router-link>    
           </v-col>
         </v-row>
@@ -60,6 +61,7 @@
           <v-col>
             <v-btn
               plain
+              text
               :ripple="false"
             >
               <div v-if="isMyPage === true">
@@ -68,117 +70,9 @@
               </div>
             </v-btn>
           </v-col>
-          <v-col class="d-flex justify-center">
-            <v-dialog
-              v-model="dialog.dialog"
-              scrollable
-              max-width="300px"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  :ripple="false"
-                  color="black"
-                  plain
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <div>
-                    <h2>팔로워</h2>
-                    <div>116</div>
-                  </div>
-                </v-btn>
-              </template>
-              <v-card>
-                  <v-card-title class="d-flex justify-space-between">팔로워
-                  <v-btn
-                    color="success darken-1"
-                    text
-                    @click="dialog.dialog = false"
-                    class="d-flex justify-center"
-                  >
-                    <v-icon>fas fa-times</v-icon>
-                  </v-btn>
-                  </v-card-title>
-                <v-divider></v-divider>
-                
-                <v-card-text class="dialog-height">
-                  <div 
-                    v-for="follower in followers"
-                    :key="follower"
-                    class="d-flex justify-space-between ma-1"
-                    >
-                    <span class="d-flex align-center">
-                      <a href="">{{ follower }}</a>
-                    </span>
-                    <v-btn
-                      color="success"
-                      small
-                      >
-                    팔로우
-                    </v-btn>
-                  </div>
-                </v-card-text>
-                <v-card-actions>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </v-col>
-       
-          <v-col class="d-flex justify-center">
-            <v-dialog
-              v-model="dialog.dialog2"
-              scrollable
-              max-width="300px"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  :ripple="false"
-                  color="black"
-                  plain
-                  v-bind="attrs"
-                  v-on="on"
-                >
-                  <div>
-                    <h2>팔로잉</h2>
-                    <div>122</div>
-                  </div>
-                </v-btn>
-              </template>
-              <v-card>
-                  <v-card-title class="d-flex justify-space-between">팔로잉
-                    <v-btn
-                      color="success darken-1"
-                      text
-                      @click="dialog.dialog2 = false"
-                      class="d-flex justify-center"
-                    >
-                      <v-icon>fas fa-times</v-icon>
-                    </v-btn>
-                  </v-card-title>
-                <v-divider></v-divider>
-                
-                <v-card-text class="dialog-height">
-                  <div 
-                    v-for="following in followings"
-                    :key="following"
-                    class="d-flex justify-space-between ma-1"
-                    >
-                    <span class="d-flex align-center">
-                      <a href="">{{ following }}</a>
-                    </span>
-                    <v-btn
-                      color="success"
-                      small
-                      >
-                    팔로우
-                    </v-btn>
-                  </div>
-                </v-card-text>
-                <v-card-actions>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </v-col>
+          <FollowerList></FollowerList>
+          <FollowingList></FollowingList>
+          
         </v-row>
         
         <v-row>
@@ -189,6 +83,7 @@
 
       </v-col>
     </v-row>
+    
     <v-row class="mt-0">
       <ChallengeResults></ChallengeResults>
     </v-row>
@@ -197,6 +92,8 @@
 
 <script>
 import ChallengeResults from "./ChallengeResults"
+import FollowerList from "./FollowerList"
+import FollowingList from "./FollowingList"
 import axios from "axios";
 // import { mapState } from "vuex"
 
@@ -204,20 +101,14 @@ export default {
   name: "BasicUserInfo",
   components: {
     ChallengeResults,
+    FollowerList,
+    FollowingList
     // mapState,
   },
   data: function () {
     return {
       isMyPage: false,
       UserInfo: [],
-      dialog: {
-        dialogm1: "",
-        dialog: false,
-        dialogm2: "",
-        dialog2: false,
-      },
-      followers: [ "배상연", "김상훈", "최인교", "엄윤상", "김영재", "강병훈", "조민형", "김대인", "이선규", "박상민", "강은빈", "이재현", "김동광", "손인호"],
-      followings: [ "홍지희", "표기동", "최은선", "김효진", "최정휴", "현성섭", "손준희", "권기현"],
     }
   },
   methods: {
@@ -253,8 +144,9 @@ export default {
       const user_id = this.$store.state.UserStore.user.user_id
       // query사용
       // const UserNickname = this.$route.query.userNickname
+      // nickname을 보내서 응답받도록 바꿔야 할듯..?
       const UserNickname = this.$route.params.userNickname
-  
+
       // 얘가 한번만 실행되야하는데...
       this.$store.dispatch("UserStore/compareId", user_id);
 
@@ -290,7 +182,12 @@ export default {
   },
   computed: {
       // ...mapState('UserStore', ['user_id'])
-    }
+  },
+  // watch: {
+  //   UserInfo: function() {
+  //     this.BasicUserInfo();
+  //   }
+  // }
 }
 </script>
 
