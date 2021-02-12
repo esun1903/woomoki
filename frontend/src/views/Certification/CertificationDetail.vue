@@ -125,7 +125,6 @@
                 });
             },
             deleteCert() {
-                console.log("delete 들어옴");
                 const certId = this.$route.params.certid;
                 axios.delete(`http://localhost:8080/deleteCertification/${certId}`)
                     .then((response) => {

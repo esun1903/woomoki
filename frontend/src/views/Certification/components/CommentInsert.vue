@@ -1,8 +1,8 @@
 <template>
     <div>
-        <v-textarea outlined name="comment" label="댓글"></v-textarea>
+        <v-textarea outlined v-model="comment" label="댓글"></v-textarea>
         <div class="my-2">
-            <v-btn color="warning" id="insert-btn" type="submit">
+            <v-btn color="warning" id="insert-btn" @click="writeComment">
                 등록하기
             </v-btn>
         </div>
@@ -10,23 +10,40 @@
 </template>
 
 <script>
+    import axios from "axios";
     export default {
         name: 'CommentInsert',
         components: {},
         directives: {},
         data() {
-            return {
-                comment: this.comment
-            };
+            return {};
         },
         mounted() {
 
         },
         methods: {
-            submit() {
+            writeComment() {
                 //  댓글 유효성 검사하기
+
+                const certId = this.$route.params.certid;
+
+                const CommentForm = {
+                    cert_id: certId,
+                    user_id: this.$store.state.UserStore.user.user_id,
+                    content: this.comment,
+                }
+                console.log(CommentForm);
+                axios.post("http://localhost:8080/insertComment", CommentForm)
+                .then(res => {
+                    console.log(res);
+                   this.$router.go(this.$router.currentRoute);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
                 // 해당 게시글로 다시 요청
-                this.$router.push("/");
+                // this.$router.push("/");
 
             },
         },
