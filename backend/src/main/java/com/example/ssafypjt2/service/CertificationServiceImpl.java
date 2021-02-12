@@ -2,6 +2,8 @@ package com.example.ssafypjt2.service;
 
 import java.util.List;
 
+import com.example.ssafypjt2.dto.RelationDto;
+import com.example.ssafypjt2.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.ssafypjt2.dao.CertificationDao;
@@ -72,5 +74,7 @@ public class CertificationServiceImpl implements CertificationService {
 		System.out.println("서비스단 들어왔어~");
 		return dao.searchWordCert(keyword);
 	}
+
+
 
 }

@@ -2,6 +2,7 @@ package com.example.ssafypjt2.dao;
 
 import java.util.List;
 
+import com.example.ssafypjt2.dto.RelationDto;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -68,5 +69,7 @@ public interface CertificationDao {
 
 	@Select("SELECT * FROM  certification WHERE content like CONCAT('%', #{keyword}, '%')")
     public List<CertificationDto> searchWordCert(@Param("keyword") String keyword);
+
+
 }
 
