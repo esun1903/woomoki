@@ -80,6 +80,14 @@
         함께하기
       </h1>
     </v-btn>
+
+    <!-- <main>
+  <div id="content"></div>
+  <footer>footer</footer>
+  <div id="banner">
+    banner
+  </div>
+</main> -->
   </v-container>
 
 
@@ -87,6 +95,7 @@
 
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v9.0" nonce="NCYaLITf"></script>
 <script>
+
 import $ from 'jquery'
 import axios from 'axios'
 import SeedShare from "./SeedShare"
@@ -147,6 +156,7 @@ export default {
   },
   created() {
     this.SeedDetailInfo();
+    // test();
   },
   computed: {
     color: function () {
@@ -164,27 +174,28 @@ export default {
         return 'pink lighten-1'
       }
     }
+  },
+  // jquery
+  mounted() {
+    $(function() {
+      console.log('test')
+      var $w = $(window),
+        footerHei = $('footer').outerHeight(),
+        $banner = $('#banner');
+
+        $w.on('scroll', function() {
+
+        var sT = $w.scrollTop();
+        var val = $(document).height() - $w.height() - footerHei;
+
+        if (sT >= val)
+            $banner.addClass('on')
+        else
+            $banner.removeClass('on')
+      });
+    });
   }
 }
-
-// jquery
-$(function() {
-
-  var $w = $(window),
-    footerHei = $('footer').outerHeight(),
-    $banner = $('#banner');
-
-  $w.on('scroll', function() {
-
-    var sT = $w.scrollTop();
-    var val = $(document).height() - $w.height() - footerHei;
-
-    if (sT >= val)
-        $banner.addClass('on')
-    else
-    		$banner.removeClass('on')
-  });
-});
 
 
 
