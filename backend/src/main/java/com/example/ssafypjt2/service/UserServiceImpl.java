@@ -66,9 +66,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto userPageDetail(int user_id) throws Exception {
-		System.out.println("여기는 회원에 대한 상세화면을 담당하는 Service에 도달했습니다. "+ user_id);
-		UserDto get = dao.userPageDetail(user_id);
+	public UserDto userPageDetail(String nickname) throws Exception {
+		System.out.println("여기는 회원에 대한 상세화면을 담당하는 Service에 도달했습니다. "+ nickname);
+		UserDto get = dao.userPageDetail(nickname);
+		System.out.println(get);
 		return get;
 	}
 
