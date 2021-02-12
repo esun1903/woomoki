@@ -35,12 +35,12 @@
                 {{ log.event }}
               </span>
             </p>
-            <p v-if="log.event === '전송'" class="log text-left bot-message-tooltip">
-              <span style="backgroun-color: black">
+            <p v-if="log.event === '전송'" class="log text-left send-message-tooltip">
+              <span>
                 {{ log.event }}: {{ log.data }}
               </span>
             </p>
-            <p v-if="log.event === '수신'" class="log text-left bot-message-tooltip">
+            <p v-if="log.event === '수신'" class="log text-left recieve-message-tooltip">
               <span>
                 {{ log.event }}: {{ log.data }}
               </span>

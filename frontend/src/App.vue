@@ -5,6 +5,7 @@
       <router-view :key="$route.fullPath"></router-view>
   </v-main>
   <div class="loader">
+    <UpPage></UpPage>
     <Chat></Chat>
   </div>
   <Footer></Footer>
@@ -16,13 +17,15 @@
 import Navbar from "@/components/Navbar/Navbar.vue"
 import Footer from "@/components/Footer/Footer.vue"
 import Chat from "@/views/Chat/Chat.vue";
+import UpPage from "@/views/Chat/UpPage.vue";
 
 export default {
   name: "App",
   components: {
     Navbar,
     Footer,
-    Chat
+    Chat,
+    UpPage
   },
 
   data: function () {
