@@ -102,7 +102,7 @@ export default {
           items: ['피드', '통계'],
           total: [],
           cards: [],
-          isUserstat: true,
+          isUserstat: false,
         };
     },
     methods: {
@@ -111,7 +111,8 @@ export default {
       axios.get(`http://127.0.0.1:8080/userCertification/${userid}`)
         .then((res) => {
           this.total = res.data
-          // console.log("생성되었을 때 tmp: ", this.total)
+          console.log("생성되었을 때 tmp: ", this.total)
+          console.log("isUserstat: ", this.isUserstat)
         })
       },
       infiniteHandler($state) {
