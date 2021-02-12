@@ -61,7 +61,7 @@
           :loading="loading"
           color="green"
           text
-          @click="goMainPage"
+          @click="sendFavoriteCategories"
           >카테고리 저장</v-btn
         >
       </v-card-actions>
@@ -70,6 +70,9 @@
 </template>
 
 <script>
+import axios from "axios"
+import {mapState} from "vuex"
+
 export default {
   name: "FavoriteCategory",
   components: {},
@@ -120,6 +123,7 @@ export default {
     };
   },
   computed: {
+    ...mapState('UserStore', ['user']),
     // ----------------- FavoriteCategory용-----------------
     // 모든 아이템이 골라졌을 때 구분선 없애기 위함
     isAllSelected: function(state) {
@@ -136,34 +140,45 @@ export default {
       return selections;
     },
     // 선택된 카테고리명만 백엔드에 넘기기 위함
-    getFavoriteCategories: function(state) {
-      const favoriteCategories = [];
-
-      for (const favoriteCategory of state.selected)
-        favoriteCategories.push(favoriteCategory.text);
-      console.log(favoriteCategories);
-      return favoriteCategories;
-    }
+    getFavoriteCategories: function (state) {
+      const favoriteCategories = []
+      for (const selectedCategory of state.selected) {
+        const favoriteCategory = {}
+        const user_id = this.user.user_id
+        favoriteCategory["user_id"] = user_id
+        favoriteCategory["category_id"] = selectedCategory.category_id
+        favoriteCategories.push(favoriteCategory)
+      console.log("test1",selectedCategory)
+      }
+      return favoriteCategories
+    },
   },
   mounted() {},
   methods: {
-    goMainPage: function(state) {
-      state.loading = true;
-
+    sendFavoriteCategories: function (state) {
+      state.loading = true
+      
       setTimeout(() => {
-        // !!!!!!!!!! 빽에 고른 카테고리 넘겨주기!!!!!!!!!!
-        // axios.post(`${SERVER_URL}/signup/favCategory`, this.getFavoriteCategories)
-        //   .then(() => {
-        //     // console.log('로그인 성공')
-        //     this.$router.push({ name: 'MainPage' })
-        //   })
-        //   .catch(err => console.log(err))
+        
+        // !!!!!!!!!! 빽에 고른 카테고리 넘겨주기!!!!!!!!!! 
+        axios.post("http://localhost:8080/userPage/UpdatefavCategory", this.getFavoriteCategories)
+          .then((res) => {
+            // console.log("유저 아이디",this.user.user_id)
+            // console.log("test",this.getFavoriteCategories)
+            // console.log('카테고리 담기 성공')
+            console.log(res)
+            // this.$router.push({ to: 'MainPage' })
+          })
+          .catch(err => {
+            console.log(err)
+            console.log('카테고리 담기 실패')
+            console.log(this.getFavoriteCategories)
+          })
 
-        state.search = "";
-        state.selected = [];
-        state.loading = false;
-      }, 2000);
-    }
+        state.selected = []
+        state.loading = false
+      },2000)
+    },
   }
 };
 </script>
@@ -171,15 +186,13 @@ export default {
 <style lang="scss" scoped>
 #fav-card {
   width: 100%;
-  top: 15%;
+  top:15%;
   padding: 0px 50px;
-  margin: 30px 0px 30px 0px;
 }
-
 .v-divider {
   margin-top: 20px;
 }
-.v-chip {
+.v-chip{
   color: green !important;
   border-color: green !important;
 }
