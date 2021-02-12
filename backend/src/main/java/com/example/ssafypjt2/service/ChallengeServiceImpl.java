@@ -95,4 +95,9 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return dao.challengeListResultSort(user_id,result_num);
 	}
 
+	@Override
+	public int challengeLikeCount(int cngId) {
+		return dao.challengeLikeCount(cngId);
+	}
+
 }
