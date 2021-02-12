@@ -79,7 +79,8 @@ public class RelationController {
 	}
 	
 
-	//내가 팔로잉하는 사람들의 인증 사진 보여주기
+	//
+
 	@CrossOrigin(origins = "*")
 	@GetMapping("/feed/follower/{userid}")
 	public List<CertificationDto> feedFollower(@PathVariable(value = "userid") int user_id ) {
