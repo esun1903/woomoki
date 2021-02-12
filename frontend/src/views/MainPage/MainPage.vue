@@ -1,25 +1,27 @@
 <template>
   <div>
-    <div class="selectBoxes">
-      <div class="selectBox1">
-        <v-select
-          v-model="valSelect1"
-          :items="select1"
-          label="인기/신규"
-          dense
-          outlined
-        ></v-select>
+    <v-container>
+      <div class="selectBoxes">
+        <div class="selectBox1">
+          <v-select
+            v-model="valSelect1"
+            :items="select1"
+            label="인기/신규"
+            dense
+            outlined
+          ></v-select>
+        </div>
+        <div class="selectBox2">
+          <v-select
+            v-model="valSelect2"
+            :items="select2"
+            label="카테고리"
+            dense
+            outlined
+          ></v-select>
+        </div>
       </div>
-      <div class="selectBox2">
-        <v-select
-          v-model="valSelect2"
-          :items="select2"
-          label="카테고리"
-          dense
-          outlined
-        ></v-select>
-      </div>
-    </div>
+    </v-container>
     <div v-if="onSearch">
       <SeedSearched :option="valSelect1" :category="valSelect2" id="mainpage-component-result"/> 
     </div>
@@ -86,7 +88,6 @@ div {
       width: 10%;
     }
     .selectBox2{
-      margin-right: 12%;
       width: 10%;
     }
   }

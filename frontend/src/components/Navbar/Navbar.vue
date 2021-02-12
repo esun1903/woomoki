@@ -31,6 +31,10 @@
             </v-list>
           </v-menu>
 
+          <v-btn icon class="btn" @click="goFeed">
+            <v-icon>fas fa-user-friends</v-icon>
+          </v-btn>
+
           <v-btn icon class="btn">
             <v-icon>mdi-cart</v-icon>
           </v-btn>
@@ -82,12 +86,12 @@
                 </v-list-item>
               </div>
               <div v-else>
-                <v-list-item @click="goLogin">
+                <router-link :to="{ name: 'Login'}">
                   <v-list-item-title>로그인</v-list-item-title>
-                </v-list-item>
-                <v-list-item @click="goSignup">
+                </router-link>
+                <router-link :to="{ name: 'Signup'}">
                   <v-list-item-title>회원가입</v-list-item-title>
-                </v-list-item>
+                </router-link>
               </div>
 
             </v-list>
@@ -131,15 +135,13 @@ export default {
     }
   },  
   methods: {
+    goFeed: function () {
+      this.$router.push({ name: 'Feed' }) 
+    },
     goLogout: function () {
       this.$store.dispatch('UserStore/logOut')
     },
-    goLogin: function () {
-      this.$router.push({ name: 'Login' }) 
-    },
-    goSignup: function () {
-      this.$router.push({ name: 'Signup' })  
-    },
+
 
   },
 };
@@ -199,4 +201,5 @@ a:-webkit-any-link {
   justify-content: flex-end;
   margin-top: 2%;
 }
+
 </style>
