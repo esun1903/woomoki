@@ -1,67 +1,17 @@
 <template>
-  <div class="loader">
+  <div>
     <!-- chatting box -->
     <noscript>
       <strong></strong>
     </noscript>
     <div id="app"></div>
 
-    <button class="chatbox-open">
+    <button @click="connect" class="chatbox-open">
       <v-icon color="white">fas fa-comment-dots</v-icon>
     </button>
     <button class="chatbox-close">
-      <i><font-awesome-icon :icon="faTimes" size="2x" aria-hidden="true" /></i>
+       <v-icon color="white">fas fa-times</v-icon>
     </button>
-
-    <!-- <section class="chatbox-popup">
-      <header class="chatbox-popup__header">
-        <aside style="flex: 1">
-          <v-icon color="white">fas fa-comments</v-icon>
-        </aside>
-        <aside style="flex: 1">
-          <h1>채팅</h1>
-        </aside>
-        <aside style="flex: 1">
-          <button class="chatbox-maximize">
-            <i
-              ><font-awesome-icon
-                :icon="faWindowMaximize"
-                size="2x"
-                aria-hidden="true"
-            /></i>
-          </button>
-        </aside>
-      </header>
-      <main id="chatting_box" class="chatbox-popup__main">
-        <p v-if="chattings">{{ chattings }}</p>
-        <p v-else>사이트에 궁금한 점이 있으시면 물어봐주세요</p>
-      </main>
-      <footer class="chatbox-popup__footer">
-        <span class="d-flex">
-          <i
-            ><font-awesome-icon
-              :icon="faUserCircle"
-              :style="{ color: '#808080' }"
-              size="2x"
-              aria-hidden="true"
-              class="d-flex mr-3"
-          /></i>
-          <aside style="flex: 10">
-            <textarea
-              v-model="query"
-              id="text"
-              type="text"
-              placeholder="채팅을 입력하세요"
-              autofocus
-              @keypress.enter="transferQuery"
-            ></textarea>
-          </aside>
-        </span>
-        <aside style="flex: 1; color: #888; text-align: center">
-          <i class="fa fa-paper-plane" aria-hidden="true"></i>
-        </aside>
-      </footer>
-    </section> -->
 
     <section class="chatbox-panel loader">
       <header class="chatbox-panel__header">
@@ -72,99 +22,100 @@
           <h1>채팅</h1>
         </aside>
         <aside style="flex: 1; text-align: right">
-          <button class="chatbox-panel-close">
+          <button @click="disconnect" class="chatbox-panel-close">
             <v-icon color="white">fas fa-times</v-icon>
           </button>
         </aside>
       </header>
-      <vuescroll>
+      <vuescroll :ops="ops">
         <main class="chatbox-panel__main" style="flex: 1">
-          <div v-for="(message, idx) in Messages" :key="idx">
-            <p class="text-left bot-message-tooltip" v-if="idx % 2">
-              <i
-                ><font-awesome-icon
-                  :icon="faRobot"
-                  size="1x"
-                  aria-hidden="true"
-                  class="chatbox-popup__avatar mr-2"
-              /></i>
-              <span>{{ message }}</span>
+          <div v-for="(log, idx) in logs" :key="idx">
+            <p class="enter">
+              <span v-if="idx === 0">
+                {{ log.event }}
+              </span>
             </p>
-            <p class="text-right my-message-tooltip" v-else>
-              <i
-                ><font-awesome-icon
-                  :icon="faUserCircle"
-                  size="1x"
-                  aria-hidden="true"
-                  class="mr-2"
-              /></i>
-              <span>{{ message }}</span>
+            <p v-if="log.event === '전송'" class="log text-left bot-message-tooltip">
+              <span style="backgroun-color: black">
+                {{ log.event }}: {{ log.data }}
+              </span>
+            </p>
+            <p v-if="log.event === '수신'" class="log text-left bot-message-tooltip">
+              <span>
+                {{ log.event }}: {{ log.data }}
+              </span>
             </p>
           </div>
         </main>
       </vuescroll>
       <footer class="chatbox-panel__footer">
-        <i
-          ><font-awesome-icon
-            :icon="faUserCircle"
-            :style="{ color: '#808080' }"
-            size="2x"
-            aria-hidden="true"
-            class="d-flex mr-3"
-        /></i>
+        <v-icon>fas fa-user-circle</v-icon>
         <aside style="flex: 10">
           <textarea
-            v-model="query"
+            class="d-flex align-center"
+            v-model="message"
             type="text"
             placeholder="채팅을 입력하세요!"
             autofocus
-            @keypress.enter="transferQuery"
+            @keypress.enter="sendMessage"
           ></textarea>
         </aside>
         <aside style="flex: 1; color: #888; text-align: center">
-          <i class="fa fa-paper-plane" aria-hidden="true"></i>
+          <v-btn icon>
+            <v-icon @click="sendMessage">fas fa-paper-plane</v-icon>
+          </v-btn>
         </aside>
       </footer>
     </section>
   </div>
 </template>
 
-<script src="path/jquery-3.3.1.min.js"></script>
 <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
 
 <script>
 import jQuery from "jquery";
-import axios from "axios";
 import vuescroll from "vuescroll";
 
 export default {
-  name: "ChatBot",
+  name: "Chat",
   components: {
     vuescroll,
   },
   data: function () {
     return {
-      query: "",
-      chattings: "",
-      Messages: [],
+      message: "",
+      logs: [],
+      status: "disconnected",
+      ops: {
+          bar: {
+             background: '#AED581',
+          }
+        }
     };
   },
   methods: {
-    transferQuery: function () {
-      const query = {
-        query: this.query,
+    connect() {
+      this.socket = new WebSocket("wss://echo.websocket.org");
+      this.socket.onopen = () => {
+      this.status = "connected";
+      // this.logs.push({ event: "채팅방에 입장했습니다", data: 'wss://echo.websocket.org'})
+      this.logs.push({ event: "채팅방에 입장했습니다"})
+      this.socket.onmessage = ({data}) => {
+      this.logs.push({ event: "수신", data });
       };
-
-      axios
-        .post("http://127.0.0.1:8000/movies/pingpong/", query)
-        .then((res) => {
-          this.Messages.push(this.query);
-          this.chattings = res.data;
-          this.Messages.push(this.chattings);
-          this.query = "";
-          console.log(res.data);
-        });
+      };
     },
+    disconnect() {
+      this.socket.close();
+      this.status = "disconnected";
+      this.logs = [];
+    },
+    sendMessage(e) {
+      this.socket.send(this.message);
+      this.logs.push({ event: "전송", data: this.message });
+      this.message = "";
+    }
   },
 };
 const chatbox = jQuery.noConflict();
@@ -192,7 +143,7 @@ chatbox(() => {
   justify-content: center;
 }
 
-.__bar-is-vertical {
-  background: rgb(80, 80, 80) !important;
+.enter {
+  background-color: white;
 }
 </style>

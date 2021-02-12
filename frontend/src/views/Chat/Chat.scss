@@ -195,7 +195,7 @@
     /* height: 100%; */
     padding: calc(2 * 16px) 16px;
     line-height: calc(16px + 16px / 2);
-    color: #888;
+    color: #AED581;
     text-align: center;
     flex: 1 1 auto;
   }
@@ -214,7 +214,7 @@
   }
 
   .fa-frog {
-    color: #808080;
+    color: #AED581;
   }
 
   
@@ -238,12 +238,12 @@
   content: " ";
   height: 0;
   width: 0;
-  /* position: relative; */
+  // position: relative;
   pointer-events: none;
   border-color: rgba(56, 77, 157, 0);
-  border-bottom-color:#808080;
+  border-bottom-color:#AED581;
   border-width: 11px;
-  margin-left: -20px;
+  margin-left: 30px;
 }
 
 .my-message-tooltip {
