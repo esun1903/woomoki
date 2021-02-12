@@ -15,7 +15,7 @@
         >
           <div>
             <h2>팔로잉</h2>
-            <div>122</div>
+            <div>{{ followings.length }}</div>
           </div>
         </v-btn>
       </template>
