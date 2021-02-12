@@ -26,26 +26,17 @@
             </v-btn>
           </router-link>
           <v-btn v-if="isMySeed === true" color="success" @click="deleteSeed">삭제</v-btn>
-          <!-- <v-btn width="20vw" height="5vw" class="position-fixed" v-if="isMySeed === false" color="success">
-            <h1>
-              참여하기
-            </h1>
-          </v-btn> -->
           <SeedShare></SeedShare>
-          <v-btn icon>
-            <v-icon>
-              fas fa-ellipsis-h
-            </v-icon>
-          </v-btn>
+          <SeedViewMore></SeedViewMore>
         </v-row>
       </v-col>
     </v-row>
-    <v-row justify="center" class="mb-5">
-      <v-expansion-panels multiple popout hover v-model="panel" readonly>
+
+    <v-row ustify="center" class="mb-5">
+      <v-expansion-panels multiple popout hover disabled readonly v-model="panel">
         <v-expansion-panel
           v-for="(result, idx) in results"
           :key="idx"
-          
         >
           <v-expansion-panel-header :color="color" :ripple="false">
             <h3 class="white--text">
@@ -56,7 +47,9 @@
             <v-img :src="result.value"></v-img>
           </v-expansion-panel-content>
           <v-expansion-panel-content v-else class="mt-4">
-            {{ result.value }}
+            <span class="content-color">
+              {{ result.value }}
+            </span>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -73,21 +66,15 @@
         <div>- 욕설 및 타인을 비방하거나 음란물 등 불법촬영물 등을 공유시에 씨앗관리 퇴출사유에 해당되며, 법적조치를 받을 수 있습니다</div>
       </v-row>
     </div>
-    <!-- <div id="content"></div> -->
-    <!-- <footer></footer> -->
+    
+    <div id="content"></div>
+    <footer></footer>
     <v-btn id="banner" width="20vw" height="5vw" class="position-fixed" v-if="isMySeed === false" color="light-green lighten-2">
       <h1>
         함께하기
       </h1>
     </v-btn>
 
-    <!-- <main>
-  <div id="content"></div>
-  <footer>footer</footer>
-  <div id="banner">
-    banner
-  </div>
-</main> -->
   </v-container>
 
 
@@ -99,11 +86,13 @@
 import $ from 'jquery'
 import axios from 'axios'
 import SeedShare from "./SeedShare"
+import SeedViewMore from "./SeedViewMore"
 
 export default {
   name: "SeedBasicInfo",
   components: {
-    SeedShare
+    SeedShare,
+    SeedViewMore
   },
   data: function () {
     return {
@@ -152,11 +141,30 @@ export default {
         .catch((err) => {
           console.log(err)
         })
-    }
+    },
   },
   created() {
     this.SeedDetailInfo();
-    // test();
+  },
+  // jquery
+  mounted() {
+    $(function() {
+      var $w = $(window),
+        footerHei = $('footer').outerHeight(),
+        $banner = $('#banner');
+
+        $w.on('scroll', function() {
+
+        var sT = $w.scrollTop();
+        var val = $(document).height() - $w.height() - footerHei;
+    
+        if (sT + 80 >= val) {
+          $banner.addClass('on')
+        }
+        else
+          $banner.removeClass('on')   
+      });
+    });
   },
   computed: {
     color: function () {
@@ -175,28 +183,7 @@ export default {
       }
     }
   },
-  // jquery
-  mounted() {
-    $(function() {
-      console.log('test')
-      var $w = $(window),
-        footerHei = $('footer').outerHeight(),
-        $banner = $('#banner');
-
-        $w.on('scroll', function() {
-
-        var sT = $w.scrollTop();
-        var val = $(document).height() - $w.height() - footerHei;
-
-        if (sT >= val)
-            $banner.addClass('on')
-        else
-            $banner.removeClass('on')
-      });
-    });
-  }
 }
-
 
 
 </script>
@@ -225,17 +212,22 @@ main {
   position:relative;
 }
 
+footer {
+  height: 100px;
+}
+
 #rules {
   background: white;
-  height: 250px;
+  height: 150px;
   // font-size: 30px;
   color: black;
 }
 
+
 #banner {
   z-index: 3;
   position: fixed;
-  right: 37.8%;
+  right: 37.7%;
   width: 50px;
   height: 100px;
   background: salmon;
@@ -248,5 +240,8 @@ main {
   bottom: 1vw;
 }
 
+.content-color {
+  color: black;
+}
 
 </style>
