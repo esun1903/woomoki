@@ -15,6 +15,8 @@
     "apexcharts": "^3.23.1",
     "aws-sdk": "^2.834.0",
     "axios": "^0.21.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
     "email-validator": "^2.0.4",
@@ -25,6 +27,7 @@
     "firebase-tools": "^9.2.2",
     "fullpage.js": "^3.0.9",
     "global": "^4.4.0",
+    "jquery": "^3.5.1",
     "password-validator": "^5.1.1",
     "request-promise": "^4.2.6",
     "vee-validate": "^3.4.5",
@@ -39,7 +42,7 @@
     "vuex-persistedstate": "^4.0.0-beta.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.13",
+    "@babel/core": "^7.12.16",
     "@babel/preset-env": "^7.12.13",
     "@mdi/font": "^5.9.55",
     "@vue/cli-plugin-babel": "~4.5.0",

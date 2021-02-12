@@ -35,6 +35,8 @@
                   :value="percentage"
                   :color="color"
                   height="25"
+                  rounded
+                  striped
                 >
                   <template>
                     <strong class="white--text">{{ percentage }}%</strong>
@@ -46,6 +48,8 @@
                   value="100"
                   :color="color"
                   height="25"
+                  rounded
+                  striped
                 >
                   <template v-if="this.isEnd === false">
                     <strong>100%</strong>
@@ -222,7 +226,7 @@ export default {
 
 .img .content{
      position: absolute;
-     width: 50%;
+     width: 30%;
      top:50%;
      left:50%;
      transform: translate(-50%, -50%);                                                                   

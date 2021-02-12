@@ -13,7 +13,7 @@
         </v-avatar>
         <div>
           <h1 class="d-inline-flex">{{ UserInfo.nickname }}</h1>
-          <div class="d-inline-flex">👩‍💼 Lv.{{ UserInfo.levelnum }} {{ UserInfo.title }}</div>
+          <div class="d-inline-flex">👩‍💼 Lv.{{ UserInfo.levelnum }}</div>
         </div>
       </v-col>
       <v-col>
@@ -26,16 +26,26 @@
             </v-btn>
           </router-link>
           <v-btn v-if="isMySeed === true" color="success" @click="deleteSeed">삭제</v-btn>
-          <v-btn v-if="isMySeed === false" color="success">참여하기</v-btn>
+          <!-- <v-btn width="20vw" height="5vw" class="position-fixed" v-if="isMySeed === false" color="success">
+            <h1>
+              참여하기
+            </h1>
+          </v-btn> -->
           <SeedShare></SeedShare>
+          <v-btn icon>
+            <v-icon>
+              fas fa-ellipsis-h
+            </v-icon>
+          </v-btn>
         </v-row>
       </v-col>
     </v-row>
     <v-row justify="center" class="mb-5">
-      <v-expansion-panels multiple popout>
+      <v-expansion-panels multiple popout hover v-model="panel" readonly>
         <v-expansion-panel
           v-for="(result, idx) in results"
           :key="idx"
+          
         >
           <v-expansion-panel-header :color="color" :ripple="false">
             <h3 class="white--text">
@@ -52,20 +62,32 @@
       </v-expansion-panels>
     </v-row>
     
-    <v-row>
-      <h2>씨앗 관리 규칙 안내</h2>
-    </v-row>
-    <v-row>
-      <div>- 중간에 나가게되면 참여자들의 사기가 떨어질 수 있습니다</div>
-    </v-row>
-    <v-row>
-      <div>- 욕설 및 타인을 비방하거나 음란물 등 불법촬영물 등을 공유시에 씨앗관리 퇴출사유에 해당되며, 법적조치를 받을 수 있습니다</div>
-    </v-row>
+    <div id="rules">
+      <v-row>
+        <h2>씨앗 관리 규칙 안내</h2>
+      </v-row>
+      <v-row>
+        <div>- 중간에 나가게되면 참여자들의 사기가 떨어질 수 있습니다</div>
+      </v-row>
+      <v-row>
+        <div>- 욕설 및 타인을 비방하거나 음란물 등 불법촬영물 등을 공유시에 씨앗관리 퇴출사유에 해당되며, 법적조치를 받을 수 있습니다</div>
+      </v-row>
+    </div>
+    <!-- <div id="content"></div> -->
+    <!-- <footer></footer> -->
+    <v-btn id="banner" width="20vw" height="5vw" class="position-fixed" v-if="isMySeed === false" color="light-green lighten-2">
+      <h1>
+        함께하기
+      </h1>
+    </v-btn>
   </v-container>
+
+
 </template>
 
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v9.0" nonce="NCYaLITf"></script>
 <script>
+import $ from 'jquery'
 import axios from 'axios'
 import SeedShare from "./SeedShare"
 
@@ -82,6 +104,7 @@ export default {
       UserInfo: [],
       results: [],
       isMySeed: false,
+      panel: [0, 1, 2, 3, 4]
     }
   },
   methods: {
@@ -143,9 +166,76 @@ export default {
     }
   }
 }
+
+// jquery
+$(function() {
+
+  var $w = $(window),
+    footerHei = $('footer').outerHeight(),
+    $banner = $('#banner');
+
+  $w.on('scroll', function() {
+
+    var sT = $w.scrollTop();
+    var val = $(document).height() - $w.height() - footerHei;
+
+    if (sT >= val)
+        $banner.addClass('on')
+    else
+    		$banner.removeClass('on')
+  });
+});
+
+
+
 </script>
 
 <style lang="scss" scoped>
+
+.position-fixed {
+  z-index: 2;
+  position: fixed;
+  bottom: 0;
+  right: 37.5%;
+  color: #fff;
+  background-position: center center;
+  background-repeat: no-repeat;
+  box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.15);
+  cursor: pointer;
+  margin: 2vw;
+}
+
+* {
+  margin:0;
+  padding:0;
+}
+
+main {
+  position:relative;
+}
+
+#rules {
+  background: white;
+  height: 250px;
+  // font-size: 30px;
+  color: black;
+}
+
+#banner {
+  z-index: 3;
+  position: fixed;
+  right: 37.8%;
+  width: 50px;
+  height: 100px;
+  background: salmon;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .6);
+}
+
+#banner.on {
+  position: absolute;
+  right: 33.8%;
+  bottom: 1vw;
+}
 
 
 </style>
