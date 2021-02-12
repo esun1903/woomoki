@@ -1,7 +1,6 @@
 <template>
     <v-dialog
       v-model="dialog"
-      persistent
       max-width="290"
     >
       <template v-slot:activator="{ on, attrs }">
@@ -15,8 +14,8 @@
         </v-btn>
       </template>
       <v-card>
-        <v-card-title class="headline d-flex justify-center">
-          씨앗을 옮겨보세요!
+        <v-card-title class="d-flex justify-center">
+          씨앗을 자랑해보아요
         </v-card-title>
         <div class="fb-share-button d-flex justify-center" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small">
           <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">
