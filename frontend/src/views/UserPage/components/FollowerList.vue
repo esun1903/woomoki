@@ -34,7 +34,7 @@
         <v-divider></v-divider>
         
         <v-card-text class="dialog-height">
-          <div 
+          <div
             v-for="(follower, idx) in followers"
             :key="idx"
             class="d-flex justify-space-between ma-1"
@@ -44,7 +44,9 @@
                 {{ follower.nickname }}
               </router-link>
             </span>
+            <!-- 팔로우 버튼이 다른사람 페이지면 없어야함 -->
             <v-btn
+              v-if="isMyPage === true"
               :color="isFollow(follower.nickname) ? 'grey' : 'success' "
               small
               class="white--text"
@@ -68,18 +70,28 @@ export default {
   name: "FollowerList",
   data: function () {
     return {
-      userId: this.$store.state.UserStore.user.user_id,
+      userId: "",
       followers: [],
       followings: [],
       dialog: {
         dialogm1: "",
         dialog: false,
       },
+      
     }
+  },
+  props: {
+    isMyPage: Boolean,
   },
   methods: {
     // 나를 팔로우하는 팔로우 유저 리스트 가져오기
     async FollowerList () {
+      // userId 가져오기
+      const UserNickname = this.$route.params.userNickname
+      await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
+        .then((res) => {
+          this.userId = res.data.id
+        })
       const userId = this.userId
       await axios.get(`http://127.0.0.1:8080/followerList/${userId}`)
         .then((res) => {
@@ -91,6 +103,7 @@ export default {
           this.followings = res.data
           // console.log("팔로잉 리스트",res.data)
         })
+      console.log(this.isMyPage)
     },
     UserFollow: function () {
       // this.isFollow = !this.isFollow

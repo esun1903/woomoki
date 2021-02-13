@@ -5,10 +5,11 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="success"
+          color="light-green lighten-2"
           icon
           v-bind="attrs"
           v-on="on"
+          v-if="isLogin"
         >
           <v-icon>fas fa-share-alt</v-icon>
         </v-btn>
@@ -27,7 +28,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="success"
+            color="light-green lighten-2"
             text
             @click="dialog = false"
           >
@@ -44,6 +45,7 @@ export default {
   data: function () {
     return {
       dialog: false,
+      isLogin : this.$store.state.UserStore.isLogin
     }
   }
 }

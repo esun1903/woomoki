@@ -44,6 +44,7 @@
               </router-link>
             </span>
             <v-btn
+              v-if="isMyPage === true"
               color="grey"
               small
               class="white--text"
@@ -66,7 +67,7 @@ export default {
   name: "FollowingList",
   data: function() {
     return {
-      userId: this.$store.state.UserStore.user.user_id,
+      userId: "",
       followings: [],
       dialog: {
         dialogm2: "",
@@ -74,11 +75,21 @@ export default {
       },
     }
   },
+  props:{
+    isMyPage: Boolean, 
+  },
   methods: {
     // 내가 팔로우 하는 유저들 팔로잉 리스트 가져오기
-    FollowingList: function () {
+    async FollowingList () {
+      // userId 가져오기
+      const UserNickname = this.$route.params.userNickname
+      await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
+        .then((res) => {
+          this.userId = res.data.id
+        })  
+
       const userId = this.userId
-      axios.get(`http://127.0.0.1:8080/followingList/${userId}`)
+      await axios.get(`http://127.0.0.1:8080/followingList/${userId}`)
         .then((res) => {
           this.followings = res.data
           // console.log(res.data)

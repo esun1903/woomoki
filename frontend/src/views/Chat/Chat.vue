@@ -30,21 +30,23 @@
       <vuescroll :ops="ops">
         <main class="chatbox-panel__main" style="flex: 1">
           <div v-for="(log, idx) in logs" :key="idx">
-            <p class="enter">
-              <span v-if="idx === 0">
-                {{ log.event }}
-              </span>
-            </p>
-            <p v-if="log.event === '전송'" class="log text-left send-message-tooltip">
-              <span>
-                {{ log.event }}: {{ log.data }}
-              </span>
-            </p>
-            <p v-if="log.event === '수신'" class="log text-left recieve-message-tooltip">
-              <span>
-                {{ log.event }}: {{ log.data }}
-              </span>
-            </p>
+            <div class="reverse">
+              <p class="enter">
+                <span v-if="idx === 0">
+                  {{ log.event }}
+                </span>
+              </p>
+              <p v-if="log.event === '전송'" class="log text-left send-message-tooltip">
+                <span>
+                  {{ log.event }}: {{ log.data }}
+                </span>
+              </p>
+              <p v-if="log.event === '수신'" class="log text-left recieve-message-tooltip">
+                <span>
+                  {{ log.event }}: {{ log.data }}
+                </span>
+              </p>
+            </div>
           </div>
         </main>
       </vuescroll>
@@ -146,4 +148,6 @@ chatbox(() => {
 .enter {
   background-color: white;
 }
+
+
 </style>

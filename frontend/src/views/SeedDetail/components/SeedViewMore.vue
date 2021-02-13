@@ -1,7 +1,7 @@
 <template>
   <span>
-    <v-btn icon @click.stop="dialog = true">
-      <v-icon>
+    <v-btn v-if="isLogin" icon @click.stop="dialog = true">
+      <v-icon color="light-green lighten-2">
         fas fa-ellipsis-h
       </v-icon>
     </v-btn>
@@ -23,7 +23,7 @@
           <v-spacer></v-spacer>
 
           <v-btn
-            color="green darken-1"
+            color="light-green lighten-2"
             text
             @click="dialog = false"
           >
@@ -43,11 +43,13 @@ export default {
   data: function () {
     return {
       dialog: false,
+      isLogin : this.$store.state.UserStore.isLogin
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+
 
 </style>
