@@ -59,6 +59,7 @@ public class UserController {
 //	                           토큰 정보는 response의 헤더로 보내고 나머지는 Map에 담는다.
 //             	response.setHeader("auth-token", token);
 				resultMap.put("auth-token", token);
+				resultMap.put("user-id", loginUser.getId());
 				resultMap.put("user-email", loginUser.getEmail());
 				status = HttpStatus.ACCEPTED;
 			} else {
