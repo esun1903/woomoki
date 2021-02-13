@@ -10,7 +10,7 @@
         </router-link>
         
         <SearchBar/>
-        <div v-if="isLogin">안녕하세요, <span class="nickname">{{userNickname}}</span>님</div>
+        <div v-if="getCheckLogin">안녕하세요, <span class="nickname">{{this.user.nickname}}</span>님</div>
         <div class="btn-group">
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
@@ -32,7 +32,7 @@
             </v-list>
           </v-menu>
 
-          <v-btn icon class="btn">
+          <v-btn @click="test" icon class="btn">
             <v-icon>mdi-cart</v-icon>
           </v-btn>
 
@@ -74,7 +74,7 @@
             <v-list>
               <div v-if="getCheckLogin">
                 <v-list-item>
-                  <router-link :to="{ name: 'UserPage', params: { userNickname: userNickname }}">
+                  <router-link :to="{ name: 'UserPage', params: { userNickname: CheckUserInfo }}">
                     <v-list-item-title>마이페이지</v-list-item-title>
                    </router-link>
                 </v-list-item>
@@ -100,16 +100,16 @@
 
 <script>
 import SearchBar from "@/components/Navbar/SearchBar.vue";
-
+import {mapState} from "vuex";
 export default {
   name: 'Navbar',
   components: { SearchBar },
   directives: {  },
   data: function () {
     return {
-      isLogin: this.$store.state.UserStore.isLogin,
-      userId: this.$store.state.UserStore.user.user_id,
-      userNickname: this.$store.state.UserStore.user.nickname,
+      userInfo: [],
+      userId: "",
+      myNickname: "",
       notice: false,
       currentTab: null,
       tabs: [
@@ -124,13 +124,18 @@ export default {
       ],
     };
   },
-  mounted() {
-    
+  created() {
+    console.log(this.userInfo)
   },
   computed:  {
+    CheckUserInfo () {
+      this.userInfo = this.$store.state.UserStore.user 
+      return this.userInfo.nickname
+    },
     getCheckLogin () {
       return this.$store.getters["UserStore/getCheckLogin"];
-    }
+    },
+    ...mapState('UserStore', ['user']),
   },  
   methods: {
     goLogout: function () {
@@ -143,7 +148,9 @@ export default {
     goSignup: function () {
       this.$router.push({ name: 'Signup' })  
     },
-
+    test: function () {
+      console.log("Test", this.userInfo)
+    }
   },
 };
 </script>

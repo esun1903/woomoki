@@ -76,7 +76,7 @@
       </div>
     </infinite-loading> 
 
-    <div v-if="isMySeed === false && isLogin">
+    <div v-if="isMySeed === false">
       <div id="rules"></div>
       <div id="content"></div>
       <footer></footer>
