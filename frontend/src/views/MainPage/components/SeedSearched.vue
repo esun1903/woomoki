@@ -150,9 +150,6 @@ export default {
         return 6
       }
     },
-    pages () {
-      return this.pagination.rowsPerPage ? Math.ceil(this.seeds.length / this.pagination.rowsPerPage) : 0
-    }
   },
   watch: {
     category(newVal, oldVal) {

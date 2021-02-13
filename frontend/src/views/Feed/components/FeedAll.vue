@@ -1,13 +1,9 @@
 <template>
   <div>
-    <splide :options="options" has-slider-wrapper>
-      <splide-slide v-for="(certification, index) in certifications" :key="index">
-        <img :src="certification.img">
-        <div class="mask">
-          내용 보이게
-        </div>
+    <splide :options="options" :slides="slides" has-slider-wrpper>
+      <splide-slide v-for="(slide, index) in slides" :key="index">
+        <FeedCard :slide="slide" class="image-card" />
       </splide-slide>
-
       <template v-slot:controls>
         <div class="splide__progress">
           <div class="splide__progress__bar">
@@ -28,39 +24,37 @@
 </template>
 
 <script>
+import FeedCard from "@/views/Feed/components/FeedCard.vue"
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
 // import { createSlides } from "./slides.js"
 import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
-
+import axios from "axios";
 // const IMAGE_URL = 'https://source.unsplash.com/random/800x450';
 
 export default {
   name: 'FeedAll',
-  components: { Splide, SplideSlide },
+  components: { FeedCard, Splide, SplideSlide },
   directives: {  },
   data() {
     return {
-      certifications: [],
+      slides: [],
 
       options: {
         rewind: true,
-        perPage: 2,
-        gap: '2rem',
-        padding: {
-          left: 0,
-          right: 0
-        },
+        perPage: 3,
+        // padding: {
+        //   left: 0,
+        //   right: 0
+        // },
+        width: '100%',
         autoplay: true,
         pauseOnHover: false,
         arrows : 'slider',
         type: 'loop',
         focus: 'center',
-        height: '40%',
-        width: '100%',
         easing: 'ease',
         cover  : true,
       },
-      slides: createSlides(),
 
   }
   },
@@ -68,16 +62,7 @@ export default {
 
   },
   methods: {
-    // createSlides: function ( length = 10, sig = 0 ) {
-    //   return Array.apply( null, Array( length ) ).map( ( value, index ) => {
-    //     index = sig || index;
 
-    //     return {
-    //       src: IMAGE_URL,
-    //       alt: '33',
-    //     };
-    //   });
-    // }
   },
   created () {
     axios.get("http://localhost:8080/allCertification")
@@ -86,8 +71,8 @@ export default {
         certifications.sort(function(a,b) {
           return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
         })
-        console.log(certifications)
-        this.certifications = certifications
+        this.slides = certifications
+        console.log(this.slides)
       })
       .catch((err) => {
         console.log(err)
@@ -102,9 +87,9 @@ export default {
 $color: #20b2aa;
 .splide {
   width: 150%;
-  padding: 1.5%;
+  padding: 5%;
   &__autoplay {
-    margin-top: 1em;
+    margin-top: 1.5em;
     margin-bottom: 1.5em;
     text-align: center;
   }
@@ -123,14 +108,7 @@ $color: #20b2aa;
     }
   }
 }
-img {
-  &:hover + .mask{
-    display: block;
-    color: red;
-  }
+.image-card {
+  line-height: 120%;
 }
-.mask {
-  display: none;
-}
-
 </style>
