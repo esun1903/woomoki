@@ -29,20 +29,20 @@
       </header>
       <vuescroll :ops="ops">
         <main class="chatbox-panel__main" style="flex: 1">
-          <div v-for="(log, idx) in logs" :key="idx">
+          <div v-for="(log, idx) in logs" :key="idx" class="message-box">
             <div class="reverse">
               <p class="enter">
                 <span v-if="idx === 0">
                   {{ log.event }}
                 </span>
               </p>
-              <p v-if="log.event === '전송'" class="log text-left send-message-tooltip">
-                <span>
+              <p v-if="log.event === '전송'" class="text-left">
+                <span class="send-message-tooltip">
                   {{ log.event }}: {{ log.data }}
                 </span>
               </p>
-              <p v-if="log.event === '수신'" class="log text-left recieve-message-tooltip">
-                <span>
+              <p v-if="log.event === '수신'" class="text-left">
+                <span class="recieve-message-tooltip">
                   {{ log.event }}: {{ log.data }}
                 </span>
               </p>
