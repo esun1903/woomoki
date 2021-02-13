@@ -76,7 +76,7 @@
       </div>
     </infinite-loading> 
 
-    <div v-if="isMySeed === false">
+    <div v-if="isMySeed === false && isLogin">
       <div id="rules"></div>
       <div id="content"></div>
       <footer></footer>
@@ -114,6 +114,7 @@ export default {
       cards: [],
       isBasicInfo: true,
       isMySeed: false,
+      isLogin: this.$store.state.UserStore.isLogin,
     }
   },
   methods: {

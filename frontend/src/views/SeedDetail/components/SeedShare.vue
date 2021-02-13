@@ -9,6 +9,7 @@
           icon
           v-bind="attrs"
           v-on="on"
+          v-if="isLogin"
         >
           <v-icon>fas fa-share-alt</v-icon>
         </v-btn>
@@ -44,6 +45,7 @@ export default {
   data: function () {
     return {
       dialog: false,
+      isLogin : this.$store.state.UserStore.isLogin
     }
   }
 }
