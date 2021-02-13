@@ -1,9 +1,9 @@
 <template>
   <v-container>
     <ul class="flashcard-list">
-      <li v-on:click="toggleCard(card)" v-for="(card, index) in cards">
+      <li v-on:click="toggleCard(certification)" v-for="(certification, index) in certifications">
         <transition name="flip">
-          <p v-bind:key="card.flipped" class="card">
+          <p v-bind:key="certification.flipped" class="certification">
               {{ card.flipped ? card.back : card.front }}
               <span v-on:click="cards.splice(index, 1)" class="delete-card">X</span>
           </p>

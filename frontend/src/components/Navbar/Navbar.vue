@@ -87,12 +87,16 @@
                 </v-list-item>
               </div>
               <div v-else>
-                <router-link :to="{ name: 'Login'}">
-                  <v-list-item-title>로그인</v-list-item-title>
-                </router-link>
-                <router-link :to="{ name: 'Signup'}">
-                  <v-list-item-title>회원가입</v-list-item-title>
-                </router-link>
+                <v-list-item>
+                  <router-link :to="{ name: 'Login'}">
+                    <v-list-item-title>로그인</v-list-item-title>
+                  </router-link>
+                </v-list-item>
+                <v-list-item>
+                  <router-link :to="{ name: 'Signup'}">
+                    <v-list-item-title>회원가입</v-list-item-title>
+                  </router-link>
+                </v-list-item>
               </div>
 
             </v-list>
