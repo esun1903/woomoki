@@ -23,7 +23,7 @@ const UserStore = {
       state.user.accessToken = payload["auth-token"];
       state.user.user_id = payload["user-id"];
       // state.user.compareId = payload["user-id"];
-      state.user.nickname = payload["user-name"];
+      state.user.nickname = payload["user-nickname"];
       state.user.email = payload["user-email"];
       state.isLogin = true;
  
