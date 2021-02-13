@@ -6,7 +6,7 @@
   </v-main>
   <div class="loader">
     <UpPage></UpPage>
-    <Chat></Chat>
+    <Chat v-if="this.isLogin"></Chat>
   </div>
   <Footer></Footer>
 </v-app>
@@ -30,7 +30,7 @@ export default {
 
   data: function () {
     return {
-      // login: false,
+      isLogin: this.$store.state.UserStore.isLogin,
     } 
   },
   computed: {
