@@ -61,14 +61,16 @@
                   </template>
                 </v-progress-linear>
               </v-row>
-        
+              <v-row class="d-flex justify-center">
+                <!-- <v-btn v-if="isMySeed === false" icon @click="getScrap">
+                  <v-icon size="48" :color="scrapped ? 'yellow' : 'white' ">fas fa-star</v-icon>
+                </v-btn> -->
+                <v-btn v-if="isMySeed === false" class="mt-5" icon @click="getScrap">
+                  <v-icon size="48" :color="scrapped ? 'red' : 'white' ">fas fa-heart</v-icon>
+                </v-btn>
+              </v-row>
             </div>
-            <!-- <v-btn v-if="isMySeed === false" class="star-position" icon @click="getScrap">
-              <v-icon size="48" :color="scrapped ? 'yellow' : 'white' ">fas fa-star</v-icon>
-            </v-btn> -->
-            <v-btn v-if="isMySeed === false" class="star-position" icon @click="getScrap">
-              <v-icon size="48" :color="scrapped ? 'red' : 'white' ">fas fa-heart</v-icon>
-            </v-btn>
+            
             <div class="img-cover"></div>
           </v-img>
     </v-avatar>
@@ -171,11 +173,24 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    getScrappedCount: function () {
+      const seedId = this.seedId
+      // fav_challenge 테이블에서 해당 seedId를 하트 누른 유저의 숫자를 가져와야함
+      // 지금은 challenge테이블의 like_count 컬럼값을 갖고옴 
+      axios.get(`http://127.0.0.1:8080/likecount/${seedId}`)
+        .then((res) => {
+          console.log("count", res.data)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   created() {
     this.getSeedThumbnail();
     this.CheckisfavSeed();
+    this.getScrappedCount();
   },
   computed: {
     category: function () {
@@ -240,11 +255,11 @@ export default {
      text-align: center;
 }
 
-.star-position {
-  z-index: 3;
-  position: absolute;
-  right: 30px;
-  bottom: 165px;
-}
+// .star-position {
+//   z-index: 3;
+//   position: absolute;
+//   right: 30px;
+//   bottom: 165px;
+// }
 
 </style>
