@@ -1,6 +1,15 @@
 <template>
   <v-container>
-    
+    <ul class="flashcard-list">
+      <li v-on:click="toggleCard(card)" v-for="(card, index) in cards">
+        <transition name="flip">
+          <p v-bind:key="card.flipped" class="card">
+              {{ card.flipped ? card.back : card.front }}
+              <span v-on:click="cards.splice(index, 1)" class="delete-card">X</span>
+          </p>
+        </transition>
+      </li>
+    </ul>
   </v-container>
 </template>
 
@@ -23,8 +32,8 @@ export default {
         const certifications = res.data
         certifications.sort(function(a,b) {
           return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
-        this.certifications = certifications
         })
+        this.certifications = certifications
       })
       .catch((err) => {
         console.log(err)
