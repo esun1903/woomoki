@@ -1,7 +1,7 @@
 <template>
   <span>
     <v-btn icon @click.stop="dialog = true">
-      <v-icon>
+      <v-icon color="light-green lighten-2">
         fas fa-ellipsis-h
       </v-icon>
     </v-btn>
@@ -23,7 +23,7 @@
           <v-spacer></v-spacer>
 
           <v-btn
-            color="green darken-1"
+            color="light-green lighten-2"
             text
             @click="dialog = false"
           >
@@ -49,5 +49,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 
 </style>
