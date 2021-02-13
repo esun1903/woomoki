@@ -10,7 +10,7 @@
         </router-link>
         
         <SearchBar/>
-        <div>안녕하세요, <span class="nickname">{{userNickname}}</span>님</div>
+        <div v-if="isLogin">안녕하세요, <span class="nickname">{{userNickname}}</span>님</div>
         <div class="btn-group">
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
@@ -107,6 +107,7 @@ export default {
   directives: {  },
   data: function () {
     return {
+      isLogin: this.$store.state.UserStore.isLogin,
       userId: this.$store.state.UserStore.user.user_id,
       userNickname: this.$store.state.UserStore.user.nickname,
       notice: false,
