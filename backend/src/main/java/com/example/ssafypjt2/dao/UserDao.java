@@ -25,7 +25,7 @@ public interface UserDao {
 	
 
 	@Select(" SELECT * FROM user WHERE email = #{email} AND password = #{password} ")
-	public UserDto login(String email , String password) throws SQLException;
+	public UserDto login(@Param("email")String email , @Param("password")String password) throws SQLException;
 
 	
 	@Insert("Insert INTO user ( nickname, password, phone, email, introduce, levelnum, leveltitle, img, deposit, join_date )"
