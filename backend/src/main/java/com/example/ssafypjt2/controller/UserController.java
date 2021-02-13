@@ -61,6 +61,7 @@ public class UserController {
 				resultMap.put("auth-token", token);
 				resultMap.put("user-id", loginUser.getId());
 				resultMap.put("user-email", loginUser.getEmail());
+				resultMap.put("user-nickname", loginUser.getNickname());
 				status = HttpStatus.ACCEPTED;
 			} else {
 				resultMap.put("message", "로그인 실패");
