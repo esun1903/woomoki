@@ -31,17 +31,6 @@
             v-if="isMyPage === false" 
             class="d-flex justify-center">
             
-              <!-- <v-btn
-                :ripple="false"
-                
-                width="60"
-                height="30"
-                @click="UserFollow"
-                >
-                <span>팔로잉</span>
-                <span>팔로우</span>
-
-              </v-btn> -->
               <v-btn
                 :ripple="false"
                 :color="isFollow ? 'grey' : 'success' "
@@ -107,7 +96,7 @@ import ChallengeResults from "./ChallengeResults"
 import FollowerList from "./FollowerList"
 import FollowingList from "./FollowingList"
 import axios from "axios";
-// import { mapState } from "vuex"
+import { mapState } from "vuex"
 
 export default {
   name: "BasicUserInfo",
@@ -134,12 +123,12 @@ export default {
     // 마이페이지를 렌더링 하고 다르면 유저페이지를 렌더링한다.
     async BasicUserInfo () {
       const MyNickname = this.$store.state.UserStore.user.nickname
-      const user_id = this.$store.state.UserStore.user.user_id
+      const user_id = this.user.user_id
       // query사용
       // const UserNickname = this.$route.query.userNickname
       const UserNickname = this.$route.params.userNickname
 
-      this.$store.dispatch("UserStore/compareId", user_id);
+      // this.$store.dispatch("UserStore/compareId", user_id);
 
       console.log(MyNickname, UserNickname)
       await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
@@ -181,13 +170,6 @@ export default {
     },
     // 유저를 팔로우하거나 언팔로우
     async UserFollow () {
-      
-      // 현재 페이지의 유저 정보 갖고오기
-      // const UserNickname = this.UserInfo.nickname
-      // await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
-      //   .then((res) => {
-      //     this.followId = res.data.id
-      //   })
 
       const followInfo = {
         userId : this.$store.state.UserStore.user.user_id,
@@ -241,7 +223,7 @@ export default {
     // this.getUserId()
   },
   computed: {
-      // ...mapState('UserStore', ['user_id'])
+    ...mapState('UserStore', ['user'])
   },
   watch: {
     // isFollow: function() {

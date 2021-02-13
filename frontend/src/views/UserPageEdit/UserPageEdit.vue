@@ -10,6 +10,7 @@
         <form @submit.prevent="submit">
 
           <v-text-field
+            @click="test"
             :value="UserInfo.nickname"
             label="아이디"
             readonly
@@ -105,7 +106,7 @@
           </validation-provider>
 
           <v-row class="d-flex justify-end">
-            <router-link :to="{ name: 'UserPage', params: { userNickname: UserInfo.nickname }}">
+            <router-link :to="{ name: 'UserPage', params: { userNickname: userNickname }}">
               <v-btn 
                 class="mr-4" 
                 type="submit" 
@@ -122,11 +123,14 @@
               지우기
             </v-btn>
 
-            <v-btn 
-              class="ml-4"
-              color="success">
-              <router-link class="white--text" :to="{ name: 'UserPage', params : { userNickname: UserInfo.nickname }}">뒤로가기</router-link>
-            </v-btn>
+            <router-link class="white--text" :to="{ name: 'UserPage', params : { userNickname: userNickname }}">
+              <v-btn 
+                class="ml-4"
+                color="success"
+                >
+              뒤로가기
+              </v-btn>
+            </router-link>
           </v-row>
 
         </form>
@@ -209,6 +213,7 @@ export default {
   data: function() {
     return {
       UserInfo: [],
+      userNickname: this.$store.state.UserStore.user.nickname,
       newPassword: "",
       passwordConfirmation: "",
       showPass: false,
@@ -216,12 +221,15 @@ export default {
     };
   },
   methods: {
+    test: function () {
+      console.log("test입니다",this.UserInfo)
+    },
     originUserInfo: function() {
-      const userId = this.$store.state.UserStore.user.user_id 
-      axios.get(`http://localhost:8080/userPage/${userId}`)
+      const userNickname = this.$store.state.UserStore.user.nickname 
+      axios.get(`http://localhost:8080/userPage/${userNickname}`)
         .then((res) => {
           this.UserInfo = res.data
-          console.log(res.data)
+          console.log("기존 데이터",res.data)
         })
         .catch((err) => {
           console.log(err)
@@ -259,6 +267,8 @@ export default {
   },
   created() {
     this.originUserInfo()
+  },
+  computed: {
   }
 };
 </script>
