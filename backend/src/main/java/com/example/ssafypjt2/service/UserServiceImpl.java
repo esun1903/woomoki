@@ -18,14 +18,12 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public UserDto login(UserDto userDto) throws Exception {
-		System.out.println(userDto.getNickname());
-		System.out.println(dao.login(userDto.getEmail()).getJoin_date());
-		UserDto result =  dao.login(userDto.getEmail());
+		System.out.println("여기는 로그인 Service~ 도달했습니다 ~ "+userDto.getNickname());
+		System.out.println(dao.login(userDto.getEmail(),userDto.getPassword()).getJoin_date());
+		UserDto result =  dao.login(userDto.getEmail(),userDto.getPassword());
 
-		System.out.println("아이디를 받아와 ~ "+ result.getId());
 		System.out.println("이메일을 받아와 ~ "+ result.getEmail());
-		System.out.println("이메일을 받아와 ~ "+ result.getIntroduce());
-		System.out.println("레벨을 받아와 ~ "+ result.getLevelnum());
+		System.out.println("비밀번호 "+ result.getPassword());
 		return result;
 		
 	}
@@ -68,9 +66,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto userPageDetail(int user_id) throws Exception {
-		System.out.println("여기는 회원에 대한 상세화면을 담당하는 Service에 도달했습니다. "+ user_id);
-		UserDto get = dao.userPageDetail(user_id);
+	public UserDto userPageDetail(String nickname) throws Exception {
+		System.out.println("여기는 회원에 대한 상세화면을 담당하는 Service에 도달했습니다. "+ nickname);
+		UserDto get = dao.userPageDetail(nickname);
+		System.out.println(get);
 		return get;
 	}
 

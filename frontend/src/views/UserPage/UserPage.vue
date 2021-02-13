@@ -18,6 +18,7 @@
               style="font-size: 1vw;"
               v-for="item in items"
               :key="item"
+              @click="CheckisUserstat(item)"
               >
               {{ item }}
             </v-tab>
@@ -34,13 +35,13 @@
                 >
               
                 <v-card-text v-if="item === '피드'">
-                  <div>
-                    <v-row>
-                      <v-col
-                        v-for="(card, $idx) in cards"
-                        :key="$idx"
-                        class="d-flex child-flex"
-                        cols="4"
+     
+                  <v-row>
+                    <v-col
+                      v-for="(card, $idx) in cards"
+                      :key="$idx"
+                      class="d-flex child-flex"
+                      cols="4"
                       >
                       <v-img
                         :src="card.img"
@@ -48,23 +49,22 @@
                         aspect-ratio="1"
                         class="grey lighten-2 cursor_test"
                       >
-                        <template v-slot:placeholder>
-                          <v-row
-                            class="fill-height ma-0"
-                            align="center"
-                            justify="center"
-                          >
-                            <v-progress-circular
-                              indeterminate
-                              color="grey lighten-5"
-                            ></v-progress-circular>
-                          </v-row>
-                        </template>
+                      <template v-slot:placeholder>
+                        <v-row
+                          class="fill-height ma-0"
+                          align="center"
+                          justify="center"
+                        >
+                          <v-progress-circular
+                            indeterminate
+                            color="grey lighten-5"
+                          ></v-progress-circular>
+                        </v-row>
+                      </template>
                       </v-img>
                     </v-col>
-                      
-                    </v-row>
-                  </div>
+                  </v-row>
+                
                 </v-card-text>
                   <!-- <v-card-text v-if="item === '챌린지'"><ChallengeResults></ChallengeResults></v-card-text> -->
                 <v-card-text v-if="item === '통계'">
@@ -75,7 +75,7 @@
           </v-tabs-items>
         </v-col>
       </v-row>
-      <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
+      <infinite-loading v-if="isUserstat === false" @infinite="infiniteHandler" spinner="waveDots">
         <div slot="no-more">
           데이터가 없습니다
         </div>
@@ -100,10 +100,9 @@ export default {
         return {
           tab: null,
           items: ['피드', '통계'],
-          page : 1,
           total: [],
-          tmp: [],
           cards: [],
+          isUserstat: false,
         };
     },
     methods: {
@@ -112,7 +111,8 @@ export default {
       axios.get(`http://127.0.0.1:8080/userCertification/${userid}`)
         .then((res) => {
           this.total = res.data
-          // console.log("생성되었을 때 tmp: ", this.total)
+          console.log("생성되었을 때 tmp: ", this.total)
+          console.log("isUserstat: ", this.isUserstat)
         })
       },
       infiniteHandler($state) {
@@ -128,6 +128,13 @@ export default {
           $state.complete();
         }
         }, 1000)
+      },
+      CheckisUserstat: function (item) {
+        if (item === "피드") {
+          this.isUserstat = false
+        } else {
+          this.isUserstat = true
+        }
       }
     },
     created() {

@@ -139,6 +139,7 @@ export default {
       this.$router.push({ name: 'Feed' }) 
     },
     goLogout: function () {
+      this.$router.push({ name: 'Main' })
       this.$store.dispatch('UserStore/logOut')
     },
 

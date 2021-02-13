@@ -94,7 +94,8 @@ public interface ChallengeDao {
 			"WHERE jc.user_id = #{user_id} AND jc.cng_id = c.id AND jc.result =#{result_num}")
 	public List<ChallengeDto> challengeListResultSort(@Param("user_id")int user_id ,@Param("result_num")int result_num );
 
-
+	@Select("SELECT like_cnt FROM challenge WHERE id = #{cngId}")
+	public int challengeLikeCount(@Param("cngId")int cngId);
 }
 
 /*

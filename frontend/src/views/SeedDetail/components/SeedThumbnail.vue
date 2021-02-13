@@ -17,7 +17,7 @@
             <div class="content">
               <h1>{{ SeedInfo.title }}</h1>
               <br>
-              <v-chip :color=this.color class="white--text">{{this.category}}</v-chip>
+              <v-chip :color=this.color class="white--text mb-2">{{this.category}}</v-chip>
               <v-row>
                 <v-col>
                   <div>참여: / {{ this.SeedInfo.max_people }}</div>
@@ -26,26 +26,32 @@
                   <div>인증률: </div>
                 </v-col>
               </v-row>
-              <v-row>
+              <v-row class="d-flex justify-center mb-2">
                 <div>
-                  진행률:
+                  진행률
                 </div>
+              </v-row>
+              <v-row>
                 <v-progress-linear
                   v-if="this.isEnd === false"
                   :value="percentage"
                   :color="color"
                   height="25"
+                  rounded
+                  striped
                 >
                   <template>
                     <strong class="white--text">{{ percentage }}%</strong>
                   </template>
                 </v-progress-linear>
-
+          
                 <v-progress-linear
                   v-else
                   value="100"
                   :color="color"
                   height="25"
+                  rounded
+                  striped
                 >
                   <template v-if="this.isEnd === false">
                     <strong>100%</strong>
@@ -55,10 +61,11 @@
                   </template>
                 </v-progress-linear>
               </v-row>
+        
             </div>
-            <v-btn v-if="isMySeed === false" class="star-position" icon @click="getScrap">
+            <!-- <v-btn v-if="isMySeed === false" class="star-position" icon @click="getScrap">
               <v-icon size="48" :color="scrapped ? 'yellow' : 'white' ">fas fa-star</v-icon>
-            </v-btn>
+            </v-btn> -->
             <v-btn v-if="isMySeed === false" class="star-position" icon @click="getScrap">
               <v-icon size="48" :color="scrapped ? 'red' : 'white' ">fas fa-heart</v-icon>
             </v-btn>
@@ -147,27 +154,28 @@ export default {
         })
       }
     },
-    // progressPer () {
-    //   // 오늘 날짜
-    //   const today = new Date();
-    //   // 시작 날짜
-    //   const start_year = this.SeedInfo.start_date.slice(0, 4)
-    //   const startDate = new Date(start_year, this.SeedInfo.start_date[5], this.SeedInfo.start_date[6], this.SeedInfo.start_date[8], this.SeedInfo.start_date[9]);
-    //   // 끝나는 날짜
-    //   const end_year = this.SeedInfo.end_date.slice(0, 4)
-    //   const endDate = new Date(end_year, this.SeedInfo.end_date[5], this.SeedInfo.end_date[6], this.SeedInfo.end_date[8], this.SeedInfo.end_date[9]);
-    //   // 전체 기간 계산
-    //   const deltaDate = endDate - startDate
-    //   // 시작부터 오늘까지 날짜 계산
-    //   const progressDate = today - startDate
-    //   // 퍼센트로 환산
-    //   const percentage = deltaDate / progressDate * 100
-    //   return percentage
-    // }
+    CheckisfavSeed: function () {
+      const seedId = this.seedId
+      const userId = this.$store.state.UserStore.user.user_id
+      axios.get(`http://127.0.0.1:8080/userPage/ListfavChallenge/${userId}`)
+      .then((res) => {
+          console.log(res)
+          const SeedList = res.data
+          var i;
+          for (i=0; i < SeedList.length; i++) {
+            if (SeedList[i].id === seedId) {
+              this.scrapped = true
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
   },
   created() {
     this.getSeedThumbnail();
-    // this.getProgressPer();
+    this.CheckisfavSeed();
   },
   computed: {
     category: function () {
@@ -222,7 +230,7 @@ export default {
 
 .img .content{
      position: absolute;
-     width: 50%;
+     width: 30%;
      top:50%;
      left:50%;
      transform: translate(-50%, -50%);                                                                   

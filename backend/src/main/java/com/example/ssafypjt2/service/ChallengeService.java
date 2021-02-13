@@ -37,4 +37,6 @@ public interface ChallengeService {
     public  List<String> Challenge();
 
     public List<ChallengeDto> challengeListResultSort(int user_id , int result_num );
+
+    public  int challengeLikeCount(int cngId);
 }

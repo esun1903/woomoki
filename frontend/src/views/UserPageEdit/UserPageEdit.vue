@@ -86,7 +86,7 @@
             ></v-text-field>
           </validation-provider>
 
-          <!-- <CategoryEdit></CategoryEdit> -->
+          <CategoryEdit></CategoryEdit>
 
           <validation-provider
             v-slot="{ errors }"
@@ -125,7 +125,7 @@
             <v-btn 
               class="ml-4"
               color="success">
-              <router-link to="/userPage">뒤로가기</router-link>
+              <router-link class="white--text" :to="{ name: 'UserPage', params : { userNickname: UserInfo.nickname }}">뒤로가기</router-link>
             </v-btn>
           </v-row>
 
@@ -142,7 +142,7 @@ import {
   ValidationProvider,
   setInteractionMode
 } from "vee-validate";
-// import CategoryEdit from "./components/CategoryEdit.vue";
+import CategoryEdit from "./components/CategoryEdit.vue";
 import ImgEdit from "./components/ImgEdit.vue";
 import axios from "axios";
 
@@ -200,7 +200,7 @@ export default {
   components: {
     ValidationProvider,
     ValidationObserver,
-    // CategoryEdit,
+    CategoryEdit,
     ImgEdit,
   },
   props: {
@@ -268,7 +268,7 @@ export default {
 a {text-decoration: none;}
 
 .container-size {
-  width: 30%;
+  width: 50%;
 }
 
 </style>

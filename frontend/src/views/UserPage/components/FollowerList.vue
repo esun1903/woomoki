@@ -16,7 +16,7 @@
         >
           <div>
             <h2>팔로워</h2>
-            <div>116</div>
+            <div>{{ followers.length }}</div>
           </div>
         </v-btn>
       </template>

@@ -124,4 +124,12 @@ public class ChallengeController {
 		return challengeService.challengeListResultSort(userId,resultNum);
 	}
 
+
+	 //챌린지id를 보내면 그 챌린지에 좋아요한 숫자를 갖고오는 기능
+	 @GetMapping("/likecount/{cngId}")
+	 public int challengeLikeCount(@PathVariable(value = "cngId") int cngId){
+		 return challengeService.challengeLikeCount(cngId);
+	 }
+
+
 }
