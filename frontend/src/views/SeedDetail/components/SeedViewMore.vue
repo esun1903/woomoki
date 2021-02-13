@@ -1,6 +1,6 @@
 <template>
   <span>
-    <v-btn icon @click.stop="dialog = true">
+    <v-btn v-if="isLogin" icon @click.stop="dialog = true">
       <v-icon color="light-green lighten-2">
         fas fa-ellipsis-h
       </v-icon>
@@ -43,6 +43,7 @@ export default {
   data: function () {
     return {
       dialog: false,
+      isLogin : this.$store.state.UserStore.isLogin
     }
   }
 }

@@ -65,7 +65,7 @@
                 <!-- <v-btn v-if="isMySeed === false" icon @click="getScrap">
                   <v-icon size="48" :color="scrapped ? 'yellow' : 'white' ">fas fa-star</v-icon>
                 </v-btn> -->
-                <v-btn v-if="isMySeed === false" class="mt-5" icon @click="getScrap">
+                <v-btn v-if="isMySeed === false && this.isLogin" class="mt-5" icon @click="getScrap">
                   <v-icon size="48" :color="scrapped ? 'red' : 'white' ">fas fa-heart</v-icon>
                 </v-btn>
               </v-row>
@@ -92,6 +92,7 @@ export default {
       isMySeed: false,
       percentage: 20,
       isEnd: false,
+      isLogin : this.$store.state.UserStore.isLogin
     }
   },
   methods: {
