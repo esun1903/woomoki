@@ -98,6 +98,7 @@ export default {
     },
     data: function () {
         return {
+          userId: "",
           tab: null,
           items: ['피드', '통계'],
           total: [],
@@ -106,13 +107,18 @@ export default {
         };
     },
     methods: {
-      UserCertification() {
-      const userid = this.$store.state.UserStore.user.user_id
-      axios.get(`http://127.0.0.1:8080/userCertification/${userid}`)
+      async UserCertification() {
+      const UserNickname = this.$route.params.userNickname
+      await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
         .then((res) => {
-          this.total = res.data
-          console.log("생성되었을 때 tmp: ", this.total)
-          console.log("isUserstat: ", this.isUserstat)
+          this.userId = res.data.id
+        })
+      const userid = this.userId
+      await axios.get(`http://127.0.0.1:8080/userCertification/${userid}`)
+        .then((res) => {
+        this.total = res.data
+        console.log("생성되었을 때 tmp: ", this.total)
+        console.log("isUserstat: ", this.isUserstat)
         })
       },
       infiniteHandler($state) {
