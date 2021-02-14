@@ -7,15 +7,16 @@
       </v-row>
       <v-row>
         <v-col>
-          <v-banner></v-banner>
+          <!-- <v-banner></v-banner> -->
           <v-tabs
             v-model="tab"
+            slider-size="4"
             background-color="transparent"
-            color="success"
+            color="light-green lighten-2"
             grow
             >
             <v-tab
-              style="font-size: 1vw;"
+              class="tab"
               v-for="item in items"
               :key="item"
               @click="CheckisUserstat(item)"
@@ -33,6 +34,7 @@
                 color="basil"
                 flat
                 >
+
                 <v-card-text v-if="item === '피드'">
      
                   <v-row>
@@ -157,6 +159,10 @@ export default {
 
 .container-size {
     width: 60%;
+}
+
+.tab {
+  font-size: 1.3vw;
 }
 
 </style>

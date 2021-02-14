@@ -3,7 +3,7 @@
 
     <v-row class="d-flex justify-space-around align-center">
       
-      <v-col class="d-flex justify-start">
+      <v-col class="d-flex justify-center">
         <v-avatar
           color="grey lighten-3"
           width="250"
@@ -70,7 +70,7 @@
       </v-col>
     </v-row>
     
-    <v-row class="mt-0">
+    <v-row class="mt-1">
       <ChallengeResults></ChallengeResults>
     </v-row>
   </v-container>
