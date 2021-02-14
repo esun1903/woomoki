@@ -33,7 +33,8 @@
             </v-card-text>
             <v-card-text class="d-flex justify-center" v-if="item === '보살핌 후기'">
               <!-- <SeedCertification></SeedCertification> -->
-              <v-row>
+              <SeedCertification v-for="(certification, index) in total" :key="index" :certification="certification" />
+              <!-- <v-row>
                 <v-col
                   v-for="(card, $idx) in cards"
                   :key="$idx"
@@ -61,7 +62,7 @@
                 </v-img>
               </v-col>
               
-              </v-row>
+              </v-row> -->
 
             </v-card-text>
           </v-card>
