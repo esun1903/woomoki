@@ -10,7 +10,10 @@
         </router-link>
         
         <SearchBar/>
-        <div>안녕하세요, <span class="nickname">{{userNickname}}</span>님</div>
+        <div v-if="getCheckLogin">
+          안녕하세요, 
+          <span class="nickname">{{ this.user.nickname }}</span>님
+        </div>
         <div class="btn-group">
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
@@ -36,9 +39,37 @@
             <v-icon>fas fa-user-friends</v-icon>
           </v-btn>
 
-          <v-btn icon class="btn">
+          <v-btn icon class="btn" @click="cart = true">
             <v-icon>mdi-cart</v-icon>
           </v-btn>
+          <v-dialog v-model="cart" width="25%">
+            
+            <!-- <div class="scrapped-seeds">
+              <v-card class="scrap-card">
+                <v-list three-line>
+                  <template  v-for ="seed in seeds">
+
+                    <v-list-item>
+                      <v-list-item-avatar>
+                        <v-avatar>
+                          <span>생활습관</span>
+                        </v-avatar>
+                      </v-list-item-avatar>
+                      <v-list-item-content>
+                        <v-list-item-title>씨앗 이름</v-list-item-title>
+                        <v-list-item-subtitle>4주 주2회</v-list-item-subtitle>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </template>
+                </v-list>
+                <v-card-actions>
+                  <v-btn color="primary" text @click="cart = false">
+                    Close
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </div> -->
+          </v-dialog>
 
           <v-btn icon class="btn" @click="notice = true">
             <v-icon>mdi-bell-ring</v-icon>
@@ -108,7 +139,7 @@
 
 <script>
 import SearchBar from "@/components/Navbar/SearchBar.vue";
-
+import {mapState} from "vuex";
 export default {
   name: 'Navbar',
   components: { SearchBar },
@@ -117,6 +148,8 @@ export default {
     return {
       userId: this.$store.state.UserStore.user.user_id,
       userNickname: this.$store.state.UserStore.user.nickname,
+      cart: false,
+      seeds: [],
       notice: false,
       currentTab: null,
       tabs: [
@@ -135,9 +168,25 @@ export default {
     
   },
   computed:  {
+    ...mapState('UserStore', ['user']),
     getCheckLogin () {
       return this.$store.getters["UserStore/getCheckLogin"];
-    }
+    },
+    // category: function () {
+    //   if (this.seed.category_id === 1) {
+    //     return '건강'
+    //   } else if (this.seed.category_id === 2) {
+    //     return '생활습관'
+    //   } else if (this.seed.category_id === 3) {
+    //     return '독서'
+    //   } else if (this.seed.category_id === 4) {
+    //     return '자산'
+    //   } else if (this.seed.category_id === 5) {
+    //     return '자기계발'
+    //   } else {
+    //     return '취미'
+    //   }
+    // },
   },  
   methods: {
     goFeed: function () {
@@ -147,18 +196,27 @@ export default {
       this.$router.push({ name: 'Main' })
       this.$store.dispatch('UserStore/logOut')
     },
-
-
   },
+  created () {
+      axios.get("http://localhost:8080/allChallenge")
+      .then((res) => {
+        const seeds = res.data
+        seeds.sort(function(a,b) {
+          return a.like_cnt > b.like_cnt ? -1 : a.like_cnt < b.like_cnt ? 1 : 0;
+        })
+        // seeds.splice(8)
+        this.seeds = seeds
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 };
 </script>
 
 <style lang="scss" scoped>
 // 개발자 도구로 찍고 나서야 바꿀 수 있는 부분
 
-.notification{
- float:right;
-}
 .v-sheet.v-app-bar.v-toolbar:not(.v-sheet--outlined) {
   box-shadow: none;
 }

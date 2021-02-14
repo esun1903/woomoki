@@ -4,9 +4,14 @@
 
     <div class="seed-card-top">
       <v-chip id="category-chip" :ripple="false" :color=this.color> {{ this.category }}</v-chip>
-      <v-btn icon @click.native="getScrap">
-        <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
-      </v-btn>
+      <div class="btns">
+        <v-btn icon @click.native="getLikes">
+          <v-icon :color="liked ? 'red' : '' ">mdi-heart</v-icon>
+        </v-btn>
+        <v-btn icon @click.native="getScrap">
+          <v-icon :color="scrapped ? '#FFC400' : '' ">fas fa-bookmark</v-icon>
+        </v-btn>      
+      </div>
     </div>
 
     <div>
@@ -22,10 +27,10 @@
     <div class="seed-card-bottom">
       <div>
         <v-chip label :ripple="false">
-          <!-- {{ seed.term }} -->4주
+          {{ seed.week }}주
         </v-chip>
         <v-chip label :ripple="false">
-          <!-- {{ seed.time }} -->주 2회
+          주 {{ seed.day }}회
         </v-chip>
       </div>
     </div>
@@ -34,6 +39,7 @@
 
 
 <script>
+import axios from "axios";
 export default {
   name: 'SeedCard',
   components: {  },
@@ -43,6 +49,7 @@ export default {
   },
   data() {
     return {
+      liked: false,
       scrapped: false,
     };
   },
@@ -52,15 +59,30 @@ export default {
   methods: {
     // 해당 게시글 아이디 담아줘야해
     goSeedDetail: function () {
-      // console.log(this.seed)
       this.$router.push({ name: 'SeedDetail', params: { seedId: this.seed.id } })
-      // this.$router.push({ name: "SeedDetail" })
+    },
+    getLikes: function () {
+      const cgId = {};
+      const cgId_num = this.seed.id
+      cgId["cgId"] = cgId_num;
+      if (this.liked) {
+        axios.put(`http://localhost:8080/likeDownChallenge/${cgId_num}`, cgId )
+        this.liked = false
+        
+      } else {
+        axios.put(`http://localhost:8080/likeUpChallenge/${cgId_num}`, cgId )
+        this.liked = true
+      }
     },
     getScrap: function () {
-      if (this.scrapped) {
-        this.scrapped = false
-        // 스크랩 기능 구현 아직 안 함.....
+      const cgId = {};
+      const cgId_num = this.seed.id
+      cgId["cgId"] = this.seed.id;
+      if (this.scrapped) {      
+        // axios.put(`http://localhost:8080/likeUpChallenge/${cgId_num}`, cgId )
+        this.scrapped = false  
       } else {
+        // axios.put(`http://localhost:8080/likeUpChallenge/${cgId_num}`, cgId )
         this.scrapped = true
       }
     }
