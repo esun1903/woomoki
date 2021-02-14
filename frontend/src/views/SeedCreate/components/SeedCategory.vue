@@ -8,8 +8,8 @@
         
           <v-btn
             value="health"
-            width="10vw"
-            height="10vw"
+            width="12vw"
+            height="12vw"
             color="grey lighten-5"
             class="ma-2"
             :ripple="false"
@@ -17,20 +17,20 @@
           >
             <div>
               <v-icon 
-                size="3vw"
+                size="4vw"
                 color="light-green lighten-1"
               >
                 fas fa-dumbbell
               </v-icon>
-              <h2 class="category-font">건강</h2>
+              <h2 class="category-font-health">건강</h2>
             </div>
         
           </v-btn>
           
           <v-btn
             value="lifestyle"
-            width="10vw"
-            height="10vw"
+            width="12vw"
+            height="12vw"
             color="grey lighten-5"
             class="ma-2"
             :ripple="false"
@@ -38,19 +38,19 @@
           >
             <div>
               <v-icon 
-                size="3vw"
+                size="4vw"
                 color="orange lighten-1"
               >
                 fas fa-utensils
               </v-icon>
-              <h2 class="category-font">생활습관</h2>
+              <h2 class="category-font-lifestyle">생활습관</h2>
             </div>
           </v-btn>
 
           <v-btn
             value="book"
-            width="10vw"
-            height="10vw"
+            width="12vw"
+            height="12vw"
             color="grey lighten-5"
             class="ma-2"
             :ripple="false"
@@ -58,19 +58,19 @@
           >
             <div>
               <v-icon 
-                size="3vw"
+                size="4vw"
                 color="teal lighten-1"
               >
               fas fa-book
               </v-icon>
-              <h2 class="category-font">독서</h2>
+              <h2 class="category-font-book">독서</h2>
             </div>
           </v-btn>
         
           <v-btn
             value="assets"
-            width="10vw"
-            height="10vw"
+            width="12vw"
+            height="12vw"
             color="grey lighten-5"
             class="ma-2"
             :ripple="false"
@@ -78,19 +78,19 @@
           >
             <div>
               <v-icon 
-                size="3vw"
+                size="4vw"
                 color="indigo lighten-1"
               >
               fas fa-chart-line
               </v-icon>
-              <h2 class="category-font">자산</h2>
+              <h2 class="category-font-assets">자산</h2>
             </div>
           </v-btn>
         
           <v-btn
             value="grown"
-            width="10vw"
-            height="10vw"
+            width="12vw"
+            height="12vw"
             color="grey lighten-5"
             class="ma-2"
             :ripple="false"
@@ -98,19 +98,19 @@
           >
             <div>
               <v-icon 
-                size="3vw"
+                size="4vw"
                 color="purple lighten-1"
               >
               fas fa-running
               </v-icon>
-              <h2 class="category-font">자기계발</h2>
+              <h2 class="category-font-grown">자기계발</h2>
             </div>
           </v-btn>
         
           <v-btn
             value="hobby"
-            width="10vw"
-            height="10vw"
+            width="12vw"
+            height="12vw"
             color="grey lighten-5"
             class="ma-2"
             :ripple="false"
@@ -118,12 +118,12 @@
           >
             <div>
               <v-icon 
-                size="3vw"
+                size="4vw"
                 color="pink lighten-1"
               >
               fas fa-camera
               </v-icon>
-              <h2 class="category-font">취미</h2>
+              <h2 class="category-font-hobby">취미</h2>
             </div>
           </v-btn>
         
@@ -240,8 +240,40 @@ export default {
 
 <style scoped>
 
-.category-font {
-  font-size: 1vw;
+.category-font-health {
+  color: #9CCC65;
+  margin-top: 20px;
+  font-size: 1.3vw;
+}
+
+.category-font-lifestyle {
+  color: #FFA726;
+  margin-top: 20px;
+  font-size: 1.3vw;
+}
+
+.category-font-book {
+  color: #26A69A;
+  margin-top: 20px;
+  font-size: 1.3vw;
+}
+
+.category-font-assets {
+  color: #5C6BC0;
+  margin-top: 20px;
+  font-size: 1.3vw;
+}
+
+.category-font-grown {
+  color: #AB47BC;
+  margin-top: 20px;
+  font-size: 1.3vw;
+}
+
+.category-font-hobby {
+  color: #EC407A;
+  margin-top: 20px;
+  font-size: 1.3vw;
 }
 
 </style>

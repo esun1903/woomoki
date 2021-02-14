@@ -24,8 +24,8 @@
       <v-card>
           <v-card-title class="d-flex justify-space-between">충전하기
           <v-btn
-            color="success darken-1"
-            text
+            color="light-green lighten-2"
+            icon
             @click="dialog.dialog = false"
             class="d-flex justify-center"
           >

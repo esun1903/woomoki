@@ -9,6 +9,7 @@
         <v-col>
           <!-- <v-banner></v-banner> -->
           <v-tabs
+            height="5vw"
             v-model="tab"
             slider-size="4"
             background-color="transparent"
@@ -162,7 +163,7 @@ export default {
 }
 
 .tab {
-  font-size: 1.3vw;
+  font-size: 1.5vw;
 }
 
 </style>
