@@ -1,19 +1,27 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row class="mb-5">
       <v-col class="d-flex justify-start align-center">
-        <v-avatar
-          size="64"
-          color="grey lighten-3"
-          class="cursor-img"
-          >
-            <v-img 
-            :src="UserInfo.img"
-          ></v-img>
-        </v-avatar>
-        <div>
-          <h1 class="d-inline-flex">{{ UserInfo.nickname }}</h1>
-          <div class="d-inline-flex">👩‍💼 Lv.{{ UserInfo.levelnum }}</div>
+        <router-link :to="{ name: 'UserPage', params: { userNickname: UserInfo.nickname}}">
+          <v-avatar
+            size="64"
+            color="grey lighten-3"
+            class="cursor-img"
+            >
+              <v-img 
+              :src="UserInfo.img"
+            ></v-img>
+          </v-avatar>
+        </router-link>
+        <div class="ml-7">
+          <v-row>
+            <router-link :to="{ name: 'UserPage', params: { userNickname: UserInfo.nickname}}">
+              <h1 class="d-inline-flex">{{ UserInfo.nickname }}</h1>
+            </router-link>
+          </v-row>
+          <v-row>
+            <div class="d-inline-flex">👩‍💼 Lv.{{ UserInfo.levelnum }}</div>
+          </v-row>
         </div>
       </v-col>
       <v-col>

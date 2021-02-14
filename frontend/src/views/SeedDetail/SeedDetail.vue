@@ -10,7 +10,8 @@
 
       <v-tabs
         v-model="tab"
-        color="success"
+        slider-size="4"
+        color="light-green lighten-2"
         right
       >
         <v-tab
@@ -80,7 +81,7 @@
       <div id="rules"></div>
       <div id="content"></div>
       <footer></footer>
-      <v-btn id="banner" width="50vw" height="5vw" class="position-fixed" color="light-green lighten-2">
+      <v-btn @click="JoinSeed" id="banner" width="50vw" height="5vw" class="position-fixed" color="light-green lighten-2">
         <h1>
           함께하기
         </h1>
@@ -130,7 +131,7 @@ export default {
       // 내가 만든 씨앗인지 구분
       const SeedInfo = await axios.get(`http://127.0.0.1:8080/detailChallenge/${this.seedId}`)
       this.SeedInfo = SeedInfo.data
-      // console.log("보내기 테스트",this.SeedInfo)
+      console.log("보내기 테스트",this.SeedInfo)
       const SeedUserId = this.$store.state.UserStore.user.user_id 
       const UserId = this.SeedInfo.user_id
       if (SeedUserId === UserId) {
@@ -158,6 +159,17 @@ export default {
         this.isBasicInfo = false
       }
       console.log(this.isBasicInfo)
+    },
+    JoinSeed: function () {
+      const notification = {
+        userId: this.$store.state.UserStore.user.user_id,
+        cngUserId: this.SeedInfo.user_id,
+        cngId: this.seedId
+      }
+      axios.post(`http://127.0.0.1:8080/notificationRequestChallenge/${notification.userId}/${notification.cngUserId}/${notification.cngId}/reqChallenge`, notification)
+        .then((res) => {
+          console.log(res)
+        })
     }
   },
   created() {

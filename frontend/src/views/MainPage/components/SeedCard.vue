@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-img :src=SeedImg @click="goSeedDetail(seed.id)" aspect-ratio="1.5"></v-img>
+    <v-img :src=SeedImg @click="goSeedDetail(seed.id)" aspect-ratio="1.5" class="cursor"></v-img>
 
     <div class="seed-card-top">
       <v-chip id="category-chip" :ripple="false" :color=this.color> {{ this.category }}</v-chip>
@@ -54,6 +54,7 @@ export default {
     goSeedDetail: function () {
       // console.log(this.seed)
       this.$router.push({ name: 'SeedDetail', params: { seedId: this.seed.id } })
+      console.log(this.seed.id)
       // this.$router.push({ name: "SeedDetail" })
     },
     getScrap: function () {
@@ -105,6 +106,11 @@ export default {
 
 
 <style lang="scss" scoped>
+
+.cursor {
+  cursor: pointer;
+}
+
 .v-chip {
   height: 100%;
   font-size: 0.8rem;
