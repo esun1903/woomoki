@@ -50,7 +50,18 @@ public class FavChallengeController {
 	@GetMapping("/userPage/ListfavChallenge/{userid}")
 	public List<ChallengeDto> user_favChallengeList(@PathVariable(value = "userid") int user_id ) throws Exception {
 
-		System.out.println(user_id+"가 가입한 챌린지들을 보여줄게");
+		System.out.println(user_id+"가 관심있는 챌린지들을 보여줄게");
+		List<ChallengeDto> result = favChallengeService.user_favChallengeList(user_id);
+		System.out.println(result);
+		return result;
+	}
+
+	//내가 관심있는 챌린지의 id와 스크랩의 수
+	@CrossOrigin(origins = "*")
+	@GetMapping("/userPage/LikeAndfavChallenge/{userid}")
+	public List<ChallengeDto> user_LikeAndfavChallengeList(@PathVariable(value = "userid") int user_id ) throws Exception {
+
+		System.out.println(user_id+"가 관심이있는 챌린지 보여줄게");
 		List<ChallengeDto> result = favChallengeService.user_favChallengeList(user_id);
 		System.out.println(result);
 		return result;
