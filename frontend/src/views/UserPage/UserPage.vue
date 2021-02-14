@@ -119,8 +119,8 @@ export default {
       await axios.get(`http://127.0.0.1:8080/userCertification/${userid}`)
         .then((res) => {
         this.total = res.data
-        console.log("생성되었을 때 tmp: ", this.total)
-        console.log("isUserstat: ", this.isUserstat)
+        // console.log("생성되었을 때 tmp: ", this.total)
+        // console.log("isUserstat: ", this.isUserstat)
         })
       },
       infiniteHandler($state) {

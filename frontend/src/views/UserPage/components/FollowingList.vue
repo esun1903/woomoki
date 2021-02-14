@@ -1,7 +1,7 @@
 <template>
   <v-col class="d-flex justify-center">
     <v-dialog
-      v-model="dialog.dialog2"
+      v-model="dialog"
       scrollable
       max-width="300px"
     >
@@ -22,9 +22,10 @@
       <v-card>
           <v-card-title class="d-flex justify-space-between">팔로잉
             <v-btn
-              color="success darken-1"
+              color="light-green lighten-2"
               text
-              @click="dialog.dialog2 = false"
+              icon
+              @click="dialog = false"
               class="d-flex justify-center"
             >
               <v-icon>fas fa-times</v-icon>
@@ -33,25 +34,7 @@
         <v-divider></v-divider>
         
         <v-card-text class="dialog-height">
-          <div 
-            v-for="(following, idx) in followings"
-            :key="idx"
-            class="d-flex justify-space-between ma-1"
-            >
-            <span class="d-flex align-center">
-              <router-link :to="{ name: 'UserPage', params: { userNickname: following.nickname }}">
-                {{ following.nickname }}
-              </router-link>
-            </span>
-            <v-btn
-              v-if="isMyPage === true"
-              color="grey"
-              small
-              class="white--text"
-              >
-              <span>팔로잉</span>
-            </v-btn>
-          </div>
+          <Followings v-for="(following, idx) in followings" :key="idx" :following="following" :followings="followings" :followers="followers" :isMyPage="isMyPage"></Followings>
         </v-card-text>
         <v-card-actions>
         </v-card-actions>
@@ -62,17 +45,20 @@
 
 <script>
 import axios from "axios"
+import Followings from "./Followings"
 
 export default {
   name: "FollowingList",
+  components: {
+    Followings
+  },
   data: function() {
     return {
       userId: "",
+      followers: [],
       followings: [],
-      dialog: {
-        dialogm2: "",
-        dialog2: false,
-      },
+      dialogm: "",
+      dialog: false,
     }
   },
   props:{
@@ -85,44 +71,39 @@ export default {
       const UserNickname = this.$route.params.userNickname
       await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
         .then((res) => {
-          this.userId = res.data.id
-        })  
-
-      const userId = this.userId
+          this.UserInfo = res.data
+        })
+      // console.log(this.UserInfo)
+      const userId = this.UserInfo.id
+      await axios.get(`http://127.0.0.1:8080/followerList/${userId}`)
+        .then((res) => {
+          this.followers = res.data
+          // console.log("팔로우 리스트", res.data)
+        })
       await axios.get(`http://127.0.0.1:8080/followingList/${userId}`)
         .then((res) => {
           this.followings = res.data
-          // console.log(res.data)
-        })
-        .catch((err) => {
-          // console.log(err)
+          // console.log("팔로잉 리스트",res.data)
         })
     },
-    // 내가 다른 유저 팔로우 취소
-    UserUnfollow: function () {
-      const userId = this.userId
-      //닉네임을 통해 유저 정보받아오는 api필요
-      // const deleteid = ??
-      axios.delete(`http://127.0.0.1:8080/followingList/delete/${userId}/${deleteid}`)
-        .then((res) => {
-          // console.log(res)
-        })
-        .catch((err) => {
-          // console.log(err)
-        })
-    },
-    // 내가 팔로우 하는 전체 팔로잉 리스트에서 해당 유저를 
-    // 내가 팔로우하고 있는지 팔로우 리스트와 비교하여 확인???이상한데 뭔가
+    reload: function () {
+      this.$router.go(this.$router.currentRoute)
+    }
   },
   created() {
     this.FollowingList();
+  },
+  watch: {
+    dialog: function () {
+      if (this.dialog === false) {
+        this.$router.go(this.$router.currentRoute)
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-
-a {text-decoration: none;}
 
 
 .dialog-height {

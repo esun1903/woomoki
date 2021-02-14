@@ -1,7 +1,7 @@
 <template>
   <v-col class="d-flex justify-center">
     <v-dialog
-      v-model="dialog.dialog"
+      v-model="dialog"
       scrollable
       max-width="300px"
     >
@@ -12,7 +12,6 @@
           plain
           v-bind="attrs"
           v-on="on"
-          @click="isFollow"
         >
           <div>
             <h2>팔로워</h2>
@@ -23,9 +22,10 @@
       <v-card>
           <v-card-title class="d-flex justify-space-between">팔로워
           <v-btn
-            color="success darken-1"
+            color="light-green lighten-2"
             text
-            @click="dialog.dialog = false"
+            icon
+            @click="dialog = false"
             class="d-flex justify-center"
           >
             <v-icon>fas fa-times</v-icon>
@@ -34,27 +34,7 @@
         <v-divider></v-divider>
         
         <v-card-text class="dialog-height">
-          <div
-            v-for="(follower, idx) in followers"
-            :key="idx"
-            class="d-flex justify-space-between ma-1"
-            >
-            <span class="d-flex align-center">
-              <router-link :to="{ name: 'UserPage', params: { userNickname: follower.nickname }}">
-                {{ follower.nickname }}
-              </router-link>
-            </span>
-            <!-- 팔로우 버튼이 다른사람 페이지면 없어야함 -->
-            <v-btn
-              v-if="isMyPage === true"
-              :color="isFollow(follower.nickname) ? 'grey' : 'success' "
-              small
-              class="white--text"
-              >
-              <span v-if="isFollow(follower.nickname)">팔로잉</span>
-              <span v-else>팔로우</span>
-            </v-btn>
-          </div>
+          <Followers v-for="(follower, idx) in followers" :key="idx" :follower="follower" :followings="followings" :isMyPage="isMyPage"></Followers>
         </v-card-text>
         <v-card-actions>
         </v-card-actions>
@@ -65,19 +45,20 @@
 
 <script>
 import axios from "axios"
+import Followers from "./Followers"
 
 export default {
   name: "FollowerList",
+  components: {
+    Followers
+  },
   data: function () {
     return {
-      userId: "",
+      UserInfo: [],
       followers: [],
       followings: [],
-      dialog: {
-        dialogm1: "",
-        dialog: false,
-      },
-      
+      dialogm1: "",
+      dialog: false,
     }
   },
   props: {
@@ -90,9 +71,10 @@ export default {
       const UserNickname = this.$route.params.userNickname
       await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
         .then((res) => {
-          this.userId = res.data.id
+          this.UserInfo = res.data
         })
-      const userId = this.userId
+      // console.log(this.UserInfo)
+      const userId = this.UserInfo.id
       await axios.get(`http://127.0.0.1:8080/followerList/${userId}`)
         .then((res) => {
           this.followers = res.data
@@ -103,53 +85,25 @@ export default {
           this.followings = res.data
           // console.log("팔로잉 리스트",res.data)
         })
-      console.log(this.isMyPage)
     },
-    UserFollow: function () {
-      // this.isFollow = !this.isFollow
-      // 닉네임을 통해 유저 정보받아오는 api필요
-      // const followInfo = {
-      //   userid : this.$store.state.UserStore.user.user_id,
-      //   followingid : ??
-      // }
-      // axios.post(`http://127.0.0.1:8080/followingListInsert/${userId}/${followingid}`)
-      //   .then((res) => {
-      //     console.log(res)
-      //   })
-      // this.$router.push({ name: "UserPage", params: { userNickname: follower }})
-    },
-    UserUnfollow: function () {
-      const userId = this.userId
-      // 닉네임을 통해 유저 정보받아오는 api필요
-      // const deleteid = ??
-      // axios.delete(`http://127.0.0.1:8080/followerList/delete/${userId}/${deleteid}`)
-      //   .then((res) => {
-      //     console.log(res)
-      //   })
-      //   .catch((err) => {
-      //     console.log(err)
-      //   })
-    },
-    // 나를 팔로우 하는 전체 팔로우 리스트에서 해당 유저를 
-    // 내가 팔로우하는지 팔로잉 리스트와 비교하여 확인
-    isFollow: function (nickname) {
-      const tmp = []
-      var i;
-      for (i=0; i < this.followings.length; i++) {
-        tmp.push(this.followings[i].nickname)
-      }
-      return tmp.includes(nickname)
-    }
+    // reload: function () {
+    //   this.$router.go(this.$router.currentRoute)
+    // }
   },
   created() {
     this.FollowerList();
   },
+  watch: {
+    dialog: function () {
+      if (this.dialog === false) {
+        this.$router.go(this.$router.currentRoute)
+      }
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-
-a {text-decoration: none;}
 
 
 .dialog-height {

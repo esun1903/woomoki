@@ -27,22 +27,18 @@
             </h2>
           </v-col>
 
-          <v-col
-            v-if="isMyPage === false" 
-            class="d-flex justify-center">
-            
-              <v-btn
-                :ripple="false"
-                :color="isFollow ? 'grey' : 'success' "
-                width="60"
-                height="30"
-                @click="UserFollow"
-                >
-                <span v-if="isFollow">팔로잉</span>
-                <span v-else>팔로우</span>
+          <v-col v-if="isMyPage === false">
+            <v-btn
+              :ripple="false"
+              :color="isFollow ? 'grey' : 'light-green lighten-2' "
+              width="60"
+              height="30"
+              @click="UserFollow"
+              >
+              <span v-if="isFollow" class="white--text">팔로잉</span>
+              <span v-else class="white--text">팔로우</span>
 
-              </v-btn>
-            
+            </v-btn>
           </v-col>
 
           <v-col v-if="isMyPage === true">
@@ -59,21 +55,9 @@
         </v-row>
 
         <v-row class="d-flex justify-space-around">
-          <v-col>
-            <v-btn
-              plain
-              text
-              :ripple="false"
-            >
-              <div v-if="isMyPage === true">
-                <h2>나의 캐시</h2>
-                <div>{{ this.UserInfo.deposit }}원</div>
-              </div>
-            </v-btn>
-          </v-col>
+          <UserWallet v-if="isMyPage === true" :UserInfo="UserInfo"></UserWallet>
           <FollowerList :isMyPage="isMyPage"></FollowerList>
           <FollowingList :isMyPage="isMyPage"></FollowingList>
-          
         </v-row>
         
         <v-row>
@@ -93,6 +77,7 @@
 
 <script>
 import ChallengeResults from "./ChallengeResults"
+import UserWallet from "./UserWallet"
 import FollowerList from "./FollowerList"
 import FollowingList from "./FollowingList"
 import axios from "axios";
@@ -102,6 +87,7 @@ export default {
   name: "BasicUserInfo",
   components: {
     ChallengeResults,
+    UserWallet,
     FollowerList,
     FollowingList
     // mapState,
@@ -124,11 +110,7 @@ export default {
     async BasicUserInfo () {
       const MyNickname = this.$store.state.UserStore.user.nickname
       const user_id = this.user.user_id
-      // query사용
-      // const UserNickname = this.$route.query.userNickname
       const UserNickname = this.$route.params.userNickname
-
-      // this.$store.dispatch("UserStore/compareId", user_id);
 
       console.log(MyNickname, UserNickname)
       await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
@@ -144,7 +126,7 @@ export default {
             // 다른 유저 페이지
             this.isMyPage = false;
           }
-          console.log("나의 페이지인가", this.isMyPage)
+          // console.log("나의 페이지인가", this.isMyPage)
         })
       // 로그인 한 유저의 팔로잉 리스트
       // 컴포넌트에서 emit으로 받아서 간소화
@@ -162,10 +144,10 @@ export default {
       // console.log("팔로잉 test",this.tmp)
       if (tmp.includes(UserNickname)) {
         this.isFollow = true
-        console.log("팔로우 되어 있어요",this.isFollow)
+        // console.log("팔로우 되어 있어요",this.isFollow)
       } else {
         this.isFollow = false
-        console.log("팔로우 안되어 있네요",this.isFollow)
+        // console.log("팔로우 안되어 있네요",this.isFollow)
       }
     },
     // 유저를 팔로우하거나 언팔로우

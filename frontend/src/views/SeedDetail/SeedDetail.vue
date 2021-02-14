@@ -174,7 +174,7 @@ export default {
         var sT = $w.scrollTop();
         var val = $(document).height() - $w.height() - footerHei;
     
-        if (sT + 160 >= val) {
+        if (sT + 164 >= val) {
           $banner.addClass('on')
         }
         else
