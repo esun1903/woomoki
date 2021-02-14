@@ -16,7 +16,7 @@
         <div class="ml-7">
           <v-row>
             <router-link :to="{ name: 'UserPage', params: { userNickname: UserInfo.nickname}}">
-              <h1 class="d-inline-flex">{{ UserInfo.nickname }}</h1>
+              <h1 class="d-inline-flex ninckname">{{ UserInfo.nickname }}</h1>
             </router-link>
           </v-row>
           <v-row>
@@ -29,11 +29,11 @@
       <v-col class="d-flex align-center">
         <v-row class="d-flex justify-end">
           <router-link v-if="isMySeed === true" :to="{ name: 'SeedUpdate', params: { seedId: this.seedId }}">
-            <v-btn color="light-green lighten-2">
-              수정하기
+            <v-btn color="white--text light-green lighten-2">
+              수정
             </v-btn>
           </router-link>
-          <v-btn v-if="isMySeed === true" color="light-green lighten-2" @click="deleteSeed">삭제</v-btn>
+          <v-btn v-if="isMySeed === true" color="white--text light-green lighten-2" @click="deleteSeed">삭제</v-btn>
           <SeedShare></SeedShare>
           <SeedViewMore></SeedViewMore>
         </v-row>
@@ -178,5 +178,7 @@ a {
   text-decoration: none;
 }
 
-
+.ninckname {
+  color: #AED581;
+}
 </style>

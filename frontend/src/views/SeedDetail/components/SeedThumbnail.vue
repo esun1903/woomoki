@@ -28,7 +28,7 @@
               </v-row>
               <v-row class="d-flex justify-center mb-2">
                 <div>
-                  진행률
+                  씨앗 진행률
                 </div>
               </v-row>
               <v-row>
@@ -62,28 +62,25 @@
                 </v-progress-linear>
               </v-row>
               <v-row>
-
-                <v-col class="d-flex align-center">
-                  <v-row>
-                    <v-btn v-if="isMySeed === false && this.isLogin" class="mt-2" icon @click="getScrap">
-                      <v-icon size="48" :color="scrapped ? 'yellow' : 'white' ">fas fa-star</v-icon>
-                    </v-btn>
-                  </v-row>
-                  <v-row>
-                    <div>10</div>
-                  </v-row>
-                </v-col>
                 
-                <v-col class="d-flex align-center">
-                  <v-row>
-                    <v-btn v-if="isMySeed === false && this.isLogin" class="mt-5" icon @click="Like">
-                      <v-icon size="48" :color="liked ? 'red' : 'white' ">fas fa-heart</v-icon>
+                <v-row>
+                  <v-col>
+                    <v-btn v-if="this.isLogin" :disabled="isMySeed" class="mt-10" icon @click="getScrap">
+                      <div>
+                        <v-icon size="48" :color="scrapped ? 'yellow' : 'white' ">fas fa-star</v-icon>
+                        <h2 class="mt-5 count">10</h2>
+                      </div>
                     </v-btn>
-                  </v-row>
-                  <v-row>
-                    <div>{{this.likeCount}}</div>
-                  </v-row>
-                </v-col>
+                  </v-col>
+                  <v-col>
+                    <v-btn v-if="this.isLogin" :disabled="isMySeed" class="mt-10" icon @click="Like">
+                      <div>
+                        <v-icon size="48" :color="liked ? 'red' : 'white' ">fas fa-heart</v-icon>
+                        <h2 class="mt-5 count">{{this.likeCount}}</h2>
+                      </div>
+                    </v-btn>
+                  </v-col>
+                </v-row>
 
               </v-row>
             </div>
@@ -198,6 +195,7 @@ export default {
       const seedId = this.seedId
       axios.put(`http://127.0.0.1:8080/likeDownChallenge/${seedId}`)
         .then((res) => {
+          this.liked = !this.liked
           console.log(res)
         })
     },
@@ -289,11 +287,8 @@ export default {
      text-align: center;
 }
 
-// .star-position {
-//   z-index: 3;
-//   position: absolute;
-//   right: 30px;
-//   bottom: 165px;
-// }
+.count {
+  color: white
+}
 
 </style>
