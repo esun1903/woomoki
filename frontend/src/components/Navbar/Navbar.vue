@@ -32,7 +32,7 @@
             </v-list>
           </v-menu>
 
-          <v-btn @click="test" icon class="btn">
+          <v-btn icon class="btn">
             <v-icon>mdi-cart</v-icon>
           </v-btn>
 
@@ -148,9 +148,6 @@ export default {
     goSignup: function () {
       this.$router.push({ name: 'Signup' })  
     },
-    test: function () {
-      console.log("Test", this.userInfo)
-    }
   },
 };
 </script>
