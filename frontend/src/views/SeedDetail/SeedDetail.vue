@@ -33,7 +33,6 @@
             </v-card-text>
             <v-card-text class="d-flex justify-center" v-if="item === '보살핌 후기'">
               <!-- <SeedCertification></SeedCertification> -->
-
               <v-row>
                 <v-col
                   v-for="(card, $idx) in cards"
