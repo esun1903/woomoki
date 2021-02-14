@@ -8,10 +8,16 @@ public class FavChallengeDto {
 
 	private int user_id;
 	private int cng_id;
-	private int like_cnt;
+	private int like_cnt; // 이렇게
 
+	public FavChallengeDto (int user_id, int cng_id, int like_cnt) {
+		super();
+		this.user_id = user_id;
+		this.cng_id = cng_id;
+		this.like_cnt = like_cnt;
+	}
 
-	public int getUser_id() {
+    public int getUser_id() {
 		return user_id;
 	}
 
