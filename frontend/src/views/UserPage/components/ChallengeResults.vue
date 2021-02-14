@@ -1,10 +1,9 @@
 <template>
-
   <v-row class="challenge-results">
     <v-col @click="SeedJoin">
       <v-icon 
         class="challenge-icon"
-        size="50"
+        size="40"
         color="light-green lighten-2"
         >
         fas fa-running</v-icon>
@@ -14,7 +13,7 @@
     <v-col @click="SeedSuccess">
       <v-icon 
         class="challenge-icon"
-        size="50"
+        size="40"
         color="light-green lighten-2"
         >
         fas fa-check-circle</v-icon>
@@ -24,7 +23,7 @@
     <v-col @click="SeedFail">
       <v-icon 
         class="challenge-icon"
-        size="50"
+        size="40"
         color="light-green lighten-2"
         >
         fas fa-ban</v-icon>
@@ -34,7 +33,7 @@
     <v-col @click="SeedCreated">
       <v-icon 
         class="challenge-icon"
-        size="50"
+        size="40"
         color="light-green lighten-2"
         >
         fas fa-pencil-alt</v-icon>
