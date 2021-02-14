@@ -47,7 +47,7 @@
             <v-img :src="result.value"></v-img>
           </v-expansion-panel-content>
           <v-expansion-panel-content v-else class="mt-4">
-            <span class="content-color">
+            <span class="black--text content-color">
               {{ result.value }}
             </span>
           </v-expansion-panel-content>
