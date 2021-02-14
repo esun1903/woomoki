@@ -26,15 +26,15 @@
                 </div>
             </v-row>
             <v-row class="like-btn">
-                <v-btn icon color="pink" x-large @click="active = true">
-                    <v-icon>mdi-heart</v-icon>
+                <v-btn icon x-large @click="getScrap">
+                    <v-icon :color="scrapped ? 'pink' : '' ">mdi-heart</v-icon>
                 </v-btn>
             </v-row>
             <v-row class="edit-del-btn">
-                <v-btn class="ma-2" outlined fab color="green" v-on:click="updateCert()">
+                <v-btn class="ma-2" outlined fab color="green" v-on:click="updateCert()" v-if="checkUser">
                     <v-icon>mdi-pencil</v-icon>
                 </v-btn>
-                <v-dialog v-model="dialog" persistent max-width="290">
+                <v-dialog v-model="dialog" persistent max-width="290" v-if="checkUser">
                     <template v-slot:activator="{ on, attrs }">
                         <v-btn class="ma-2" outlined fab color="red" v-bind="attrs" v-on="on">
                             <v-icon>mdi-trash-can</v-icon>
@@ -63,7 +63,7 @@
         <div>
             <v-divider></v-divider>
             <CommentInsert />
-            <CommentList />
+            <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" />
         </div>
     </v-container>
 </template>
@@ -83,8 +83,11 @@
         data() {
             return {
                 CertInfo: [],
+                comments: [],
                 // photoUrl:"https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
                 dialog: false,
+                scrapped: false,
+                checkUser: false,
             };
         },
         mounted() {
@@ -92,8 +95,9 @@
         },
         created() {
             this.detailCert();
-            const certId = this.$route.params.certid;
-            const cngId = this.$route.params.cngid;
+            this.detailComment();
+            const certId = this.$route.params.certId;
+            const cngId = this.$route.params.cngId;
             // const cngName = this.$route.params.cngName;
             // console.log(cngName);
             console.log("detail's certid: " + certId);
@@ -101,15 +105,39 @@
             if (certId === undefined || cngId === undefined) {
                 this.$router.go(-1);
             }
+            console.log("check create: " + this.checkUser);
+
         },
         methods: {
-            detailCert: function () {
+            async detailCert() {
+                const userId = this.$store.state.UserStore.user.user_id;
+                console.log("userid: " + userId);
 
-                const certId = this.$route.params.certid;
-                axios.get(`http://localhost:8080/detailCertification/${certId}`)
+                const certId = this.$route.params.certId;
+                await axios.get(`http://localhost:8080/detailCertification/${certId}`)
                     .then((response) => {
                         this.CertInfo = response.data;
+                        const certUserId = this.CertInfo.user_id;
+                        console.log("certUserId: " + certUserId);
+                        if (userId === certUserId) {
+                            this.checkUser = true;
+                        }
+                        console.log("chk: " + this.checkUser);
                         console.log(response.data)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+
+
+            },
+            detailComment: function () {
+                const certId = this.$route.params.certId;
+                console.log(certId);
+                axios.get(`http://localhost:8080/commentList/${certId}`)
+                    .then((response) => {
+                        console.log(response.data);
+                        this.comments = response.data;
                     })
                     .catch((err) => {
                         console.log(err)
@@ -119,20 +147,20 @@
                 this.$router.push({
                     name: 'CertificationUpdate',
                     params: {
-                        cngid: this.$route.params.cngid,
-                        certid: this.$route.params.certid,
+                        cngId: this.$route.params.cngId,
+                        certId: this.$route.params.certId,
                     }
                 });
             },
             deleteCert() {
-                const certId = this.$route.params.certid;
+                const certId = this.$route.params.certId;
                 axios.delete(`http://localhost:8080/deleteCertification/${certId}`)
                     .then((response) => {
                         console.log(response.data)
                         this.$router.push({
                             name: 'SeedDetail',
                             params: {
-                                cngid: this.$route.params.cngid
+                                seedId: this.$route.params.cngId
                             }
                         });
                     })
@@ -140,7 +168,32 @@
                         console.log(err)
                     })
 
-            }
+            },
+            getScrap() {
+                // 클릭 때 마다 scrapped가 토글
+                this.scrapped = !this.scrapped
+                const certId = this.$route.params.certId;
+                const userId = this.$store.state.UserStore.user.user_id
+                // 스크랩이 되어있지 않을 때 스크랩
+                if (this.scrapped) {
+                    axios.get(`http://127.0.0.1:8080/likeUpCertification/${certId}`)
+                        .then((res) => {
+                            console.log(res)
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        })
+                } else {
+                    // 스크랩 되어 있을 때 스크랩 취소
+                    axios.get(`http://127.0.0.1:8080/likeDownCertification/${certId}`)
+                        .then((res) => {
+                            console.log(res)
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        })
+                }
+            },
         },
     };
 </script>
