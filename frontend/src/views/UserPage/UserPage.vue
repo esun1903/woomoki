@@ -33,7 +33,6 @@
                 color="basil"
                 flat
                 >
-              
                 <v-card-text v-if="item === '피드'">
      
                   <v-row>
