@@ -47,33 +47,25 @@
             <v-img :src="result.value"></v-img>
           </v-expansion-panel-content>
           <v-expansion-panel-content v-else class="mt-4">
-            <span class="content-color">
+            <span class="black--text content-color">
               {{ result.value }}
             </span>
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
     </v-row>
-    
+    <v-divider></v-divider>
     <div>
-      <v-row>
+      <v-row class="ma-10">
         <h1>씨앗 관리 규칙 안내</h1>
       </v-row>
-      <v-row>
+      <v-row class="ma-10">
         <div>- 중간에 나가게되면 참여자들의 사기가 떨어질 수 있습니다</div>
       </v-row>
-      <v-row>
+      <v-row class="mt-10, ml-10">
         <div>- 욕설 및 타인을 비방하거나 음란물 등 불법촬영물 등을 공유시에 씨앗관리 퇴출사유에 해당되며, 법적조치를 받을 수 있습니다</div>
       </v-row>
     </div>
-    
-    <!-- <div id="content"></div>
-    <footer></footer>
-    <v-btn id="banner" width="20vw" height="5vw" class="position-fixed" v-if="isMySeed === false" color="light-green lighten-2">
-      <h1>
-        함께하기
-      </h1>
-    </v-btn> -->
 
   </v-container>
 
@@ -119,7 +111,7 @@ export default {
       // 유저 정보 가져오기
       const user_id = this.SeedInfo.user_id
       // 유저 닉네임 -> 아이디 -> 유저정보...?
-      const UserInfo = await axios.get(`http://127.0.0.1:8080/userPage/${user_id}`)
+      const UserInfo = await axios.get(`http://127.0.0.1:8080/userPage/Id/${user_id}`)
       this.UserInfo = UserInfo.data
 
       // 내가 만든 씨앗인지 구분
@@ -149,23 +141,6 @@ export default {
   },
   // jquery
   mounted() {
-    // $(function() {
-    //   var $w = $(window),
-    //     footerHei = $('footer').outerHeight(),
-    //     $banner = $('#banner');
-
-    //     $w.on('scroll', function() {
-
-    //     var sT = $w.scrollTop();
-    //     var val = $(document).height() - $w.height() - footerHei;
-    
-    //     if (sT + 80 >= val) {
-    //       $banner.addClass('on')
-    //     }
-    //     else
-    //       $banner.removeClass('on')   
-    //   });
-    // });
   },
   computed: {
     color: function () {
@@ -195,58 +170,5 @@ a {
   text-decoration: none;
 }
 
-// .position-fixed {
-//   z-index: 2;
-//   position: fixed;
-//   bottom: 0;
-//   right: 37.5%;
-//   color: #fff;
-//   background-position: center center;
-//   background-repeat: no-repeat;
-//   box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.15);
-//   cursor: pointer;
-//   margin: 2vw;
-// }
-
-// * {
-//   margin:0;
-//   padding:0;
-// }
-
-// main {
-//   position:relative;
-// }
-
-// footer {
-//   height: 100px;
-// }
-
-// #rules {
-//   background: white;
-//   height: 150px;
-//   // font-size: 30px;
-//   color: black;
-// }
-
-
-// #banner {
-//   z-index: 3;
-//   position: fixed;
-//   right: 37.7%;
-//   width: 50px;
-//   height: 100px;
-//   background: salmon;
-//   box-shadow: 0 0 10px rgba(0, 0, 0, .6);
-// }
-
-// #banner.on {
-//   position: absolute;
-//   right: 33.8%;
-//   bottom: 1vw;
-// }
-
-// .content-color {
-//   color: black;
-// }
 
 </style>

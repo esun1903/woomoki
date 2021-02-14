@@ -51,15 +51,20 @@
               <v-card class="notice-card">
                 <v-tabs v-model="currentTab" grow dark>
                   <v-tabs-slider></v-tabs-slider>
-                  <v-tab v-for="tab in tabs" :key="tab.title">
-                    {{ tab.title }}
+                  <v-tab v-for="(type,idx) in types" :key="idx">
+                    {{ type}}
                   </v-tab>
                 </v-tabs>
 
                 <v-tabs-items v-model="currentTab">
-                  <v-tab-item v-for="tab in tabs" :key="tab.title">
-                    <v-card flat>
-                      <v-card-text>{{ tab.content }}</v-card-text>
+                  <v-tab-item v-for="(type,idx) in types" :key="idx">
+                    <v-card v-for="(tab,idx) in tabs" :key="idx" @click="NotificationConfirm(tab.id)">
+                      
+                      <v-card-text v-if="type=='요청' && tab.type=='reqFollow'">{{tab.get_user}}님이 팔로우 요청을 하였습니다. </v-card-text>
+                      <v-card-text v-if="type=='요청' && tab.type=='reqChallenge'">{{tab.get_user}}님이 {{tab.cng_id}} 챌린지 참가 요청을 하였습니다. </v-card-text>
+                      <v-card-text v-if="type=='알림' && tab.type=='resFollow'">{{tab.get_user}}님의 팔로워가 되었습니다.</v-card-text>
+                      <v-card-text v-if="type=='알림' && tab.type=='resChallenge'">{{tab.cng_id}} 챌린지 참여 완료. </v-card-text>
+                  
                     </v-card>
                   </v-tab-item>
                 </v-tabs-items>
@@ -112,6 +117,8 @@
 <script>
 import SearchBar from "@/components/Navbar/SearchBar.vue";
 import {mapState} from "vuex";
+import axios from 'axios';
+
 export default {
   name: 'Navbar',
   components: { SearchBar },
@@ -124,16 +131,8 @@ export default {
       seeds: [],
       notice: false,
       currentTab: null,
-      tabs: [
-        {
-          title: '알림',
-          content: '매일 조깅 챌린지에 참가 요청을 완료했습니다.'
-        },
-        {
-          title: '요청',
-          content: '용밍밍님이 매일 조깅 챌린지 참가를 요청했습니다.'
-        }
-      ],
+      tabs: [],
+      types:['알림','요청'],	
     };
   },
   mounted() {
@@ -160,6 +159,14 @@ export default {
     //   }
     // },
   },  
+    ...mapState('UserStore', ['user']),
+  }, 
+ watch: {
+    tabs : function(){
+        if(!this.tabs.length)
+         this.NotificationList();
+    }
+  }, 
   methods: {
     goFeed: function () {
       this.$router.push({ name: 'Feed' }) 
@@ -183,6 +190,36 @@ export default {
         console.log(err)
       })
   }
+    goLogin: function () {
+      this.$router.push({ name: 'Login' }) 
+    },
+    goSignup: function () {
+      this.$router.push({ name: 'Signup' })  
+    },
+     NotificationConfirm: function(id) {
+      const notificationId = id;
+       axios.put(`http://127.0.0.1:8080/notificationConfirm/${notificationId}`)
+        .then((response) => {
+          this.tabs = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });  
+    },
+    NotificationList(){
+      const userId =  this.$store.state.UserStore.user.user_id;
+       axios.get(`http://127.0.0.1:8080/notificationList/${userId}`)
+        .then((response) => {
+          this.tabs = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });    
+    }
+  },
+  mounted (){
+  this.NotificationList();
+  },
 };
 </script>
 
