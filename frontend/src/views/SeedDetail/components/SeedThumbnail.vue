@@ -15,8 +15,10 @@
             :src="this.SeedInfo.sum_img"
           >
             <div class="content">
+           
               <h1>{{ SeedInfo.title }}</h1>
               <br>
+
               <v-chip :color=this.color class="white--text mb-2">{{this.category}}</v-chip>
               <v-row>
                 <v-col>
@@ -28,7 +30,7 @@
               </v-row>
               <v-row class="d-flex justify-center mb-2">
                 <div>
-                  진행률
+                  씨앗 진행률
                 </div>
               </v-row>
               <v-row>
@@ -61,14 +63,29 @@
                   </template>
                 </v-progress-linear>
               </v-row>
-              <v-row class="d-flex justify-center">
-                <!-- <v-btn v-if="isMySeed === false" icon @click="getScrap">
-                  <v-icon size="48" :color="scrapped ? 'yellow' : 'white' ">fas fa-star</v-icon>
-                </v-btn> -->
-                <v-btn v-if="isMySeed === false && this.isLogin" class="mt-5" icon @click="getScrap">
-                  <v-icon size="48" :color="scrapped ? 'red' : 'white' ">fas fa-heart</v-icon>
-                </v-btn>
+              <v-row>
+                
+                <v-row>
+                  <v-col>
+                    <v-btn v-if="this.isLogin" :disabled="isMySeed" class="mt-10" icon @click="getScrap">
+                      <div>
+                        <v-icon size="48" :color="scrapped ? 'yellow' : 'white' ">fas fa-star</v-icon>
+                        <h2 class="mt-5 count">10</h2>
+                      </div>
+                    </v-btn>
+                  </v-col>
+                  <v-col>
+                    <v-btn v-if="this.isLogin" :disabled="isMySeed" class="mt-10" icon @click="Like">
+                      <div>
+                        <v-icon size="48" :color="liked ? 'red' : 'white' ">fas fa-heart</v-icon>
+                        <h2 class="mt-5 count">{{this.likeCount}}</h2>
+                      </div>
+                    </v-btn>
+                  </v-col>
+                </v-row>
+
               </v-row>
+              
             </div>
             
             <div class="img-cover"></div>
@@ -89,10 +106,12 @@ export default {
       titme: "",
       summary: "",
       scrapped: false,
+      liked: false,
       isMySeed: false,
       percentage: 20,
       isEnd: false,
-      isLogin : this.$store.state.UserStore.isLogin
+      isLogin : this.$store.state.UserStore.isLogin,
+      likeCount: 0,
     }
   },
   methods: {
@@ -160,13 +179,13 @@ export default {
     CheckisfavSeed: function () {
       const seedId = this.seedId
       const userId = this.$store.state.UserStore.user.user_id
-      axios.get(`http://127.0.0.1:8080/userPage/ListfavChallenge/${userId}`)
+      axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId}`)
       .then((res) => {
           console.log(res)
           const SeedList = res.data
           var i;
           for (i=0; i < SeedList.length; i++) {
-            if (SeedList[i].id === seedId) {
+            if (SeedList[i].id === Number(seedId)) {
               this.scrapped = true
             }
           }
@@ -175,23 +194,38 @@ export default {
           console.log(err)
         })
     },
-    getScrappedCount: function () {
+    Like: function () {
       const seedId = this.seedId
-      // fav_challenge 테이블에서 해당 seedId를 하트 누른 유저의 숫자를 가져와야함
-      // 지금은 challenge테이블의 like_count 컬럼값을 갖고옴 
+      axios.put(`http://127.0.0.1:8080/likeDownChallenge/${seedId}`)
+        .then((res) => {
+          this.liked = !this.liked
+          console.log(res)
+        })
+    },
+    getLikeCount: function () {
+      const seedId = this.seedId
       axios.get(`http://127.0.0.1:8080/likecount/${seedId}`)
         .then((res) => {
-          console.log("count", res.data)
-        })
-        .catch((err) => {
-          console.log(err)
+          this.likeCount = res.data
         })
     }
+    // getScrappedCount: function () {
+    //   const seedId = this.seedId
+    //   // fav_challenge 테이블에서 해당 seedId를 하트 누른 유저의 숫자를 가져와야함
+    //   // 지금은 challenge테이블의 like_count 컬럼값을 갖고옴 
+    //   axios.get(`http://127.0.0.1:8080/likecount/${seedId}`)
+    //     .then((res) => {
+    //       console.log("count", res.data)
+    //     })
+    //     .catch((err) => {
+    //       console.log(err)
+    //     })
+    // }
   },
   created() {
     this.getSeedThumbnail();
     this.CheckisfavSeed();
-    this.getScrappedCount();
+    this.getLikeCount();
   },
   computed: {
     category: function () {
@@ -256,11 +290,8 @@ export default {
      text-align: center;
 }
 
-// .star-position {
-//   z-index: 3;
-//   position: absolute;
-//   right: 30px;
-//   bottom: 165px;
-// }
+.count {
+  color: white
+}
 
 </style>
