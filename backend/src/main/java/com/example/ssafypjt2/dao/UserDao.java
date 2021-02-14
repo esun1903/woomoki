@@ -61,6 +61,9 @@ public interface UserDao {
    // 한 줄 소개, 핸드폰 번호, 비밀번호 변경
 	@Update("UPDATE user SET img = #{userDto.img} , introduce =  #{userDto.introduce}, phone =  #{userDto.phone},  password =  #{userDto.password} , img = #{userDto.img} WHERE id = #{userDto.id}")
     public int changeUser(@Param("userDto") UserDto userDto);
+
+	@Select(" SELECT * FROM user WHERE id = #{user_id}  ")
+	public UserDto userPageIdDetail(@Param("user_id") int user_id);
 }
 
 /*

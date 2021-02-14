@@ -88,5 +88,13 @@ public class UserServiceImpl implements UserService {
 		return get;
 	}
 
+	@Override
+	public UserDto userPageIdDetail(int user_id) {
+		System.out.println("여기는 회원에 대한 상세화면을 담당하는 Service에 도달했습니다. "+ user_id);
+		UserDto get = dao.userPageIdDetail(user_id);
+		System.out.println(get);
+		return get;
+	}
+
 
 }
