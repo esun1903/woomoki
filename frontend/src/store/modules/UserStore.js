@@ -59,7 +59,7 @@ const UserStore = {
           // router.push({name: 'Main', params: { userInfo : response.data }});
         }).catch((error) => {
           console.log(error);
-          alert("이메일, 비밀번호 확인");
+          alert("이메일 또는 비밀번호를 확인해주세요!");
         })
     },
     signUp({commit}, user) {
