@@ -1,7 +1,7 @@
 <template>
   <v-hover>
   <template v-slot:default="{ hover }"> 
-    <v-avatar
+    <!-- <v-avatar
         tile
         :class="`rounded-lg`"
         width="100%"
@@ -11,14 +11,29 @@
         color="grey lighten-3"
         class="cursor-img"
         @click="onClickImageUpload"
-        >
+        > -->
         <v-img
-            v-if="imageUrl"
-            :src="imageUrl"
-            
-        ></v-img>
+          :class="`rounded-lg`"
+          width="100%"
+          height="450px"
+          max-width="100%"
+          max-height="100%"
+          v-if="imageUrl"
+          :src="imageUrl"
+          @click="onClickImageUpload"
+        >
+          <v-fade-transition>
+            <v-overlay
+              v-if="hover"
+              absolute
+              color="#036358"
+            >
+              <v-btn>대표사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
+            </v-overlay>
+          </v-fade-transition>
+        </v-img>
         
-        <v-fade-transition>
+        <!-- <v-fade-transition>
           <v-overlay
             v-if="hover"
             absolute
@@ -26,8 +41,8 @@
           >
             <v-btn>대표사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
           </v-overlay>
-        </v-fade-transition>
-      </v-avatar>
+        </v-fade-transition> -->
+      <!-- </v-avatar> -->
     </template>
   </v-hover>
   <!-- <v-col>

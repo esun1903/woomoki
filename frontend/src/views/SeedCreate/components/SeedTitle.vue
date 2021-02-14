@@ -2,7 +2,7 @@
   <v-col class="pa-0">
     <v-text-field
       placeholder="EX) 매일매일 코딩 공부하기"
-      color="success"
+      color="light-green lighten-2"
       v-model="title"
       :rules="titleRules"
       :counter="20"
