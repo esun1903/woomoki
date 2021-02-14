@@ -15,8 +15,10 @@
             :src="this.SeedInfo.sum_img"
           >
             <div class="content">
+           
               <h1>{{ SeedInfo.title }}</h1>
               <br>
+
               <v-chip :color=this.color class="white--text mb-2">{{this.category}}</v-chip>
               <v-row>
                 <v-col>
@@ -83,6 +85,7 @@
                 </v-row>
 
               </v-row>
+              
             </div>
             
             <div class="img-cover"></div>
@@ -182,7 +185,7 @@ export default {
           const SeedList = res.data
           var i;
           for (i=0; i < SeedList.length; i++) {
-            if (SeedList[i].id === seedId) {
+            if (SeedList[i].id === Number(seedId)) {
               this.scrapped = true
             }
           }
