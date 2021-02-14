@@ -49,8 +49,14 @@
         </v-row>
 
         <v-row>
-          <v-col>
-            <div>👩‍💼 Lv. {{ this.UserInfo.levelnum }} {{ this.UserInfo.leveltitle }}</div>
+          <v-col v-if="UserInfo.levelnum <= 10">
+            <div>🥉  Lv. {{ this.UserInfo.levelnum }} {{ this.UserInfo.leveltitle }}</div>
+          </v-col>
+          <v-col v-if="UserInfo.levelnum > 10 && UserInfo.levelnum <= 20">
+            <div>🥈  Lv. {{ this.UserInfo.levelnum }} {{ this.UserInfo.leveltitle }}</div>
+          </v-col>
+          <v-col  v-if="UserInfo.levelnum > 30">
+            <div>🥇  Lv. {{ this.UserInfo.levelnum }} {{ this.UserInfo.leveltitle }}</div>
           </v-col>
         </v-row>
 

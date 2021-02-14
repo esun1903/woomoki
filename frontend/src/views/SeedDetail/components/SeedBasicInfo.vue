@@ -19,8 +19,14 @@
               <h1 class="d-inline-flex ninckname">{{ UserInfo.nickname }}</h1>
             </router-link>
           </v-row>
-          <v-row>
-            <div class="d-inline-flex">👩‍💼 Lv.{{ UserInfo.levelnum }}</div>
+          <v-row v-if="UserInfo.levelnum <= 10">
+            <div class="d-inline-flex">🥉  Lv.{{ UserInfo.levelnum }}</div>
+          </v-row>
+          <v-row v-if="UserInfo.levelnum > 10 && UserInfo.levelnum <= 20">
+            <div class="d-inline-flex">🥈  Lv.{{ UserInfo.levelnum }}</div>
+          </v-row>
+          <v-row v-if="UserInfo.levelnum > 30">
+            <div class="d-inline-flex">🥇  Lv.{{ UserInfo.levelnum }}</div>
           </v-row>
         </div>
       </v-col>
@@ -179,6 +185,6 @@ a {
 }
 
 .ninckname {
-  color: #AED581;
+  color: black;
 }
 </style>
