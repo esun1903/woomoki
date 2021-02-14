@@ -8,6 +8,7 @@ public class FavChallengeDto {
 
 	private int user_id;
 	private int cng_id;
+	private int like_cnt;
 
 
 	public int getUser_id() {
@@ -26,5 +27,12 @@ public class FavChallengeDto {
 		this.cng_id = cng_id;
 	}
 
+	public int getLike_cnt() {
+		return cng_id;
+	}
+
+	public void setLike_cnt(int cng_id) {
+		this.like_cnt = like_cnt;
+	}
 
 }
