@@ -3,9 +3,12 @@
     class="cursor_img profile-img-margin"
     width="250"
     height="250"
-    color="grey lighten-3"
+    color="light-green lighten-2"
     @click="onClickImageUpload"
-    >{{ this.text }}
+    >
+      <span class="white--text">
+        {{ this.text }}
+      </span>
     <v-img
         v-if="imageUrl" :src="imageUrl"
     ></v-img>
