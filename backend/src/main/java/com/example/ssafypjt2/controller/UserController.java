@@ -194,6 +194,19 @@ public class UserController {
 		return result;
 	}
 
+	//유저의 아이디를 알려주면 유저에 대한 정보를 주는 Detail
+	@CrossOrigin(origins = "*")
+	@GetMapping("/userPage/Id/{userid}")
+	public UserDto userPageIdDetail(@PathVariable(value = "userid") int user_id ) throws Exception{
+
+		System.out.println(user_id+"에 대한 정보를 알려줄게!");
+
+		UserDto result = userService.userPageIdDetail(user_id);
+		System.out.println(result);
+		return result;
+	}
+
+
 	//유저정보의 가입된 챌린지를 보여주는 기능 !
 	@CrossOrigin(origins = "*")
 	@GetMapping("/userPage/joincng/{userid}")
