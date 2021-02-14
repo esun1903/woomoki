@@ -43,8 +43,9 @@ export default {
     display:flex;
     justify-content: center;
     img {
-      width: 90%;
-      height: 1%;
+    width: 250px;
+    height: 300px;
+    object-fit: cover;
       padding: 0 5%;
       margin: 0;
       &:hover + .mask{
