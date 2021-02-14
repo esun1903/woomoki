@@ -42,34 +42,6 @@
           <v-btn icon class="btn" @click="cart = true">
             <v-icon>mdi-cart</v-icon>
           </v-btn>
-          <v-dialog v-model="cart" width="25%">
-            
-            <!-- <div class="scrapped-seeds">
-              <v-card class="scrap-card">
-                <v-list three-line>
-                  <template  v-for ="seed in seeds">
-
-                    <v-list-item>
-                      <v-list-item-avatar>
-                        <v-avatar>
-                          <span>생활습관</span>
-                        </v-avatar>
-                      </v-list-item-avatar>
-                      <v-list-item-content>
-                        <v-list-item-title>씨앗 이름</v-list-item-title>
-                        <v-list-item-subtitle>4주 주2회</v-list-item-subtitle>
-                      </v-list-item-content>
-                    </v-list-item>
-                  </template>
-                </v-list>
-                <v-card-actions>
-                  <v-btn color="primary" text @click="cart = false">
-                    Close
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </div> -->
-          </v-dialog>
 
           <v-btn icon class="btn" @click="notice = true">
             <v-icon>mdi-bell-ring</v-icon>

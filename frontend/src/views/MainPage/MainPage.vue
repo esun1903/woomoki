@@ -44,7 +44,6 @@ export default {
       select2: ['전체', '건강', '생활습관', '독서', '자산', '자기계발', '취미'],
       valSelect1: '',
       valSelect2: '',
-
     }
   },
   mounted() {

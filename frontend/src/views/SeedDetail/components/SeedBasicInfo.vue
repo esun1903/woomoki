@@ -20,12 +20,12 @@
       </v-col>
       <v-col class="d-flex align-center">
         <v-row class="d-flex justify-end">
-          <router-link v-if="isMySeed === true && isLogin" :to="{ name: 'SeedUpdate', params: { seedId: this.seedId }}">
+          <router-link v-if="isMySeed === true" :to="{ name: 'SeedUpdate', params: { seedId: this.seedId }}">
             <v-btn color="light-green lighten-2">
               수정하기
             </v-btn>
           </router-link>
-          <v-btn v-if="isMySeed === true && isLogin" color="light-green lighten-2" @click="deleteSeed">삭제</v-btn>
+          <v-btn v-if="isMySeed === true" color="light-green lighten-2" @click="deleteSeed">삭제</v-btn>
           <SeedShare></SeedShare>
           <SeedViewMore></SeedViewMore>
         </v-row>
@@ -118,6 +118,7 @@ export default {
       
       // 유저 정보 가져오기
       const user_id = this.SeedInfo.user_id
+      // 유저 닉네임 -> 아이디 -> 유저정보...?
       const UserInfo = await axios.get(`http://127.0.0.1:8080/userPage/${user_id}`)
       this.UserInfo = UserInfo.data
 
