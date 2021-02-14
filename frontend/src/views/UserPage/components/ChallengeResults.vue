@@ -1,5 +1,5 @@
 <template>
-  <v-row class="challenge-results">
+  <v-row class="challenge-results results">
     <v-col @click="SeedJoin">
       <v-icon 
         class="challenge-icon"
@@ -95,6 +95,10 @@ export default {
   margin-bottom: 1rem;
   display: flex;
   justify-content: center;
+}
+
+.results {
+  cursor: pointer;
 }
 
 </style>

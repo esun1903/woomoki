@@ -1,6 +1,6 @@
 <template>
   <!-- <v-row class="d-flex justify-center"> -->
-    <v-avatar
+    <!-- <v-avatar
           tile
           :class="`rounded-lg`"
           width="100%"
@@ -9,8 +9,13 @@
           max-height="100%"
           color="grey lighten-3"
           class="cursor-img"
-          >
+          > -->
           <v-img
+            :class="`rounded-lg`"
+            width="100%"
+            height="450px"
+            max-width="100%"
+            max-height="100%"
             class="img"
             :src="this.SeedInfo.sum_img"
           >
@@ -69,7 +74,7 @@
                   <v-col>
                     <v-btn v-if="this.isLogin" :disabled="isMySeed" class="mt-10" icon @click="getScrap">
                       <div>
-                        <v-icon size="48" :color="scrapped ? 'yellow' : 'white' ">fas fa-star</v-icon>
+                        <v-icon size="48" :color="scrapped ? 'yellow' : 'white' ">fas fa-bookmark</v-icon>
                         <h2 class="mt-5 count">10</h2>
                       </div>
                     </v-btn>
@@ -90,7 +95,7 @@
             
             <div class="img-cover"></div>
           </v-img>
-    </v-avatar>
+    <!-- </v-avatar> -->
   <!-- </v-row> -->
 </template>
 

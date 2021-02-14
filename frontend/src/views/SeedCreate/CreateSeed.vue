@@ -7,7 +7,7 @@
     <v-stepper-header>
       <v-stepper-step
         color="light-green lighten-2"
-        edit-icon="$complete"
+        complete-icon="fas fa-check-circle"
         :complete="e1 > 1"
         step="1"
       >
@@ -18,8 +18,7 @@
 
       <v-stepper-step
         color="light-green lighten-2"
-        edit-icon="$complete"
-        
+        complete-icon="fas fa-check-circle"
         :complete="e1 > 2"
         step="2"
       >
@@ -30,7 +29,7 @@
 
       <v-stepper-step
         color="light-green lighten-2"
-        edit-icon="$complete"
+        complete-icon="fas fa-check-circle"
         step="3"
         
       >
