@@ -14,10 +14,10 @@
                 </v-col>
             </v-row>
             <v-row class="img">
-                <v-avatar rounded size=auto @click="updateImg()"> 
+                <v-avatar rounded size=auto @click="updateImg()">
                     <v-img v-if="CertInfo.img" :src="CertInfo.img">
                         <!-- <div style="background: grey">{{this.explain}}</div> -->
-                        </v-img>
+                    </v-img>
                     <input ref="imageInput" type="file" hidden @change="onChangeImages">
                 </v-avatar>
             </v-row>
@@ -25,7 +25,7 @@
                 <v-textarea v-model="CertInfo.content" outlined rows="10" label="content">
                 </v-textarea>
             </v-row>
-            <v-row class="back-update-btn">
+            <v-row class="back-update-btn" >
                 <v-btn class="ma-2" outlined fab color="red" v-on:click="back()">
                     <v-icon>mdi-arrow-left</v-icon>
                 </v-btn>
@@ -62,6 +62,7 @@
                 // photoUrl: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
                 dialog: false,
                 // explain: "사진 변경을 희망한다면 여기를 눌러주세요"
+                
             };
         },
         mounted() {
@@ -69,8 +70,8 @@
         },
         created() {
             this.detailCert();
-            const cngId = this.$route.params.cngid;
-            const certId = this.$route.params.certid;
+            const cngId = this.$route.params.cngId;
+            const certId = this.$route.params.certId;
             const cngName = "챌린지명";
             console.log(cngName);
             console.log("UPDATE PAGE/ cngid: " + cngId + ", certid: " + certId);
@@ -80,8 +81,8 @@
         },
         methods: {
             detailCert: function () {
-                const certId = this.$route.params.certid;
-                axios.get(`http://localhost:8080//detailcertification/${certId}`)
+                const certId = this.$route.params.certId;
+                axios.get(`http://localhost:8080/detailCertification/${certId}`)
                     .then((response) => {
                         this.CertInfo = response.data;
                         console.log(response.data)
@@ -95,8 +96,8 @@
                 this.$router.push({
                     name: 'CertificationDetail',
                     params: {
-                        cngid: this.$route.params.cngid,
-                        certid: this.$route.params.certid,
+                        cngId: this.$route.params.cngId,
+                        certId: this.$route.params.certId,
                     }
                 });
             },
@@ -107,7 +108,7 @@
                 console.log(e.target.files)
                 const file = e.target.files[0]; // Get first index in files
                 this.CertInfo.img = URL.createObjectURL(file);
-                this.explain="";
+                this.explain = "";
             },
             updateCert() {
                 // // AWS Setting Start
@@ -158,7 +159,7 @@
 
                 this.CertInfo.img = photoKey;
 
-                const certid = this.$route.params.certid;
+                const certid = this.$route.params.certId;
                 const UpdateCertInfo = {
                     cng_id: this.CertInfo.cng_id,
                     content: this.CertInfo.content,
@@ -175,12 +176,12 @@
                     .then(res => {
                         console.log(res);
                         this.$router.push({
-                    name: 'CertificationDetail',
-                    params: {
-                        cngid:  this.CertInfo.cng_id,
-                        certid: certid,
-                    }
-                });
+                            name: 'CertificationDetail',
+                            params: {
+                                cngId: this.CertInfo.cng_id,
+                                certId: certid,
+                            }
+                        });
                     })
                     .catch(err => {
                         console.log(err);
@@ -238,8 +239,7 @@
 
     .img,
     .content,
-    .nickname-date-row
-        {
+    .nickname-date-row {
         justify-content: center;
         margin-top: 5%;
     }
