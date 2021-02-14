@@ -52,7 +52,8 @@ public interface UserDao {
 	public UserDto userPageDetail(@Param("nickname") String nickname) ;
 
 	//유저가 등록되어있는 챌린지의 리스트를 반환하기
-	@Select ("SELECT cha.id , cha.category_id, cha.user_id, cha.title, cha.title, cha.content, cha.sum_img, cha.start_date, cha.end_date, cha.cert_count, " +
+	@Select ("SELECT cha.id , cha.category_id, cha.user_id, cha.title, cha.title, cha.content, cha.sum_img, cha.start_date, " +
+			"cha.end_date, cha.cert_count, " +
 			"cha.max_people, cha.example_img, cha.join_deposit, cha.like_cnt " +
 			"FROM joined_challenge AS joy JOIN challenge AS cha " +
 			"ON joy.id = #{user_id} AND joy.cng_id = cha.id")

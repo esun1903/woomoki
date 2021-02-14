@@ -16,5 +16,6 @@ public interface FavChallengeService {
 	public int user_DeletefavChallenge(int user_id, int cng_id);
 	// 장바구니에 있는 챌린지를 list형태로 보여주기
 	public List<ChallengeDto>  user_favChallengeList(int user_id);
-	
+	//내가 관심있는 챌린지의 id와 스크랩의 수
+	public List<ChallengeDto> user_LikeAndfavChallengeList(int user_id);
 }

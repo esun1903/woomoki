@@ -57,5 +57,34 @@ public class FavChallengeServiceImpl implements FavChallengeService {
 		return list;
 	}
 
+	//저의 목표 : 내가 관심있는 챌린지의 id와 스크랩의 수  (스크랩의 수는 : like_cnt 다. like_cnt는 챌린지테이블에 있습니다. )
+    // 저는 관심있는 챌린지를 -> challeng 네!
+
+	@Override
+	public List<ChallengeDto> user_LikeAndfavChallengeList(int user_id) {
+
+//		//1) 내가 관심있는 챌린지들의 list들을 받아오고
+//		System.out.println("유저id"+user_id);
+//
+//       //네네 근데 관심있는 챌린지에 cng_id, like_cnt 이렇게 받아오려고하는겁니당 !
+//		List<FavChallengeDto> favChallengeDto = dao.main_LikefavChallege(user_id); // user_id가 가장 좋아하는 챌린지의 id를 갖고오기
+//		System.out.println(favChallengeDto);
+//		System.out.println("이게 왜안되는거지?"+ favChallengeDto);
+//
+//		List<FavChallengeDto> list = new ArrayList<FavChallengeDto>();
+//		for (int i = 0; i < favChallengeDto .size(); i++) {
+//			int id = favChallengeDto.get(i).getCng_id();
+//
+//			//2) 그 리스트들 id의 like_cnt를 받아와서
+//		 list.add(dao.main_LikefavChallege(id));
+//		    //3) 하나의 favChallengeDto에 넣기
+//
+//		}
+		List<ChallengeDto> list = dao.main_LikefavChallege(user_id);
+
+
+		return list;
+	}
+
 
 }

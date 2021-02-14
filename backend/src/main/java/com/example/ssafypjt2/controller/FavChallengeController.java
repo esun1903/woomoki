@@ -2,6 +2,7 @@ package com.example.ssafypjt2.controller;
 
 import com.example.ssafypjt2.dto.ChallengeDto;
 import com.example.ssafypjt2.dto.FavCategoryDto;
+import com.example.ssafypjt2.dto.FavChallengeDto;
 import com.example.ssafypjt2.service.FavCategoryService;
 import com.example.ssafypjt2.service.FavChallengeService;
 import org.slf4j.Logger;
@@ -61,8 +62,8 @@ public class FavChallengeController {
 	@GetMapping("/userPage/LikeAndfavChallenge/{userid}")
 	public List<ChallengeDto> user_LikeAndfavChallengeList(@PathVariable(value = "userid") int user_id ) throws Exception {
 
-		System.out.println(user_id+"가 관심이있는 챌린지 보여줄게");
-		List<ChallengeDto> result = favChallengeService.user_favChallengeList(user_id);
+		System.out.println(user_id+"가 관심이있는 챌린지들과 스크랩의 수를 보여줄게");
+		List<ChallengeDto> result = favChallengeService.user_LikeAndfavChallengeList(user_id);
 		System.out.println(result);
 		return result;
 	}
