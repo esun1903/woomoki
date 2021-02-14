@@ -22,7 +22,7 @@ import com.example.ssafypjt2.service.ChallengeService;
 
 import javax.servlet.http.HttpServletResponse;
 
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class ChallengeController {
 
