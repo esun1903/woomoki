@@ -22,7 +22,6 @@ const UserStore = {
       console.log("payload[auth-token]: "+payload["auth-token"]);
       state.user.accessToken = payload["auth-token"];
       state.user.user_id = payload["user-id"];
-      // state.user.compareId = payload["user-id"];
       state.user.nickname = payload["user-nickname"];
       state.user.email = payload["user-email"];
       state.isLogin = true;
@@ -57,9 +56,10 @@ const UserStore = {
             "auth-token"
           ] = `${response.data["auth-token"]}`;
           router.push('/');
+          // router.push({name: 'Main', params: { userInfo : response.data }});
         }).catch((error) => {
           console.log(error);
-          alert("이메일, 비밀번호 확인");
+          alert("이메일 또는 비밀번호를 확인해주세요!");
         })
     },
     signUp({commit}, user) {

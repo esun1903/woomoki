@@ -167,7 +167,8 @@ export default {
           .then((res) => {
             console.log('카테고리 담기 성공')
             console.log(res)
-            this.$router.push({ name: 'Main' })
+            // this.$router.push({ name: 'Main' })
+            this.$router.push({ name: 'Main' , params: { userNickname: this.$store.state.UserStore.user.nickname }})
           })
           .catch(err => {
             console.log(err)

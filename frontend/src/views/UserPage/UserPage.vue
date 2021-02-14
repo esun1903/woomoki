@@ -87,6 +87,7 @@
 import BasicUserInfo from "./components/BasicUserInfo"
 // import ChallengeResults from "./components/ChallengeResults"
 import UserStat from "./components/UserStat"
+// import {mapState} from "vuex"
 import axios from 'axios'
 
 export default {
@@ -112,6 +113,7 @@ export default {
       await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
         .then((res) => {
           this.userId = res.data.id
+          // console.log("??", res.data)
         })
       const userid = this.userId
       await axios.get(`http://127.0.0.1:8080/userCertification/${userid}`)
@@ -145,6 +147,9 @@ export default {
     },
     created() {
       this.UserCertification();
+  },
+  computed: {
+    // ...mapState('UserStore', ['user']),
   }
 };
 </script>
