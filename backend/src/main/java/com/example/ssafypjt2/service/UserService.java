@@ -21,4 +21,6 @@ public interface UserService {
     public UserDto userPageDetail(String user_id) throws Exception;
 	public List<ChallengeDto> userPageJoincng(int user_id)  throws Exception ;
 	public int changeUser(UserDto userDto) throws Exception;
+
+    public UserDto userPageIdDetail(int user_id);
 }
