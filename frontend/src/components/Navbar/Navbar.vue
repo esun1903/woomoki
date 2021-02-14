@@ -10,7 +10,7 @@
         </router-link>
         
         <SearchBar/>
-        <div>안녕하세요, <span class="nickname">{{userNickname}}</span>님</div>
+        <div v-if="getCheckLogin">안녕하세요, <span class="nickname">{{this.user.nickname}}</span>님</div>
         <div class="btn-group">
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
@@ -79,7 +79,7 @@
             <v-list>
               <div v-if="getCheckLogin">
                 <v-list-item>
-                  <router-link :to="{ name: 'UserPage', params: { userNickname: userNickname }}">
+                  <router-link :to="{ name: 'UserPage', params: { userNickname: CheckUserInfo }}">
                     <v-list-item-title>마이페이지</v-list-item-title>
                    </router-link>
                 </v-list-item>
@@ -105,6 +105,7 @@
 
 <script>
 import SearchBar from "@/components/Navbar/SearchBar.vue";
+import {mapState} from "vuex";
 import axios from 'axios';
 
 export default {
@@ -113,29 +114,32 @@ export default {
   directives: {  },
   data: function () {
     return {
-      userId: this.$store.state.UserStore.user.user_id,
-      userNickname: this.$store.state.UserStore.user.nickname,
+      userInfo: [],
+      userId: "",
+      myNickname: "",
       notice: false,
       currentTab: null,
       tabs: [],
-      types:['알림','요청'],
+      types:['알림','요청'],	
     };
   },
- 
- beforeUpdate(){
-    //this.NotificationList();
+  created() {
+    console.log(this.userInfo)
   },
   computed:  {
+    CheckUserInfo () {
+      this.userInfo = this.$store.state.UserStore.user 
+      return this.userInfo.nickname
+    },
     getCheckLogin () {
       return this.$store.getters["UserStore/getCheckLogin"];
-    }
-  },
-  watch: {
-     
+    },
+    ...mapState('UserStore', ['user']),
+  }, 
+ watch: {
     tabs : function(){
         if(!this.tabs.length)
          this.NotificationList();
-      
     }
   }, 
   methods: {
@@ -150,7 +154,6 @@ export default {
       this.$router.push({ name: 'Signup' })  
     },
      NotificationConfirm: function(id) {
-     
       const notificationId = id;
        axios.put(`http://127.0.0.1:8080/notificationConfirm/${notificationId}`)
         .then((response) => {
@@ -158,25 +161,22 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-        });
-        
+        });  
     },
-     NotificationList(){
-      const userId = this.userId;
+    NotificationList(){
+      const userId =  this.$store.state.UserStore.user.user_id;
        axios.get(`http://127.0.0.1:8080/notificationList/${userId}`)
         .then((response) => {
           this.tabs = response.data;
         })
         .catch((error) => {
           console.log(error);
-        });
-        
-    },
+        });    
+    }
   },
   mounted (){
   this.NotificationList();
   },
-  
 };
 </script>
 
