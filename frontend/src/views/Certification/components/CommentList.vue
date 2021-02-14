@@ -4,7 +4,7 @@
       <template v-for="(item, index) in comment">
         <!-- <v-subheader v-if="item.header" :key="item.header" v-text="item.header"></v-subheader> -->
 
-        <!-- <v-divider v-if="item.divider" :key="index" :inset="item.inset"></v-divider> -->
+        <v-divider :key="index" :inset="item.inset"></v-divider>
 
         <v-list-item :key="item.user_id">
           <!-- <v-list-item-avatar>
@@ -33,32 +33,6 @@
     name: 'CommentList',
     components: {},
     directives: {},
-
-    // data: () => ({
-    //   items: [{
-    //       header: '댓글 리스트'
-    //     },
-    //     {
-    //       avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',
-    //       title: 'ssafy',
-    //       subtitle: `멋있다~`,
-    //     },
-    //     {
-    //       divider: true,
-    //       inset: true
-    //     },
-    //     {
-    //       avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',
-    //       title: 'apple',
-    //       subtitle: `멋있다`,
-    //     },
-    //     {
-    //       divider: true,
-    //       inset: true
-    //     },
-    //   ],
-    // }),
-
     data() {
             return {
                 comment: [],
@@ -74,19 +48,14 @@
     methods: {
 
       detailComment: function () {
-        console.log("comment 들어옴 ");
         const certId = this.$route.params.certid;
         console.log(certId);
         axios.get(`http://localhost:8080/commentList/${certId}`)
           .then((response) => {
             console.log(response.data);
             this.comment = response.data;
-            // for (const i in comments) {
-            //   this.comment=comments[i]
-            //   const comment = comments[i];
-            //   console.log(comment)
-            // }
-            
+            const userId = this.comment.user_id;
+            console.log("uid: "+userId);
           })
           .catch((err) => {
             console.log(err)
