@@ -30,7 +30,7 @@ import com.example.ssafypjt2.service.JwtService;
 import com.example.ssafypjt2.service.UserService;
 
 //@RequestMapping("/post")
-//@CrossOrigin(origins = { "*" }, maxAge = 6000)
+@CrossOrigin(origins = { "*" }, maxAge = 6000)
 @RestController
 public class UserController {
 
