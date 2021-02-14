@@ -19,7 +19,7 @@
               <h1>{{ SeedInfo.title }}</h1>
               <br>
 
-              <v-chip :color=this.color class="white--text mb-2">{{this.category}}</v-chip>
+              <v-chip :color="this.color" class="white--text mb-2">{{this.category}}</v-chip>
               <v-row>
                 <v-col>
                   <div>참여: / {{ this.SeedInfo.max_people }}</div>
