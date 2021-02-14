@@ -1,69 +1,119 @@
 <template>
-  <v-container>
-    <ul class="flashcard-list">
-      <li v-on:click="toggleCard(certification)" v-for="(certification, index) in certifications">
-        <transition name="flip">
-          <p v-bind:key="certification.flipped" class="certification">
-              {{ card.flipped ? card.back : card.front }}
-              <span v-on:click="cards.splice(index, 1)" class="delete-card">X</span>
-          </p>
-        </transition>
-      </li>
-    </ul>
-  </v-container>
+  <div>
+    <splide :options="options" :slides="slides" has-slider-wrpper>
+      <splide-slide v-for="(slide, index) in slides" :key="index">
+        <FeedCard :slide="slide" class="image-card" />
+      </splide-slide>
+      <template v-slot:controls>
+        <div class="splide__progress">
+          <div class="splide__progress__bar">
+          </div>
+        </div>
+
+        <div class="splide__autoplay">
+          <button class="splide__play">
+            <v-icon>far fa-play-circle</v-icon>
+          </button>
+          <button class="splide__pause">
+            <v-icon>far fa-pause-circle</v-icon>
+          </button>
+        </div>
+      </template>
+    </splide>
+  </div>
 </template>
 
 <script>
+import FeedCard from "@/views/Feed/components/FeedCard.vue"
+import { Splide, SplideSlide } from '@splidejs/vue-splide';
+import {mapState} from "vuex";
+import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
+import axios from "axios";
+
+
 export default {
-  name: "FeedFollower",
-  components: {},
-  directives: {},
+  name: 'FeedAll',
+  components: { FeedCard, Splide, SplideSlide },
+  directives: {  },
   data() {
     return {
-      certifications: []
-    };
+      slides: [],
+
+      options: {
+        rewind: true,
+        perPage: 3,
+        // padding: {
+        //   left: 0,
+        //   right: 0
+        // },
+        width: '100%',
+        autoplay: true,
+        pauseOnHover: false,
+        arrows : 'slider',
+        type: 'loop',
+        focus: 'center',
+        easing: 'ease',
+        cover  : true,
+      },
+
+  }
   },
-  mounted() {},
+  mounted() {
+
+  },
   methods: {
+
   },
   created () {
-    axios.get("http://localhost:8080/allCertification")
+    const userId_num = this.user.user_id
+    const userId = {};
+    userId["userid"] = userId_num;
+    axios.get(`http://127.0.0.1:8080/feed/follower/${userId_num}`, userId)
       .then((res) => {
         const certifications = res.data
         certifications.sort(function(a,b) {
           return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
         })
-        this.certifications = certifications
+        this.slides = certifications
+        console.log('나오냐?')
+        console.log(this.slides)
       })
       .catch((err) => {
         console.log(err)
       })
   },
-  computed: {}
+  computed: {
+    ...mapState('UserStore', ['user']),
+  }
 };
 </script>
 
 <style lang="scss" scoped>
-.img {
-  max-width: 100%;
-  height: auto;
+$color: #20b2aa;
+.splide {
+  width: 150%;
+  padding: 5%;
+  &__autoplay {
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    text-align: center;
+  }
+  &__play, &__pause {
+    color: $color;
+    transition: color .2s linear;
+    cursor: pointer;
+    padding: .3em 1em;
+    .v-icon{
+      font-size: 2rem;
+      margin-top: 10%;
+      margin-bottom:20%;
+      &:hover {
+        color: darken( $color, 20% );
+      }
+    }
+  }
 }
-.carousel-3d-container figure {
-  margin:0;
-}
-
-.carousel-3d-container figcaption {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  bottom: 0;
-  position: absolute;
-  bottom: 0;
-  padding: 15px;
-  font-size: 12px;
-  min-width: 100%;
-  box-sizing: border-box;
-  text-align: center;
-  height: 30%;
+.image-card {
+  line-height: 120%;
 }
 </style>

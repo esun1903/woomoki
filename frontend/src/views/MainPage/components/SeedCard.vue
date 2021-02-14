@@ -40,6 +40,7 @@
 
 <script>
 import axios from "axios";
+import {mapState} from "vuex";
 export default {
   name: 'SeedCard',
   components: {  },
@@ -66,28 +67,45 @@ export default {
       const cgId_num = this.seed.id
       cgId["cgId"] = cgId_num;
       if (this.liked) {
-        axios.put(`http://localhost:8080/likeDownChallenge/${cgId_num}`, cgId )
+        axios.put(`http://127.0.0.1:8080/likeDownChallenge/${cgId_num}`, cgId )
         this.liked = false
         
       } else {
-        axios.put(`http://localhost:8080/likeUpChallenge/${cgId_num}`, cgId )
+        axios.put(`http://127.0.0.1:8080/likeUpChallenge/${cgId_num}`, cgId )
         this.liked = true
       }
     },
     getScrap: function () {
-      const cgId = {};
-      const cgId_num = this.seed.id
-      cgId["cgId"] = this.seed.id;
+      const userId_num = this.user.user_id;
+      console.log(userId_num)
+      const cgId_num = this.seed.id;
+      console.log(this.seed)
+      console.log(cgId_num)
       if (this.scrapped) {      
-        // axios.put(`http://localhost:8080/likeUpChallenge/${cgId_num}`, cgId )
+        axios.get(`http://127.0.0.1:8080/userPage/DeletefavChallenge/${userId_num}/${cgId_num}`)
+        .then(() => {
+          console.log('스크랩취소성공')
+        })
+        .catch((err) => {
+          console.log(err)
+          console.log('스크랩취소실패')
+        })
         this.scrapped = false  
       } else {
-        // axios.put(`http://localhost:8080/likeUpChallenge/${cgId_num}`, cgId )
+        axios.get(`http://127.0.0.1:8080/userPage/favChallenge/${userId_num}/${cgId_num}`)
+        .then(() => {
+          console.log('스크랩성공')
+        })
+        .catch((err) => {
+          console.log(err)
+          console.log('스크랩실패')
+        })
         this.scrapped = true
       }
     }
   },
   computed: {
+    ...mapState('UserStore', ['user']),
     SeedImg: function () {
       return this.seed.sum_img 
     },

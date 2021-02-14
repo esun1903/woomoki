@@ -3,7 +3,13 @@
     <div class="image-box">
       <img :src=CertificationImg>
       <div class="mask">
-        <div class="text">보이나??</div>
+        <div class="slide-info">
+          <div class="datetime">{{ slide.create_date}}</div>
+          <div class="writer">{{ slide.user_id }}</div>
+          <div class="seed-title">챌린지 제목</div>
+          <div class="content">{{ slide.content }}</div>
+          <v-btn @click="goCertDetail">MORE</v-btn>
+        </div>
       </div>
     </div>
   </splide-slide>
@@ -19,17 +25,22 @@ export default {
   },
   data() {
     return {
-      
+      dialogm1: '',
+      dialog: false,
     };
   },
   mounted() {
     
   },
   methods: {
-    
+    goCertDetail: function () {
+      this.$router.push({ name: 'CertificationDetail', params: { cngId: this.slide.cng_id, certId: this.slide.id } })
+    },
   },
   computed: {
     CertificationImg: function () {
+      console.log('확인')
+      console.log(this.slide)
       return this.slide.img 
     },
   }
@@ -40,25 +51,25 @@ export default {
 .image-box {
   display:flex;
   justify-content: center;
+  position: relative;
   img {
   width: 320px;
   height: 300px;
   object-fit: cover;
   padding: 0 1%;
   margin: 0;
-
+  opacity: 1;
   display: block;
   transition: .5s ease;
-  backface-visibility: hidden;
-    &:hover {
-      opacity: 0.8;
-    }
-    // &:hover + .mask{
-    //   display: block;
-    //   color: red;
+  // backface-visibility: hidden;
+    // &:hover {
+    //   opacity: 0.1;
     // }
   }
   .mask {
+    width: 100%;
+    height: 300px;
+    padding: 5% 7%;
     transition: .5s ease;
     opacity: 0;
     position: absolute;
@@ -66,27 +77,64 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    text-align: center;
-    &:hover {
-      opacity: 1;
-    }
-    .text {
-      background-color: white;
+    // &:hover {
+    //   opacity: 0.8;
+    // }
+    .slide-info {
+      width: 100%;
+      height: 100%;
+      text-align: center;
       color: black;
-      font-size: 16px;
-      padding: 16px 32px;
+      .datetime{
+        display: flex;
+        justify-content: flex-start;
+        font-size: 1rem;
+      }
+      .writer{
+        display: flex;
+        justify-content: flex-start;
+        margin-top:3%;
+        margin-bottom:15%;
+        font-size: 1rem;
+      }
+      .seed-title{
+        display: flex;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 1.3rem;
+        margin-bottom:5%;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      }
+      .content{
+        font-size: 1rem;
+        margin-bottom:5%;
+        height: 30%;
+      }
+      .btn{
+        color: green;
+      }
     }
   }
 }
-.container:hover .image {
-  opacity: 0.3;
+.image-box:hover img {
+  opacity: 0.4 ;
 }
 
-.container:hover .middle {
+.image-box:hover .mask {
   opacity: 1;
 }
-  // .mask {
-  //   display: none;
-  // }
-// 
+
+.v-card {
+  .v-card__text{
+    padding: 3%;
+    .cert-image {
+      img {
+        width: 40%;
+        height: 150px;
+      }
+    }
+  }
+}
 </style>

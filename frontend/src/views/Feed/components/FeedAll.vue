@@ -26,10 +26,8 @@
 <script>
 import FeedCard from "@/views/Feed/components/FeedCard.vue"
 import { Splide, SplideSlide } from '@splidejs/vue-splide';
-// import { createSlides } from "./slides.js"
 import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
 import axios from "axios";
-// const IMAGE_URL = 'https://source.unsplash.com/random/800x450';
 
 export default {
   name: 'FeedAll',
@@ -65,7 +63,7 @@ export default {
 
   },
   created () {
-    axios.get("http://localhost:8080/allCertification")
+    axios.get("http://127.0.0.1:8080/allCertification")
       .then((res) => {
         const certifications = res.data
         certifications.sort(function(a,b) {

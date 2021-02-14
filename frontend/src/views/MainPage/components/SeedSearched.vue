@@ -86,7 +86,7 @@ export default {
         const cgId_num = cat
         const cgId = {};
         cgId["cgId"] = cgId_num
-        axios.get(`http://localhost:8080/categorySort/${cgId_num}`, cgId)
+        axios.get(`http://127.0.0.1:8080/categorySort/${cgId_num}`, cgId)
           .then((res) => {
             const seeds = res.data
             console.log(seeds)

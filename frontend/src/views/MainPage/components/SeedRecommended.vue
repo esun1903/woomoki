@@ -59,7 +59,7 @@ export default {
     const id = {};
     id["id"] = this.user.user_id
     console.log(id)
-    axios.post("http://localhost:8080/", id)
+    axios.post("http://127.0.0.1:8080/", id)
       .then((res) => {
         const seeds = res.data
         seeds.sort(function(a,b) {

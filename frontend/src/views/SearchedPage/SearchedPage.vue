@@ -60,7 +60,7 @@ export default {
   },
   methods: {
     arrangeRule: function (val) {
-      axios.get("http://localhost:8080/allChallenge")
+      axios.get("http://127.0.0.1:8080/allChallenge")
         .then((res) => {
           const seeds = res.data
           const searchedSeeds=[]
