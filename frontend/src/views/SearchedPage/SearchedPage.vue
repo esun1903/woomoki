@@ -3,16 +3,35 @@
     <div class="searched-keyword">
       <p>
         <span>{{ searched }}</span>
-        에 관련된 검색 결과입니다.
+        에 관련된 씨앗이에요.
       </p>
     </div>
-    <div class="cards">
-      <v-row dense>
-        <v-col cols="3" class="card" v-for="(seed, index) in seeds" :key="index">
-          <SeedCard :seed="seed"/>
-        </v-col>
-      </v-row>
-    </div>
+    <v-data-iterator
+      hide-default-footer
+      :items="seeds"
+      :items-per-page.sync="itemsPerPage"
+      :page.sync="page"
+      @page-count="pageCount=$event"
+      :total-visible="5"
+    >
+      <template v-slot:default="{items}">
+        <div class="cards">
+          <v-row dense>
+            <v-col cols="3" class="card" v-for="(seed, index) in items" :key="index">
+              <SeedCard :seed="seed"/>
+            </v-col>
+          </v-row>
+        </div>
+      </template>
+      <template v-slot:footer>
+        <v-pagination
+          v-model="page"
+          :length="pageCount"
+          prev-icon="mdi-menu-left"
+          next-icon="mdi-menu-right"
+        ></v-pagination>
+      </template>
+    </v-data-iterator>
   </v-container>
 </template>
 
@@ -27,7 +46,10 @@ export default {
   data() {
     return {
       searched: this.$route.query.keyword,
-      seeds: []
+      seeds: [],
+      page: 1,
+      pageCount: 0,
+      itemsPerPage: 16,
     };
   },
   mounted() {
@@ -38,7 +60,7 @@ export default {
   },
   methods: {
     arrangeRule: function (val) {
-      axios.get("http://localhost:8080/allChallenge")
+      axios.get("http://127.0.0.1:8080/allChallenge")
         .then((res) => {
           const seeds = res.data
           const searchedSeeds=[]
@@ -50,6 +72,7 @@ export default {
             }
           }
           this.seeds = searchedSeeds
+          console.log(this.seeds)
         })
         .catch((err) => {
           console.log(err)
@@ -57,6 +80,7 @@ export default {
     }  
   },
   created () {
+    this.arrangeRule(this.searched)
   },
   watch: {
     '$route' () {

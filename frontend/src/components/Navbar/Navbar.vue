@@ -10,7 +10,10 @@
         </router-link>
         
         <SearchBar/>
-        <div v-if="getCheckLogin">안녕하세요, <span class="nickname">{{this.user.nickname}}</span>님</div>
+        <div v-if="getCheckLogin">
+          안녕하세요, 
+          <span class="nickname">{{ this.user.nickname }}</span>님
+        </div>
         <div class="btn-group">
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
@@ -32,9 +35,43 @@
             </v-list>
           </v-menu>
 
-          <v-btn icon class="btn">
-            <v-icon>mdi-cart</v-icon>
+          <v-btn icon class="btn" @click="goFeed">
+            <v-icon>fas fa-user-friends</v-icon>
           </v-btn>
+
+          <v-dialog
+            class="scrap-dialog"
+            scrollable
+            width="25%"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon v-bind="attrs" v-on="on" class="btn">
+                <v-icon>mdi-cart</v-icon>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-title>장바구니에 담겨있는 씨앗이에요🌱</v-card-title>
+              <v-divider></v-divider>
+              <v-card-text>
+                <v-list v-for="(seed, index) in seeds" :key="index">
+                  <v-list-item>
+                    <v-list-item-content>
+                      <div class="chips">
+                        <v-chip class="ma-2">{{ seed.week }}주</v-chip>
+                        <v-chip class="ma-2">주 {{ seed.day }}회</v-chip>
+                      </div>
+                      <div class="seed-info">
+                        <div class="title">{{ seed.title }}</div>
+                      </div>
+                    </v-list-item-content>
+                    <v-list-item-action>
+                      <v-btn @click="goDeleteScrap(seed.id)">삭제하기</v-btn>   
+                    </v-list-item-action>
+                  </v-list-item>   
+                </v-list>
+              </v-card-text>
+            </v-card>
+          </v-dialog>
 
           <v-btn icon class="btn" @click="notice = true">
             <v-icon>mdi-bell-ring</v-icon>
@@ -88,11 +125,15 @@
                 </v-list-item>
               </div>
               <div v-else>
-                <v-list-item @click="goLogin">
-                  <v-list-item-title>로그인</v-list-item-title>
+                <v-list-item>
+                  <router-link :to="{ name: 'Login'}">
+                    <v-list-item-title>로그인</v-list-item-title>
+                  </router-link>
                 </v-list-item>
-                <v-list-item @click="goSignup">
-                  <v-list-item-title>회원가입</v-list-item-title>
+                <v-list-item>
+                  <router-link :to="{ name: 'Signup'}">
+                    <v-list-item-title>회원가입</v-list-item-title>
+                  </router-link>
                 </v-list-item>
               </div>
 
@@ -117,6 +158,7 @@ export default {
       userInfo: [],
       userId: "",
       myNickname: "",
+      seeds: [],
       notice: false,
       currentTab: null,
       tabs: [],
@@ -124,36 +166,77 @@ export default {
     };
   },
   created() {
-    console.log(this.userInfo)
+    const userId_num = this.user.user_id
+    console.log('씨아아앗')
+    console.log(userId_num)
+    const userId = {};
+    userId["userid"] = userId_num
+    axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId_num}`, userId)
+      .then((res) => {
+        const seeds = res.data
+        seeds.sort(function(a,b) {
+          return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
+        })
+        this.seeds = seeds
+        console.log("씨앗 잘 담겼멘?")
+        console.log(this.seeds)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   },
   computed:  {
+    ...mapState('UserStore', ['user']),
     CheckUserInfo () {
-      this.userInfo = this.$store.state.UserStore.user 
+      this.userInfo = this.user 
       return this.userInfo.nickname
     },
     getCheckLogin () {
       return this.$store.getters["UserStore/getCheckLogin"];
     },
-    ...mapState('UserStore', ['user']),
-  }, 
- watch: {
+  },  
+  watch: {
     tabs : function(){
-        if(!this.tabs.length)
-         this.NotificationList();
-    }
+      if(!this.tabs.length)
+        this.NotificationList();
+    },
+    seeds(newVal, oldVal) {
+      if (newVal!== oldVal) {
+        return newVal
+      }
+    },
   }, 
   methods: {
+    goFeed: function () {
+      this.$router.push({ name: 'Feed' }) 
+    },
     goLogout: function () {
       this.$router.push({ name: 'Main' })
       this.$store.dispatch('UserStore/logOut')
     },
-    goLogin: function () {
-      this.$router.push({ name: 'Login' }) 
+    goDeleteScrap: function (val) {
+      const userId_num = this.user.user_id;
+      console.log()
+      const cgId_num = val;
+      axios.get(`http://127.0.0.1:8080/userPage/DeletefavChallenge/${userId_num}/${cgId_num}`)
+        .then(() => {
+          console.log('스크랩취소성공')
+          this.deleteScrappedSeed(cgId_num)
+        })
+        .catch((err) => {
+          console.log(err)
+          console.log('스크랩취소실패')
+        })
     },
-    goSignup: function () {
-      this.$router.push({ name: 'Signup' })  
+    deleteScrappedSeed(val) {
+      const currentSeeds = this.seeds
+      for (var i in currentSeeds) {
+        if (currentSeeds[i]["id"] === val) {
+          this.seeds.splice(i,1)
+        }
+      }
     },
-     NotificationConfirm: function(id) {
+    NotificationConfirm: function(id) {
       const notificationId = id;
        axios.put(`http://127.0.0.1:8080/notificationConfirm/${notificationId}`)
         .then((response) => {
@@ -164,7 +247,7 @@ export default {
         });  
     },
     NotificationList(){
-      const userId =  this.$store.state.UserStore.user.user_id;
+      const userId =  this.user.user_id;
        axios.get(`http://127.0.0.1:8080/notificationList/${userId}`)
         .then((response) => {
           this.tabs = response.data;
@@ -183,9 +266,6 @@ export default {
 <style lang="scss" scoped>
 // 개발자 도구로 찍고 나서야 바꿀 수 있는 부분
 
-.notification{
- float:right;
-}
 .v-sheet.v-app-bar.v-toolbar:not(.v-sheet--outlined) {
   box-shadow: none;
 }
@@ -238,5 +318,64 @@ a:-webkit-any-link {
 .nickname {
   font: bold; 
   color: #AED581;
+}
+
+.v-dialog__content{
+  .v-dialog{
+    .v-card{
+      .v-card__title{
+        display: flex;
+        justify-content: center;
+        font-size: 1.1rem;
+        font-weight: bold;
+      }
+      .v-card__text{
+        height: 30vh;
+        padding: 0 1%;
+      }
+        .v-list{
+          .v-list-item{
+            height: 2vh;
+            padding: 0 2%;
+            margin-bottom: 1%;
+            .v-list-item__content{
+              display: flex;
+              justify-content:space-around;
+              .chips{
+                display: flex;
+                justify-content: flex-start;
+                .v-chip{
+                  width: 3vw;
+                  height: 2vh;
+                  margin: 1% !important;
+                  display: flex;
+                  justify-content: center;
+                  font-size:0.7rem;
+                  .v-chip___content{
+                    font-size: 0.5rem;
+                  }
+                }
+              }
+              .seed-info{
+                padding-top: 0;
+                display: flex;
+                .title{
+                  font-size: 0.1rem;
+                  margin-right: 3vw;
+                }
+              }
+            }
+            .v-list-item__action{
+              .v-btn{
+                width: 4vw;
+                height: 4vh;
+                font-size: 0.8rem;
+                right: 0;
+              }
+            }
+          }
+        }
+    }
+  }
 }
 </style>

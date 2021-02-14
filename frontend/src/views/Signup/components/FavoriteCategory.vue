@@ -163,7 +163,7 @@ export default {
       setTimeout(() => {
         
         // !!!!!!!!!! 빽에 고른 카테고리 넘겨주기!!!!!!!!!! 
-        axios.post("http://localhost:8080/signup/favCategory", this.getFavoriteCategories)
+        axios.post("http://127.0.0.1:8080/signup/favCategory", this.getFavoriteCategories)
           .then((res) => {
             console.log('카테고리 담기 성공')
             console.log(res)

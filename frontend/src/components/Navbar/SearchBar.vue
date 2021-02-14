@@ -71,7 +71,7 @@ export default {
     }
   },
   created () {
-    axios.get("http://localhost:8080/Challenge")
+    axios.get("http://localhost:8080/challenge")
       .then((res) => {
         this.seeds = res.data
       })
