@@ -80,7 +80,7 @@
       <div id="rules"></div>
       <div id="content"></div>
       <footer></footer>
-      <v-btn id="banner" width="20vw" height="5vw" class="position-fixed" color="light-green lighten-2">
+      <v-btn id="banner" width="50vw" height="5vw" class="position-fixed" color="light-green lighten-2">
         <h1>
           함께하기
         </h1>
@@ -174,7 +174,7 @@ export default {
         var sT = $w.scrollTop();
         var val = $(document).height() - $w.height() - footerHei;
     
-        if (sT + 80 >= val) {
+        if (sT + 160 >= val) {
           $banner.addClass('on')
         }
         else
@@ -191,7 +191,7 @@ export default {
   z-index: 2;
   position: fixed;
   bottom: 0;
-  right: 37.5%;
+  // right: 37.5%;
   color: #fff;
   background-position: center center;
   background-repeat: no-repeat;
@@ -224,7 +224,8 @@ footer {
 #banner {
   z-index: 3;
   position: fixed;
-  right: 37.7%;
+  // right: 37.7%;
+  right: 23%;
   width: 50px;
   height: 100px;
   background: salmon;
@@ -233,7 +234,8 @@ footer {
 
 #banner.on {
   position: absolute;
-  right: 37.7%;
+  // right: 37.7%;
+  right: 23%;
   bottom: 1vw;
 }
 
