@@ -30,14 +30,14 @@
           <v-spacer></v-spacer>
           <v-btn
             text
-            color="success"
+            color="light-green lighten-2"
             @click="menu = false"
           >
             Cancel
           </v-btn>
           <v-btn
             text
-            color="success"
+            color="light-green lighten-2"
             @click="transferDate"
           >
             OK

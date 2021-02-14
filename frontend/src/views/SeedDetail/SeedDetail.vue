@@ -81,13 +81,19 @@
       <div id="rules"></div>
       <div id="content"></div>
       <footer></footer>
-      <v-btn @click="JoinSeed" id="banner" width="50vw" height="5vw" class="position-fixed" color="light-green lighten-2">
+      <v-btn 
+        @click="JoinSeed" 
+        id="banner" 
+        width="50vw" 
+        height="5vw" 
+        class="position-fixed" 
+        color="light-green lighten-2">
         <h1>
           함께하기
         </h1>
       </v-btn>
     </div>
-
+  
     </v-container>
 </template>
 
