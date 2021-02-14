@@ -2,25 +2,88 @@
   <v-container>
     <v-card id="fav-card">
   
-      <v-toolbar flat color="transparent">
+      <v-toolbar class="d-flex justify-center" flat color="transparent">
         <v-toolbar-title>관심있는 카테고리를 변경해주세요!</v-toolbar-title>
       </v-toolbar>
 
-      <v-row align="center" justify="start">
+      <v-row align="center" justify="center">
         <v-col
           v-for="(selection, i) in getSelections"
           :key="selection.text"
           class="shrink"
-        >
-          <v-chip
-            outlined
-            :disabled="loading"
-            close
-            @click:close="selected.splice(i, 1)"
-          >
-            <v-icon left v-text="selection.icon"></v-icon>
-            {{ selection.text }}
-          </v-chip>
+        > 
+          <span v-if="selection.text === '건강'">
+            <v-chip
+              color="light-green lighten-1"
+              outlined
+              :disabled="loading"
+              close
+              @click:close="selected.splice(i, 1)"
+            >
+              <v-icon left v-text="selection.icon"></v-icon>
+              {{ selection.text }}
+            </v-chip>
+          </span>
+          <span v-if="selection.text === '생활습관'">
+            <v-chip
+              color="orange lighten-1"
+              outlined
+              :disabled="loading"
+              close
+              @click:close="selected.splice(i, 1)"
+            >
+              <v-icon left v-text="selection.icon"></v-icon>
+              {{ selection.text }}
+            </v-chip>
+          </span>
+          <span v-if="selection.text === '독서'">
+            <v-chip
+              color="teal lighten-1"
+              outlined
+              :disabled="loading"
+              close
+              @click:close="selected.splice(i, 1)"
+            >
+              <v-icon left v-text="selection.icon"></v-icon>
+              {{ selection.text }}
+            </v-chip>
+          </span>
+          <span v-if="selection.text === '자산'">
+            <v-chip
+              color="indigo lighten-1"
+              outlined
+              :disabled="loading"
+              close
+              @click:close="selected.splice(i, 1)"
+            >
+              <v-icon left v-text="selection.icon"></v-icon>
+              {{ selection.text }}
+            </v-chip>
+          </span>
+          <span v-if="selection.text === '자기계발'">
+            <v-chip
+              color="purple lighten-1"
+              outlined
+              :disabled="loading"
+              close
+              @click:close="selected.splice(i, 1)"
+            >
+              <v-icon left v-text="selection.icon"></v-icon>
+              {{ selection.text }}
+            </v-chip>
+          </span>
+          <span v-if="selection.text === '취미'">
+            <v-chip
+              color="pink lighten-1"
+              outlined
+              :disabled="loading"
+              close
+              @click:close="selected.splice(i, 1)"
+            >
+              <v-icon left v-text="selection.icon"></v-icon>
+              {{ selection.text }}
+            </v-chip>
+          </span>
         </v-col>
       </v-row>
 
@@ -59,7 +122,7 @@
         <v-btn
           :disabled="!selected.length"
           :loading="loading"
-          color="green"
+          color="light-green lighten-2"
           text
           @click="sendFavoriteCategories"
           >카테고리 저장</v-btn
@@ -179,7 +242,24 @@ export default {
         state.loading = false
       },2000)
     },
-  }
+  },
+  // computed: {
+    // color: function () {
+    //   if (this.items.text === "건강") {
+    //     return 'light-green lighten-1'
+    //   } else if (this.items.text === "생활습관") {
+    //     return 'orange lighten-1'
+    //   } else if (this.items.text === "독서") {
+    //     return 'teal lighten-1'
+    //   } else if (this.items.text === "자산") {
+    //     return 'indigo lighten-1'
+    //   } else if (this.items.text === "자기계발") {
+    //     return 'purple lighten-1'
+    //   } else {
+    //     return 'pink lighten-1'
+    //   }
+    // },
+  // }
 };
 </script>
 
@@ -193,8 +273,8 @@ export default {
   margin-top: 20px;
 }
 .v-chip{
-  color: green !important;
-  border-color: green !important;
+  color: #AED581 !important;
+  border-color: #AED581 !important;
 }
 
 .category-center {
@@ -214,7 +294,7 @@ export default {
 
 .tooltip .tooltip-content {
   visibility: hidden;
-  background-color: green;
+  background-color: #AED581;
   padding: 10px;
   margin-top: 10px;
   text-align: center;
@@ -232,7 +312,7 @@ export default {
   margin-left: -10px;
   border-width: 10px;
   border-style: solid;
-  border-color: green transparent transparent transparent;
+  border-color: #AED581 transparent transparent transparent;
 }
 
 .tooltip:hover .tooltip-content {

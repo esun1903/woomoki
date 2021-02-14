@@ -6,9 +6,8 @@
       v-model="e1">
     <v-stepper-header>
       <v-stepper-step
-        color="success"
+        color="light-green lighten-2"
         edit-icon="$complete"
-        
         :complete="e1 > 1"
         step="1"
       >
@@ -18,7 +17,7 @@
       <v-divider></v-divider>
 
       <v-stepper-step
-        color="success"
+        color="light-green lighten-2"
         edit-icon="$complete"
         
         :complete="e1 > 2"
@@ -30,7 +29,7 @@
       <v-divider></v-divider>
 
       <v-stepper-step
-        color="success"
+        color="light-green lighten-2"
         edit-icon="$complete"
         step="3"
         
@@ -54,16 +53,21 @@
 
         <div class="d-flex justify-end mb-1">
           <v-btn
-            color="success"
+            color="light-green lighten-2 white--text"
             @click="e1 = 2"
             :disabled="isSubmitCategory === false"
           >
             다음
           </v-btn>
 
-          <v-btn text>
-            취소
-          </v-btn>
+          <router-link to="/">
+            <v-btn 
+              text
+              class="ml-2 mr-2"
+              >
+              취소
+            </v-btn>
+          </router-link>
         </div>
 
       </v-stepper-content>
@@ -75,16 +79,21 @@
 
         <div class="d-flex justify-end mb-1">
           <v-btn
-            color="success"
+            color="light-green lighten-2 white--text"
             @click="e1 = 3"
             :disabled="BasicInfo.isSubmitBasicInfo === false"
           >
             다음
           </v-btn>
 
-          <v-btn text>
-            취소
-          </v-btn>
+            <router-link to="/">
+              <v-btn 
+                text
+                class="ml-2 mr-2"
+                >
+                취소
+              </v-btn>
+            </router-link>
 
           <v-btn 
             text
@@ -99,80 +108,29 @@
       <v-stepper-content step="3">
         <SeedCertificationImg @transferCertificationImg="receiveCertificationImg" class="pt-3 mb-5"></SeedCertificationImg>
         <SeedDate @transferDate="receiveDate"></SeedDate>
+        <SeedCertificationMonth @transferMonth="receiveMonth"></SeedCertificationMonth>
+        <SeedCertificationDay @transferDay="receiveDay"></SeedCertificationDay>
         <SeedPeople @transferPeople="receivePeople"></SeedPeople>
         <SeedDeposit @transferDeposit="receiveDeposit"></SeedDeposit>
         <SeedCheckbox @transferCheckbox="receiveCheckbox"></SeedCheckbox>
-        <!-- <SeedButton></SeedButton>
-
-        <v-row class="d-flex justify-end mb-5">
-          <v-btn
-            color="success"
-            :disabled="isSubmitContent === false"
-          >
-            생성
-          </v-btn>
-
-          <v-btn text>
-            취소
-          </v-btn>
-
-          <v-btn 
-            text
-            @click="e1 = 1"
-          >
-            뒤로가기
-          </v-btn>
-          
-        </v-row> -->
 
         <div class="text-end">
-          <v-bottom-sheet
-            v-model="sheet"
-            inset
-          >
-            <template v-slot:activator="{ on, attrs }">
-            
-              <v-btn
-                color="success"
-                v-bind="attrs"
-                v-on="on"
-                @click="InsertSeed"
-                :disabled="EtcInfo.isSubmitEtcInfo === false"
-              >생성
-              </v-btn>
-
-            </template>
-            <v-sheet
-              class="text-center"
-              height="200px"
-            >
-              <v-btn
-                class="mt-6"
-                text
-                color="error"
-                @click="sheet = !sheet"
-              >
-                닫기
-              </v-btn>
-              <div>
-                <v-icon 
-                  size="40" 
-                  color="red"
-                  class="mt-5 mb-5"
-                >fas fa-exclamation-triangle</v-icon>
-              </div>
-              <h3 class="my-3">
-                참여자가 있다면 중간에 씨앗을 없앨 수 없어요!
-              </h3>
-            </v-sheet>
-          </v-bottom-sheet>
-          <v-btn 
-            class="ma-2"
-            color="red lighten-3"
-            text
-            >
-            <router-link to="/">취소</router-link>
+          <v-btn
+            color="light-green lighten-2 white--text"
+            @click="InsertSeed"
+            :disabled="EtcInfo.isSubmitEtcInfo === false"
+          >생성
           </v-btn>
+
+          <router-link to="/">
+            <v-btn 
+              text
+              class="ml-2 mr-2"
+              >
+              취소
+            </v-btn>
+          </router-link>
+
           <v-btn 
             text
             @click="e1 = 2"
@@ -198,6 +156,8 @@ import SeedCategory from "./components/SeedCategory.vue"
 import SeedPeople from "./components/SeedPeople.vue"
 import SeedDeposit from "./components/SeedDeposit.vue"
 import SeedCertificationImg from "./components/SeedCertificationImg.vue"
+import SeedCertificationMonth from "./components/SeedCertificationMonth.vue"
+import SeedCertificationDay from "./components/SeedCertificationDay.vue"
 import SeedCheckbox from "./components/SeedCheckbox.vue"
 import axios from 'axios'
 
@@ -212,6 +172,8 @@ export default {
     SeedPeople,
     SeedDeposit,
     SeedCertificationImg,
+    SeedCertificationMonth,
+    SeedCertificationDay,
     SeedCheckbox
   },
   data: function () {
@@ -229,6 +191,8 @@ export default {
       dates: "",
       start_date: "",
       end_date: "",
+      month: "",
+      day: "",
       people: 0,
       joinDeposit: "",
       checkbox: false,
@@ -245,6 +209,8 @@ export default {
         isSubmit: {
           isCertificationImg: true,
           isDate: false,
+          isMonth: false,
+          isDay: false,
           isPeople: false,
           isjoinDeposit: false,
           isCheckbox: false,
@@ -266,6 +232,8 @@ export default {
         join_deposit: Number(this.joinDeposit),
         like_cnt: this.like_cnt,
         max_people: this.people,
+        day: this.day,
+        week: this.month,
         start_date: this.dates[0],
         sum_img: this.thumbnail,
         title: this.title,
@@ -330,6 +298,12 @@ export default {
     receiveDate: function (dates) {
       this.dates = dates
     },
+    receiveMonth: function (month) {
+      this.month = month
+    },
+    receiveDay: function (day) {
+      this.day = day
+    },
     receivePeople: function (people) {
       this.people = people
     },
@@ -387,6 +361,23 @@ export default {
         this.EtcInfo.isSubmit.isPeople = false
       }
 
+      // 몇 주
+      if (this.month > 0) {
+        this.EtcInfo.isSubmit.isMonth = true
+        // console.log("몇 주:", this.EtcInfo.isSubmit.isMonth)
+      } else {
+        this.EtcInfo.isSubmit.isMonth = false
+        console.log("몇 주:", this.EtcInfo.isSubmit.isMonth)
+      }
+
+      // 며칠
+      if (this.day > 0) {
+        this.EtcInfo.isSubmit.isDay = true
+        console.log("며칠:", this.EtcInfo.isSubmit.isDay)
+      } else {
+        this.EtcInfo.isSubmit.isDay = false
+      }
+
       // 참여 금액 검사
       if (this.joinDeposit.length <= 5 && /^[0-9]+$/.test(this.joinDeposit)) {
         this.EtcInfo.isSubmit.isjoinDeposit = true
@@ -427,6 +418,12 @@ export default {
       this.checkFormEtc();
     },
     dates: function() {
+      this.checkFormEtc();
+    },
+    month: function() {
+      this.checkFormEtc();
+    },
+    day: function() {
       this.checkFormEtc();
     },
     people: function() {

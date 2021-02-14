@@ -3,7 +3,7 @@
 
     <v-row class="d-flex justify-space-around align-center">
       
-      <v-col class="d-flex justify-start">
+      <v-col class="d-flex justify-center">
         <v-avatar
           color="grey lighten-3"
           width="250"
@@ -41,7 +41,7 @@
             </v-btn>
           </v-col>
 
-          <v-col v-if="isMyPage === true">
+          <v-col class="d-flex justify-center" v-if="isMyPage === true">
             <router-link to="/comparepwd">
               <v-icon>fas fa-user-cog</v-icon>
             </router-link>    
@@ -49,8 +49,20 @@
         </v-row>
 
         <v-row>
+          <v-col v-if="UserInfo.levelnum <= 10">
+            <div>🥉  Lv. {{ this.UserInfo.levelnum }} {{ this.UserInfo.leveltitle }}</div>
+          </v-col>
+          <v-col v-if="UserInfo.levelnum > 10 && UserInfo.levelnum <= 20">
+            <div>🥈  Lv. {{ this.UserInfo.levelnum }} {{ this.UserInfo.leveltitle }}</div>
+          </v-col>
+          <v-col  v-if="UserInfo.levelnum > 30">
+            <div>🥇  Lv. {{ this.UserInfo.levelnum }} {{ this.UserInfo.leveltitle }}</div>
+          </v-col>
+        </v-row>
+
+        <v-row>
           <v-col>
-            <div>👩‍💼 Lv. {{ this.UserInfo.levelnum }} {{ this.UserInfo.leveltitle }}</div>
+            <div>{{ this.UserInfo.introduce }}</div>
           </v-col>
         </v-row>
 
@@ -59,17 +71,12 @@
           <FollowerList :isMyPage="isMyPage"></FollowerList>
           <FollowingList :isMyPage="isMyPage"></FollowingList>
         </v-row>
-        
-        <v-row>
-          <v-col>
-            <div>{{ this.UserInfo.introduce }}</div>
-          </v-col>
-        </v-row>
+      
 
       </v-col>
     </v-row>
     
-    <v-row class="mt-0">
+    <v-row class="mt-1">
       <ChallengeResults></ChallengeResults>
     </v-row>
   </v-container>

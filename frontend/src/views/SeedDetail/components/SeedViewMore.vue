@@ -7,17 +7,20 @@
     </v-btn>
     <v-dialog
       v-model="dialog"
-      max-width="290"
+      max-width="300"
     >
       <v-card>
-        <v-card-title>
+        <v-card-title class="headline">
+          더보기
         </v-card-title>
 
-        <v-btn text>
-          <h3>
-          신고하기
-          </h3>
-        </v-btn>
+        <v-card-text>
+          <v-btn text class="m-5">
+            <h3>
+            신고하기
+            </h3>
+          </v-btn>
+        </v-card-text>
 
         <v-card-actions>
           <v-spacer></v-spacer>

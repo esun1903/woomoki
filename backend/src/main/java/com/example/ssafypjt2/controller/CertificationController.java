@@ -86,6 +86,8 @@ public class CertificationController {
 	}
 
 
+	//챌린지id , user_id 를 받으면 -> 현재의 챌린지를 알려줌
+
 
 	
 }

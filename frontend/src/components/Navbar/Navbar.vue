@@ -317,7 +317,7 @@ a:-webkit-any-link {
 
 .nickname {
   font: bold; 
-  color: greenyellow;
+  color: #AED581;
 }
 
 .v-dialog__content{

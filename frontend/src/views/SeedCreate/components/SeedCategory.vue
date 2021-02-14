@@ -1,31 +1,13 @@
 <template>
   <v-container>
     <v-btn-toggle
+      value="test"
       v-model="category"
       class="d-flex justify-center flex-wrap"
       >
-          <v-btn
-            :value="lifestyle"
-            width="10vw"
-            height="10vw"
-            color="grey lighten-5"
-            class="ma-2"
-            :ripple="false"
-            @click="clickLifestyle"
-          >
-            <div>
-              <v-icon 
-                size="3vw"
-                color="orange lighten-1"
-              >
-                fas fa-utensils
-              </v-icon>
-              <h2 class="category-font">생활습관</h2>
-            </div>
-          </v-btn>
         
           <v-btn
-            :value="health"
+            value="health"
             width="10vw"
             height="10vw"
             color="grey lighten-5"
@@ -43,6 +25,26 @@
               <h2 class="category-font">건강</h2>
             </div>
         
+          </v-btn>
+          
+          <v-btn
+            value="lifestyle"
+            width="10vw"
+            height="10vw"
+            color="grey lighten-5"
+            class="ma-2"
+            :ripple="false"
+            @click="clickLifestyle"
+          >
+            <div>
+              <v-icon 
+                size="3vw"
+                color="orange lighten-1"
+              >
+                fas fa-utensils
+              </v-icon>
+              <h2 class="category-font">생활습관</h2>
+            </div>
           </v-btn>
 
           <v-btn
@@ -134,14 +136,15 @@ export default {
   name: "SeedCategory",
   data: function () {
     return {
-      lifestyle: "lifestyle",
       health: "health",
+      lifestyle: "lifestyle",
       book: "book",
       assets: "assets",
       grown: "grown",
       hobby: "hobby",
       category: undefined,
       isSubmitCategory: false,
+      test: false
     }
   },
   methods: {
@@ -160,6 +163,7 @@ export default {
       //   isSubmit: this.isSubmitCategory,
       //   category: this.lifestyle
       // }
+      console.log(this.test)
       this.$emit('transferLifestyle', this.isSubmitCategory)
     },
     clickHealth: function () {
