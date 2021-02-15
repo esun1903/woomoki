@@ -11,7 +11,6 @@
 
           <v-text-field
             color="light-green lighten-2"
-            @click="test"
             :value="UserInfo.nickname"
             label="아이디"
             readonly
@@ -53,7 +52,6 @@
               :counter="11"
               :error-messages="errors"
               label="핸드폰 번호(-없이 입력해주세요)"
-              required
               outlined
             ></v-text-field>
           </validation-provider>
@@ -69,7 +67,6 @@
               :error-messages="errors"
               label="새로운 비밀번호 입력"
               :type="showPass ? 'text' : 'password'"
-              required
               counter="12"
               outlined
             ></v-text-field>
@@ -86,7 +83,6 @@
               v-model="passwordConfirmation"
               :error-messages="errors"
               label="새로운 비밀번호 확인"
-              required
               :type="showPass ? 'text' : 'password'"
               counter="12"
               outlined
@@ -184,13 +180,6 @@ extend("regex", {
   message: "유효한 핸드폰 번호가 아닙니다"
 });
 
-// extend("originPassword", {
-//   message: "문자, 숫자, 특수 문자 포함 8자리 이상 12자리 이하로 입력해주세요",
-//   validate: value => {
-//     return /^.*(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[$@$!%*#?&]).*$/.test(value);
-//   }
-// });
-
 extend("newPassword", {
   message: "문자, 숫자, 특수 문자 포함 8자리 이상 12자리 이하로 입력해주세요",
   validate: value => {
@@ -224,13 +213,10 @@ export default {
       newPassword: "",
       passwordConfirmation: "",
       showPass: false,
-      checkbox: null
+      checkbox: null,
     };
   },
   methods: {
-    test: function () {
-      console.log("test입니다",this.UserInfo)
-    },
     originUserInfo: function() {
       const userNickname = this.$store.state.UserStore.user.nickname 
       axios.get(`http://localhost:8080/userPage/${userNickname}`)
@@ -270,7 +256,7 @@ export default {
       this.UserInfo = "",
       this.checkbox = null;
       this.$refs.observer.reset();
-    }
+    },
   },
   created() {
     this.originUserInfo()

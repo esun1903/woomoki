@@ -119,11 +119,18 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn
+        <!-- <v-btn
           :disabled="!selected.length"
           :loading="loading"
           color="light-green lighten-2"
           text
+          @click="sendFavoriteCategories"
+          >카테고리 저장</v-btn
+        > -->
+        <v-btn
+          :loading="loading"
+          color="light-green lighten-2"
+          class="white--text"
           @click="sendFavoriteCategories"
           >카테고리 저장</v-btn
         >
