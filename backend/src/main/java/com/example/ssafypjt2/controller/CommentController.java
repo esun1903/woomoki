@@ -43,13 +43,13 @@ public class CommentController {
         return commentService.commentShowList(certId);
     }
 
-    @PutMapping("/likeUpComment/{comId}")
-    public int likeUp(@PathVariable(value = "comId") int id) {
+    @PutMapping("/likeUpComment/{certId}")
+    public int likeUp(@PathVariable(value = "certId") int id) {
         return commentService.likeUp(id);
     }
 
-    @PutMapping("/likeDownComment/{comId}")
-    public int likeDown(@PathVariable(value = "comId") int id) {
+    @PutMapping("/likeDownComment/{certId}")
+    public int likeDown(@PathVariable(value = "certId") int id) {
         return commentService.likeDown(id);
     }
 
