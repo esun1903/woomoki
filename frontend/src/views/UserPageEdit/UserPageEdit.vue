@@ -273,9 +273,4 @@ a {text-decoration: none;}
 .container-size {
   width: 40%;
 }
-
-.img-margin {
-  margin-top: 10vh;
-}
-
 </style>

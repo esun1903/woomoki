@@ -1,7 +1,7 @@
 <template>
 <v-app id="app">
   <Navbar></Navbar>
-  <v-main>
+  <v-main class="main">
       <router-view :key="$route.fullPath"></router-view>
   </v-main>
   <div class="loader">
@@ -45,6 +45,10 @@ export default {
 
 .loader {
   z-index: 5;
+}
+
+.main {
+  margin-top: 10vh;
 }
 
 </style>
