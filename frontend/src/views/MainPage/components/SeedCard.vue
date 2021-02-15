@@ -63,15 +63,17 @@ export default {
       this.$router.push({ name: 'SeedDetail', params: { seedId: val } })
     },
     getLikes: function () {
-      const seedId = {};
-      const seedId_num = this.seed.id
-      seedId["seedId"] = seedId_num;
+      const likeInfo = {};
+      const userId_num = this.user.user_id;
+      const seedId_num = this.seed.id;
+      likeInfo["userId"] = userId_num;
+      likeInfo["cngId"] = seedId_num;
       if (this.liked) {
-        axios.put(`http://127.0.0.1:8080/likeDownChallenge/${seedId_num}`, seedId )
+        axios.put(`http://127.0.0.1:8080/likeDownChallenge/${seedId_num}`, likeInfo )
         this.liked = false
         
       } else {
-        axios.put(`http://127.0.0.1:8080/likeUpChallenge/${seedId_num}`, seedId )
+        axios.put(`http://127.0.0.1:8080/likeUpChallenge/${seedId_num}`, likeInfo )
         this.liked = true
       }
     },
