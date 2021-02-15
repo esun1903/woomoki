@@ -23,9 +23,9 @@ public interface CertificationDao {
 			" WHERE cert.id = #{certId} ")
 	public CertificationDto certificationDetail(@Param("certId") int certId);
 
-	@Insert(" Insert INTO certification ( cng_id, img, content, create_date , result, user_id, like_cnt)"
+	@Insert(" Insert INTO certification ( cng_id, img, content, create_date , result, user_id, like_cnt , week, day )"
 			+ " VALUES ( #{certificationDto.cng_id}, #{certificationDto.img}, "
-			+ " #{certificationDto.content}, now(), #{certificationDto.result}, #{certificationDto.user_id}, '0' ) ")
+			+ " #{certificationDto.content}, now(), #{certificationDto.result}, #{certificationDto.user_id}, '0' ,#{certificationDto.week} , #{certificationDto.day}  ) ")
 	public int certificationInsert(@Param("certificationDto")CertificationDto certificationDto);
 
 	@Update("Update certification SET "
