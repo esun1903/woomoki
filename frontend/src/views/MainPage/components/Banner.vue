@@ -36,14 +36,14 @@ export default {
   .agile__list{
     .agile__track{
       .agile__slides{
-          .slide{
-            display: block;
-            object-fit: cover;
-            margin-top:0%;
-            img{
-              width: 100%;
-              height: auto;
-            }
+        .slide{
+          display: block;
+          object-fit: cover;
+          margin-top:0;
+          img{
+            width: 100%;
+            height: auto;
+          }
         }
       }
     }

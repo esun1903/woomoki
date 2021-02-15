@@ -46,7 +46,7 @@ const UserStore = {
     }
   }, 
   actions: {
-      login(context, user){
+    login(context, user){
       console.log(SERVER_URL);
       return axios
         .post(`${SERVER_URL}/login`, user)
@@ -88,6 +88,7 @@ const UserStore = {
         "auth-token"
       ] = undefined;
       commit('LOGOUT')
+      router.push({ name: 'Login' });
     },
     // compareId(context, compareId) {
     //   context.commit("COMPARE", compareId);

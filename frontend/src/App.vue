@@ -59,8 +59,8 @@ export default {
   z-index: 5;
 }
 
-.main-css {
-  margin-top: 10vh;
+.main {
+  margin-top: 7.1vh;
 }
 
 .font-app {

@@ -79,18 +79,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container{
-  padding-bottom: 0;
-  .selectBoxes {
-    display: flex;
-    justify-content: flex-end;
-    padding-top: 2%;
-    .selectBox1{
-      margin-right: 0.5%;
-      width: 10%;
-    }
-    .selectBox2{
-      width: 10%;
+div{
+  .container{
+    padding-bottom: 0;
+    .selectBoxes {
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 2%;
+      .selectBox1{
+        margin-right: 0.5%;
+        width: 10%;
+      }
+      .selectBox2{
+        width: 10%;
+      }
     }
   }
 }
