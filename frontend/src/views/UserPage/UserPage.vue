@@ -166,8 +166,5 @@ export default {
   font-size: 1.5vw;
 }
 
-.user-margin {
-  margin-top: 10vh;
-}
 
 </style>

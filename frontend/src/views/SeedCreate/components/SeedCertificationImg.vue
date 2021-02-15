@@ -1,21 +1,21 @@
 <template>
   <v-hover>
     <template v-slot:default="{ hover }"> 
-      <!-- <v-avatar
+      <v-avatar
           tile
           :class="`rounded-lg`"
           width="100%"
-          height="450px"
+          height="100%"
           max-width="100%"
           max-height="100%"
-          color="grey lighten-3"
+          color="light-green lighten-2"
           class="cursor-img"
           @click="onClickImageUpload"
-          > -->
+          >
           <v-img
             :class="`rounded-lg`"
             width="100%"
-            height="450px"
+            height="100%"
             max-width="100%"
             max-height="100%"
             v-if="imageUrl"
@@ -42,7 +42,7 @@
             <v-btn>인증 예시 사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
           </v-overlay>
         </v-fade-transition> -->
-      <!-- </v-avatar> -->
+      </v-avatar>
     </template>
   </v-hover>
 </template>

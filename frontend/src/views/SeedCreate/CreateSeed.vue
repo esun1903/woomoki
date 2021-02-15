@@ -72,7 +72,7 @@
       </v-stepper-content>
 
       <v-stepper-content step="2">
-        <SeedThumbnail @transferThumbnail="receiveThumbnail" class="pt-3 mb-5"></SeedThumbnail>
+        <SeedThumbnail @transferThumbnail="receiveThumbnail" class="mb-5"></SeedThumbnail>
         <SeedTitle @transferTitle="receiveTitle"></SeedTitle>
         <SeedContent @transferContent="receiveContent"></SeedContent>
 
@@ -105,7 +105,7 @@
       </v-stepper-content>
 
       <v-stepper-content step="3">
-        <SeedCertificationImg @transferCertificationImg="receiveCertificationImg" class="pt-3 mb-5"></SeedCertificationImg>
+        <SeedCertificationImg @transferCertificationImg="receiveCertificationImg" class="mb-5"></SeedCertificationImg>
         <SeedCertificationWeek @transferWeek="receiveWeek"></SeedCertificationWeek>
         <SeedCertificationDay @transferDay="receiveDay"></SeedCertificationDay>
         <SeedDate @transferDate="receiveDate"></SeedDate>

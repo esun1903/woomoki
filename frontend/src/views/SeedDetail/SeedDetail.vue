@@ -1,6 +1,5 @@
 <template>
   <v-container>
-
     <v-row>
       <SeedThumbnail></SeedThumbnail>
     </v-row>
@@ -237,4 +236,9 @@ export default {
   .content-color {
     color: black;
   }
+
+  .container-size {
+    margin-top: 10vh;
+  }
+
 </style>
