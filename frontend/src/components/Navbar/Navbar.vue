@@ -45,7 +45,7 @@
             width="25%"
           >
             <template v-slot:activator="{ on, attrs }">
-              <v-btn icon v-bind="attrs" v-on="on" class="btn">
+              <v-btn @click="getSeeds" icon v-bind="attrs" v-on="on" class="btn">
                 <v-icon>mdi-cart</v-icon>
               </v-btn>
             </template>
@@ -165,26 +165,6 @@ export default {
       types:['알림','요청'],	
     };
   },
-  created() {
-    const userId_num = this.user.user_id
-    console.log('씨아아앗')
-    console.log(userId_num)
-    const userId = {};
-    userId["userid"] = userId_num
-    axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId_num}`, userId)
-      .then((res) => {
-        const seeds = res.data
-        seeds.sort(function(a,b) {
-          return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
-        })
-        this.seeds = seeds
-        console.log("씨앗 잘 담겼멘?")
-        console.log(this.seeds)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  },
   computed:  {
     ...mapState('UserStore', ['user']),
     CheckUserInfo () {
@@ -207,6 +187,26 @@ export default {
     },
   }, 
   methods: {
+    getSeeds: function () {
+      const userId_num = this.user.user_id
+      console.log('씨아아앗')
+      console.log(userId_num)
+      const userId = {};
+      userId["userid"] = userId_num
+      axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId_num}`, userId)
+        .then((res) => {
+          const seeds = res.data
+          seeds.sort(function(a,b) {
+            return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
+          })
+          this.seeds = seeds
+          console.log("씨앗 잘 담겼멘?")
+          console.log(this.seeds)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
     goFeed: function () {
       this.$router.push({ name: 'Feed' }) 
     },
@@ -221,21 +221,21 @@ export default {
       axios.get(`http://127.0.0.1:8080/userPage/DeletefavChallenge/${userId_num}/${cgId_num}`)
         .then(() => {
           console.log('스크랩취소성공')
-          this.deleteScrappedSeed(cgId_num)
+          this.getSeed()
         })
         .catch((err) => {
           console.log(err)
           console.log('스크랩취소실패')
         })
     },
-    deleteScrappedSeed(val) {
-      const currentSeeds = this.seeds
-      for (var i in currentSeeds) {
-        if (currentSeeds[i]["id"] === val) {
-          this.seeds.splice(i,1)
-        }
-      }
-    },
+    // deleteScrappedSeed(val) {
+    //   const currentSeeds = this.seeds
+    //   for (var i in currentSeeds) {
+    //     if (currentSeeds[i]["id"] === val) {
+    //       this.seeds.splice(i,1)
+    //     }
+    //   }
+    // },
     NotificationConfirm: function(id) {
       const notificationId = id;
        axios.put(`http://127.0.0.1:8080/notificationConfirm/${notificationId}`)
@@ -260,6 +260,7 @@ export default {
   mounted (){
   this.NotificationList();
   },
+
 };
 </script>
 
@@ -361,7 +362,7 @@ a:-webkit-any-link {
                 display: flex;
                 .title{
                   font-size: 0.1rem;
-                  margin-right: 3vw;
+                  margin-left: 1%;
                 }
               }
             }
