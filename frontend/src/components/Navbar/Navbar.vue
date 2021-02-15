@@ -17,7 +17,7 @@
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" class="btn">
-                <v-icon>mdi-lead-pencil</v-icon>
+                <v-icon color="light-green lighten-2">mdi-lead-pencil</v-icon>
               </v-btn>
             </template>
             <v-list>
@@ -66,7 +66,7 @@
                       </div>
                     </v-list-item-content>
                     <v-list-item-action>
-                      <v-btn color="#AED581" @click="goDeleteScrap(seed.id)">삭제하기</v-btn>   
+                      <v-btn color="#AED581" class="white--text" @click="goDeleteScrap(seed.id)">삭제하기</v-btn>   
                     </v-list-item-action>
                   </v-list-item>
                   <v-divider></v-divider>   
@@ -196,6 +196,7 @@ export default {
       axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId_num}`, userId)
         .then((res) => {
           const seeds = res.data
+          console.log(seeds)
           seeds.sort(function(a,b) {
             return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
           })
