@@ -92,112 +92,91 @@ export default {
     }
   },
   methods: {
-    async getSeedCertification () {
+    async getSeedCertification() {
       const seedId = this.seedId
       console.log(this.seedId)
       await axios.get(`http://127.0.0.1:8080/sameChallengeCertification/${seedId}`)
         .then((res) => {
           this.total = res.data
-          console.log("인증:",res.data)
+          // console.log("인증:",res.data)
         })
 
       // 내가 만든 씨앗인지 구분
       const SeedInfo = await axios.get(`http://127.0.0.1:8080/detailChallenge/${this.seedId}`)
       this.SeedInfo = SeedInfo.data
-      console.log("보내기 테스트",this.SeedInfo)
-      const SeedUserId = this.$store.state.UserStore.user.user_id 
+      console.log("보내기 테스트", this.SeedInfo)
+      const SeedUserId = this.$store.state.UserStore.user.user_id
       const UserId = this.SeedInfo.user_id
       if (SeedUserId === UserId) {
         this.isMySeed = true;
       }
     },
-    methods: {
-      async getSeedCertification() {
-        const seedId = this.seedId
-        console.log(this.seedId)
-        await axios.get(`http://127.0.0.1:8080/sameChallengeCertification/${seedId}`)
-          .then((res) => {
-            this.total = res.data
-            // console.log("인증:",res.data)
-          })
-
-        // 내가 만든 씨앗인지 구분
-        const SeedInfo = await axios.get(`http://127.0.0.1:8080/detailChallenge/${this.seedId}`)
-        this.SeedInfo = SeedInfo.data
-        console.log("보내기 테스트", this.SeedInfo)
-        const SeedUserId = this.$store.state.UserStore.user.user_id
-        const UserId = this.SeedInfo.user_id
-        if (SeedUserId === UserId) {
-          this.isMySeed = true;
-        }
-      },
-      infiniteHandler($state) {
-        setTimeout(() => {
-          if (this.total.length) {
-            // console.log("옮겨지기 전 cards: ", this.cards)
-            // console.log("옮겨지기 전 total: ", this.total)
-            this.cards.push(...this.total.splice(0, 3))
-            console.log("옮겨진 후 cards: ", this.cards)
-            // console.log("옮겨진 후 total: ", this.total)
-            $state.loaded();
-          } else {
-            $state.complete();
-          }
-        }, 1000)
-      },
-      CheckisBasicInfo: function (item) {
-        if (item === "씨앗 정보") {
-          this.isBasicInfo = true
+    infiniteHandler($state) {
+      setTimeout(() => {
+        if (this.total.length) {
+          // console.log("옮겨지기 전 cards: ", this.cards)
+          // console.log("옮겨지기 전 total: ", this.total)
+          this.cards.push(...this.total.splice(0, 3))
+          console.log("옮겨진 후 cards: ", this.cards)
+          // console.log("옮겨진 후 total: ", this.total)
+          $state.loaded();
         } else {
-          this.isBasicInfo = false
+          $state.complete();
         }
-        console.log(this.isBasicInfo)
-      },
-      JoinSeed: function () {
-        const notification = {
-          userId: this.$store.state.UserStore.user.user_id,
-          cngUserId: this.SeedInfo.user_id,
-          cngId: this.seedId
-        }
-        axios.post(
-            `http://127.0.0.1:8080/notificationRequestChallenge/${notification.userId}/${notification.cngUserId}/${notification.cngId}/reqChallenge`,
-            notification)
-          .then((res) => {
-            console.log(res)
-          })
-      },
-      detailCertification: function (certid) {
-        this.$router.push({
-          name: 'CertificationDetail',
-          params: {
-            cngId: this.seedId,
-            certId: certid,
-            cngUserId: this.SeedInfo.user_id,
-          }
-        });
+      }, 1000)
+    },
+    CheckisBasicInfo: function (item) {
+      if (item === "씨앗 정보") {
+        this.isBasicInfo = true
+      } else {
+        this.isBasicInfo = false
       }
+      console.log(this.isBasicInfo)
     },
-    created() {
-      this.getSeedCertification();
+    JoinSeed: function () {
+      const notification = {
+        userId: this.$store.state.UserStore.user.user_id,
+        cngUserId: this.SeedInfo.user_id,
+        cngId: this.seedId
+      }
+      axios.post(
+          `http://127.0.0.1:8080/notificationRequestChallenge/${notification.userId}/${notification.cngUserId}/${notification.cngId}/reqChallenge`,
+          notification)
+        .then((res) => {
+          console.log(res)
+        })
     },
-    mounted() {
-      $(function () {
-        var $w = $(window),
-          footerHei = $('footer').outerHeight(),
-          $banner = $('#banner');
+    detailCertification: function (certid) {
+      this.$router.push({
+        name: 'CertificationDetail',
+        params: {
+          cngId: this.seedId,
+          certId: certid,
+          cngUserId: this.SeedInfo.user_id,
+        }
+      });
+    }
+  },
+  created() {
+    this.getSeedCertification();
+  },
+  mounted() {
+    $(function () {
+      var $w = $(window),
+        footerHei = $('footer').outerHeight(),
+        $banner = $('#banner');
 
         $w.on('scroll', function () {
 
-          var sT = $w.scrollTop();
-          var val = $(document).height() - $w.height() - footerHei;
+        var sT = $w.scrollTop();
+        var val = $(document).height() - $w.height() - footerHei;
 
-          if (sT + 164 >= val) {
-            $banner.addClass('on')
-          } else
-            $banner.removeClass('on')
-        });
+        if (sT + 164 >= val) {
+          $banner.addClass('on')
+        } else
+          $banner.removeClass('on')
       });
-    }
+    });
   }
 }
 </script>
