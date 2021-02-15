@@ -24,7 +24,7 @@ public interface FavChallengeDao {
     public List<ChallengeDto> main_favChallege2(@Param("cng_id") int cng_id);
 
 
-    @Select("SELECT cha.id , cha.category_id, cha.user_id, cha.title, cha.title, cha.content, cha.sum_img, cha.start_date, cha.end_date, cha.cert_count, cha.max_people, cha.example_img, cha.join_deposit, cha.like_cnt FROM fav_challenge AS joy JOIN challenge AS cha ON joy.user_id = #{user_id} AND joy.cng_id = cha.id ")
+    @Select("SELECT cha.id , cha.category_id, cha.user_id, cha.title, cha.title, cha.content, cha.sum_img, cha.start_date, cha.end_date, cha.cert_count, cha.max_people, cha.example_img, cha.join_deposit, cha.like_cnt , cha.week , cha.day  FROM fav_challenge AS joy JOIN challenge AS cha ON joy.user_id = #{user_id} AND joy.cng_id = cha.id ")
     public List<ChallengeDto> main_LikefavChallege(@Param("user_id") int user_id);
     /*
     @Update("UPDATE user SET PASSWORD = #{user_password} WHERE id = #{user_id}")
