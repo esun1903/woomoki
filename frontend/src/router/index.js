@@ -21,7 +21,6 @@ import Feed from "@/views/Feed/Feed.vue";
 import SeedCreated from "@/views/SeedList/SeedCreated.vue"
 import SeedFail from "@/views/SeedList/SeedFail.vue"
 import SeedJoin from "@/views/SeedList/SeedJoin.vue"
-import SeedScrap from "@/views/SeedList/SeedScrap.vue"
 import SeedSuccess from "@/views/SeedList/SeedSuccess.vue"
 import SeedDetail from "@/views/SeedDetail/SeedDetail.vue"
 import SearchedPage from "@/views/SearchedPage/SearchedPage.vue"
@@ -156,11 +155,6 @@ const routes = [
     path: '/seedJoin',
     name: 'SeedJoin',
     component: SeedJoin,        
-  },
-  {
-    path: '/seedScrap',
-    name: 'SeedScrap',
-    component: SeedScrap,        
   },
   {
     path: '/seedSuccess',

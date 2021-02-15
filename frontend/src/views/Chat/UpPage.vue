@@ -15,6 +15,16 @@ export default {
     }
   },
   mounted() {
+
+    $(window).scroll(function () {
+      var height = $(document).scrollTop();
+      if(height < 500) {
+        $('#topBtn').hide()
+      } else {
+        $('#topBtn').show()
+      }
+    }); 
+    
     var topEle = $('#topBtn');
     var delay = 500;
     topEle.on('click', function() {

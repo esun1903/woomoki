@@ -65,30 +65,50 @@
 </template>
 
 <script>
-  import $ from 'jquery'
-  import axios from "axios"
-  import SeedThumbnail from "./components/SeedThumbnail"
-  import SeedBasicInfo from "./components/SeedBasicInfo"
-  import SeedCertification from "./components/SeedCertification"
+import $ from 'jquery'
+import axios from "axios"
+import SeedThumbnail from "./components/SeedThumbnail"
+import SeedBasicInfo from "./components/SeedBasicInfo"
+import SeedCertification from "./components/SeedCertification"
 
-  export default {
-    name: "SeedDetail",
-    components: {
-      SeedThumbnail,
-      SeedBasicInfo,
-      SeedCertification
-    },
-    data: function () {
-      return {
-        tab: null,
-        items: ["씨앗 정보", "보살핌 후기"],
-        SeedInfo: {},
-        seedId: this.$route.params.seedId,
-        total: [],
-        cards: [],
-        isBasicInfo: true,
-        isMySeed: false,
-        isLogin: this.$store.state.UserStore.isLogin,
+export default {
+  name: "SeedDetail",
+  components: {
+    SeedThumbnail,
+    SeedBasicInfo,
+    SeedCertification
+  },
+  data: function () {
+    return {
+      tab: null,
+      items: ["씨앗 정보", "보살핌 후기"],
+      SeedInfo: {},
+      seedId: this.$route.params.seedId,
+      total: [],
+      cards: [],
+      isBasicInfo: true,
+      isMySeed: false,
+      isLogin: this.$store.state.UserStore.isLogin,
+    }
+  },
+  methods: {
+    async getSeedCertification () {
+      const seedId = this.seedId
+      console.log(this.seedId)
+      await axios.get(`http://127.0.0.1:8080/sameChallengeCertification/${seedId}`)
+        .then((res) => {
+          this.total = res.data
+          console.log("인증:",res.data)
+        })
+
+      // 내가 만든 씨앗인지 구분
+      const SeedInfo = await axios.get(`http://127.0.0.1:8080/detailChallenge/${this.seedId}`)
+      this.SeedInfo = SeedInfo.data
+      console.log("보내기 테스트",this.SeedInfo)
+      const SeedUserId = this.$store.state.UserStore.user.user_id 
+      const UserId = this.SeedInfo.user_id
+      if (SeedUserId === UserId) {
+        this.isMySeed = true;
       }
     },
     methods: {
