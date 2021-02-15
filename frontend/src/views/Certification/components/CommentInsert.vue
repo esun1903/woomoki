@@ -16,7 +16,9 @@
         components: {},
         directives: {},
         data() {
-            return {};
+            return {
+                comment: null,
+            };
         },
         mounted() {
 

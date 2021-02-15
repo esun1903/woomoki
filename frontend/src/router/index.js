@@ -109,13 +109,13 @@ const routes = [
     component: CertificationInsert,        
   },
   {
-    path: '/certificationDetail/:cngId?/:certId?',
+    path: '/certificationDetail/:cngUserId?/:cngId?/:certId?',
     name: 'CertificationDetail',
     component: CertificationDetail,    
     props: true        
   },
   {
-    path: '/certificationUpdate/:cngId?/:certId?',
+    path: '/certificationUpdate/:cngUserId?/:cngId?/:certId?',
     name: 'CertificationUpdate',
     component: CertificationUpdate,        
   },
