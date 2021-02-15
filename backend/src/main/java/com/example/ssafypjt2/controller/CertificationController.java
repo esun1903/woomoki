@@ -26,6 +26,7 @@ public class CertificationController {
 	@GetMapping("/detailCertification/{certId}")
 	public CertificationDto certificationDetail (@PathVariable(value = "certId") int id) {
 		CertificationDto result = certificationService.certificationDetail(id);
+		System.out.println(result);
 		return result;
 	}
 
@@ -50,6 +51,7 @@ public class CertificationController {
 
 	@GetMapping("/allCertification")
 	public  List<CertificationDto> certificationAllList(){
+		System.out.println("여기왔다.");
 		return certificationService.certificationAllList();
 
 	}
@@ -68,16 +70,15 @@ public class CertificationController {
 		return certificationService.userCrtListSort(userId, cngId);
 	}
 
-	@PutMapping("/likeUpCertification/{cngId}")
-	public int likeUp ( @PathVariable(value = "cngId") int id) {
+	@PutMapping("/likeUpCertification/{certId}")
+	public int likeUp ( @PathVariable(value = "certId") int id) {
 		return certificationService.likeUp(id);
 	}
 
-	@PutMapping("/likeDownCertification/{cngId}")
-	public int likeDown ( @PathVariable(value = "cngId") int id) {
+	@PutMapping("/likeDownCertification/{certId}")
+	public int likeDown ( @PathVariable(value = "certId") int id) {
 		return certificationService.likeDown(id);
 	}
-
 
 	@GetMapping("/searchWordCert/{keyword}")
 	public  List<CertificationDto> searchWordCert(@PathVariable(value = "keyword") String keyword){

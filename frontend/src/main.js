@@ -8,15 +8,15 @@ import axios from "axios";
 import firebase from 'firebase';
 import VueApexCharts from 'vue-apexcharts';
 import "./common/filters";
-import Carousel3d from 'vue-carousel-3d';
-import VueGlide from 'vue-glide-js'
-import 'vue-glide-js/dist/vue-glide.css'
 import InfiniteLoading from "vue-infinite-loading";
 import { UserStore } from "./store/modules/UserStore"
+import VueSplide from '@splidejs/vue-splide';
 
-Vue.use(Carousel3d);
-Vue.use(VueGlide);
+Vue.use( VueSplide );
+
 Vue.config.productionTip = false;
+
+
 
 // apexcharts 사용
 Vue.use(VueApexCharts)

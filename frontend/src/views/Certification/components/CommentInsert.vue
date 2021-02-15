@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-textarea outlined v-model="comment" label="댓글"></v-textarea>
-        <div class="my-2">
+        <div id="insert-btn-div">
             <v-btn color="warning" id="insert-btn" @click="writeComment">
                 등록하기
             </v-btn>
@@ -16,7 +16,9 @@
         components: {},
         directives: {},
         data() {
-            return {};
+            return {
+                comment: null,
+            };
         },
         mounted() {
 
@@ -25,7 +27,7 @@
             writeComment() {
                 //  댓글 유효성 검사하기
 
-                const certId = this.$route.params.certid;
+                const certId = this.$route.params.certId;
 
                 const CommentForm = {
                     cert_id: certId,
@@ -53,5 +55,8 @@
 <style lang="scss" scoped>
     #insert-btn {
         float: right;
+    }
+    #insert-btn-div{
+        margin-bottom:5%;
     }
 </style>

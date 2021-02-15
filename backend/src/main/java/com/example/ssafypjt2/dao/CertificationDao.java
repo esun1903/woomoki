@@ -16,8 +16,11 @@ import com.example.ssafypjt2.dto.ChallengeDto;
 
 @Mapper
 public interface CertificationDao {
-	@Select(" SELECT cng_id, img, content, create_date , result, user_id, like_cnt "
-			+ " FROM certification WHERE id = #{certId} ")
+	@Select(" SELECT cert.id , cert.cng_id ,  cert.user_id , user.nickname, cng.title , cert.img, cert.content , cert.create_date , cert.result , cert.like_cnt " +
+			"FROM certification cert " +
+			"JOIN user ON cert.user_id = user.id " +
+			"JOIN challenge cng ON cert.cng_id = cng.id " +
+			"WHERE cert.id = #{certId} ")
 	public CertificationDto certificationDetail(@Param("certId") int certId);
 
 	@Insert("Insert INTO certification ( cng_id, img, content, create_date , result, user_id, like_cnt)"
@@ -41,11 +44,17 @@ public interface CertificationDao {
 	public int ceriticationDelete(@Param("certId")int certId);
 
 
-	@Select("SELECT * FROM certification")
+	@Select("SELECT cert.id , cert.cng_id ,  cert.user_id , user.nickname, cng.title , cert.img, cert.content , cert.create_date , cert.result , cert.like_cnt " +
+			"FROM certification cert " +
+			" JOIN user ON cert.user_id = user.id " +
+			" JOIN challenge cng ON cert.cng_id = cng.id  ")
 	public List<CertificationDto> certificationAllList();
 
-	@Select(" SELECT id, cng_id, img, content, create_date, result, user_id, like_cnt"
-			+ " FROM certification WHERE cng_id = #{cngId} ")
+	@Select(" SELECT cert.id , cert.cng_id ,  cert.user_id , user.nickname, cng.title , cert.img, cert.content , cert.create_date , cert.result , cert.like_cnt " +
+			"FROM certification cert " +
+			"JOIN user ON cert.user_id = user.id " +
+			"JOIN challenge cng ON cert.cng_id = cng.id " +
+			"WHERE cert.cng_id =  #{cngId} ")
 	public List<CertificationDto> sameChallengeCrtList(@Param("cngId")int cngId);
 
 	@Select(" SELECT id, cng_id, img, content, create_date , result, user_id, like_cnt"

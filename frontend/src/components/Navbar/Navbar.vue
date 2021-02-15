@@ -4,13 +4,15 @@
         <router-link to="/" class="router">
           <v-img 
             width="4vw"
-            class="mt-3"
             :src="require('@/assets/images/logo.png')"
           ></v-img>
         </router-link>
         
         <SearchBar/>
-        <div v-if="getCheckLogin">안녕하세요, <span class="nickname">{{this.user.nickname}}</span>님</div>
+        <!-- <div v-if="getCheckLogin">
+          안녕하세요, 
+          <span class="nickname">{{ this.user.nickname }}</span>님
+        </div> -->
         <div class="btn-group">
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
@@ -32,9 +34,46 @@
             </v-list>
           </v-menu>
 
-          <v-btn icon class="btn">
-            <v-icon>mdi-cart</v-icon>
+          <v-btn icon class="btn" @click="goFeed">
+            <v-icon>fas fa-user-friends</v-icon>
           </v-btn>
+
+          <v-dialog
+            class="scrap-dialog"
+            scrollable
+            width="25%"
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn @click="getSeeds" icon v-bind="attrs" v-on="on" class="btn">
+                <v-icon>mdi-cart</v-icon>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-title>장바구니에 담겨있는 씨앗이에요🌱</v-card-title>
+              <v-divider></v-divider>
+              <v-card-text>
+                <v-list v-for="(seed, index) in seeds" :key="index">
+                  <v-list-item>
+                    <v-list-item-content>
+                      <div class="chips">
+                        <v-chip class="ma-2">{{ seed.week }}주</v-chip>
+                        <v-chip class="ma-2">주 {{ seed.day }}회</v-chip>
+                      </div>
+                      <div class="seed-info">
+                        <div class="title">
+                          <p>{{ seed.title }}</p>
+                        </div>
+                      </div>
+                    </v-list-item-content>
+                    <v-list-item-action>
+                      <v-btn color="#AED581" @click="goDeleteScrap(seed.id)">삭제하기</v-btn>   
+                    </v-list-item-action>
+                  </v-list-item>
+                  <v-divider></v-divider>   
+                </v-list>
+              </v-card-text>
+            </v-card>
+          </v-dialog>
 
           <v-btn icon class="btn" @click="notice = true">
             <v-icon>mdi-bell-ring</v-icon>
@@ -88,11 +127,15 @@
                 </v-list-item>
               </div>
               <div v-else>
-                <v-list-item @click="goLogin">
-                  <v-list-item-title>로그인</v-list-item-title>
+                <v-list-item>
+                  <router-link :to="{ name: 'Login'}">
+                    <v-list-item-title>로그인</v-list-item-title>
+                  </router-link>
                 </v-list-item>
-                <v-list-item @click="goSignup">
-                  <v-list-item-title>회원가입</v-list-item-title>
+                <v-list-item>
+                  <router-link :to="{ name: 'Signup'}">
+                    <v-list-item-title>회원가입</v-list-item-title>
+                  </router-link>
                 </v-list-item>
               </div>
 
@@ -117,43 +160,70 @@ export default {
       userInfo: [],
       userId: "",
       myNickname: "",
+      seeds: [],
       notice: false,
       currentTab: null,
       tabs: [],
       types:['알림','요청'],	
     };
   },
-  created() {
-    console.log(this.userInfo)
-  },
   computed:  {
+    ...mapState('UserStore', ['user']),
     CheckUserInfo () {
-      this.userInfo = this.$store.state.UserStore.user 
+      this.userInfo = this.user 
       return this.userInfo.nickname
     },
     getCheckLogin () {
       return this.$store.getters["UserStore/getCheckLogin"];
     },
-    ...mapState('UserStore', ['user']),
-  }, 
- watch: {
+  },  
+  watch: {
     tabs : function(){
-        if(!this.tabs.length)
-         this.NotificationList();
-    }
+      if(!this.tabs.length)
+        this.NotificationList();
+    },
+    seeds(newVal, oldVal) {
+      if (newVal!== oldVal) {
+        return newVal
+      }
+    },
   }, 
   methods: {
+    getSeeds: function () {
+      const userId_num = this.user.user_id
+      const userId = {};
+      userId["userid"] = userId_num
+      axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId_num}`, userId)
+        .then((res) => {
+          const seeds = res.data
+          seeds.sort(function(a,b) {
+            return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
+          })
+          this.seeds = seeds
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    goFeed: function () {
+      this.$router.push({ name: 'Feed' }) 
+    },
     goLogout: function () {
       this.$router.push({ name: 'Main' })
       this.$store.dispatch('UserStore/logOut')
     },
-    goLogin: function () {
-      this.$router.push({ name: 'Login' }) 
+    goDeleteScrap: function (val) {
+      const userId_num = this.user.user_id;
+      const cgId_num = val;
+      axios.get(`http://127.0.0.1:8080/userPage/DeletefavChallenge/${userId_num}/${cgId_num}`)
+        .then(() => {
+          this.getSeeds()
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     },
-    goSignup: function () {
-      this.$router.push({ name: 'Signup' })  
-    },
-     NotificationConfirm: function(id) {
+    NotificationConfirm: function(id) {
       const notificationId = id;
        axios.put(`http://127.0.0.1:8080/notificationConfirm/${notificationId}`)
         .then((response) => {
@@ -164,7 +234,7 @@ export default {
         });  
     },
     NotificationList(){
-      const userId =  this.$store.state.UserStore.user.user_id;
+      const userId =  this.user.user_id;
        axios.get(`http://127.0.0.1:8080/notificationList/${userId}`)
         .then((response) => {
           this.tabs = response.data;
@@ -177,20 +247,17 @@ export default {
   mounted (){
   this.NotificationList();
   },
+
 };
 </script>
 
 <style lang="scss" scoped>
 // 개발자 도구로 찍고 나서야 바꿀 수 있는 부분
-
-.notification{
- float:right;
-}
 .v-sheet.v-app-bar.v-toolbar:not(.v-sheet--outlined) {
   box-shadow: none;
 }
 .theme--light.v-app-bar.v-toolbar.v-sheet{
-  background: transparent;
+  background: white;
 }
 a:-webkit-any-link {
     color: black;
@@ -199,11 +266,11 @@ a:-webkit-any-link {
 }
 
 .btn-group {
-  padding-left: 20%;
+  padding-left: 17%;
 }
 
 .navbar-block {
-  margin-bottom: 5%;
+  margin-bottom: 1%;
 }
 
 .router {
@@ -211,6 +278,7 @@ a:-webkit-any-link {
 }
 
 .navbar {
+  height: 9vh !important;
   a {
     :-webkit-any-link {
     color: black;
@@ -238,5 +306,66 @@ a:-webkit-any-link {
 .nickname {
   font: bold; 
   color: #AED581;
+}
+
+.v-dialog__content{
+  .v-dialog{
+    .v-card{
+      .v-card__title{
+        display: flex;
+        justify-content: center;
+        font-size: 1.1rem;
+        font-weight: bold;
+      }
+      .v-card__text{
+        height: 30vh;
+        padding: 2% 1% 2% 1%;
+      }
+        .v-list{
+          .v-list-item{
+            height: 2vh;
+            padding: 0 2%;
+            margin-bottom: 1%;
+            .v-list-item__content{
+              display: flex;
+              justify-content:space-around;
+              .chips{
+                display: flex;
+                justify-content: flex-start;
+                .v-chip{
+                  width: 3vw;
+                  height: 2vh;
+                  margin: 1% !important;
+                  display: flex;
+                  justify-content: center;
+                  font-size:0.7rem;
+                  .v-chip___content{
+                    font-size: 0.5rem;
+                  }
+                }
+              }
+              .seed-info{
+                .title{
+                  margin-left: 1%;
+                  p{
+                    font-size: 1.1rem;
+                  }
+                }
+              }
+            }
+            .v-list-item__action{
+              .v-btn{
+                width: 4vw;
+                height: 3vh;
+                font-size: 0.8rem;
+              }
+            }
+          }
+          .v-divider {
+            margin: 1% 0;
+          }
+        }
+    }
+  }
 }
 </style>

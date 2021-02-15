@@ -2,71 +2,78 @@
   <v-container class="container-size">
     <v-row>
       <v-text-field
+        color="light-green lighten-2"
+        clear-icon="fas fa-times"
         v-model="SeedInfo.sum_img"
-        solo
+        outlined
         label="썸네일"
         clearable
       ></v-text-field>
     </v-row>
     <v-row>
       <v-text-field
+        color="light-green lighten-2"
         v-model="SeedInfo.title"
-        solo
+        outlined
         label="제목"
         readonly
       ></v-text-field>
     </v-row>
     <v-row>
       <v-text-field
+        color="light-green lighten-2"
+        clear-icon="fas fa-times"
         v-model="SeedInfo.content"
-        solo
+        outlined
         label="내용"
         clearable
       ></v-text-field>
     </v-row>
     <v-row>
       <v-text-field
+        color="light-green lighten-2"
         v-model="SeedInfo.example_img"
-        solo
+        outlined
         label="예시 이미지"
         clearable
       ></v-text-field>
     </v-row>
     <v-row>
       <v-text-field
+        suffix="원"
+        color="light-green lighten-2"
         v-model="SeedInfo.join_deposit"
-        solo
+        outlined
         label="참여 금액"
         readonly
       ></v-text-field>
     </v-row>
     <v-row>
       <v-text-field
+        suffix="명"
+        color="light-green lighten-2"
+        clear-icon="fas fa-times"
         v-model="SeedInfo.max_people"
-        solo
+        outlined
         label="최대 인원"
         clearable
       ></v-text-field>
     </v-row>
     <v-row>
       <v-text-field
-        v-model="SeedInfo.start_date"
-        solo
-        label="시작 날짜"
+        color="light-green lighten-2"
+        v-model="dateRangeText"
+        outlined
+        label="기간"
         readonly
       ></v-text-field>
     </v-row>
-    <v-row>
-      <v-text-field
-        v-model="SeedInfo.end_date"
-        solo
-        label="종료 날짜"
-        readonly
-      ></v-text-field>
-    </v-row>
-    <v-row>
+    <v-row class="d-flex justify-end">
       <router-link :to="{ name: 'SeedDetail', params: { seedId: this.seedId } }">
-        <v-btn @click="UpdateSeed">
+        <v-btn
+          color="light-green lighten-2 white--text"
+          @click="UpdateSeed"
+          >
           적용
         </v-btn>
       </router-link>
@@ -83,6 +90,7 @@ export default {
     return {
       seedId: this.$route.params.seedId,
       SeedInfo: [],
+      dates: [],
     }
   },
   methods: {
@@ -92,6 +100,8 @@ export default {
         .then((res) => {
           console.log(res.data)
           this.SeedInfo = res.data
+          this.dates.push(this.SeedInfo.start_date)
+          this.dates.push(this.SeedInfo.end_date)
         })
         .catch((err) => {
           console.log(err)
@@ -125,14 +135,23 @@ export default {
   },
   created() {
     this.getSeedDetail();
+  },
+  computed: {
+    dateRangeText () {
+      return this.dates.join(' ~ ')
+    },
   }
 }
 </script>
 
 <style lang="scss" scoped>
 
+a {
+  text-decoration: none;
+}
+
 .container-size {
-  width: 50%;
+  width: 40%;
 }
 
 </style>

@@ -6,7 +6,7 @@
           v-model="tab"
           background-color="transparent"
           color="success"
-          grow
+          right
           >
           <v-tab
             style="font-size: 1vw;"
@@ -23,6 +23,7 @@
             :key="item"
             >
             <v-card
+              width="100vw"
               color="basil"
               flat
               >
@@ -64,7 +65,7 @@ export default {
 
 <style lang="scss" scoped>
 .container {
-  width: 60%;
-  margin-top: 5%;
+  width: 80%;
+  margin-top: 7%;
 }
 </style>

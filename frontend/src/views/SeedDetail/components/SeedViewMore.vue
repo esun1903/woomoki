@@ -10,20 +10,37 @@
       max-width="300"
     >
       <v-card>
-        <v-card-title class="headline">
+        <div class="d-flex justify-space-between">
+
+        <v-card-title>
           더보기
         </v-card-title>
 
-        <v-card-text>
-          <v-btn text class="m-5">
+        <div class="d-flex align-center">
+          <v-btn
+            color="light-green lighten-2"
+            icon
+            @click="dialog = false"
+          >
+            <v-icon class="mr-3" size="32">fas fa-times</v-icon>
+          </v-btn>
+        </div>
+        </div>
+        <v-divider></v-divider>
+
+        <v-card-text class="d-flex justify-center mt-5 dialog-height">
+          <v-btn color="light-green lighten-2 white--text">
+            신고하기
+          </v-btn>
+          <!-- <v-btn text class="m-5">
             <h3>
             신고하기
             </h3>
-          </v-btn>
+          </v-btn> -->
         </v-card-text>
 
         <v-card-actions>
-          <v-spacer></v-spacer>
+          <!-- <v-spacer></v-spacer>
 
           <v-btn
             color="light-green lighten-2"
@@ -31,7 +48,7 @@
             @click="dialog = false"
           >
             취소
-          </v-btn>
+          </v-btn> -->
         </v-card-actions>
       </v-card>
     </v-dialog>

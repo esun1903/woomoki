@@ -1,25 +1,28 @@
 <template>
   <div>
-    <div class="selectBoxes">
-      <div class="selectBox1">
-        <v-select
-          v-model="valSelect1"
-          :items="select1"
-          label="인기/신규"
-          dense
-          outlined
-        ></v-select>
+    <Banner/>
+    <v-container>
+      <div class="selectBoxes">
+        <div class="selectBox1">
+          <v-select
+            v-model="valSelect1"
+            :items="select1"
+            label="인기/신규"
+            dense
+            outlined
+          ></v-select>
+        </div>
+        <div class="selectBox2">
+          <v-select
+            v-model="valSelect2"
+            :items="select2"
+            label="카테고리"
+            dense
+            outlined
+          ></v-select>
+        </div>
       </div>
-      <div class="selectBox2">
-        <v-select
-          v-model="valSelect2"
-          :items="select2"
-          label="카테고리"
-          dense
-          outlined
-        ></v-select>
-      </div>
-    </div>
+    </v-container>
     <div v-if="onSearch">
       <SeedSearched :option="valSelect1" :category="valSelect2" id="mainpage-component-result"/> 
     </div>
@@ -30,11 +33,12 @@
 </template>
 
 <script>
+import Banner from "@/views/MainPage/components/Banner.vue"
 import SeedSearched from "@/views/MainPage/components/SeedSearched.vue"
 import SeedRecommended from "@/views/MainPage/components/SeedRecommended.vue"
 export default {
   name: 'MainPage',
-  components: { SeedSearched, SeedRecommended },
+  components: { Banner, SeedSearched, SeedRecommended },
   directives: {  },
   data() {
     return {
@@ -75,17 +79,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-div {
+.container{
+  padding-bottom: 0;
   .selectBoxes {
     display: flex;
     justify-content: flex-end;
-    padding-top: 5%;
+    padding-top: 2%;
     .selectBox1{
       margin-right: 0.5%;
       width: 10%;
     }
     .selectBox2{
-      margin-right: 12%;
       width: 10%;
     }
   }
