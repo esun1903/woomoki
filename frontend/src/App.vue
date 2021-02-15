@@ -1,7 +1,7 @@
 <template>
   <v-app id="app" class="font-app">
     <Navbar></Navbar>
-    <v-main class="main-css">
+    <v-main class="main">
         <router-view :key="$route.fullPath"></router-view>
     </v-main>
     <div class="loader">

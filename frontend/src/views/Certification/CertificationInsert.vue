@@ -165,10 +165,11 @@
 
                 // S3 관련 주소 풀기
                 // let photoKey = user_id + "_" + realtime + "_" + this.file.name
-                // this.certForm.img = photoURL + photoKey;
+                // this.certForm.img = this.photoURL + photoKey;
 
                 let photoKey = "http://www.topstarnews.net/news/photo/first/201709/img_306795_1.jpg"
 
+console.log(photoKey);
                 this.certForm.img = photoKey;
 
                 console.log(this.certForm.content);
