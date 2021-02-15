@@ -34,6 +34,7 @@ public class CertificationController {
 
 	@PostMapping("/insertCertification")
 	public int certificationInsert ( @RequestBody CertificationDto certificationDto) {
+		// 만약, week , day 가 마지막이라면 ? ->
 		int result = certificationService.certificationInsert(certificationDto);
 		return result;
 	}
@@ -99,10 +100,21 @@ public class CertificationController {
 		return certificationService.searchWordCert(keyword);
 	}
 
-
-	//챌린지id , user_id 를 받으면 -> 현재의 챌린지를 알려줌
-
-
+//   포도알 기능
+//	 userid / cngid 를 가면  week, day를 보내주고
+	@GetMapping("/certification/{cngId}")
+	public ChallengeDto challengeWeekDay( @PathVariable(value = "cngId") int cngId){
+	    // week/day를
+		System.out.println("챌린지의 "+ cngId+" 총 챌린지의 수 리턴");
+		return certificationService.challengeWeekDay(cngId);
+	}
+//	 포도알의 인증Dto를 list로 리턴
+    @GetMapping("/certification/{userid}/{cngId}")
+    public List<CertificationDto> CngCertificationList(@PathVariable(value = "userid") int user_id , @PathVariable(value = "cngId") int cngId){
+	  // week/day를
+	   System.out.println(user_id+"가 가입한 챌린지"+cngId+"의 인증을 week, day를 리스트로 리턴해주기");
+	  return certificationService.CngCertificationList(user_id, cngId);
+    }
 	
 }
 

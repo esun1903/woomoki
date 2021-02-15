@@ -12,6 +12,8 @@ public class CertificationDto {
 	public String create_date;
 	public int result;
 	public int like_cnt;
+	public int week;
+	public int day;
 
 
 	public int getId() {
@@ -94,12 +96,20 @@ public class CertificationDto {
 		this.like_cnt = like_cnt;
 	}
 
-	@Override
-	public String toString() {
-		return "CertificationDto [id=" + id + ", cng_id=" + cng_id + ", user_id=" + user_id + ", nickname=" + nickname
-				+ ", title=" + title + ", img=" + img + ", content=" + content + ", create_date=" + create_date
-				+ ", result=" + result + ", like_cnt=" + like_cnt + "]";
+	public int getWeek() {
+		return week;
 	}
+	public void setWeek(int week) {
+		this.week = week;
+	}
+	public int getDay() {
+		return day;
+	}
+	public void setDay(int day) {
+		this.day = day;
+	}
+
+
 
 
 
