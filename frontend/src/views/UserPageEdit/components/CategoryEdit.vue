@@ -129,7 +129,7 @@
         > -->
         <v-btn
           :loading="loading"
-          color="light-green lighten-2"
+          color="light-green lighten-1"
           class="white--text"
           @click="sendFavoriteCategories"
           >카테고리 저장</v-btn
@@ -313,8 +313,8 @@ export default {
   margin-top: 20px;
 }
 .v-chip{
-  color: #AED581 !important;
-  border-color: #AED581 !important;
+  color: #9CCC65 !important;
+  border-color: #9CCC65 !important;
 }
 
 .category-center {
@@ -334,7 +334,7 @@ export default {
 
 .tooltip .tooltip-content {
   visibility: hidden;
-  background-color: #AED581;
+  background-color: #9CCC65;
   padding: 10px;
   margin-top: 10px;
   text-align: center;
@@ -352,7 +352,7 @@ export default {
   margin-left: -10px;
   border-width: 10px;
   border-style: solid;
-  border-color: #AED581 transparent transparent transparent;
+  border-color: #9CCC65 transparent transparent transparent;
 }
 
 .tooltip:hover .tooltip-content {

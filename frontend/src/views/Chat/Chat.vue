@@ -91,7 +91,7 @@ export default {
       status: "disconnected",
       ops: {
           bar: {
-             background: '#AED581',
+             background: '#9CCC65',
           }
         }
     };

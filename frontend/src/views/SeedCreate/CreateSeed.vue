@@ -6,7 +6,7 @@
       v-model="e1">
     <v-stepper-header>
       <v-stepper-step
-        color="light-green lighten-2"
+        color="light-green lighten-1"
         complete-icon="fas fa-check-circle"
         :complete="e1 > 1"
         step="1"
@@ -17,7 +17,7 @@
       <v-divider></v-divider>
 
       <v-stepper-step
-        color="light-green lighten-2"
+        color="light-green lighten-1"
         complete-icon="fas fa-check-circle"
         :complete="e1 > 2"
         step="2"
@@ -28,7 +28,7 @@
       <v-divider></v-divider>
 
       <v-stepper-step
-        color="light-green lighten-2"
+        color="light-green lighten-1"
         complete-icon="fas fa-check-circle"
         step="3"
         
@@ -52,7 +52,7 @@
 
         <div class="d-flex justify-end mb-1">
           <v-btn
-            color="light-green lighten-2 white--text"
+            color="light-green lighten-1 white--text"
             @click="e1 = 2"
             :disabled="isSubmitCategory === false"
           >
@@ -78,7 +78,7 @@
 
         <div class="d-flex justify-end mb-1">
           <v-btn
-            color="light-green lighten-2 white--text"
+            color="light-green lighten-1 white--text"
             @click="e1 = 3"
             :disabled="BasicInfo.isSubmitBasicInfo === false"
           >
@@ -115,7 +115,7 @@
 
         <div class="text-end">
           <v-btn
-            color="light-green lighten-2 white--text"
+            color="light-green lighten-1 white--text"
             @click="InsertSeed"
             :disabled="EtcInfo.isSubmitEtcInfo === false"
           >생성
@@ -477,7 +477,6 @@ a {
 }
 
 .container-size {
-  margin-top: 10vh;
   width: 50%;
 }
 

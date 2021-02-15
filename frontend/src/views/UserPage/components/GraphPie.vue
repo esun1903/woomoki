@@ -15,7 +15,7 @@ export default {
     return {
       series: [5, 1, 4, 5, 3, 2],
           chartOptions: {
-            fill: {colors: ['#33691E', '#558B2F', '#689F38', '#7CB342', '#9CCC65', '#AED581']},
+            fill: {colors: ['#33691E', '#558B2F', '#689F38', '#7CB342', '#9CCC65', '#9CCC65']},
             chart: {
               width: '100%',
               type: 'pie',

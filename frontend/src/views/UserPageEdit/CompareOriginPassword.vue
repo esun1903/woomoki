@@ -7,7 +7,7 @@
     
     <v-row>
       <v-text-field
-        color="light-green lighten-2"
+        color="light-green lighten-1"
         v-model="originPassword"
         label="비밀번호"
         type="password"
@@ -18,7 +18,7 @@
 
     <v-row class="d-flex justify-end">
       <v-btn
-        color="light-green lighten-2"
+        color="light-green lighten-1"
         @click="comparePassword" 
         :disabled="this.originPassword.length < 4"
         class="confirm-btn-right">

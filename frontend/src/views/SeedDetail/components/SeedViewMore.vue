@@ -1,7 +1,7 @@
 <template>
   <span>
     <v-btn v-if="isLogin" icon @click.stop="dialog = true">
-      <v-icon color="light-green lighten-2">
+      <v-icon color="light-green lighten-1">
         fas fa-ellipsis-h
       </v-icon>
     </v-btn>
@@ -18,7 +18,7 @@
 
         <div class="d-flex align-center">
           <v-btn
-            color="light-green lighten-2"
+            color="light-green lighten-1"
             icon
             @click="dialog = false"
           >
@@ -29,7 +29,7 @@
         <v-divider></v-divider>
 
         <v-card-text class="d-flex justify-center mt-5 dialog-height">
-          <v-btn color="light-green lighten-2 white--text">
+          <v-btn color="light-green lighten-1 white--text">
             신고하기
           </v-btn>
           <!-- <v-btn text class="m-5">

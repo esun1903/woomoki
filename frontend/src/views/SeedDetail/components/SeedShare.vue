@@ -5,7 +5,7 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="light-green lighten-2"
+          color="light-green lighten-1"
           icon
           v-bind="attrs"
           v-on="on"
@@ -28,7 +28,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            color="light-green lighten-2"
+            color="light-green lighten-1"
             text
             @click="dialog = false"
           >

@@ -44,7 +44,7 @@ export default {
   height: 52px;
   line-height: 50px;
   display: block;
-  background-color: #AED581;
+  background-color: #9CCC65;
   // background-position: center center;
   background-repeat: no-repeat;
   box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.15);
