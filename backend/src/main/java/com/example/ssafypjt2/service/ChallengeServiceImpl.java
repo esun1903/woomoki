@@ -23,6 +23,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return null;
 	}
 
+
 	@Override
 	public int challengeDelete(int id) {
 		int get = dao.challengeDelete(id);
@@ -58,13 +59,17 @@ public class ChallengeServiceImpl implements ChallengeService {
 
 
 	@Override
-	public int likeUp(int id) {
-		return dao.likeUp(id);
+	public int likeUp(int userId, int cng_id) {
+		int COUNT = dao.one_likeUp(cng_id);
+		return dao.likeUp( userId , cng_id);
 	}
 
+
 	@Override
-	public int likeDown(int id) {
-		return dao.likeDown(id);
+	public int likeDown(int userId, int cng_id)
+	{
+		int COUNT = dao.one_likeDown(cng_id);
+		return dao.likeDown( userId , cng_id);
 	}
 
 	@Override
@@ -98,6 +103,12 @@ public class ChallengeServiceImpl implements ChallengeService {
 	@Override
 	public int challengeLikeCount(int cngId) {
 		return dao.challengeLikeCount(cngId);
+	}
+
+	@Override
+	public List<ChallengeDto> user_LikeAndChallengeList(int user_id) {
+		List<ChallengeDto> list = dao.main_LikeChallegeList(user_id);
+		return list;
 	}
 
 }

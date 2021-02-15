@@ -4,7 +4,7 @@
       v-model="value"
       color="light-green lighten-2"
       :items="day"
-      label="며칠을"
+      label="한 주에 며칠 보살펴줄까요?"
       suffix="일"
       outlined
     ></v-select>

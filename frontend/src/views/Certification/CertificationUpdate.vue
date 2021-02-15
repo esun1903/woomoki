@@ -25,7 +25,7 @@
                 <v-textarea v-model="CertInfo.content" outlined rows="10" label="content">
                 </v-textarea>
             </v-row>
-            <v-row class="back-update-btn" >
+            <v-row class="back-update-btn">
                 <v-btn class="ma-2" outlined fab color="red" v-on:click="back()">
                     <v-icon>mdi-arrow-left</v-icon>
                 </v-btn>
@@ -62,7 +62,7 @@
                 // photoUrl: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
                 dialog: false,
                 // explain: "사진 변경을 희망한다면 여기를 눌러주세요"
-                
+
             };
         },
         mounted() {
@@ -72,10 +72,9 @@
             this.detailCert();
             const cngId = this.$route.params.cngId;
             const certId = this.$route.params.certId;
-            const cngName = "챌린지명";
-            console.log(cngName);
-            console.log("UPDATE PAGE/ cngid: " + cngId + ", certid: " + certId);
-            if (cngId === undefined || certId === undefined) {
+            const cngUserId = this.$route.params.cngUserId;
+            console.log("UPDATE PAGE/ cngid: " + cngId + ", certid: " + certId + ", cngUserId: " + cngUserId);
+            if (cngId === undefined || certId === undefined || cngUserId === undefined) {
                 this.$router.go(-1);
             }
         },
@@ -98,6 +97,7 @@
                     params: {
                         cngId: this.$route.params.cngId,
                         certId: this.$route.params.certId,
+                        cngUserId: this.$route.params.cngUserId
                     }
                 });
             },
@@ -159,11 +159,11 @@
 
                 this.CertInfo.img = photoKey;
 
-                const certid = this.$route.params.certId;
+                const certId = this.$route.params.certId;
                 const UpdateCertInfo = {
                     cng_id: this.CertInfo.cng_id,
                     content: this.CertInfo.content,
-                    id: certid,
+                    id: certId,
                     img: this.CertInfo.img,
                     user_id: this.CertInfo.user_id,
                     like_cnt: this.CertInfo.like_cnt,
@@ -178,8 +178,9 @@
                         this.$router.push({
                             name: 'CertificationDetail',
                             params: {
-                                cngId: this.CertInfo.cng_id,
-                                certId: certid,
+                                cngId: UpdateCertInfo.cng_id,
+                                certId: certId,
+                                cngUserId: this.$route.params.cngUserId,
                             }
                         });
                     })

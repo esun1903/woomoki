@@ -68,15 +68,23 @@ public interface ChallengeDao {
 			+ " FROM challenge WHERE user_id = #{userId} ")
 	public List<ChallengeDto> challengeUserSelect(@Param("userId")int userId);
 
+
+
 	@Update("Update challenge SET "
 			+"like_cnt = like_cnt+1 "
 			+ "WHERE id = #{cngId}")
-	public int likeUp(@Param("cngId")int cngId);
+	public int one_likeUp(@Param("cngId")int cngId);
+
+	@Insert("INSERT INTO like_challenge ( user_id, cng_id  ) VALUES (#{userId}  , #{cngId} )")
+	public int likeUp(@Param("userId")int userId, @Param("cngId")int cngId);
 
 	@Update("Update challenge SET "
 			+"like_cnt = like_cnt-1 "
 			+ "WHERE id = #{cngId}")
-	public int likeDown(@Param("cngId")int cngId);
+	public int one_likeDown(@Param("cngId")int cngId);
+
+	@Delete("DELETE FROM like_challenge WHERE user_id = #{userId} AND cng_id = #{cngId}")
+	public int likeDown(@Param("userId")int userId, @Param("cngId")int cngId);
 
 	@Select("SELECT * FROM challenge  WHERE content like CONCAT('%', #{keyword}, '%') OR  title like CONCAT('%', #{keyword}, '%')")
 	public List<ChallengeDto> searchWordChallenge(@Param("keyword") String keyword);
@@ -96,6 +104,10 @@ public interface ChallengeDao {
 
 	@Select("SELECT like_cnt FROM challenge WHERE id = #{cngId}")
 	public int challengeLikeCount(@Param("cngId")int cngId);
+
+    @Select("SELECT cha.id , cha.category_id, cha.user_id, cha.title, cha.title, cha.content, cha.sum_img, cha.start_date, cha.end_date, cha.cert_count, cha.max_people, cha.example_img, cha.join_deposit, cha.like_cnt  " +
+			" FROM like_challenge AS joy JOIN challenge AS cha ON joy.user_id = #{user_id} AND joy.cng_id = cha.id")
+	public List<ChallengeDto> main_LikeChallegeList(@Param("user_id")int user_id);
 }
 
 /*

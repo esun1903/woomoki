@@ -3,15 +3,23 @@
         <div class="detail">
             <v-row class="cng-name">
                 <!-- 챌린지명: {{ this.$route.params.cngName }} -->
-                챌린지명: 챌린지명입니다
+                챌린지명: {{ CertInfo.title }}
             </v-row>
             <v-row class="nickname-date-row">
                 <v-col class="user-id">
-                    아이디: {{ CertInfo.user_id }}
+                    아이디: {{ CertInfo.nickname }}
                 </v-col>
                 <v-col class="date">
                     인증날짜: {{ CertInfo.create_date }}
                 </v-col>
+            </v-row>
+            <v-row class="result-btn-row" v-if="showResultBtn">
+                <v-btn icon color="blue" v-on:click="successCert()">
+                    <v-icon>mdi-thumb-up</v-icon>
+                </v-btn>
+                <v-btn icon color="red" v-on:click="failCert()">
+                    <v-icon>mdi-thumb-down</v-icon>
+                </v-btn>
             </v-row>
             <v-row class="img">
                 <!-- s3 주소 주석 풀기
@@ -63,7 +71,9 @@
         <div>
             <v-divider></v-divider>
             <CommentInsert />
-            <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" />
+            <!-- v-for 돌 때 마다 comment.user_id를 axios get -> userinfo 받아
+            이 받은 usernickname을 자식컴포넌트에 보내 -->
+            <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" :nickname="Nicknames[index]" />
         </div>
     </v-container>
 </template>
@@ -84,10 +94,13 @@
             return {
                 CertInfo: [],
                 comments: [],
+                UserInfo: [],
+                Nicknames: [],
                 // photoUrl:"https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
                 dialog: false,
                 scrapped: false,
                 checkUser: false,
+                showResultBtn: false,
             };
         },
         mounted() {
@@ -98,31 +111,39 @@
             this.detailComment();
             const certId = this.$route.params.certId;
             const cngId = this.$route.params.cngId;
+            const cngUserId = this.$route.params.cngUserId;
             // const cngName = this.$route.params.cngName;
             // console.log(cngName);
-            console.log("detail's certid: " + certId);
             console.log("detail's cngid: " + cngId);
-            if (certId === undefined || cngId === undefined) {
+            console.log("detail's certid: " + certId);
+            console.log("cngUserId " + cngUserId);
+            if (certId === undefined || cngId === undefined || cngUserId === undefined) {
                 this.$router.go(-1);
             }
-            console.log("check create: " + this.checkUser);
+            // console.log("check create: " + this.checkUser);
 
         },
         methods: {
             async detailCert() {
                 const userId = this.$store.state.UserStore.user.user_id;
                 console.log("userid: " + userId);
-
                 const certId = this.$route.params.certId;
                 await axios.get(`http://localhost:8080/detailCertification/${certId}`)
                     .then((response) => {
                         this.CertInfo = response.data;
                         const certUserId = this.CertInfo.user_id;
+                        const cngUserId = this.$route.params.cngUserId;
+
+                        console.log("cngUserId: " + cngUserId);
                         console.log("certUserId: " + certUserId);
                         if (userId === certUserId) {
                             this.checkUser = true;
                         }
-                        console.log("chk: " + this.checkUser);
+
+                        console.log("cngUserId: " + cngUserId);
+                        if (userId === Number(cngUserId)) {
+                            this.showResultBtn = true;
+                        }
                         console.log(response.data)
                     })
                     .catch((err) => {
@@ -136,19 +157,46 @@
                 console.log(certId);
                 axios.get(`http://localhost:8080/commentList/${certId}`)
                     .then((response) => {
-                        console.log(response.data);
+                        // console.log(response.data);
                         this.comments = response.data;
+                        for (const i in this.comments) {
+                            const comment = this.comments[i]
+                            const commentUserId = comment["user_id"]
+                            // console.log("cmt user id: " + commentUserId);
+                            this.getUserInfo(commentUserId);
+                        }
                     })
                     .catch((err) => {
                         console.log(err)
                     })
             },
+            async getUserInfo(commentUserId) {
+                // console.log("getUserInfo를 들어왔ㅇㅓ : " + commentUserId);
+                await axios.get(`http://localhost:8080/userPage/Id/${commentUserId}`)
+                    .then((response) => {
+                        // console.log(response.data);
+                        this.UserInfo = response.data;
+                        this.Nicknames.push(this.UserInfo.nickname)
+                        // console.log("nickname: " + this.UserInfo.nickname);
+                        // console.log(this.Nicknames);
+                        // this.saveNickname();
+                    })
+
+            },
+            // saveNickname(){
+            //     for(const i in this.comments.length){
+            //         console.log("nickname value: " + this.UserInfo.nickname[i]);
+            //         this.comments.push({key:i, value:this.UserInfo.nickname[i]});
+            //     }
+            //     // console.log("commments: " + this.comments);
+            // },
             updateCert: function () {
                 this.$router.push({
                     name: 'CertificationUpdate',
                     params: {
                         cngId: this.$route.params.cngId,
                         certId: this.$route.params.certId,
+                        cngUserId: this.$route.params.cngUserId,
                     }
                 });
             },
@@ -176,7 +224,7 @@
                 const userId = this.$store.state.UserStore.user.user_id
                 // 스크랩이 되어있지 않을 때 스크랩
                 if (this.scrapped) {
-                    axios.get(`http://127.0.0.1:8080/likeUpCertification/${certId}`)
+                    axios.put(`http://127.0.0.1:8080/likeUpCertification/${userId}/${certId}`)
                         .then((res) => {
                             console.log(res)
                         })
@@ -185,7 +233,7 @@
                         })
                 } else {
                     // 스크랩 되어 있을 때 스크랩 취소
-                    axios.get(`http://127.0.0.1:8080/likeDownCertification/${certId}`)
+                    axios.put(`http://127.0.0.1:8080/likeDownCertification/${userId}/${certId}`)
                         .then((res) => {
                             console.log(res)
                         })
@@ -194,6 +242,14 @@
                         })
                 }
             },
+            successCert() {
+                confirm("인증 성공으로 할거냐고 물어볼건데 나중에 dialog로 바꾸기")
+                this.showResultBtn = false;
+            },
+            failCert() {
+                confirm("인증 실패로 할거냐고 물어볼건데 나중에 dialog로 바꾸기")
+                this.showResultBtn = false;
+            }
         },
     };
 </script>
@@ -205,6 +261,11 @@
 
     .v-divider {
         margin: 3% !important;
+    }
+
+    .result-btn-row {
+        justify-content: center;
+        margin-top: 3%;
     }
 
     .like-btn {
@@ -220,8 +281,7 @@
 
     .img,
     .content,
-    .nickname-date-row,
-        {
+    .nickname-date-row {
         justify-content: center;
         margin-top: 5%;
     }

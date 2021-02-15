@@ -1,9 +1,13 @@
 <template>
   <v-container>
     <div class="recommend-title">
-      <p>{{ this.user.nickname }}님, 이런 씨앗은 어때요?</p>
+      <p>
+        <span class="nickname">{{ this.user.nickname }}</span>
+        님, 이런 씨앗은 어때요?
+      </p>
     </div>
     <v-data-iterator
+      no-data-text="관심카테고리를 설정해주시면 씨앗을 추천해드릴게요"
       hide-default-footer
       :items="seeds"
       :items-per-page.sync="itemsPerPage"
@@ -22,6 +26,7 @@
       </template>
       <template v-slot:footer>
         <v-pagination
+          color="light-green lighten-2"
           v-model="page"
           :length="pageCount"
           prev-icon="mdi-menu-left"
@@ -108,5 +113,8 @@ export default {
   }
 }
 
+.nickname {
+  color: #AED581
+}
 
 </style>

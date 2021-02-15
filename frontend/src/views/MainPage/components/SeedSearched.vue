@@ -8,7 +8,12 @@
         <div v-else>
           <p>
             요즘 인기 있는
-            <span>{{category}}</span>
+            <span v-if="category === '건강'" class="color-health">{{category}}</span>
+            <span v-if="category === '생활습관'" class="color-lifestyle">{{category}}</span>
+            <span v-if="category === '독서'" class="color-book">{{category}}</span>
+            <span v-if="category === '자산'" class="color-assets">{{category}}</span>
+            <span v-if="category === '자기계발'" class="color-grown">{{category}}</span>
+            <span v-if="category === '취미'" class="color-hobby">{{category}}</span>
             씨앗이에요!
           </p>
         </div>
@@ -45,6 +50,7 @@
       </template>
       <template v-slot:footer>
         <v-pagination
+          color="light-green lighten-2"
           v-model="page"
           :length="pageCount"
           prev-icon="mdi-menu-left"
@@ -215,6 +221,28 @@ export default {
   }
 }
 
+.color-health {
+  color: #29B6F6
+}
 
+.color-lifestyle {
+  color: #FFA726;
+}
+
+.color-book {
+  color: #26A69A;
+}
+
+.color-assets {
+  color: #5C6BC0;
+}
+
+.color-grown {
+  color: #AB47BC;
+}
+
+.color-hobby {
+  color: #EC407A;
+}
 
 </style>

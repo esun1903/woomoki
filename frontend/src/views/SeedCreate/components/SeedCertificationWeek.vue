@@ -3,8 +3,8 @@
     <v-select
       v-model="value"
       color="light-green lighten-2"
-      :items="month"
-      label="몇 주 동안"
+      :items="week"
+      label="몇 주 짜리 씨앗인가요?"
       suffix="주"
       outlined
     ></v-select>
@@ -17,7 +17,7 @@ export default {
   data: function () {
     return {
       value: 0,
-      month: [1, 2, 3, 4, 5 ,6],
+      week: [1, 2, 3, 4, 5 ,6],
       monthRules: [
         v => !!v || '몇주는 필수 항목입니다',
         v => this.valiteateCount(v) || '인증 횟수는 숫자만 입력해야합니다',
@@ -33,7 +33,7 @@ export default {
   },
   watch: {
     value: function () {
-      this.$emit('transferMonth', this.value)
+      this.$emit('transferWeek', this.value)
     }
   }
 }

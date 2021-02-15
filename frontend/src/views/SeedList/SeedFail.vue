@@ -1,73 +1,117 @@
 <template>
   <v-container>
-    <div class="title">
-      <p>무지개다리 건넌 씨앗</p>
+    <div class="recommend-title">
+      <p>{{ this.user.nickname }}님이 꽃피우지 못한 씨앗</p>
     </div>
-    <div class="cards">
-      <v-row dense>
-        <v-col cols="3" class="card" v-for="(challenge, index) in challenges" :key="index">
-          <SeedCard :challenge="challenge"/>
-        </v-col>
-      </v-row>
-    </div>
+    <v-data-iterator
+      hide-default-footer
+      :items="seeds"
+      :items-per-page.sync="itemsPerPage"
+      :page.sync="page"
+      @page-count="pageCount=$event"
+      :total-visible="5"
+    >
+      <template v-slot:default="{items}">
+        <div class="cards">
+          <v-row>
+            <v-col cols="3" class="card" v-for="(seed, index) in items" :key="index">
+              <SeedCard :seed="seed"/>
+            </v-col>
+          </v-row>
+        </div>
+      </template>
+      <template v-slot:footer>
+        <v-pagination
+          color="light-green lighten-2"
+          v-model="page"
+          :length="pageCount"
+          prev-icon="mdi-menu-left"
+          next-icon="mdi-menu-right"
+        ></v-pagination>
+      </template>
+    </v-data-iterator>
   </v-container>
 </template>
 
 <script>
 import SeedCard from "./components/SeedCard.vue"
-
+import {mapState} from "vuex";
+import axios from "axios";
 export default {
-  name: "SeedFail",
-  components: {
-    SeedCard
+  name: 'SeedCreated',
+  components: { SeedCard },
+  directives: {  },
+  props: {
   },
-  data: function () {
+  data() {
     return {
-      challenges: [
-        { title: '새벽 러닝', category: '건강', term: '2주', time: "주 3회", src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'},
-        { title: '미라클모닝', category: '생활습관', term: '1주', time: "주 3회", src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg'},
-        { title: '코스모스 읽기', category: '독서', term: '4주', time: "주 2회", src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'},
-        { title: '영화노트 작성하기', category: '취미', term: '2주', time: "주 7회", src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'},
-        { title: '영상 편집하기', category: '자기계발', term: '2주', time: "주 2회", src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'},
-        { title: '기타 초급 떼기', category: '취미', term: '1주', time: "주 5회", src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'},
-        { title: '프랑스자수 기본 스티치', category: '취미', term: '3주', time: "주 1회", src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'},
-        { title: '주식 매매일지 쓰기', category: '자산', term: '1주', time: "주 6회", src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg'},
-      ],
-    }
+      seeds: [],
+      page: 1,
+      pageCount: 0,
+      itemsPerPage: 4,
+    };
+  },
+  mounted() {
+    
+  },
+  computed: {
+    ...mapState('UserStore', ['user']),
+  },
+  methods: {
+    
+  },
+  created () {
+    const id = {};
+    id["id"] = this.user.user_id
+    console.log(id.id)
+    axios.get(`http://localhost:8080/challengeResultSort/${id.id}/2`)
+      .then((res) => {
+        const seeds = res.data
+        console.log(seeds)
+        seeds.sort(function(a,b) {
+          return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
+        })
+        // seeds.splice(8)
+        this.seeds = seeds
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
-
-}
+};
 </script>
 
 <style lang="scss" scoped>
-
 .container {
   width: 100%;
-  height: 89.5vh;
-  margin-bottom: 10%;
-  .title {
+  height: 100%;
+  .recommend-title {
     display: flex;
     justify-content: center;
-    margin: 1% 0;
+    margin: 1% 0 3% 0;  
     p {
       font-size: 1.5em;
       font-weight: bold;
     }
   }
-  .cards {
-    width: 100%;
-    height: 100%;
-    .row {
-      .card {
-        padding: 1%;
-        width: 100%;
-        height: 40%;
-        .v-card {
+  .v-data-iterator {
+    .cards {
+      width: 100%;
+      height: 100%;
+      margin-bottom: 10%;
+      .row {
+        .card {
+          padding: 1%;
           width: 100%;
           height: 50%;
-        }
-      }    
+          .v-card {
+            width: 100%;
+            height: 50%;
+          }
+        }    
+      }
     }
   }
 }
+
 </style>

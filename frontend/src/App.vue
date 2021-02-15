@@ -25,7 +25,7 @@ export default {
     Navbar,
     Footer,
     Chat,
-    UpPage
+    UpPage,
   },
 
   data: function () {

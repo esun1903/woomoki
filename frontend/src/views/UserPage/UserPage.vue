@@ -1,6 +1,6 @@
 <template>
     <v-container class="container-size">
-      <v-row column>
+      <v-row column class="user-margin">
         <v-col>
           <BasicUserInfo></BasicUserInfo>
         </v-col>
@@ -164,6 +164,10 @@ export default {
 
 .tab {
   font-size: 1.5vw;
+}
+
+.user-margin {
+  margin-top: 10vh;
 }
 
 </style>

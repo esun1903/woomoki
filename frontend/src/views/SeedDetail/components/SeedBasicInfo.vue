@@ -159,7 +159,7 @@ export default {
   computed: {
     color: function () {
       if (this.SeedInfo.category_id === 1) {
-        return 'light-green lighten-1'
+        return 'light-blue lighten-1'
       } else if (this.SeedInfo.category_id === 2) {
         return 'orange lighten-1'
       } else if (this.SeedInfo.category_id === 3) {
