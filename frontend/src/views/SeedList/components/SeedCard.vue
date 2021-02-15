@@ -3,7 +3,7 @@
     <v-img :src=SeedImg @click="goSeedDetail(seed.id)" aspect-ratio="1.5" class="cursor"></v-img>
 
     <div class="seed-card-top">
-      <v-chip id="category-chip" :ripple="false" :color=this.color> {{ this.category }}</v-chip>
+      <v-chip id="category-chip" :ripple="false" :color=this.color class="white--text"> {{ this.category }}</v-chip>
       <v-btn icon @click.native="getScrap">
         <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
       </v-btn>
@@ -22,10 +22,10 @@
     <div class="seed-card-bottom">
       <div>
         <v-chip label :ripple="false">
-          <!-- {{ seed.term }} -->4주
+          {{ seed.week }}주
         </v-chip>
         <v-chip label :ripple="false">
-          <!-- {{ seed.time }} -->주 2회
+          주 {{ seed.day }}회
         </v-chip>
       </div>
     </div>
@@ -87,7 +87,7 @@ export default {
     },
     color: function () {
       if (this.seed.category_id === 1) {
-        return 'light-green lighten-1'
+        return 'light-blue lighten-1'
       } else if (this.seed.category_id === 2) {
         return 'orange lighten-1'
       } else if (this.seed.category_id === 3) {

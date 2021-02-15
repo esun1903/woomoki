@@ -1,7 +1,7 @@
 <template>
   <v-container class="container-size">
       
-      <v-row class="d-flex justify-center">
+      <v-row class="d-flex justify-center img-margin">
         <ImgEdit></ImgEdit>
       </v-row>
       
@@ -272,6 +272,10 @@ a {text-decoration: none;}
 
 .container-size {
   width: 40%;
+}
+
+.img-margin {
+  margin-top: 10vh;
 }
 
 </style>
