@@ -233,7 +233,7 @@ footer {
 #banner.on {
   position: absolute;
   // right: 37.7%;
-  right: 14.8%;
+  right: 14.85%;
   bottom: 1%;
 }
 
