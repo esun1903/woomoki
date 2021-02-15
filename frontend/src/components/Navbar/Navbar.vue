@@ -61,13 +61,16 @@
                         <v-chip class="ma-2">주 {{ seed.day }}회</v-chip>
                       </div>
                       <div class="seed-info">
-                        <div class="title">{{ seed.title }}</div>
+                        <div class="title">
+                          <p>{{ seed.title }}</p>
+                        </div>
                       </div>
                     </v-list-item-content>
                     <v-list-item-action>
-                      <v-btn @click="goDeleteScrap(seed.id)">삭제하기</v-btn>   
+                      <v-btn color="#AED581" @click="goDeleteScrap(seed.id)">삭제하기</v-btn>   
                     </v-list-item-action>
-                  </v-list-item>   
+                  </v-list-item>
+                  <v-divider></v-divider>   
                 </v-list>
               </v-card-text>
             </v-card>
@@ -189,8 +192,6 @@ export default {
   methods: {
     getSeeds: function () {
       const userId_num = this.user.user_id
-      console.log('씨아아앗')
-      console.log(userId_num)
       const userId = {};
       userId["userid"] = userId_num
       axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId_num}`, userId)
@@ -200,8 +201,6 @@ export default {
             return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
           })
           this.seeds = seeds
-          console.log("씨앗 잘 담겼멘?")
-          console.log(this.seeds)
         })
         .catch((err) => {
           console.log(err)
@@ -216,26 +215,15 @@ export default {
     },
     goDeleteScrap: function (val) {
       const userId_num = this.user.user_id;
-      console.log()
       const cgId_num = val;
       axios.get(`http://127.0.0.1:8080/userPage/DeletefavChallenge/${userId_num}/${cgId_num}`)
         .then(() => {
-          console.log('스크랩취소성공')
-          this.getSeed()
+          this.getSeeds()
         })
         .catch((err) => {
           console.log(err)
-          console.log('스크랩취소실패')
         })
     },
-    // deleteScrappedSeed(val) {
-    //   const currentSeeds = this.seeds
-    //   for (var i in currentSeeds) {
-    //     if (currentSeeds[i]["id"] === val) {
-    //       this.seeds.splice(i,1)
-    //     }
-    //   }
-    // },
     NotificationConfirm: function(id) {
       const notificationId = id;
        axios.put(`http://127.0.0.1:8080/notificationConfirm/${notificationId}`)
@@ -332,7 +320,7 @@ a:-webkit-any-link {
       }
       .v-card__text{
         height: 30vh;
-        padding: 0 1%;
+        padding: 2% 1% 2% 1%;
       }
         .v-list{
           .v-list-item{
@@ -358,22 +346,24 @@ a:-webkit-any-link {
                 }
               }
               .seed-info{
-                padding-top: 0;
-                display: flex;
                 .title{
-                  font-size: 0.1rem;
                   margin-left: 1%;
+                  p{
+                    font-size: 1.1rem;
+                  }
                 }
               }
             }
             .v-list-item__action{
               .v-btn{
                 width: 4vw;
-                height: 4vh;
+                height: 3vh;
                 font-size: 0.8rem;
-                right: 0;
               }
             }
+          }
+          .v-divider {
+            margin: 1% 0;
           }
         }
     }
