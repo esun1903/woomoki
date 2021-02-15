@@ -1,6 +1,6 @@
 <template>
   <v-container class="container-size">
-    <v-row>
+    <v-row class="form-margin">
       <v-text-field
         color="light-green lighten-2"
         clear-icon="fas fa-times"
@@ -152,6 +152,10 @@ a {
 
 .container-size {
   width: 40%;
+}
+
+.form-margin {
+  margin-top: 10vh;
 }
 
 </style>
