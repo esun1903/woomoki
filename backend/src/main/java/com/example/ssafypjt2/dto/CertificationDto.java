@@ -5,27 +5,14 @@ public class CertificationDto {
 	public int id;
 	public int cng_id;
 	public int user_id;
+	public String nickname;
+	public String title;
 	public String img;
 	public String content;
 	public String create_date;
 	public int result;
 	public int like_cnt;
 
-
-	public CertificationDto() {
-		super();
-	}
-
-	public CertificationDto(int id, int cng_id, int user_id, String img, String content, String create_date, int result, int like_cnt) {
-		this.id = id;
-		this.cng_id = cng_id;
-		this.user_id = user_id;
-		this.img = img;
-		this.content = content;
-		this.create_date = create_date;
-		this.result = result;
-		this.like_cnt = like_cnt;
-	}
 
 	public int getId() {
 		return id;
@@ -49,6 +36,22 @@ public class CertificationDto {
 
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getImg() {
@@ -93,15 +96,12 @@ public class CertificationDto {
 
 	@Override
 	public String toString() {
-		return "CertificationDto{" +
-				"id=" + id +
-				", cng_id=" + cng_id +
-				", user_id=" + user_id +
-				", img='" + img + '\'' +
-				", content='" + content + '\'' +
-				", create_date='" + create_date + '\'' +
-				", result=" + result +
-				", like_cnt=" + like_cnt +
-				'}';
+		return "CertificationDto [id=" + id + ", cng_id=" + cng_id + ", user_id=" + user_id + ", nickname=" + nickname
+				+ ", title=" + title + ", img=" + img + ", content=" + content + ", create_date=" + create_date
+				+ ", result=" + result + ", like_cnt=" + like_cnt + "]";
 	}
+
+
+
+
 }
