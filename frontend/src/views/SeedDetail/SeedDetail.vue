@@ -130,7 +130,7 @@ export default {
       await axios.get(`http://127.0.0.1:8080/sameChallengeCertification/${seedId}`)
         .then((res) => {
           this.total = res.data
-          // console.log("인증:",res.data)
+          console.log("인증:",res.data)
         })
 
       // 내가 만든 씨앗인지 구분
