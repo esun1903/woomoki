@@ -103,7 +103,7 @@ const routes = [
     props: true,        
   },
   {
-    path: '/certificationInsert',
+    path: '/certificationInsert/:cngId?',
     name: 'CertificationInsert',
     component: CertificationInsert,        
   },
