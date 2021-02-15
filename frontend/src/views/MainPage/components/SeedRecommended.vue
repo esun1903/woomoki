@@ -4,6 +4,7 @@
       <p>{{ this.user.nickname }}님, 이런 씨앗은 어때요?</p>
     </div>
     <v-data-iterator
+      no-data-text="관심카테고리를 설정해주시면 씨앗을 추천해드릴게요"
       hide-default-footer
       :items="seeds"
       :items-per-page.sync="itemsPerPage"
