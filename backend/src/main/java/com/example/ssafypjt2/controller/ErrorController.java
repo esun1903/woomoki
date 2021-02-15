@@ -9,5 +9,5 @@ public class ErrorController {
 	@GetMapping("/error")
 	public String errorpage() {
 		throw new IllegalStateException("Error");
-	}
+}
 }

@@ -2,8 +2,6 @@ package com.example.ssafypjt2.service;
 
 import java.util.List;
 
-import com.example.ssafypjt2.dto.RelationDto;
-import com.example.ssafypjt2.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.ssafypjt2.dao.CertificationDao;
@@ -62,13 +60,15 @@ public class CertificationServiceImpl implements CertificationService {
     }
 
     @Override
-    public int likeUp(int id) {
-        return dao.likeUp(id);
+    public int likeUp(int userId, int cert_id) {
+        int count= dao.one_likeUp(cert_id);
+        return dao.likeUp(userId, cert_id);
     }
 
     @Override
-    public int likeDown(int id) {
-        return dao.likeDown(id);
+    public int likeDown(int userId, int cert_id) {
+        int count = dao.one_likeDown(cert_id);
+        return dao.likeDown(userId, cert_id);
     }
 
 

@@ -31,13 +31,13 @@ public interface CommentDao {
             + " FROM comment WHERE cert_id = #{certId} ")
     public List<CommentDto> commentShowList(@Param("certId")int certId);
 
-    @Update("Update comment SET "
-            +"like_cnt = like_cnt+1 "
-            + "WHERE id = #{comId}")
-    public int likeUp(@Param("comId")int comId);
-
-    @Update("Update comment SET "
-            +"like_cnt = like_cnt-1 "
-            + "WHERE id = #{comId}")
-    public int likeDown(@Param("comId")int comId);
+//    @Update("Update comment SET "
+//            +"like_cnt = like_cnt+1 "
+//            + "WHERE id = #{comId}")
+//    public int likeUp(@Param("comId")int comId);
+//
+//    @Update("Update comment SET "
+//            +"like_cnt = like_cnt-1 "
+//            + "WHERE id = #{comId}")
+//    public int likeDown(@Param("comId")int comId);
 }
