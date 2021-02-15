@@ -28,8 +28,7 @@ public interface FavCategoryDao {
 	@Select("SELECT * FROM  challenge WHERE category_id = #{user_id} ")
 	public List<ChallengeDto> main_favCategory2(@Param("user_id") int user_id);
 
-	@Select("SELECT c.name FROM fav_category AS fc INNER JOIN category AS c "
-			+ "ON fc.category_id = c.id "
+	@Select("SELECT c.name FROM fav_category AS fc INNER JOIN category AS c ON fc.category_id = c.id "
 			+ "INNER JOIN user u "
 			+ "ON fc.user_id = u.id "
 			+ "AND u.nickname = #{nickName}")
