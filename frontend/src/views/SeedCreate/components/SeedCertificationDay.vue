@@ -2,7 +2,7 @@
   <v-col class="pa-0">
     <v-select
       v-model="value"
-      color="light-green lighten-2"
+      color="light-green lighten-1"
       :items="day"
       label="한 주에 며칠 보살펴줄까요?"
       suffix="일"

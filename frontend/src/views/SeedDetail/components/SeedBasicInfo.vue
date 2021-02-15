@@ -35,11 +35,11 @@
       <v-col class="d-flex align-center">
         <v-row class="d-flex justify-end">
           <router-link v-if="isMySeed === true" :to="{ name: 'SeedUpdate', params: { seedId: this.seedId }}">
-            <v-btn color="white--text light-green lighten-2">
+            <v-btn color="white--text light-green lighten-1">
               수정
             </v-btn>
           </router-link>
-          <v-btn v-if="isMySeed === true" color="white--text light-green lighten-2" @click="deleteSeed">삭제</v-btn>
+          <v-btn v-if="isMySeed === true" color="white--text light-green lighten-1" @click="deleteSeed">삭제</v-btn>
           <SeedShare></SeedShare>
           <SeedViewMore></SeedViewMore>
         </v-row>
@@ -61,7 +61,7 @@
             <v-img :src="result.value"></v-img>
           </v-expansion-panel-content>
           <v-expansion-panel-content v-else class="mt-4">
-            <span class="black--text content-color">
+            <span class="black--text content-size">
               {{ result.value }}
             </span>
           </v-expansion-panel-content>
@@ -186,5 +186,9 @@ a {
 
 .ninckname {
   color: black;
+}
+
+.content-size {
+  font-size: 20px;
 }
 </style>

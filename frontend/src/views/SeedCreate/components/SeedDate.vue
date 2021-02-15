@@ -2,7 +2,7 @@
   <v-col
     >
       <v-menu
-        color="light-green lighten-2"
+        color="light-green lighten-1"
         ref="menu"
         v-model="menu"
         :close-on-content-click="false"
@@ -13,7 +13,7 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
-            color="light-green lighten-2"
+            color="light-green lighten-1"
             v-model="dates"
             label="보살핌을 시작 할 날짜를 선택해주세요"
             prepend-icon="mdi-calendar"
@@ -40,7 +40,7 @@
           scrollable
         > -->
         <v-date-picker
-          color="light-green lighten-2"
+          color="light-green lighten-1"
           width="43.3vw"
           v-model="dates"
           no-title
@@ -49,14 +49,14 @@
           <v-spacer></v-spacer>
           <v-btn
             text
-            color="light-green lighten-2"
+            color="light-green lighten-1"
             @click="menu = false"
           >
             Cancel
           </v-btn>
           <v-btn
             text
-            color="light-green lighten-2"
+            color="light-green lighten-1"
             @click="transferDate"
           >
             OK

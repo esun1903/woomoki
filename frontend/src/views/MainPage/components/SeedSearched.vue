@@ -25,7 +25,12 @@
         <div v-else>
           <p>
             새로 들어온
-            <span>{{category}}</span>
+            <span v-if="category === '건강'" class="color-health">{{category}}</span>
+            <span v-if="category === '생활습관'" class="color-lifestyle">{{category}}</span>
+            <span v-if="category === '독서'" class="color-book">{{category}}</span>
+            <span v-if="category === '자산'" class="color-assets">{{category}}</span>
+            <span v-if="category === '자기계발'" class="color-grown">{{category}}</span>
+            <span v-if="category === '취미'" class="color-hobby">{{category}}</span>
             씨앗이에요!
           </p>
         </div>
@@ -50,7 +55,7 @@
       </template>
       <template v-slot:footer>
         <v-pagination
-          color="light-green lighten-2"
+          color="light-green lighten-1"
           v-model="page"
           :length="pageCount"
           prev-icon="mdi-menu-left"

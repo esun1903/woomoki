@@ -72,18 +72,18 @@
                 
                 <v-row>
                   <v-col>
-                    <v-btn v-if="this.isLogin" :disabled="isMySeed" class="mt-10" icon @click="getScrap">
-                      <div>
-                        <v-icon size="48" :color="scrapped ? 'yellow' : 'white' ">fas fa-bookmark</v-icon>
-                        <h2 class="mt-5 count">10</h2>
-                      </div>
-                    </v-btn>
-                  </v-col>
-                  <v-col>
                     <v-btn v-if="this.isLogin" :disabled="isMySeed" class="mt-10" icon @click="Like">
                       <div>
                         <v-icon size="48" :color="liked ? 'red' : 'white' ">fas fa-heart</v-icon>
                         <h2 class="mt-5 count">{{this.likeCount}}</h2>
+                      </div>
+                    </v-btn>
+                  </v-col>
+                  <v-col>
+                    <v-btn v-if="this.isLogin" :disabled="isMySeed" class="mt-10" icon @click="getScrap">
+                      <div>
+                        <v-icon size="48" :color="scrapped ? 'yellow' : 'white' ">fas fa-bookmark</v-icon>
+                        <h2 class="mt-5 count">{{this.scrapCount}}</h2>
                       </div>
                     </v-btn>
                   </v-col>
@@ -117,6 +117,7 @@ export default {
       isEnd: false,
       isLogin : this.$store.state.UserStore.isLogin,
       likeCount: 0,
+      scrapCount: 0,
     }
   },
   methods: {
@@ -165,6 +166,7 @@ export default {
       if (this.scrapped) {
         axios.get(`http://127.0.0.1:8080/userPage/favChallenge/${userId}/${seedId}`)
         .then((res) => {
+          this.scrapCount += 1
           console.log(res)
         })
         .catch((err) => {
@@ -174,6 +176,7 @@ export default {
         // 스크랩 되어 있을 때 스크랩 취소
         axios.get(`http://127.0.0.1:8080/userPage/DeletefavChallenge/${userId}/${seedId}`)
         .then((res) => {
+          this.scrapCount -= 1
           console.log(res)
         })
         .catch((err) => {
@@ -185,33 +188,50 @@ export default {
       const seedId = this.seedId
       const userId = this.$store.state.UserStore.user.user_id
       axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId}`)
-      .then((res) => {
+        .then((res) => {
+            console.log(res)
+            const SeedList = res.data
+            this.scrapCount = SeedList.length
+            var i;
+            for (i=0; i < SeedList.length; i++) {
+              if (SeedList[i].id === Number(seedId)) {
+                this.scrapped = true
+              }
+            }
+          })
+    },
+    Like: function () {
+      this.liked = !this.liked
+      const seedId = this.seedId
+      const userId = this.$store.state.UserStore.user.user_id
+      if (this.liked) {
+      axios.put(`http://127.0.0.1:8080/likeUpChallenge/${userId}/${seedId}`)
+        .then((res) => {
+          this.likeCount += 1
+          console.log(res)
+        })
+      } else {
+        axios.put(`http://127.0.0.1:8080/likeDownChallenge/${userId}/${seedId}`)
+        .then((res) => {
+          this.likeCount -= 1
+          console.log(res)
+        })
+      }
+    },
+    CheckisLikeSeed: function () {
+      const seedId = this.seedId
+      const userId = this.$store.state.UserStore.user.user_id
+      axios.get(`http://127.0.0.1:8080/LikeAndChallenge/${userId}`)
+        .then((res) => {
           console.log(res)
           const SeedList = res.data
+          this.likeCount = SeedList.length
           var i;
           for (i=0; i < SeedList.length; i++) {
             if (SeedList[i].id === Number(seedId)) {
-              this.scrapped = true
+              this.liked = true
             }
           }
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    },
-    Like: function () {
-      const seedId = this.seedId
-      axios.put(`http://127.0.0.1:8080/likeDownChallenge/${seedId}`)
-        .then((res) => {
-          this.liked = !this.liked
-          console.log(res)
-        })
-    },
-    getLikeCount: function () {
-      const seedId = this.seedId
-      axios.get(`http://127.0.0.1:8080/likecount/${seedId}`)
-        .then((res) => {
-          this.likeCount = res.data
         })
     }
     // getScrappedCount: function () {
@@ -230,7 +250,7 @@ export default {
   created() {
     this.getSeedThumbnail();
     this.CheckisfavSeed();
-    this.getLikeCount();
+    this.CheckisLikeSeed();
   },
   computed: {
     category: function () {

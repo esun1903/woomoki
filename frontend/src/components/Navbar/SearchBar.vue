@@ -7,7 +7,7 @@
   :search-input.sync="search"
   append-icon=""
   append-outer-icon="fas fa-search"
-  color="light-green lighten-2"
+  color="light-green lighten-1"
   background-color="light-grey"
   @change="onSearch"
   flat
