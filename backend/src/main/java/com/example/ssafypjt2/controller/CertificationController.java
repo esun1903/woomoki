@@ -2,6 +2,7 @@ package com.example.ssafypjt2.controller;
 
 import java.util.List;
 
+import com.example.ssafypjt2.dto.ChallengeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -80,6 +81,16 @@ public class CertificationController {
 	public int likeDown (  @PathVariable(value = "userId") int userId, @PathVariable(value = "certId") int cert_id) {
 		System.out.println(userId +"가 " + cert_id +"인증 좋아요를 취소할게 ㅎ  ");
 		return certificationService.likeDown(userId, cert_id );
+	}
+
+	//내가 좋아요 한 챌린지의 id와 좋아요 수
+	@CrossOrigin(origins = "*")
+	@GetMapping("LikeAndCertification/{userid}")
+	public List<CertificationDto> user_LikeAndCertificationList(@PathVariable(value = "userid") int user_id ) throws Exception {
+		System.out.println(user_id+"가 좋아요 한 인증들과 좋아요의 수를 보여줄게");
+		List<CertificationDto> result = certificationService.user_LikeAndCertificationList(user_id);
+		System.out.println(result);
+		return result;
 	}
 
 	@GetMapping("/searchWordCert/{keyword}")

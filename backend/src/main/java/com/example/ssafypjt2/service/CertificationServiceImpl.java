@@ -2,6 +2,7 @@ package com.example.ssafypjt2.service;
 
 import java.util.List;
 
+import com.example.ssafypjt2.dto.ChallengeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.ssafypjt2.dao.CertificationDao;
@@ -78,6 +79,11 @@ public class CertificationServiceImpl implements CertificationService {
 		return dao.searchWordCert(keyword);
 	}
 
+    @Override
+    public List<CertificationDto> user_LikeAndCertificationList(int user_id) {
+        List<CertificationDto> list = dao.main_LikeCertificationList(user_id);
+        return list;
+    }
 
 
 }

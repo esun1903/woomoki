@@ -87,6 +87,10 @@ public interface CertificationDao {
 	@Select("SELECT * FROM  certification WHERE content like CONCAT('%', #{keyword}, '%')")
     public List<CertificationDto> searchWordCert(@Param("keyword") String keyword);
 
-
+	@Select(" SELECT cha.id , cha.cng_id , user.nickname, cha.img , cha.content , cha.create_date , cha.result , cha.user_id, cha.like_cnt " +
+			" FROM like_certification AS joy  " +
+			" JOIN certification AS cha ON joy.user_id = #{userId} AND joy.cert_id = cha.id " +
+			" JOIN user ON cha.user_id = user.id ")
+	public List<CertificationDto> main_LikeCertificationList(@Param("userId")int userId);
 }
 

@@ -41,4 +41,5 @@ public interface ChallengeService {
     public  int challengeLikeCount(int cngId);
 
 
+    public List<ChallengeDto> user_LikeAndChallengeList(int user_id);
 }
