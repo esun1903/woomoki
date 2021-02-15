@@ -1,12 +1,13 @@
 <template>
     <v-app>
         <v-container>
-            <h2 align="center">인증하기</h2>
+            <h2>인증하기</h2>
             <v-row>
                 <v-col cols="6" class="left">
                     <!-- <v-layout wrap align-center> -->
                     <v-col>
-                        <v-textarea v-model="certForm.content" outlined rows="10" label="Content" value="">
+                        <v-textarea v-model="certForm.content" outlined rows="10" label="설명글"
+                            placeholder="자유롭게 인증에 대한 설명을 넣어주세요">
                         </v-textarea>
                         <!-- </v-col>
                         <v-file-input v-model="certForm.photo" label="인증사진" outlined multiple dense :rules="rules"
@@ -26,14 +27,20 @@
                 </v-col>
             </v-row>
 
-            <v-col cols="8">
-                <router-link :to="'/'">
-                    <BackBtn />
-                </router-link>
-                <v-btn class="cert-insert-btn" @click="writeCert" rounded color="white" type="upload">
-                    인증글 등록하기
-                </v-btn>
-            </v-col>
+            <v-row cols="12">
+                <v-col cols="6">
+                    <router-link :to="'/'">
+                        <BackBtn />
+                    </router-link>
+                </v-col>
+
+                <v-col cols="6">
+                    <v-btn class="cert-insert-btn" @click="writeCert" rounded color="white" type="upload">
+                        인증글 등록하기
+                    </v-btn>
+
+                </v-col>
+            </v-row>
 
             <!-- </v-layout> -->
 
@@ -97,7 +104,7 @@
             };
         },
         created() {
-            this.getFiles();
+            // this.getFiles();
             // console.log(this.photoURL);
         },
         computed: {
@@ -140,7 +147,7 @@
                 const user_id = this.$store.state.UserStore.user.user_id;
                 this.certForm.user_id = user_id;
                 //챌린지 id값 받아오기
-                this.certForm.cng_id = 1;
+                this.certForm.cng_id = this.$route.params.cngId;
 
                 var now = new Date();
 
@@ -161,9 +168,9 @@
                 // this.certForm.img = photoURL + photoKey;
 
                 let photoKey = "http://www.topstarnews.net/news/photo/first/201709/img_306795_1.jpg"
-                
+
                 this.certForm.img = photoKey;
-                
+
                 console.log(this.certForm.content);
                 console.log(this.certForm.img);
                 console.log(this.certForm.user_id);
@@ -171,8 +178,8 @@
                 // console.log(this.certForm.select);
 
                 // S3 관련 코드 풀면서 제거하기
-                 this.$store.dispatch("CertStore/writeCert", this.certForm);
-                        console.log(this.certForm);
+                this.$store.dispatch("CertStore/writeCert", this.certForm);
+                console.log(this.certForm);
 
                 // S3 관련 코드
 
@@ -294,6 +301,11 @@
         margin-top: 5%;
     }
 
+    h2 {
+        text-align: center;
+        margin-top: 5%;
+    }
+
 
 
     .tag-input span.v-chip::before {
@@ -314,7 +326,7 @@
 
     .cert-insert-btn {
         width: 100%;
-        color: #be5656;
+        color: #9CCC65;
         margin-top: 20px;
         text-decoration: none;
     }
