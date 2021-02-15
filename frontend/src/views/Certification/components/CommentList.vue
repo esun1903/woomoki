@@ -71,7 +71,7 @@
       };
     },
     props: {
-      comment: Object
+      comment: Object,
     },
     computed: {
       ...mapState('UserStore', ['user']),
