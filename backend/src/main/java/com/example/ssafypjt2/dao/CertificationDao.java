@@ -17,16 +17,15 @@ import com.example.ssafypjt2.dto.ChallengeDto;
 @Mapper
 public interface CertificationDao {
 	@Select(" SELECT cert.id , cert.cng_id ,  cert.user_id , user.nickname, cng.title , cert.img, cert.content , cert.create_date , cert.result , cert.like_cnt " +
-			"FROM certification cert " +
-			"JOIN user ON cert.user_id = user.id " +
-			"JOIN challenge cng ON cert.cng_id = cng.id " +
-			"WHERE cert.id = #{certId} ")
+			" FROM certification cert " +
+			" JOIN user ON cert.user_id = user.id " +
+			" JOIN challenge cng ON cert.cng_id = cng.id " +
+			" WHERE cert.id = #{certId} ")
 	public CertificationDto certificationDetail(@Param("certId") int certId);
 
-	@Insert("Insert INTO certification ( cng_id, img, content, create_date , result, user_id, like_cnt)"
-			+ " VALUES ( "
-			+ "#{certificationDto.cng_id}, #{certificationDto.img}, "
-			+ "#{certificationDto.content}, now(), #{certificationDto.result}, #{certificationDto.user_id}, '0') ")
+	@Insert(" Insert INTO certification ( cng_id, img, content, create_date , result, user_id, like_cnt)"
+			+ " VALUES ( #{certificationDto.cng_id}, #{certificationDto.img}, "
+			+ " #{certificationDto.content}, now(), #{certificationDto.result}, #{certificationDto.user_id}, '0') ")
 	public int certificationInsert(@Param("certificationDto")CertificationDto certificationDto);
 
 	@Update("Update certification SET "
@@ -69,12 +68,21 @@ public interface CertificationDao {
 	@Update("Update certification SET "
 			+"like_cnt = like_cnt+1 "
 			+ "WHERE id = #{certId}")
-	public int likeUp(@Param("certId")int certId);
+	public int one_likeUp(@Param("certId")int certId);
 
 	@Update("Update certification SET "
 			+"like_cnt = like_cnt-1 "
 			+ "WHERE id = #{certId}")
-	public int likeDown(@Param("certId")int certId);
+	public int one_likeDown(@Param("certId")int certId);
+
+
+	@Insert("INSERT INTO like_certification ( user_id, cert_id  ) VALUES (#{userId}  , #{certId} )")
+	public int likeUp(@Param("userId")int userId, @Param("certId")int certId);
+
+
+	@Delete("DELETE FROM like_certification WHERE user_id = #{userId} AND cert_id = #{certId}")
+	public int likeDown(@Param("userId")int userId, @Param("certId")int certId);
+
 
 	@Select("SELECT * FROM  certification WHERE content like CONCAT('%', #{keyword}, '%')")
     public List<CertificationDto> searchWordCert(@Param("keyword") String keyword);

@@ -26,9 +26,9 @@ public interface ChallengeService {
 
     public ChallengeDto challengeJoin(ChallengeDto challengeDto);
 
-    public int likeUp(int id);
+    public  int likeUp(int userId, int cng_id);
 
-    public int likeDown(int id);
+    public int likeDown(int userId, int cng_id);
 
     public List<ChallengeDto> searchWordChallenge(String keyword);
 
@@ -39,4 +39,6 @@ public interface ChallengeService {
     public List<ChallengeDto> challengeListResultSort(int user_id , int result_num );
 
     public  int challengeLikeCount(int cngId);
+
+
 }

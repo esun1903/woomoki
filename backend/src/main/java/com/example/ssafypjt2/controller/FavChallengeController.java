@@ -68,7 +68,4 @@ public class FavChallengeController {
 		return result;
 	}
 
-
-
-
 }

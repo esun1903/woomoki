@@ -70,14 +70,16 @@ public class CertificationController {
 		return certificationService.userCrtListSort(userId, cngId);
 	}
 
-	@PutMapping("/likeUpCertification/{certId}")
-	public int likeUp ( @PathVariable(value = "certId") int id) {
-		return certificationService.likeUp(id);
+	@PutMapping("/likeUpCertification/{userId}/{certId}")
+	public int likeUp (@PathVariable(value = "userId") int userId,   @PathVariable(value = "certId") int cert_id) {
+		System.out.println(userId +"가 " + cert_id +"인증 좋아요를 누를게  ");
+		return certificationService.likeUp(userId, cert_id );
 	}
 
-	@PutMapping("/likeDownCertification/{certId}")
-	public int likeDown ( @PathVariable(value = "certId") int id) {
-		return certificationService.likeDown(id);
+	@PutMapping("/likeDownCertification/{userId}/{certId}")
+	public int likeDown (  @PathVariable(value = "userId") int userId, @PathVariable(value = "certId") int cert_id) {
+		System.out.println(userId +"가 " + cert_id +"인증 좋아요를 취소할게 ㅎ  ");
+		return certificationService.likeDown(userId, cert_id );
 	}
 
 	@GetMapping("/searchWordCert/{keyword}")

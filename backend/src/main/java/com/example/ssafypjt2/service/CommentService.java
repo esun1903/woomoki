@@ -19,7 +19,7 @@ public interface CommentService {
 
     public List<CommentDto> commentShowList(int certId);
 
-    public int likeUp(int id);
+   // public int likeUp(int id);
 
-    public int likeDown(int id);
+  //  public int likeDown(int id);
 }
