@@ -40,7 +40,10 @@ public class CertificationServiceImpl implements CertificationService {
 
     @Override
     public List<CertificationDto> certificationAllList() {
-        return dao.certificationAllList();
+        System.out.println("여기?");
+        List<CertificationDto> list = dao.certificationAllList();
+        System.out.println(list);
+        return list;
     }
 
     @Override

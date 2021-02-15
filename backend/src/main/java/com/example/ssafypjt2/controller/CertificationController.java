@@ -26,6 +26,7 @@ public class CertificationController {
 	@GetMapping("/detailCertification/{certId}")
 	public CertificationDto certificationDetail (@PathVariable(value = "certId") int id) {
 		CertificationDto result = certificationService.certificationDetail(id);
+		System.out.println(result);
 		return result;
 	}
 
@@ -50,6 +51,7 @@ public class CertificationController {
 
 	@GetMapping("/allCertification")
 	public  List<CertificationDto> certificationAllList(){
+		System.out.println("여기왔다.");
 		return certificationService.certificationAllList();
 
 	}
