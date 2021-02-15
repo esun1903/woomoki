@@ -351,6 +351,11 @@ a:-webkit-any-link {
               .seed-info{
                 .title{
                   margin-left: 1%;
+                  display: inline-block;
+                  width: 100%;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
                   p{
                     font-size: 1.1rem;
                   }
