@@ -9,7 +9,7 @@
           </v-list-item-avatar> -->
 
           <v-list-item-content>
-            <v-list-item-info><b>작성자:</b> {{comment.user_id}} <b>시간:</b> {{comment.create_date}}</v-list-item-info>
+            <v-list-item-title><b>작성자:</b> {{comment.user_id}} <b>시간:</b> {{comment.create_date}}</v-list-item-title>
             <v-list-item-subtitle v-text="comment.content"></v-list-item-subtitle>
           </v-list-item-content>
           <v-btn icon color="indigo" @click="updateConfirm" v-if="checkUser">

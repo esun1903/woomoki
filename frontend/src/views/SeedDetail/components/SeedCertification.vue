@@ -28,19 +28,19 @@
     </v-col>
   </v-row> -->
 
- <div>
+  <div>
     <v-row>
       <v-col
-        :key="certification.index"
+        v-for="(card, $idx) in cards"
+        :key="$idx"
         class="d-flex child-flex"
         cols="4"
       >
       <v-img
-        :src="certification.img"
-        :lazy-src="certification.img"
+        :src="card.img"
+        :lazy-src="card.img"
         aspect-ratio="1"
         class="grey lighten-2 cursor_test"
-        v-on:click="detailCertification()"
       >
         <template v-slot:placeholder>
           <v-row
@@ -73,9 +73,6 @@ export default {
   name: "SeedCertification",
   components: {
 
-  },
-  props:{
-    certification: Object
   },
   data: function () {
     return {
@@ -110,15 +107,6 @@ export default {
           $state.complete();
         }
         }, 1000)
-      },
-      detailCertification: function(){
-        this.$router.push({
-                    name: 'CertificationDetail',
-                    params: {
-                        cngId: this.seedId,
-                        certId: this.certification.id,
-                    }
-                });
       }
   },
   created() {
@@ -130,5 +118,3 @@ export default {
 <style lang="scss" scoped>
 
 </style>
-
-
