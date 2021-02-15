@@ -73,7 +73,7 @@
             <CommentInsert />
             <!-- v-for 돌 때 마다 comment.user_id를 axios get -> userinfo 받아
             이 받은 usernickname을 자식컴포넌트에 보내 -->
-            <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" />
+            <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" :nickname="Nicknames[index]" />
         </div>
     </v-container>
 </template>
@@ -157,25 +157,39 @@
                 console.log(certId);
                 axios.get(`http://localhost:8080/commentList/${certId}`)
                     .then((response) => {
-                        console.log(response.data);
+                        // console.log(response.data);
                         this.comments = response.data;
                         for (const i in this.comments) {
                             const comment = this.comments[i]
                             const commentUserId = comment["user_id"]
-                            console.log("cmt user id: " + commentUserId);
-                            this.getUserInfo(commentUserId)
+                            // console.log("cmt user id: " + commentUserId);
+                            this.getUserInfo(commentUserId);
                         }
                     })
                     .catch((err) => {
                         console.log(err)
                     })
             },
-            getUserInfo(commentUserId){
-                const UserInfo = axios.get(`http://localhost:8080/userPage/Id/${commentUserId}`)
-                            console.log("아이디로부터 얻은 유저 정보 :" + UserInfo.data);
-                            this.UserInfo = UserInfo.data;
-                            console.log("User정보: "+ this.UserInfo);
+            async getUserInfo(commentUserId) {
+                // console.log("getUserInfo를 들어왔ㅇㅓ : " + commentUserId);
+                await axios.get(`http://localhost:8080/userPage/Id/${commentUserId}`)
+                    .then((response) => {
+                        // console.log(response.data);
+                        this.UserInfo = response.data;
+                        this.Nicknames.push(this.UserInfo.nickname)
+                        // console.log("nickname: " + this.UserInfo.nickname);
+                        // console.log(this.Nicknames);
+                        // this.saveNickname();
+                    })
+
             },
+            // saveNickname(){
+            //     for(const i in this.comments.length){
+            //         console.log("nickname value: " + this.UserInfo.nickname[i]);
+            //         this.comments.push({key:i, value:this.UserInfo.nickname[i]});
+            //     }
+            //     // console.log("commments: " + this.comments);
+            // },
             updateCert: function () {
                 this.$router.push({
                     name: 'CertificationUpdate',
@@ -267,8 +281,7 @@
 
     .img,
     .content,
-    .nickname-date-row,
-        {
+    .nickname-date-row {
         justify-content: center;
         margin-top: 5%;
     }
