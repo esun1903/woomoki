@@ -41,8 +41,22 @@ export default {
     
   },
   methods: {
+    getChallengeOwner: function () {
+      const cngId = {}
+      const cngId_num = this.slide.cng_id
+      cngId["cgId"] = cngId_num 
+      axios.get(`http://127.0.0.1:8080/detailChallenge/${cngId_num}`, cngId)
+        .then((res) => {
+          const cngUserId = res.data.user_id
+          return cngUserId
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
     goCertDetail: function () {
-      this.$router.push({ name: 'CertificationDetail', params: { cngId: this.slide.cng_id, certId: this.slide.id } })
+      const UserId = this.getChallengeOwner()
+      this.$router.push({ name: 'CertificationDetail', params: { cngUserId: UserId, cngId: this.slide.cng_id, certId: this.slide.id } })
     },
   },
   computed: {
