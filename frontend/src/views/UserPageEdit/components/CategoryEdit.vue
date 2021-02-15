@@ -3,7 +3,7 @@
     <v-card id="fav-card">
   
       <v-toolbar class="d-flex justify-center" flat color="transparent">
-        <v-toolbar-title>관심있는 카테고리를 변경해주세요!</v-toolbar-title>
+        <v-toolbar-title @click="initialFavCategory">관심 카테고리를 다시 설정해주세요!</v-toolbar-title>
       </v-toolbar>
 
       <v-row align="center" justify="center">
@@ -14,7 +14,7 @@
         > 
           <span v-if="selection.text === '건강'">
             <v-chip
-              color="light-green lighten-1"
+              color="light-blue lighten-1"
               outlined
               :disabled="loading"
               close
@@ -153,43 +153,51 @@ export default {
       items: [
         {
           text: "건강",
+          category_id: '1',
           icon: "mdi-dumbbell",
           content:
             "식이조절, 복근 만들기, 클로이팅 챌린지, 식단일기 쓰기 등이 있어요! "
         },
         {
           text: "생활습관",
+          category_id: '2',
           icon: "mdi-calendar-check",
           content:
             "미라클 모닝, 스크린 타임 4시간, 물 2L 마시기, 매일 일기쓰기 등이 있어요!"
         },
         {
           text: "독서",
+          category_id: '3',
           icon: "mdi-bookshelf",
           content:
             "30분 책읽기, 코스모스 끝내기, 독서 기록장 쓰기, 한 달 두 권 읽기 등이 있어요!"
         },
         {
           text: "자산",
+          category_id: '4',
           icon: "mdi-cash-usd-outline",
           content:
             "경제 기사 스크랩, 가계부 쓰기, 출근 길 택시 안 타기, 주식일기 쓰기 등이 있어요!"
         },
         {
           text: "자기계발",
+          category_id: '5',
           icon: "mdi-school",
           content:
             "1일 2알고리즘, 매일 영단어 20개, 뉴스레터 밀리지 않기, 컴활 공부하기 등이 있어요!"
         },
         {
           text: "취미",
+          category_id: '6',
           icon: "mdi-piano",
           content:
             "매일 크로키, 기타 연습하기, 영상 편집하기 프랑스자수-기초 스티치 마스터 등이 있어요!"
         }
       ],
       loading: false,
-      selected: []
+      selected: [],
+      tmp: [],
+      initCategory: [],
     };
   },
   computed: {
@@ -216,9 +224,21 @@ export default {
         const favoriteCategory = {}
         const user_id = this.user.user_id
         favoriteCategory["user_id"] = user_id
-        favoriteCategory["category_id"] = selectedCategory.category_id
+        if (selectedCategory.text === '건강') {
+          favoriteCategory["category_id"] = 1
+        } else if (selectedCategory.text === '생활습관') {
+          favoriteCategory["category_id"] = 2          
+        } else if (selectedCategory.text === '독서') {
+          favoriteCategory["category_id"] = 3          
+        } else if (selectedCategory.text === '자산') {
+          favoriteCategory["category_id"] = 4          
+        } else if (selectedCategory.text === '자기계발') {
+          favoriteCategory["category_id"] = 5          
+        } else {
+          favoriteCategory["category_id"] = 6       
+        }
         favoriteCategories.push(favoriteCategory)
-      console.log("test1",selectedCategory)
+      console.log("test1",favoriteCategories)
       }
       return favoriteCategories
     },
@@ -249,24 +269,37 @@ export default {
         state.loading = false
       },2000)
     },
+    async initialFavCategory () {
+      const userNickname = this.user.nickname
+      await axios.get(`http://localhost:8080/userPage/favCategoryName/${userNickname}`)
+        .then((res) => {
+          this.tmp = res.data
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+
+        for (let i=0; i < this.items.length; i++) {
+          for (let j=0; j < this.tmp.length; j++) {
+            if (this.items[i].text === this.tmp[j].name) {
+              this.selected.push(this.items[i])
+            }
+          }
+        }
+        console.log(this.selected)
+    },
+    test: function() {
+      console.log(this.selected)
+    }
   },
-  // computed: {
-    // color: function () {
-    //   if (this.items.text === "건강") {
-    //     return 'light-green lighten-1'
-    //   } else if (this.items.text === "생활습관") {
-    //     return 'orange lighten-1'
-    //   } else if (this.items.text === "독서") {
-    //     return 'teal lighten-1'
-    //   } else if (this.items.text === "자산") {
-    //     return 'indigo lighten-1'
-    //   } else if (this.items.text === "자기계발") {
-    //     return 'purple lighten-1'
-    //   } else {
-    //     return 'pink lighten-1'
-    //   }
-    // },
-  // }
+  watch: {
+    selected: function () {
+      console.log("?")
+    }
+  },
+  created() {
+    this.initialFavCategory();
+  }
 };
 </script>
 

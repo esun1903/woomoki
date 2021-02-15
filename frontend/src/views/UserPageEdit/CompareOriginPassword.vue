@@ -1,8 +1,8 @@
 <template>
   <v-container class="container-size">
 
-    <v-row class="mb-5">
-      <h4>프로필 변경을 위해 비밀번호를 한번더 입력해주세요!</h4>
+    <v-row class="d-flex justify-center mb-7">
+      <h2 class="message">프로필 변경을 위해 비밀번호를 한번더 입력해주세요!</h2>
     </v-row>
     
     <v-row>
@@ -12,7 +12,6 @@
         label="비밀번호"
         type="password"
         outlined
-        dense
       ></v-text-field>
       
     </v-row>
@@ -95,13 +94,17 @@ export default {
 a { text-decoration:none } 
 
 .container-size {
-  width: 40%;
+  width: 35%;
   margin-top: 16%;
   margin-bottom: 15%;
 }
 
 .confirm-btn-textcolor {
   color: white;
+}
+
+.message {
+  font-size: 22px;
 }
 
 </style>

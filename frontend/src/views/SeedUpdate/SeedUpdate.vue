@@ -1,63 +1,116 @@
 <template>
   <v-container class="container-size">
-    <v-row>
-      <v-text-field
-        color="light-green lighten-2"
-        clear-icon="fas fa-times"
-        v-model="SeedInfo.sum_img"
-        outlined
-        label="썸네일"
-        clearable
-      ></v-text-field>
+    <v-row class="d-flex justify-center mb-5">
+      <h1>씨앗 변경</h1>
     </v-row>
-    <v-row>
+    <v-row class="d-flex justify-center mb-10">
+      <v-icon color="red lighten-2">fas fa-exclamation-triangle</v-icon>
+      <span class="caution-font ml-2">씨앗은 내용, 보살핌 예시 사진, 최대 참여 인원만 수정 할 수 있습니다</span>
+    </v-row>
+    <v-row> 
+      <v-hover>
+        <template v-slot:default="{ hover }"> 
+          <v-img
+            :class="`rounded-lg`"
+            width="100%"
+            height="450px"
+            max-width="100%"
+            max-height="100%"
+            v-if="imageUrl"
+            readonly
+            :src="SeedInfo.sum_img"
+          >
+            <v-fade-transition>
+                <v-overlay
+                  v-if="hover"
+                  absolute
+                  color="#036358"
+                >
+                  <v-btn text plain class="img-cursor">
+                    대표 사진
+                  </v-btn>
+                </v-overlay>
+            </v-fade-transition>
+          </v-img>
+        </template>
+      </v-hover>
+    </v-row>
+
+    <v-row class="mt-10">
       <v-text-field
         color="light-green lighten-2"
         v-model="SeedInfo.title"
         outlined
-        label="제목"
+        placeholder="EX) 매일매일 코딩 공부하기"
+        label="씨앗 이름"
         readonly
+        disabled
       ></v-text-field>
     </v-row>
+
     <v-row>
-      <v-text-field
+      <v-textarea
         color="light-green lighten-2"
         clear-icon="fas fa-times"
-        v-model="SeedInfo.content"
+        v-model="content"
+        :rules="contentRules"
+        :counter="200"
         outlined
-        label="내용"
-        clearable
-      ></v-text-field>
+        placeholder="EX) 코딩을 꾸준히 하지 않으면 까먹기 쉽지 않나요? 각자 조금씩이라도 코딩을 하고 매일매일 커밋하는 씨앗을 심고 싶어요! 함께하실 가꾸미님 구합니다!!"
+        label="씨앗에 물주는 방법"
+        no-resize
+      ></v-textarea>
     </v-row>
+
     <v-row>
-      <v-text-field
-        color="light-green lighten-2"
-        v-model="SeedInfo.example_img"
-        outlined
-        label="예시 이미지"
-        clearable
-      ></v-text-field>
+      <v-hover>
+        <template v-slot:default="{ hover }"> 
+          <v-img
+            :class="`rounded-lg`"
+            width="100%"
+            height="450px"
+            max-width="100%"
+            max-height="100%"
+            v-if="imageUrl"
+            :src="example_img"
+            @click="onClickImageUpload"
+          >
+            <v-fade-transition>
+              <v-overlay
+                v-if="hover"
+                absolute
+                color="#036358"
+              >
+                <v-btn color="light-green lighten-2">인증 예시 사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
+              </v-overlay>
+            </v-fade-transition>
+          </v-img>
+        </template>
+      </v-hover> 
     </v-row>
-    <v-row>
+
+    <v-row class="mt-10">
       <v-text-field
         suffix="원"
         color="light-green lighten-2"
         v-model="SeedInfo.join_deposit"
         outlined
-        label="참여 금액"
+        label="참여 금액(원)"
         readonly
+        disabled
       ></v-text-field>
     </v-row>
     <v-row>
-      <v-text-field
-        suffix="명"
-        color="light-green lighten-2"
-        clear-icon="fas fa-times"
-        v-model="SeedInfo.max_people"
-        outlined
+      <v-slider
+        v-model="max_people"
         label="최대 인원"
-        clearable
-      ></v-text-field>
+        color="grey"
+        track-color="grey"
+        thumb-color="light-green lighten-2"
+        :thumb-label="true"
+        min="0"
+        max="50"
+      ></v-slider>
     </v-row>
     <v-row>
       <v-text-field
@@ -66,18 +119,33 @@
         outlined
         label="기간"
         readonly
+        disabled
       ></v-text-field>
     </v-row>
+
+    <v-row>
+      <v-text-field
+        color="light-green lighten-2"
+        clear-icon="fas fa-times"
+        v-model="weekDay"
+        outlined
+        label="보살핌 횟수"
+        disabled
+      ></v-text-field>
+    </v-row>
+
     <v-row class="d-flex justify-end">
       <router-link :to="{ name: 'SeedDetail', params: { seedId: this.seedId } }">
         <v-btn
           color="light-green lighten-2 white--text"
           @click="UpdateSeed"
+          :disabled="isAllSubmit === false"
           >
           적용
         </v-btn>
       </router-link>
     </v-row>
+
   </v-container>
 </template>
 
@@ -86,20 +154,63 @@ import axios from 'axios'
 
 export default {
   name: "SeedUpdate",
+  components: {
+  },
   data: function () {
     return {
       seedId: this.$route.params.seedId,
       SeedInfo: [],
+      sum_img: "",
+      content: "",
+      contentRules: [
+        v => !!v || '내용은 필수 항목입니다',
+        v => v.length >= 10 || '참여자들을 위해 내용을 자세히 적어주세요',
+        v => v.length <= 200 || '200자를 초과할 수 없습니다',
+      ],
+      example_img: "",
+      max_people: "",
       dates: [],
+      imageUrl: "https://t1.daumcdn.net/cfile/tistory/995A17455A409C9A28",
+      text: "썸네일 사진 변경",
+      overlay: false,
+      count: [],
+      isSubmit: {
+        isThumbnail: false,
+        isContent: false,
+        isCertification: false,
+        isPeople: false,
+      },
+      isAllSubmit: false,
     }
   },
   methods: {
+    onClickImageUpload() {
+    this.$refs.imageInput.click();
+    },
+    onChangeImages(e) {
+        console.log(e.target.files)
+        const file = e.target.files[0]; // Get first index in files
+        this.imageUrl = URL.createObjectURL(file); // Create File URL
+        this.text = ""
+    },
+    onDeleteImage() {
+      this.text = "썸네일 사진 변경"
+      this.imageUrl = ""
+    },
+    transferThumbnail: function () {
+      this.$emit('transferThumbnail', this.imageUrl)
+    },
     getSeedDetail: function () {
       const seedId = this.seedId
       axios.get(`http://127.0.0.1:8080/detailChallenge/${seedId}`)
         .then((res) => {
           console.log(res.data)
           this.SeedInfo = res.data
+          this.sum_img = res.data.sum_img
+          this.content = res.data.content
+          this.example_img = res.data.example_img
+          this.max_people = res.data.max_people
+      
           this.dates.push(this.SeedInfo.start_date)
           this.dates.push(this.SeedInfo.end_date)
         })
@@ -113,12 +224,12 @@ export default {
         category_id: this.SeedInfo.category_id,
         user_id: this.SeedInfo.user_id,
         title: this.SeedInfo.title,
-        content: this.SeedInfo.content,
+        content: this.content,
         start_date: this.SeedInfo.start_date,
         end_date: this.SeedInfo.end_date,
         cert_count: this.SeedInfo.cert_count,
-        max_people: this.SeedInfo.max_people,
-        example_img: this.SeedInfo.example_img,
+        max_people: this.max_people,
+        example_img: this.example_img,
         join_deposit: this.SeedInfo.join_deposit,
         like_cnt: this.SeedInfo.like_cnt, 
         result : this.SeedInfo.result,
@@ -131,6 +242,59 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    checkForm: function () {
+      if (this.sum_img.length > 1) {
+        this.isSubmit.isThumbnail = true
+        console.log("대표 사진:", this.isSubmit.isThumbnail)
+      } else {
+        this.isSubmit.isThumbnail = false
+      }
+
+      if (this.content.length >= 10 && this.content.length <= 200) {
+        this.isSubmit.isContent = true
+        console.log("내용:", this.isSubmit.isContent)
+      } else {
+        this.isSubmit.isContent = false
+      }
+
+      if (this.example_img.length > 1) {
+        this.isSubmit.isCertification = true
+        console.log("예시 이미지:", this.isSubmit.isCertification)
+      } else {
+        this.isSubmit.isCertification = false
+      }
+
+      if (this.max_people > 0) {
+        this.isSubmit.isPeople = true
+        console.log("날짜:", this.isSubmit.isPeople)
+      } else {
+        this.isSubmit.isPeople = false
+      }
+
+      const isAllSubmit = Object.values(this.isSubmit).every(v => { return v === true })
+      console.log(Object.values(this.isSubmit))
+      console.log("전체:", isAllSubmit)
+      if (isAllSubmit) {
+        this.isAllSubmit = true;
+      } else {
+        this.isAllSubmit = false;
+      }
+
+    }
+  },
+  watch: {
+    sum_img: function () {
+      this.checkForm();
+    },
+    content: function () {
+      this.checkForm();
+    },
+    example_img: function () {
+      this.checkForm();
+    },
+    max_people: function () {
+      this.checkForm();
     }
   },
   created() {
@@ -139,6 +303,9 @@ export default {
   computed: {
     dateRangeText () {
       return this.dates.join(' ~ ')
+    },
+    weekDay () {
+      return `${this.SeedInfo.week}주 동안 주 ${this.SeedInfo.day}회`
     },
   }
 }
@@ -151,7 +318,20 @@ a {
 }
 
 .container-size {
+  margin-top: 10vh;
   width: 40%;
+}
+
+.form-margin {
+  margin-top: 10vh;
+}
+
+.caution-font {
+  font-size: 18px;
+}
+
+.img-cursor {
+  cursor: default
 }
 
 </style>
