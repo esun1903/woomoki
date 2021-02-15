@@ -79,7 +79,7 @@ public class CertificationController {
 	}
 
 	@PutMapping("/likeDownCertification/{userId}/{certId}")
-	public int likeDown (  @PathVariable(value = "userId") int userId, @PathVariable(value = "certId") int cert_id) {
+	public int likeDown ( @PathVariable(value = "userId") int userId, @PathVariable(value = "certId") int cert_id) {
 		System.out.println(userId +"가 " + cert_id +"인증 좋아요를 취소할게 ㅎ  ");
 		return certificationService.likeDown(userId, cert_id );
 	}

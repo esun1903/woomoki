@@ -25,7 +25,7 @@ public interface CertificationDao {
 
 	@Insert(" Insert INTO certification ( cng_id, img, content, create_date , result, user_id, like_cnt)"
 			+ " VALUES ( #{certificationDto.cng_id}, #{certificationDto.img}, "
-			+ " #{certificationDto.content}, now(), #{certificationDto.result}, #{certificationDto.user_id}, '0' , #{certificationDto.week} , #{certificationDto.day} ) ")
+			+ " #{certificationDto.content}, now(), #{certificationDto.result}, #{certificationDto.user_id}, '0' ) ")
 	public int certificationInsert(@Param("certificationDto")CertificationDto certificationDto);
 
 	@Update("Update certification SET "
