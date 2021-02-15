@@ -3,11 +3,11 @@
         <div class="detail">
             <v-row class="cng-name">
                 <!-- 챌린지명: {{ this.$route.params.cngName }} -->
-                챌린지명: 챌린지명입니다
+                챌린지명: {{ CertInfo.title }}
             </v-row>
             <v-row class="nickname-date-row">
                 <v-col class="user-id">
-                    아이디: {{ CertInfo.user_id }}
+                    아이디: {{ CertInfo.nickname }}
                 </v-col>
                 <v-col class="date">
                     인증날짜: {{ CertInfo.create_date }}
@@ -94,6 +94,8 @@
             return {
                 CertInfo: [],
                 comments: [],
+                UserInfo: [],
+                Nicknames: [],
                 // photoUrl:"https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
                 dialog: false,
                 scrapped: false,
@@ -157,10 +159,22 @@
                     .then((response) => {
                         console.log(response.data);
                         this.comments = response.data;
+                        for (const i in this.comments) {
+                            const comment = this.comments[i]
+                            const commentUserId = comment["user_id"]
+                            console.log("cmt user id: " + commentUserId);
+                            this.getUserInfo(commentUserId)
+                        }
                     })
                     .catch((err) => {
                         console.log(err)
                     })
+            },
+            getUserInfo(commentUserId){
+                const UserInfo = axios.get(`http://localhost:8080/userPage/Id/${commentUserId}`)
+                            console.log("아이디로부터 얻은 유저 정보 :" + UserInfo.data);
+                            this.UserInfo = UserInfo.data;
+                            console.log("User정보: "+ this.UserInfo);
             },
             updateCert: function () {
                 this.$router.push({
@@ -196,7 +210,7 @@
                 const userId = this.$store.state.UserStore.user.user_id
                 // 스크랩이 되어있지 않을 때 스크랩
                 if (this.scrapped) {
-                    axios.put(`http://127.0.0.1:8080/likeUpCertification/${certId}`)
+                    axios.put(`http://127.0.0.1:8080/likeUpCertification/${userId}/${certId}`)
                         .then((res) => {
                             console.log(res)
                         })
@@ -205,7 +219,7 @@
                         })
                 } else {
                     // 스크랩 되어 있을 때 스크랩 취소
-                    axios.put(`http://127.0.0.1:8080/likeDownCertification/${certId}`)
+                    axios.put(`http://127.0.0.1:8080/likeDownCertification/${userId}/${certId}`)
                         .then((res) => {
                             console.log(res)
                         })
@@ -214,11 +228,11 @@
                         })
                 }
             },
-            successCert(){
+            successCert() {
                 confirm("인증 성공으로 할거냐고 물어볼건데 나중에 dialog로 바꾸기")
                 this.showResultBtn = false;
             },
-              failCert(){
+            failCert() {
                 confirm("인증 실패로 할거냐고 물어볼건데 나중에 dialog로 바꾸기")
                 this.showResultBtn = false;
             }
