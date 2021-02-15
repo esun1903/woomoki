@@ -1,17 +1,15 @@
 <template>
-<v-app id="app">
-  <div class="font-app">
+  <v-app id="app" class="font-app">
     <Navbar></Navbar>
     <v-main class="main-css">
         <router-view :key="$route.fullPath"></router-view>
     </v-main>
-    <div class="loader-btn">
+    <div class="loader">
       <UpPage></UpPage>
       <Chat v-if="this.isLogin"></Chat>
     </div>
     <Footer></Footer>
-  </div>
-</v-app>
+  </v-app>
 </template>
 
 
@@ -43,7 +41,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
 // 웹폰트 사용
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
@@ -55,7 +53,7 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
 
-.loader-btn {
+.loader {
   z-index: 5;
 }
 
