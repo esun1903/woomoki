@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="container-size">
     <v-row>
       <SeedThumbnail></SeedThumbnail>
     </v-row>
@@ -55,9 +55,9 @@
       <div id="rules"></div>
       <div id="content"></div>
       <footer></footer>
-      <v-btn @click="JoinSeed" id="banner" width="50vw" height="5vw" class="position-fixed"
+      <v-btn @click="JoinSeed" depressed tile id="banner" width="65.55vw" height="5vw" class="position-fixed"
         color="light-green lighten-1">
-        <h1>
+        <h1 class="join-font">
           함께하기
         </h1>
       </v-btn>
@@ -173,7 +173,7 @@ export default {
         var sT = $w.scrollTop();
         var val = $(document).height() - $w.height() - footerHei;
 
-        if (sT + 164 >= val) {
+        if (sT + 190 >= val) {
           $banner.addClass('on')
         } else
           $banner.removeClass('on')
@@ -184,18 +184,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .position-fixed {
-    z-index: 2;
-    position: fixed;
-    bottom: 0;
-    // right: 37.5%;
-    color: #fff;
-    background-position: center center;
-    background-repeat: no-repeat;
-    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.15);
-    cursor: pointer;
-    margin: 2vw;
-  }
+.position-fixed {
+  z-index: 2;
+  position: fixed;
+  bottom: 0;
+  // right: 37.5%;
+  color: #fff;
+  background-position: center center;
+  background-repeat: no-repeat;
+  box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.15);
+  cursor: pointer;
+  margin: 2vw;
+}
 
   // * {
   //   margin:0;
@@ -206,38 +206,46 @@ export default {
   //   position:relative;
   // }
 
-  footer {
-    height: 0px;
-  }
+footer {
+  height: 0px;
+}
 
-  #rules {
-    background: white;
-    height: 150px;
-    // font-size: 30px;
-    color: black;
-  }
+#rules {
+  background: white;
+  height: 150px;
+  // font-size: 30px;
+  color: black;
+}
 
 
-  #banner {
-    z-index: 3;
-    position: fixed;
-    // right: 37.7%;
-    right: 23%;
-    width: 50px;
-    height: 100px;
-    background: salmon;
-    box-shadow: 0 0 10px rgba(0, 0, 0, .6);
-  }
+#banner {
+  z-index: 3;
+  position: fixed;
+  // right: 37.7%;
+  right: 14.85%;
+  bottom: -3.9%;
+  width: 50px;
+  height: 100px;
+  background: salmon;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .6);
+}
 
-  #banner.on {
-    position: absolute;
-    // right: 37.7%;
-    right: 23%;
-    bottom: 1vw;
-  }
+#banner.on {
+  position: absolute;
+  // right: 37.7%;
+  right: 14.8%;
+  bottom: 1%;
+}
 
-  .content-color {
-    color: black;
-  }
+.content-color {
+  color: black;
+}
 
+.container-size {
+  width: 70%;
+}
+
+.join-font {
+  font-size: 35px;
+}
 </style>

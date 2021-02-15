@@ -61,7 +61,7 @@
             <v-img :src="result.value"></v-img>
           </v-expansion-panel-content>
           <v-expansion-panel-content v-else class="mt-4">
-            <span class="black--text content-color">
+            <span class="black--text content-size">
               {{ result.value }}
             </span>
           </v-expansion-panel-content>
@@ -186,5 +186,9 @@ a {
 
 .ninckname {
   color: black;
+}
+
+.content-size {
+  font-size: 20px;
 }
 </style>

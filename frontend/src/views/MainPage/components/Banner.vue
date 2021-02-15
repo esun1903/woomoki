@@ -39,7 +39,7 @@ export default {
           .slide{
             display: block;
             object-fit: cover;
-            margin-top:1%;
+            margin-top:0%;
             img{
               width: 100%;
               height: auto;
