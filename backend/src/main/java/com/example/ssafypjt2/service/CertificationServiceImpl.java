@@ -85,5 +85,19 @@ public class CertificationServiceImpl implements CertificationService {
         return list;
     }
 
+    @Override
+    public ChallengeDto challengeWeekDay(int cngId) {
+        System.out.println("서비스 단 들어왔다");
+        ChallengeDto count = dao.challengeWeekDay(cngId);
+        return count;
+    }
+
+    @Override
+    public List<CertificationDto> CngCertificationList(int user_id, int cngId) {
+        System.out.println("서비스 단 들어왔다");
+        List<CertificationDto> result = dao. CngCertificationList(user_id,cngId);
+        return result;
+    }
+
 
 }

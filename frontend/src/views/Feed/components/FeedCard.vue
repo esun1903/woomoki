@@ -4,9 +4,9 @@
       <img :src=CertificationImg>
       <div class="mask">
         <div class="slide-info">
-          <div class="datetime">{{ slide.create_date}}</div>
-          <div class="writer">{{ slide.user_id }}</div>
-          <div class="seed-title">챌린지 제목</div>
+          <div class="datetime">{{ slide.create_date | formatDate }}</div>
+          <div class="writer">{{ slide.nickname }}</div>
+          <div class="seed-title">{{ slide.title }}</div>
           <div class="content">{{ slide.content }}</div>
           <v-btn @click="goCertDetail">MORE</v-btn>
         </div>
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   name: 'FeedCard',
   components: {  },
@@ -29,6 +30,13 @@ export default {
       dialog: false,
     };
   },
+  filters: {
+    formatDate: function(value) {
+      if (value) {
+        return moment(String(value)).format('YYYY년 MM월 DD일 hh:mm')
+      }
+    },
+  }, 
   mounted() {
     
   },
@@ -39,7 +47,7 @@ export default {
   },
   computed: {
     CertificationImg: function () {
-      console.log('확인')
+      console.log('확인룡룡')
       console.log(this.slide)
       return this.slide.img 
     },
@@ -65,7 +73,7 @@ export default {
   .mask {
     width: 100%;
     height: 300px;
-    padding: 5% 7%;
+    padding: 5% 10%;
     transition: .5s ease;
     opacity: 0;
     position: absolute;
@@ -73,9 +81,6 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    // &:hover {
-    //   opacity: 0.8;
-    // }
     .slide-info {
       width: 100%;
       height: 100%;

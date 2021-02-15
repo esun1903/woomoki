@@ -17,7 +17,7 @@ export default {
   data: function () {
     return {
       value: 0,
-      day: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+      day: [1, 2, 3, 4, 5, 6, 7],
       dayRules: [
         v => !!v || '며칠은 필수 항목입니다',
         v => this.valiteateCount(v) || '인증 횟수는 숫자만 입력해야합니다',
