@@ -1,6 +1,8 @@
 <template>
   <v-container>
     <v-btn-toggle
+      borderless
+      color="lime accent-3"
       value="test"
       v-model="category"
       class="d-flex justify-center flex-wrap"
@@ -18,7 +20,7 @@
             <div>
               <v-icon 
                 size="4vw"
-                color="light-green lighten-1"
+                color="light-blue lighten-1"
               >
                 fas fa-dumbbell
               </v-icon>
@@ -241,7 +243,7 @@ export default {
 <style scoped>
 
 .category-font-health {
-  color: #9CCC65;
+  color: #42A5F5;
   margin-top: 20px;
   font-size: 1.3vw;
 }
@@ -275,5 +277,6 @@ export default {
   margin-top: 20px;
   font-size: 1.3vw;
 }
+
 
 </style>
