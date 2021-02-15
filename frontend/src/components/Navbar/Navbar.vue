@@ -4,16 +4,15 @@
         <router-link to="/" class="router">
           <v-img 
             width="4vw"
-            class="mt-3"
             :src="require('@/assets/images/logo.png')"
           ></v-img>
         </router-link>
         
         <SearchBar/>
-        <div v-if="getCheckLogin">
+        <!-- <div v-if="getCheckLogin">
           안녕하세요, 
           <span class="nickname">{{ this.user.nickname }}</span>님
-        </div>
+        </div> -->
         <div class="btn-group">
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
@@ -254,12 +253,11 @@ export default {
 
 <style lang="scss" scoped>
 // 개발자 도구로 찍고 나서야 바꿀 수 있는 부분
-
 .v-sheet.v-app-bar.v-toolbar:not(.v-sheet--outlined) {
   box-shadow: none;
 }
 .theme--light.v-app-bar.v-toolbar.v-sheet{
-  background: transparent;
+  background: white;
 }
 a:-webkit-any-link {
     color: black;
@@ -268,11 +266,11 @@ a:-webkit-any-link {
 }
 
 .btn-group {
-  padding-left: 20%;
+  padding-left: 17%;
 }
 
 .navbar-block {
-  margin-bottom: 5%;
+  margin-bottom: 1%;
 }
 
 .router {
@@ -280,6 +278,7 @@ a:-webkit-any-link {
 }
 
 .navbar {
+  height: 9vh !important;
   a {
     :-webkit-any-link {
     color: black;

@@ -10,7 +10,6 @@
   color="success"
   background-color="light-grey"
   @change="onSearch"
-  class="mx-4"
   flat
   hide-no-data
   hide-details
@@ -85,7 +84,7 @@ export default {
 
 <style lang="scss" scoped>
 .v-input{
-  max-width: 30%;
+  max-width: 60%;
 }
 
 </style>

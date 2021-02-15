@@ -56,15 +56,11 @@ export default {
   width: 320px;
   height: 300px;
   object-fit: cover;
-  padding: 0 1%;
+  padding: 0 3%;
   margin: 0;
   opacity: 1;
   display: block;
   transition: .5s ease;
-  // backface-visibility: hidden;
-    // &:hover {
-    //   opacity: 0.1;
-    // }
   }
   .mask {
     width: 100%;

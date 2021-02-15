@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Banner/>
     <v-container>
       <div class="selectBoxes">
         <div class="selectBox1">
@@ -32,11 +33,12 @@
 </template>
 
 <script>
+import Banner from "@/views/MainPage/components/Banner.vue"
 import SeedSearched from "@/views/MainPage/components/SeedSearched.vue"
 import SeedRecommended from "@/views/MainPage/components/SeedRecommended.vue"
 export default {
   name: 'MainPage',
-  components: { SeedSearched, SeedRecommended },
+  components: { Banner, SeedSearched, SeedRecommended },
   directives: {  },
   data() {
     return {
@@ -77,11 +79,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-div {
+.container{
+  padding-bottom: 0;
   .selectBoxes {
     display: flex;
     justify-content: flex-end;
-    padding-top: 5%;
+    padding-top: 2%;
     .selectBox1{
       margin-right: 0.5%;
       width: 10%;
