@@ -23,9 +23,9 @@ public interface CertificationService {
 
 	public List<CertificationDto> userCrtListSort(int userId, int cngId);
 
-	public int likeUp(int id);
+	public int likeUp(int userId, int id);
 
-	public int likeDown(int id);
+	public int likeDown(int userId, int id);
 	public List<CertificationDto> searchWordCert(String keyword);
 
 }

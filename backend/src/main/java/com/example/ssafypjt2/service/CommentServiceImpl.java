@@ -39,15 +39,15 @@ public class CommentServiceImpl implements CommentService {
         return dao.commentShowList(certId);
     }
 
-    @Override
-    public int likeUp(int id) {
-        return dao.likeUp(id);
-    }
-
-    @Override
-    public int likeDown(int id) {
-        return dao.likeDown(id);
-    }
+//    @Override
+//    public int likeUp(int id) {
+//        return dao.likeUp(id);
+//    }
+//
+//    @Override
+//    public int likeDown(int id) {
+//        return dao.likeDown(id);
+//    }
 
 
 }
