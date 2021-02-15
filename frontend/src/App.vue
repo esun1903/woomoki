@@ -48,7 +48,7 @@ export default {
 }
 
 .main {
-  margin-top: 10vh;
+  margin-top: 7.1vh;
 }
 
 </style>

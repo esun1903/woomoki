@@ -196,6 +196,7 @@ export default {
       axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId_num}`, userId)
         .then((res) => {
           const seeds = res.data
+          console.log('화아앙아아악인')
           console.log(seeds)
           seeds.sort(function(a,b) {
             return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
@@ -213,8 +214,8 @@ export default {
       this.$router.push({ name: 'Feed' }) 
     },
     goLogout: function () {
-      this.$router.push({ name: 'Main' })
       this.$store.dispatch('UserStore/logOut')
+      this.$router.go(this.$router.currentRoute)
     },
     goDeleteScrap: function (val) {
       const userId_num = this.user.user_id;
@@ -351,11 +352,10 @@ a:-webkit-any-link {
               .seed-info{
                 .title{
                   margin-left: 1%;
-                  display: inline-block;
-                  width: 100%;
-                  white-space: nowrap;
+                  display: -webkit-box;
+                  -webkit-box-orient: vertical;
+                  -webkit-line-clamp: 1;
                   overflow: hidden;
-                  text-overflow: ellipsis;
                   p{
                     font-size: 1.1rem;
                   }

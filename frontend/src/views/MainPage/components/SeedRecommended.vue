@@ -71,6 +71,7 @@ export default {
   methods: {
   },
   created () {
+    this.id = this.user.user_id
     const id = {};
     id["id"] = this.user.user_id
     console.log(id)
@@ -86,7 +87,7 @@ export default {
       .catch((err) => {
         console.log(err)
       })
-  }
+  },
 };
 </script>
 
