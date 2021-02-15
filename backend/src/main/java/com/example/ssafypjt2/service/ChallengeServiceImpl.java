@@ -105,4 +105,10 @@ public class ChallengeServiceImpl implements ChallengeService {
 		return dao.challengeLikeCount(cngId);
 	}
 
+	@Override
+	public List<ChallengeDto> user_LikeAndChallengeList(int user_id) {
+		List<ChallengeDto> list = dao.main_LikeChallegeList(user_id);
+		return list;
+	}
+
 }
