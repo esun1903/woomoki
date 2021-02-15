@@ -63,15 +63,17 @@ export default {
       this.$router.push({ name: 'SeedDetail', params: { seedId: val } })
     },
     getLikes: function () {
-      const seedId = {};
-      const seedId_num = this.seed.id
-      seedId["seedId"] = seedId_num;
+      const likeInfo = {};
+      const userId_num = this.user.user_id;
+      const seedId_num = this.seed.id;
+      likeInfo["userId"] = userId_num;
+      likeInfo["cngId"] = seedId_num;
       if (this.liked) {
-        axios.put(`http://127.0.0.1:8080/likeDownChallenge/${seedId_num}`, seedId )
+        axios.put(`http://127.0.0.1:8080/likeDownChallenge/${userId_num}/${seedId_num}`, likeInfo )
         this.liked = false
         
       } else {
-        axios.put(`http://127.0.0.1:8080/likeUpChallenge/${seedId_num}`, seedId )
+        axios.put(`http://127.0.0.1:8080/likeUpChallenge/${userId_num}/${seedId_num}`, likeInfo )
         this.liked = true
       }
     },
@@ -118,28 +120,30 @@ export default {
         console.log(err)
       })
     },
-    // CheckisLiked: function () {
-    //   const userId_num = this.user.user_id;
-    //   const seedId_num = this.seed.id;
-    //   axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId_num}`)
-    //   .then((res) => {
-    //     console.log(res)
-    //     const seedList = res.data
-    //     var i;
-    //     for (i=0; i < seedList.length; i++) {
-    //       if (seedList[i].id === Number(seedId_num)) {
-    //         this.liked = true
-    //       }
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
-    // },
+    CheckisLiked: function () {
+      const userId = {};
+      const userId_num = this.user.user_id;
+      const seedId_num = this.seed.id;
+      userId["userId"] = userId_num;
+      axios.get(`http://127.0.0.1:8080/LikeAndChallenge/${userId_num}`, userId)
+      .then((res) => {
+        console.log(res)
+        const seedList = res.data
+        var i;
+        for (i=0; i < seedList.length; i++) {
+          if (seedList[i].id === Number(seedId_num)) {
+            this.liked = true
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
   },
   created() {
     this.CheckisScrapped();
-    // this.CheckisLiked();
+    this.CheckisLiked();
   },
   computed: {
     ...mapState('UserStore', ['user']),
