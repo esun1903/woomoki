@@ -2,6 +2,7 @@
   <v-col
     >
       <v-menu
+        color="light-green lighten-2"
         ref="menu"
         v-model="menu"
         :close-on-content-click="false"
@@ -12,17 +13,35 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
+            color="light-green lighten-2"
+            v-model="dates"
+            label="보살핌을 시작 할 날짜를 선택해주세요"
+            prepend-icon="mdi-calendar"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-text-field>
+          <!-- <v-text-field
+            color="light-green lighten-2"
             v-model="dateRangeText"
             label="인증 기간을 선택해주세요"
             prepend-icon="mdi-calendar"
             readonly
             v-bind="attrs"
             v-on="on"
-          ></v-text-field>
+          ></v-text-field> -->
         </template>
-        <v-date-picker
-          width="43.5vw"
+        <!-- <v-date-picker
+          color="light-green lighten-2"
+          width="43.3vw"
           range
+          v-model="dates"
+          no-title
+          scrollable
+        > -->
+        <v-date-picker
+          color="light-green lighten-2"
+          width="43.3vw"
           v-model="dates"
           no-title
           scrollable
@@ -75,7 +94,8 @@ export default {
   name: "SeedDate",
   data: function () {
     return {
-      dates: [],
+      dates: "",
+      // dates: [],
       // date: new Date().toISOString().substr(0, 10),
       menu: false,
     }

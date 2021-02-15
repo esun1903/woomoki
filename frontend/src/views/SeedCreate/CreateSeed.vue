@@ -106,9 +106,9 @@
 
       <v-stepper-content step="3">
         <SeedCertificationImg @transferCertificationImg="receiveCertificationImg" class="pt-3 mb-5"></SeedCertificationImg>
-        <SeedDate @transferDate="receiveDate"></SeedDate>
-        <SeedCertificationMonth @transferMonth="receiveMonth"></SeedCertificationMonth>
+        <SeedCertificationWeek @transferWeek="receiveWeek"></SeedCertificationWeek>
         <SeedCertificationDay @transferDay="receiveDay"></SeedCertificationDay>
+        <SeedDate @transferDate="receiveDate"></SeedDate>
         <SeedPeople @transferPeople="receivePeople"></SeedPeople>
         <SeedDeposit @transferDeposit="receiveDeposit"></SeedDeposit>
         <SeedCheckbox @transferCheckbox="receiveCheckbox"></SeedCheckbox>
@@ -155,7 +155,7 @@ import SeedCategory from "./components/SeedCategory.vue"
 import SeedPeople from "./components/SeedPeople.vue"
 import SeedDeposit from "./components/SeedDeposit.vue"
 import SeedCertificationImg from "./components/SeedCertificationImg.vue"
-import SeedCertificationMonth from "./components/SeedCertificationMonth.vue"
+import SeedCertificationWeek from "./components/SeedCertificationWeek.vue"
 import SeedCertificationDay from "./components/SeedCertificationDay.vue"
 import SeedCheckbox from "./components/SeedCheckbox.vue"
 import axios from 'axios'
@@ -171,7 +171,7 @@ export default {
     SeedPeople,
     SeedDeposit,
     SeedCertificationImg,
-    SeedCertificationMonth,
+    SeedCertificationWeek,
     SeedCertificationDay,
     SeedCheckbox
   },
@@ -190,7 +190,7 @@ export default {
       dates: "",
       start_date: "",
       end_date: "",
-      month: "",
+      week: "",
       day: "",
       people: 0,
       joinDeposit: "",
@@ -208,7 +208,7 @@ export default {
         isSubmit: {
           isCertificationImg: true,
           isDate: false,
-          isMonth: false,
+          isWeek: false,
           isDay: false,
           isPeople: false,
           isjoinDeposit: false,
@@ -222,18 +222,50 @@ export default {
   methods: {
     // 씨앗 생성
     InsertSeed: function () {
+      // week calc
+      // const start_year = this.dates[0].slice(0, 4)
+      // const startDate = new Date(Number(start_year), Number(this.dates[0].slice(5, 7))-1, Number(this.dates[0].slice(8, 10)));
+      // const end_year = this.dates[1].slice(0, 4)
+      // const endDate = new Date(Number(end_year), Number(this.dates[1].slice(5, 7))-1, Number(this.dates[1].slice(8, 10)));
+      // const week = Math.floor((endDate - startDate) / (1000*60*60*24*7))
+      
+      // end_date 계산
+      function getDateStr(myDate){
+        if ( (myDate.getMonth() + 1) < 10) {
+          return (myDate.getFullYear() + '-0' + (myDate.getMonth() + 1) + '-' + myDate.getDate())
+        }
+        else if ( myDate.getDate() < 10) {
+          return (myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-0' + myDate.getDate())
+        }
+        else if ( (myDate.getMonth() + 1) < 10 && myDate.getDate() < 10) {
+          return (myDate.getFullYear() + '-0' + (myDate.getMonth() + 1) + '-0' + myDate.getDate())
+        }
+        else {
+          return (myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate())
+        }
+        
+      }
+      
+      const days = this.week * 7
+      const start_year = this.dates.slice(0, 4)
+      const start_date = new Date( Number(start_year), Number(this.dates.slice(5, 7))-1, Number(this.dates.slice(8, 10)));
+      var dayOfMonth = start_date.getDate()
+      start_date.setDate(dayOfMonth + days)
+      
+      const end_date = getDateStr(start_date)
+
       const SeedData = {
         category_id: this.category,
         cert_count: 0,
         content: this.content,
-        end_date: this.dates[1],
+        end_date: end_date,
         example_img: this.certificationImg,
         join_deposit: Number(this.joinDeposit),
         like_cnt: this.like_cnt,
         max_people: this.people,
         day: this.day,
-        week: this.month,
-        start_date: this.dates[0],
+        week: this.week,
+        start_date: this.dates,
         sum_img: this.thumbnail,
         title: this.title,
         user_id: this.userId
@@ -297,8 +329,8 @@ export default {
     receiveDate: function (dates) {
       this.dates = dates
     },
-    receiveMonth: function (month) {
-      this.month = month
+    receiveWeek: function (week) {
+      this.week = week
     },
     receiveDay: function (day) {
       this.day = day
@@ -361,12 +393,12 @@ export default {
       }
 
       // 몇 주
-      if (this.month > 0) {
-        this.EtcInfo.isSubmit.isMonth = true
-        // console.log("몇 주:", this.EtcInfo.isSubmit.isMonth)
+      if (this.week > 0) {
+        this.EtcInfo.isSubmit.isWeek = true
+        // console.log("몇 주:", this.EtcInfo.isSubmit.isWeek)
       } else {
-        this.EtcInfo.isSubmit.isMonth = false
-        console.log("몇 주:", this.EtcInfo.isSubmit.isMonth)
+        this.EtcInfo.isSubmit.isWeek = false
+        console.log("몇 주:", this.EtcInfo.isSubmit.isWeek)
       }
 
       // 며칠
@@ -419,7 +451,7 @@ export default {
     dates: function() {
       this.checkFormEtc();
     },
-    month: function() {
+    week: function() {
       this.checkFormEtc();
     },
     day: function() {
