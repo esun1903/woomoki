@@ -48,7 +48,7 @@ export default {
       seeds: [],
       page: 1,
       pageCount: 0,
-      itemsPerPage: 4,
+      itemsPerPage: 8,
     };
   },
   mounted() {
