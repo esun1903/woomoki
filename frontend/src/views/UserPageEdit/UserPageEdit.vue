@@ -97,6 +97,7 @@
             name="프로필 정보 변경 동의"
           >
             <v-checkbox
+              class="mt-5 mb-5"
               color="light-green lighten-2"
               v-model="checkbox"
               :error-messages="errors"
@@ -107,6 +108,7 @@
             ></v-checkbox>
 
           </validation-provider>
+          
 
           <v-row class="d-flex justify-end">
             <router-link :to="{ name: 'UserPage', params: { userNickname: userNickname }}">
@@ -122,20 +124,22 @@
 
             <v-btn 
               @click="clear"
-              color="light-green lighten-2  white--text">
+              text
+              >
               지우기
             </v-btn>
 
             <router-link :to="{ name: 'UserPage', params : { userNickname: userNickname }}">
               <v-btn 
                 class="ml-4"
-                color="light-green lighten-2 white--text"
+                text
                 >
               뒤로가기
               </v-btn>
             </router-link>
+            
           </v-row>
-
+          <UserDelete></UserDelete>
         </form>
       </validation-observer>
   </v-container>
@@ -151,6 +155,7 @@ import {
 } from "vee-validate";
 import CategoryEdit from "./components/CategoryEdit.vue";
 import ImgEdit from "./components/ImgEdit.vue";
+import UserDelete from "./components/UserDelete.vue";
 import axios from "axios";
 
 setInteractionMode("eager");
@@ -202,6 +207,7 @@ export default {
     ValidationObserver,
     CategoryEdit,
     ImgEdit,
+    UserDelete
   },
   props: {
     userId: Number,
@@ -232,16 +238,16 @@ export default {
       const userId = this.$store.state.UserStore.user.user_id 
       const ChangedUserInfo = {
         email: this.UserInfo.email,
+        introduce: this.UserInfo.introduce,
         nickname: this.UserInfo.nickname,
-        password: this.UserInfo.password,
+        password: this.newPassword,
         phone: this.UserInfo.phone,
         id: userId,
-        newPassword: this.newPassword,
         // img: this.UserInfo.img,
         // introduce: this.UserInfo.introduce,
       }
       // const nickname = this.$store.state.UserStore.user.nickname 
-      axios.post("http://localhost:8080/userPage/changePassword", ChangedUserInfo)
+      axios.post("http://localhost:8080/userPage/changeUser", ChangedUserInfo)
         .then(res => {
           console.log(res);
         })
