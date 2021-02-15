@@ -1,6 +1,6 @@
 <template>
   <v-footer
-    class="mt-5 mb-5"
+    class="mt-5 mb-5 footer"
     height="auto"
     color="white"
     padless
@@ -48,5 +48,8 @@ export default {
 
 <style scoped>
 
+.footer {
+  z-index: 1;
+}
 
 </style>
