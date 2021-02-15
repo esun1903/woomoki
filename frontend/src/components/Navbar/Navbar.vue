@@ -17,7 +17,7 @@
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
               <v-btn icon v-bind="attrs" v-on="on" class="btn">
-                <v-icon color="light-green lighten-2">mdi-lead-pencil</v-icon>
+                <v-icon>mdi-lead-pencil</v-icon>
               </v-btn>
             </template>
             <v-list>
@@ -66,7 +66,7 @@
                       </div>
                     </v-list-item-content>
                     <v-list-item-action>
-                      <v-btn color="#AED581" class="white--text" @click="goDeleteScrap(seed.id)">삭제하기</v-btn>   
+                      <v-btn color="#9CCC65" class="white--text" @click="goDeleteScrap(seed.id)">삭제하기</v-btn>   
                     </v-list-item-action>
                   </v-list-item>
                   <v-divider></v-divider>   
@@ -309,7 +309,7 @@ a:-webkit-any-link {
 
 .nickname {
   font: bold; 
-  color: #AED581;
+  color: #9CCC65;
 }
 
 .v-dialog__content{

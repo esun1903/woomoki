@@ -25,7 +25,7 @@
       </template>
       <template v-slot:footer>
         <v-pagination
-          color="light-green lighten-2"
+          color="light-green lighten-1"
           v-model="page"
           :length="pageCount"
           prev-icon="mdi-menu-left"

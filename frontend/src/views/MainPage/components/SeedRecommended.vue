@@ -8,6 +8,7 @@
     </div>
     <v-data-iterator
       no-data-text="관심카테고리를 설정해주시면 씨앗을 추천해드릴게요"
+      no-results-text="해당 카테고리에 씨앗이 없어요. 가장 첫 번째로 씨앗을 생성해보세요"
       hide-default-footer
       :items="seeds"
       :items-per-page.sync="itemsPerPage"
@@ -24,9 +25,10 @@
           </v-row>
         </div>
       </template>
+      
       <template v-slot:footer>
         <v-pagination
-          color="light-green lighten-2"
+          color="light-green lighten-1"
           v-model="page"
           :length="pageCount"
           prev-icon="mdi-menu-left"
@@ -114,7 +116,7 @@ export default {
 }
 
 .nickname {
-  color: #AED581
+  color: #9CCC65
 }
 
 </style>

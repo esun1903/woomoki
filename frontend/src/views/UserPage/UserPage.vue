@@ -13,7 +13,7 @@
             v-model="tab"
             slider-size="4"
             background-color="transparent"
-            color="light-green lighten-2"
+            color="light-green lighten-1"
             grow
             >
             <v-tab
@@ -79,7 +79,7 @@
       </v-row>
       <infinite-loading v-if="isUserstat === false" @infinite="infiniteHandler" spinner="waveDots">
         <div slot="no-more">
-          데이터가 없습니다
+          보살핌 후기가 없습니다 씨앗에 물을 줘보세요
         </div>
       </infinite-loading>
     </v-container>

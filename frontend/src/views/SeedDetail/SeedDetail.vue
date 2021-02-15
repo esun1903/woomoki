@@ -7,7 +7,7 @@
     <v-row>
       <v-col>
 
-        <v-tabs v-model="tab" slider-size="4" color="light-green lighten-2" right>
+        <v-tabs v-model="tab" slider-size="4" color="light-green lighten-1" right>
           <v-tab v-for="item in items" :key="item" @click="CheckisBasicInfo(item)">
             {{ item }}
           </v-tab>
@@ -44,7 +44,10 @@
 
     <infinite-loading v-if="isBasicInfo === false" @infinite="infiniteHandler" spinner="waveDots">
       <div slot="no-more">
-        데이터가 없습니다
+        보살핌 후기의 끝입니다
+      </div>
+      <div slot="no-results">
+        아직 보살핌 후기가 없어요! 가장 처음으로 등록해주세요
       </div>
     </infinite-loading>
 
@@ -53,7 +56,7 @@
       <div id="content"></div>
       <footer></footer>
       <v-btn @click="JoinSeed" id="banner" width="50vw" height="5vw" class="position-fixed"
-        color="light-green lighten-2">
+        color="light-green lighten-1">
         <h1>
           함께하기
         </h1>
@@ -235,10 +238,6 @@ export default {
 
   .content-color {
     color: black;
-  }
-
-  .container-size {
-    margin-top: 10vh;
   }
 
 </style>

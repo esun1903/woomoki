@@ -38,7 +38,7 @@
 
     <v-row class="mt-10">
       <v-text-field
-        color="light-green lighten-2"
+        color="light-green lighten-1"
         v-model="SeedInfo.title"
         outlined
         placeholder="EX) 매일매일 코딩 공부하기"
@@ -50,7 +50,7 @@
 
     <v-row>
       <v-textarea
-        color="light-green lighten-2"
+        color="light-green lighten-1"
         clear-icon="fas fa-times"
         v-model="content"
         :rules="contentRules"
@@ -81,7 +81,7 @@
                 absolute
                 color="#036358"
               >
-                <v-btn color="light-green lighten-2">인증 예시 사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
+                <v-btn color="light-green lighten-1">인증 예시 사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
               </v-overlay>
             </v-fade-transition>
           </v-img>
@@ -92,7 +92,7 @@
     <v-row class="mt-10">
       <v-text-field
         suffix="원"
-        color="light-green lighten-2"
+        color="light-green lighten-1"
         v-model="SeedInfo.join_deposit"
         outlined
         label="참여 금액(원)"
@@ -106,7 +106,7 @@
         label="최대 인원"
         color="grey"
         track-color="grey"
-        thumb-color="light-green lighten-2"
+        thumb-color="light-green lighten-1"
         :thumb-label="true"
         min="0"
         max="50"
@@ -114,7 +114,7 @@
     </v-row>
     <v-row>
       <v-text-field
-        color="light-green lighten-2"
+        color="light-green lighten-1"
         v-model="dateRangeText"
         outlined
         label="기간"
@@ -125,7 +125,7 @@
 
     <v-row>
       <v-text-field
-        color="light-green lighten-2"
+        color="light-green lighten-1"
         clear-icon="fas fa-times"
         v-model="weekDay"
         outlined
@@ -137,7 +137,7 @@
     <v-row class="d-flex justify-end">
       <router-link :to="{ name: 'SeedDetail', params: { seedId: this.seedId } }">
         <v-btn
-          color="light-green lighten-2 white--text"
+          color="light-green lighten-1 white--text"
           @click="UpdateSeed"
           :disabled="isAllSubmit === false"
           >

@@ -10,14 +10,14 @@
         <form @submit.prevent="submit">
 
           <v-text-field
-            color="light-green lighten-2"
+            color="light-green lighten-1"
             :value="UserInfo.nickname"
             label="아이디"
             readonly
             outlined
           ></v-text-field>
           <v-text-field
-            color="light-green lighten-2"
+            color="light-green lighten-1"
             :value="UserInfo.email"
             label="이메일"
             readonly
@@ -28,7 +28,7 @@
             v-slot="{ errors }" 
             name="한 줄 소개">
             <v-text-field
-              color="light-green lighten-2"
+              color="light-green lighten-1"
               v-model="UserInfo.introduce"
               :error-messages="errors"
               label="한 줄 소개"
@@ -47,7 +47,7 @@
             }"
           >
             <v-text-field
-              color="light-green lighten-2"
+              color="light-green lighten-1"
               v-model="UserInfo.phone"
               :counter="11"
               :error-messages="errors"
@@ -62,7 +62,7 @@
             rules="required|newPassword"
           >
             <v-text-field
-              color="light-green lighten-2"
+              color="light-green lighten-1"
               v-model="newPassword"
               :error-messages="errors"
               label="새로운 비밀번호 입력"
@@ -79,7 +79,7 @@
             vid="newPassword"
           >
             <v-text-field
-              color="light-green lighten-2"
+              color="light-green lighten-1"
               v-model="passwordConfirmation"
               :error-messages="errors"
               label="새로운 비밀번호 확인"
@@ -98,7 +98,7 @@
           >
             <v-checkbox
               class="mt-5 mb-5"
-              color="light-green lighten-2"
+              color="light-green lighten-1"
               v-model="checkbox"
               :error-messages="errors"
               value="1"
@@ -117,7 +117,7 @@
                 type="submit" 
                 :disabled="invalid"
                 @click="updataUserInfo"
-                color="light-green lighten-2  white--text">
+                color="light-green lighten-1  white--text">
                 적용
               </v-btn>
             </router-link>

@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <v-app>
+  <div class="d-flex justify-center">
       <v-card id="fav-card">
         <v-toolbar
           flat
@@ -16,7 +15,7 @@
               :key="selection.category"
               class="shrink"
             >
-              <v-chip outlined
+              <!-- <v-chip outlined
                 :disabled="loading"
                 close
                 @click:close="selected.splice(i, 1)"
@@ -26,7 +25,80 @@
                   v-text="selection.icon"
                 ></v-icon>
                 {{ selection.category }}
-              </v-chip>
+              </v-chip> -->
+
+              <span v-if="selection.category === '건강'">
+                <v-chip
+                  color="light-blue lighten-1"
+                  outlined
+                  :disabled="loading"
+                  close
+                  @click:close="selected.splice(i, 1)"
+                >
+                  <v-icon left v-text="selection.icon"></v-icon>
+                  {{ selection.category }}
+                </v-chip>
+              </span>
+              <span v-if="selection.category === '생활습관'">
+                <v-chip
+                  color="orange lighten-1"
+                  outlined
+                  :disabled="loading"
+                  close
+                  @click:close="selected.splice(i, 1)"
+                >
+                  <v-icon left v-text="selection.icon"></v-icon>
+                  {{ selection.category }}
+                </v-chip>
+              </span>
+              <span v-if="selection.category === '독서'">
+                <v-chip
+                  color="teal lighten-1"
+                  outlined
+                  :disabled="loading"
+                  close
+                  @click:close="selected.splice(i, 1)"
+                >
+                  <v-icon left v-text="selection.icon"></v-icon>
+                  {{ selection.category }}
+                </v-chip>
+              </span>
+              <span v-if="selection.category === '자산'">
+                <v-chip
+                  color="indigo lighten-1"
+                  outlined
+                  :disabled="loading"
+                  close
+                  @click:close="selected.splice(i, 1)"
+                >
+                  <v-icon left v-text="selection.icon"></v-icon>
+                  {{ selection.category }}
+                </v-chip>
+              </span>
+              <span v-if="selection.category === '자기계발'">
+                <v-chip
+                  color="purple lighten-1"
+                  outlined
+                  :disabled="loading"
+                  close
+                  @click:close="selected.splice(i, 1)"
+                >
+                  <v-icon left v-text="selection.icon"></v-icon>
+                  {{ selection.category }}
+                </v-chip>
+              </span>
+              <span v-if="selection.category === '취미'">
+                <v-chip
+                  color="pink lighten-1"
+                  outlined
+                  :disabled="loading"
+                  close
+                  @click:close="selected.splice(i, 1)"
+                >
+                  <v-icon left v-text="selection.icon"></v-icon>
+                  {{ selection.category }}
+                </v-chip>
+              </span>
             </v-col>
           </v-row>
         </v-container>
@@ -63,13 +135,13 @@
           <v-btn
             :disabled="!selected.length"
             :loading="loading"
-            color="green"
+            color="light-green lighten-1"
             text
             @click="sendFavoriteCategories"
-          >GRITREE 시작하기!</v-btn>
+          >우목이 시작하기!</v-btn>
         </v-card-actions>
       </v-card>
-    </v-app>
+
   </div>
 </template>
 
@@ -139,7 +211,7 @@ export default {
       for (const selection of state.selected) {
         selections.push(selection)
       }
-
+      console.log(selections)
       return selections
     },
     // 선택된 카테고리명만 백엔드에 넘기기 위함
@@ -185,17 +257,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 #fav-card {
-  width: 50%;
-  top:15%;
-  left: 25%;
+  width: 40%;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+  top: 30%;
   padding: 0px 50px;
 }
+
 .v-divider {
   margin-top: 20px;
 }
+
 .v-chip{
   color: green !important;
   border-color: green !important;
 }
+
 </style>
