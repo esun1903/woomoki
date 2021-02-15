@@ -68,16 +68,15 @@ public class CertificationController {
 		return certificationService.userCrtListSort(userId, cngId);
 	}
 
-	@PutMapping("/likeUpCertification/{cngId}")
-	public int likeUp ( @PathVariable(value = "cngId") int id) {
+	@PutMapping("/likeUpCertification/{certId}")
+	public int likeUp ( @PathVariable(value = "certId") int id) {
 		return certificationService.likeUp(id);
 	}
 
-	@PutMapping("/likeDownCertification/{cngId}")
-	public int likeDown ( @PathVariable(value = "cngId") int id) {
+	@PutMapping("/likeDownCertification/{certId}")
+	public int likeDown ( @PathVariable(value = "certId") int id) {
 		return certificationService.likeDown(id);
 	}
-
 
 	@GetMapping("/searchWordCert/{keyword}")
 	public  List<CertificationDto> searchWordCert(@PathVariable(value = "keyword") String keyword){

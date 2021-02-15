@@ -77,13 +77,13 @@ public class ChallengeController {
 		return challengeService.challengeUserSelect(userId);
 	}
 
-	@PutMapping("/likeUpChallenge/{cngId}")
-	public int likeUp ( @PathVariable(value = "cngId") int id) {
+	@PutMapping("/likeUpChallenge/{certId}")
+	public int likeUp ( @PathVariable(value = "certId") int id) {
 		return challengeService.likeUp(id);
 	}
 
-	@PutMapping("/likeDownChallenge/{cngId}")
-	public int likeDown ( @PathVariable(value = "cngId") int id) {
+	@PutMapping("/likeDownChallenge/{certId}")
+	public int likeDown ( @PathVariable(value = "certId") int id) {
 		return challengeService.likeDown(id);
 	}
 
