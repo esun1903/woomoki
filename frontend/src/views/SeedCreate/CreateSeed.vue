@@ -477,6 +477,7 @@ a {
 }
 
 .container-size {
+  margin-top: 10vh;
   width: 50%;
 }
 
