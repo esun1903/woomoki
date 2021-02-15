@@ -60,7 +60,7 @@
                         <v-chip class="ma-2">주 {{ seed.day }}회</v-chip>
                       </div>
                       <div class="seed-info">
-                        <div class="title">
+                        <div @click="goSeedDetail(seed.id)" class="title">
                           <p>{{ seed.title }}</p>
                         </div>
                       </div>
@@ -206,6 +206,9 @@ export default {
           console.log(err)
         })
     },
+    goSeedDetail: function (val) {
+      this.$router.push({ name: 'SeedDetail', params: { seedId: val } })
+    },
     goFeed: function () {
       this.$router.push({ name: 'Feed' }) 
     },
@@ -319,7 +322,7 @@ a:-webkit-any-link {
         font-weight: bold;
       }
       .v-card__text{
-        height: 30vh;
+        height: 45vh;
         padding: 2% 1% 2% 1%;
       }
         .v-list{
@@ -334,7 +337,7 @@ a:-webkit-any-link {
                 display: flex;
                 justify-content: flex-start;
                 .v-chip{
-                  width: 3vw;
+                  width: 3.5vw;
                   height: 2vh;
                   margin: 1% !important;
                   display: flex;
@@ -357,7 +360,7 @@ a:-webkit-any-link {
             .v-list-item__action{
               .v-btn{
                 width: 4vw;
-                height: 3vh;
+                height: 4vh;
                 font-size: 0.8rem;
               }
             }

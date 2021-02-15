@@ -29,6 +29,7 @@
     "fullpage.js": "^3.0.9",
     "global": "^4.4.0",
     "jquery": "^3.5.1",
+    "moment": "^2.29.1",
     "password-validator": "^5.1.1",
     "request-promise": "^4.2.6",
     "vee-validate": "^3.4.5",

@@ -59,30 +59,27 @@ export default {
   },
   methods: {
     // 해당 게시글 아이디 담아줘야해
-    goSeedDetail: function () {
-      this.$router.push({ name: 'SeedDetail', params: { seedId: this.seed.id } })
+    goSeedDetail: function (val) {
+      this.$router.push({ name: 'SeedDetail', params: { seedId: val } })
     },
     getLikes: function () {
-      const cgId = {};
-      const cgId_num = this.seed.id
-      cgId["cgId"] = cgId_num;
+      const seedId = {};
+      const seedId_num = this.seed.id
+      seedId["seedId"] = seedId_num;
       if (this.liked) {
-        axios.put(`http://127.0.0.1:8080/likeDownChallenge/${cgId_num}`, cgId )
+        axios.put(`http://127.0.0.1:8080/likeDownChallenge/${seedId_num}`, seedId )
         this.liked = false
         
       } else {
-        axios.put(`http://127.0.0.1:8080/likeUpChallenge/${cgId_num}`, cgId )
+        axios.put(`http://127.0.0.1:8080/likeUpChallenge/${seedId_num}`, seedId )
         this.liked = true
       }
     },
     getScrap: function () {
       const userId_num = this.user.user_id;
-      console.log(userId_num)
-      const cgId_num = this.seed.id;
-      console.log(this.seed)
-      console.log(cgId_num)
+      const seedId_num = this.seed.id;
       if (this.scrapped) {      
-        axios.get(`http://127.0.0.1:8080/userPage/DeletefavChallenge/${userId_num}/${cgId_num}`)
+        axios.get(`http://127.0.0.1:8080/userPage/DeletefavChallenge/${userId_num}/${seedId_num}`)
         .then(() => {
           console.log('스크랩취소성공')
         })
@@ -92,7 +89,7 @@ export default {
         })
         this.scrapped = false  
       } else {
-        axios.get(`http://127.0.0.1:8080/userPage/favChallenge/${userId_num}/${cgId_num}`)
+        axios.get(`http://127.0.0.1:8080/userPage/favChallenge/${userId_num}/${seedId_num}`)
         .then(() => {
           console.log('스크랩성공')
         })
@@ -102,7 +99,47 @@ export default {
         })
         this.scrapped = true
       }
-    }
+    },
+    CheckisScrapped: function () {
+      const userId_num = this.user.user_id;
+      const seedId_num = this.seed.id;
+      axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId_num}`)
+      .then((res) => {
+        console.log(res)
+        const seedList = res.data
+        var i;
+        for (i=0; i < seedList.length; i++) {
+          if (seedList[i].id === Number(seedId_num)) {
+            this.scrapped = true
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    // CheckisLiked: function () {
+    //   const userId_num = this.user.user_id;
+    //   const seedId_num = this.seed.id;
+    //   axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId_num}`)
+    //   .then((res) => {
+    //     console.log(res)
+    //     const seedList = res.data
+    //     var i;
+    //     for (i=0; i < seedList.length; i++) {
+    //       if (seedList[i].id === Number(seedId_num)) {
+    //         this.liked = true
+    //       }
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
+    // },
+  },
+  created() {
+    this.CheckisScrapped();
+    // this.CheckisLiked();
   },
   computed: {
     ...mapState('UserStore', ['user']),
