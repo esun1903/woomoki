@@ -41,7 +41,7 @@
                 size="4vw"
                 color="orange lighten-1"
               >
-                fas fa-utensils
+              fas fa-calendar-check
               </v-icon>
               <h2 class="category-font-lifestyle">생활습관</h2>
             </div>
@@ -101,7 +101,7 @@
                 size="4vw"
                 color="purple lighten-1"
               >
-              fas fa-running
+              fas fa-graduation-cap
               </v-icon>
               <h2 class="category-font-grown">자기계발</h2>
             </div>
