@@ -17,7 +17,6 @@ import CertificationInsert from "@/views/Certification/CertificationInsert.vue";
 import CertificationDetail from "@/views/Certification/CertificationDetail.vue";
 import CertificationUpdate from "@/views/Certification/CertificationUpdate.vue";
 import SeedCreate from "@/views/SeedCreate/CreateSeed.vue";
-import Feed from "@/views/Feed/Feed.vue";
 import FeedAllUser from "@/views/Feed/FeedAllUser.vue";
 import FeedFollowUser from "@/views/Feed/FeedFollowUser.vue";
 import SeedCreated from "@/views/SeedList/SeedCreated.vue"
