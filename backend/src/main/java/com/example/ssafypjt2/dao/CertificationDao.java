@@ -98,7 +98,7 @@ public interface CertificationDao {
 	@Select("SELECT WEEK, DAY FROM challenge WHERE id = #{cngId} ")
     public ChallengeDto challengeWeekDay(@Param("cngId")int cngId);
 
-	@Select("SELECT cert.id , cert.cng_id , user.nickname , cng.title , cert.img , cert.content ,cert.create_date, cert.result ,cert.like_cnt " +
+	@Select("SELECT cert.id , cert.cng_id , user.nickname , cng.title , cert.img , cert.content ,cert.create_date, cert.result ,cert.like_cnt , cert.current_week , cert.current_day " +
 			"FROM certification cert JOIN user ON cert.user_id = user.id " +
 			"JOIN challenge cng ON cert.cng_id = cng.id " +
 			"WHERE cert.user_id = #{userId} AND  cert.cng_id = #{cngId} ")

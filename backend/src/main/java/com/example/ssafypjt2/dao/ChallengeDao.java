@@ -19,7 +19,7 @@ public interface ChallengeDao {
 	//다시 test
 	@Select(" SELECT category_id, user_id, title, content, "
 			+ "sum_img, start_date, end_date, cert_count, "
-			+ "max_people, example_img , join_deposit, like_cnt, result, week,  day"
+			+ "max_people, example_img , join_deposit, like_cnt, result, week, day"
 			+ " FROM challenge WHERE id = #{cngId} ")
 	public ChallengeDto challengeDetail(@Param("cngId")int cngId);
 

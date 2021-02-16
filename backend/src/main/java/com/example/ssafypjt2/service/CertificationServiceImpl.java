@@ -156,14 +156,18 @@ public class CertificationServiceImpl implements CertificationService {
 
         List<CertificationDto> first = dao.CngCertificationList(user_id,cngId);
         System.out.println(first.toString());
-        int [][] result  = new int[first.size()][2];
+        int [][] result  = new int[first.size()][4];
         for (int i = 0; i < first.size(); i++) {
 
             int id = first.get(i).getId(); // certId
             int res = first.get(i).getResult(); // result
+            int current_week =  first.get(i).getCurrent_week();
+            int current_day =  first.get(i).getCurrent_day();
             System.out.println(i+" "+id+" "+res);
             result[i][0] = id;
             result[i][1] = res;
+            result[i][2] = current_week;
+            result[i][3] = current_day;
         }
 
         return result;
