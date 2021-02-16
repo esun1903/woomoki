@@ -170,12 +170,17 @@
         },
         isSubmitTotalSeedData: false,
 
-        // S3 설정
+        // s3 업로드 관련
+
         // albumBucketName, bucketRegion, IdentityPoolId = AWS S3 bucket value -> .env save 
-        // albumBucketName: "cert-photo-upload",
-        // bucketRegion: "ap-northeast-2",
-        // IdentityPoolId: "ap-northeast-2:8cf7cb29-d051-4f38-885f-09b1e4dd8153",
-        // photoURL: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
+        albumBucketName: "cert-photo-upload",
+        bucketRegion: "ap-northeast-2",
+        IdentityPoolId: "ap-northeast-2:8cf7cb29-d051-4f38-885f-09b1e4dd8153",
+
+        photoURL: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
+        photoKey: null,
+        thumbnailFile: null,
+        certExampleImg: null,
 
       }
     },
@@ -211,53 +216,44 @@
         start_date.setDate(dayOfMonth + days)
 
         const end_date = getDateStr(start_date)
+        console.log('end_date', end_date)
+
+        AWS.config.update({
+
+          region: this.bucketRegion,
+          credentials: new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: this.IdentityPoolId
+          })
+        });
+
+        const s3 = new AWS.S3({
+
+          apiVersion: "2006-03-01",
+          params: {
+            Bucket: this.albumBucketName
+          }
+        });
+
+        // AWS Setting End
+
+        s3.upload({
+            Key: this.certificationImg,
+            Body: this.certExampleImg,
+            ACL: 'public-read'
+          }, (err, data) => {
+            if (err) {
+              console.log(err)
+              return alert('There was an error uploading your photo: ', err.message);
+            }
+            console.log(data);
+          }
+
+        );
 
 
-        // S3 업로드 파일명 실시간 계산
-        var now = new Date();
-
-        var year = now.getFullYear(); // 연도
-        var month = now.getMonth() + 1; // 월
-        var date = now.getDate(); // 일
-        var hours = now.getHours(); // 시간
-        var minutes = now.getMinutes(); // 분
-        var seconds = now.getSeconds(); // 초
-        var milliseconds = now.getMilliseconds(); // 밀리초
-
-        // console.log("현재 : ", now);
-        var realtime = year + "" + month + "" + date + "_" + hours + minutes + seconds + milliseconds;
-        console.log(realtime);
-
-        // S3 관련 주석 풀기
-        // this.thumbnail = this.photoURL + this.user_id + "_" + realtime + "_" + this.thumbnail
-        this.thumbnail = this.user_id + "_" + realtime + "_" + this.thumbnail
-        console.log(this.thumbnail);
-
-        // AWS S3 관련 코드
-
-        // // AWS Setting Start
-
-        // AWS.config.update({
-
-        //     region: this.bucketRegion,
-        //     credentials: new AWS.CognitoIdentityCredentials({
-        //         IdentityPoolId: this.IdentityPoolId
-        //       }
-
-        //     )
-        //   }
-
-        // );
-
-        // const s3 = new AWS.S3({
-
-        //   apiVersion: "2006-03-01",
-        //   params: {
-        //     Bucket: this.albumBucketName
-        //   }
-        // });
-
-        // // AWS Setting End
+        this.thumbnail = this.photoURL + this.thumbnail
+        
+        this.certificationImg = this.photoURL + this.certificationImg
 
         const SeedData = {
           category_id: this.category,
@@ -276,36 +272,61 @@
           user_id: this.userId
         }
 
+         
 
 
-        // S3 관련 코드
+        axios.post("http://127.0.0.1:8080/insertChallenge", SeedData)
+          .then((res) => {
+            console.log(res)
+            console.log(this.end_date)
+            console.log(this.dates)
+            console.log(this.date[0], this.date[1])
+            this.$router.push({
+              name: "Main"
+            })
+          })
+          .catch((err) => {
+            console.log(err)
+          })
 
-        // s3.upload({
-        //     Key: this.thumbnail,
-        //     Body: this.file,
-        //     ACL: 'public-read'
-        //   }, (err, data) => {
-        //     if (err) {
-        //       console.log(err)
-        //       return alert('There was an error uploading your photo: ', err.message);
-        //     }
-            axios.post("http://127.0.0.1:8080/insertChallenge", SeedData)
-              .then((res) => {
-                console.log(res)
-                console.log(this.end_date)
-                console.log(this.dates)
-                // console.log(this.date[0], this.date[1])
-                this.$router.push({
-                  name: "Main"
-                })
-              })
-              .catch((err) => {
-                console.log(err)
-              })
-        //   }
+      },
+      uploadThumbnail() {
 
-        // );
+        console.log("썸네일 들어옴: " + this.thumbnail);
 
+        // AWS Setting Start
+
+        AWS.config.update({
+
+          region: this.bucketRegion,
+          credentials: new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: this.IdentityPoolId
+          })
+        });
+
+        const s3 = new AWS.S3({
+
+          apiVersion: "2006-03-01",
+          params: {
+            Bucket: this.albumBucketName
+          }
+        });
+
+        // AWS Setting End
+
+        s3.upload({
+            Key: this.thumbnail,
+            Body: this.thumbnailFile,
+            ACL: 'public-read'
+          }, (err, data) => {
+            if (err) {
+              console.log(err)
+              return alert('There was an error uploading your photo: ', err.message);
+            }
+            console.log(data);
+          }
+
+        );
 
       },
       // 컴포넌트에서 데이터 받아오기
@@ -340,8 +361,11 @@
         this.category = 6
         console.log(this.category)
       },
-      receiveThumbnail: function (thumbnail) {
+      receiveThumbnail: function (file, thumbnail) {
+        this.thumbnailFile = file
         this.thumbnail = thumbnail
+        console.log("넘어온 file정보: " + this.thumbnailFile)
+        console.log("넘어온 thumbnail이름 : " + this.thumbnail)
       },
       receiveTitle: function (title) {
         this.title = title
@@ -349,7 +373,8 @@
       receiveContent: function (content) {
         this.content = content
       },
-      receiveCertificationImg: function (certificationImg) {
+      receiveCertificationImg: function (file, certificationImg) {
+        this.certExampleImg = file
         this.certificationImg = certificationImg
       },
       receiveDate: function (dates) {

@@ -57,7 +57,7 @@
         data() {
             return {
                 CertInfo: [],
-                // photoUrl: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
+                photoURL: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
                 dialog: false,
 
             };
@@ -107,30 +107,30 @@
                 this.CertInfo.img = URL.createObjectURL(file);
             },
             updateCert() {
-                // // AWS Setting Start
+                // AWS Setting Start
 
                 // S3 관련 코드
-                // AWS.config.update({
+                AWS.config.update({
 
-                //         region: this.bucketRegion,
-                //         credentials: new AWS.CognitoIdentityCredentials({
-                //                 IdentityPoolId: this.IdentityPoolId
-                //             }
+                        region: this.bucketRegion,
+                        credentials: new AWS.CognitoIdentityCredentials({
+                                IdentityPoolId: this.IdentityPoolId
+                            }
 
-                //         )
-                //     }
+                        )
+                    }
 
-                // );
+                );
 
-                // const s3 = new AWS.S3({
+                const s3 = new AWS.S3({
 
-                //     apiVersion: "2006-03-01",
-                //     params: {
-                //         Bucket: this.albumBucketName
-                //     }
-                // });
+                    apiVersion: "2006-03-01",
+                    params: {
+                        Bucket: this.albumBucketName
+                    }
+                });
 
-                // // AWS Setting End
+                // AWS Setting End
 
                 var now = new Date();
 
@@ -147,13 +147,8 @@
                 console.log(realtime);
 
                 // S3 관련 주소 풀기
-                // let photoKey = user_id + "_" + realtime + "_" + this.file.name
-                // this.certForm.img = photoURL + photoKey;
-
-
-                let photoKey = "http://www.topstarnews.net/news/photo/first/201709/img_306795_1.jpg"
-
-                this.CertInfo.img = photoKey;
+                let photoKey = user_id + "_" + realtime + "_" + this.file.name
+                this.certForm.img = this.photoURL + photoKey;
 
                 const certId = this.$route.params.certId;
                 const UpdateCertInfo = {
@@ -168,46 +163,29 @@
                 console.log(UpdateCertInfo);
 
 
-                axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
-                    .then(res => {
-                        console.log(res);
-                        this.$router.push({
-                            name: 'CertificationDetail',
-                            params: {
-                                cngId: UpdateCertInfo.cng_id,
-                                certId: certId,
-                                cngUserId: this.$route.params.cngUserId,
-                            }
-                        });
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-
                 // S3 관련 코드
 
-                // s3.upload({
-                //         Key: photoKey,
-                //         Body: this.file,
-                //         ACL: 'public-read'
-                //     }, (err, data) => {
-                //         if (err) {
-                //             console.log(err)
-                //             return alert('There was an error uploading your photo: ', err.message);
-                //         }
-                //         axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
-                // .then(res => {
-                //     console.log(res);
-                // })
-                // .catch(err => {
-                //     console.log(err);
-                // });
-                //         console.log(this.certForm);
-                //         console.log(data);
-                //         this.getFiles();
-                //     }
+                s3.upload({
+                        Key: photoKey,
+                        Body: this.file,
+                        ACL: 'public-read'
+                    }, (err, data) => {
+                        if (err) {
+                            console.log(err)
+                            return alert('There was an error uploading your photo: ', err.message);
+                        }
+                        axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+                        console.log(this.certForm);
+                        console.log(data);
+                    }
 
-                // );
+                );
 
             },
         },
