@@ -17,7 +17,8 @@ import CertificationInsert from "@/views/Certification/CertificationInsert.vue";
 import CertificationDetail from "@/views/Certification/CertificationDetail.vue";
 import CertificationUpdate from "@/views/Certification/CertificationUpdate.vue";
 import SeedCreate from "@/views/SeedCreate/CreateSeed.vue";
-import Feed from "@/views/Feed/Feed.vue";
+import FeedAllUser from "@/views/Feed/FeedAllUser.vue";
+import FeedFollowUser from "@/views/Feed/FeedFollowUser.vue";
 import SeedCreated from "@/views/SeedList/SeedCreated.vue"
 import SeedFail from "@/views/SeedList/SeedFail.vue"
 import SeedJoin from "@/views/SeedList/SeedJoin.vue"
@@ -25,6 +26,7 @@ import SeedSuccess from "@/views/SeedList/SeedSuccess.vue"
 import SeedDetail from "@/views/SeedDetail/SeedDetail.vue"
 import SearchedPage from "@/views/SearchedPage/SearchedPage.vue"
 import SeedUpdate from "@/views/SeedUpdate/SeedUpdate.vue"
+import Team from "@/views/Team/Team.vue"
 // import KakaoTalk from "@/views/Login/callback/KakaoTalk.vue";
 Vue.use(VueRouter);
 
@@ -137,9 +139,14 @@ const routes = [
     component: SeedCreate,        
   },
   {
-    path: '/feed',
-    name: 'Feed',
-    component: Feed,        
+    path: '/feedAll',
+    name: 'FeedAllUser',
+    component: FeedAllUser,        
+  },
+  {
+    path: '/feedFollow',
+    name: 'FeedFollowUser',
+    component: FeedFollowUser,        
   },
   {
     path: '/seedCreated',
@@ -176,6 +183,11 @@ const routes = [
     path: '/seedUpdate/:seedId',
     name: 'SeedUpdate',
     component: SeedUpdate,        
+  },
+  {
+    path: '/team',
+    name: 'Team',
+    component: Team,        
   },
 ];
 

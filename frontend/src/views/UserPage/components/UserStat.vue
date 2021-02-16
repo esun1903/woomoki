@@ -8,10 +8,10 @@
       <div class="stat-name">좋아하는 카테고리</div>
       <GraphPie class="d-flex justify-center"></GraphPie>
     </v-col>
-    <v-col>
+    <!-- <v-col>
       <div class="stat-name">당신의 성향</div>
       <GraphRadar class="d-flex justify-center"></GraphRadar>
-    </v-col>
+    </v-col> -->
     <v-col>
       <div class="stat-name">챌린지 성공률</div>
       <GraphPer class="d-flex justify-center"></GraphPer>

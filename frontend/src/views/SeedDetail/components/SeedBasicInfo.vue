@@ -35,13 +35,13 @@
       <v-col class="d-flex align-center">
         <v-row class="d-flex justify-end">
           <router-link v-if="isMySeed === true" :to="{ name: 'SeedUpdate', params: { seedId: this.seedId }}">
-            <v-btn color="white--text #AED864">
+            <v-btn class="mr-5 btn-color" color="#AED864">
               수정
             </v-btn>
           </router-link>
-          <v-btn v-if="isMySeed === true" color="white--text #AED864" @click="deleteSeed">삭제</v-btn>
+          <v-btn v-if="isMySeed === true" class="mr-5 btn-color" color="#AED864" @click="deleteSeed">삭제</v-btn>
           <SeedShare></SeedShare>
-          <SeedViewMore></SeedViewMore>
+          <!-- <SeedViewMore></SeedViewMore> -->
         </v-row>
       </v-col>
     </v-row>
@@ -73,11 +73,14 @@
       <v-row class="ma-10">
         <h1>씨앗 관리 규칙 안내</h1>
       </v-row>
-      <v-row class="ma-10">
-        <div>- 중간에 나가게되면 참여자들의 사기가 떨어질 수 있습니다</div>
+      <v-row class="ma-5">
+        <div>• 중간에 나가게되면 참여자들의 사기가 떨어질 수 있습니다</div>
       </v-row>
-      <v-row class="mt-10, ml-10">
-        <div>- 욕설 및 타인을 비방하거나 음란물 등 불법촬영물 등을 공유시에 씨앗관리 퇴출사유에 해당되며, 법적조치를 받을 수 있습니다</div>
+      <v-row class="ma-5">
+        <div>• 씨앗 소개 내용은 생성자 개인이 작성한 것으로 우목이팀이 보증하는 내용이 아닙니다.</div>
+      </v-row>
+      <v-row class="mt-5, ml-5">
+        <div>• 욕설 및 타인을 비방하거나 음란물 등 불법촬영물 등을 공유시에 씨앗관리 퇴출사유에 해당되며, 법적조치를 받을 수 있습니다</div>
       </v-row>
     </div>
 
@@ -192,7 +195,8 @@ a {
   font-size: 20px;
 }
 
-.TEST {
-  color: #97c24e;
+.btn-color {
+  color: white;
 }
+
 </style>

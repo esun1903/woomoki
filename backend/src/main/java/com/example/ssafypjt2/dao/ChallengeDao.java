@@ -95,7 +95,7 @@ public interface ChallengeDao {
 	@Select("SELECT title FROM challenge ")
      public   List<String> challenge();
 
-	@Select("SELECT c.category_id, c.user_id, c.title, c.content," +
+	@Select("SELECT c.id, c.category_id, c.user_id, c.title, c.content," +
 			"c.sum_img, c.start_date, c.end_date, c.cert_count," +
 			"c.max_people, c.example_img , c.join_deposit, c.like_cnt, c.result, c.week, c.day " +
 			"FROM challenge AS c INNER JOIN joined_challenge  AS jc " +
