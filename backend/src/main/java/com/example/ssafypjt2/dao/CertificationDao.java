@@ -16,16 +16,16 @@ import com.example.ssafypjt2.dto.CertificationDto;
 
 @Mapper
 public interface CertificationDao {
-	@Select(" SELECT cert.id , cert.cng_id ,  cert.user_id , user.nickname, cng.title , cert.img, cert.content , cert.create_date , cert.result , cert.like_cnt  " +
+	@Select(" SELECT cert.id , cert.cng_id ,  cert.user_id , user.nickname, cng.title , cert.img, cert.content , cert.create_date , cert.result , cert.like_cnt  ,cert.current_week , cert.current_day " +
 			" FROM certification cert " +
 			" JOIN user ON cert.user_id = user.id " +
 			" JOIN challenge cng ON cert.cng_id = cng.id " +
 			" WHERE cert.id = #{certId} ")
 	public CertificationDto certificationDetail(@Param("certId") int certId);
 
-	@Insert(" Insert INTO certification ( cng_id, img, content, create_date , result, user_id, like_cnt , week, day )"
+	@Insert(" Insert INTO certification ( cng_id, img, content, create_date , result, user_id, like_cnt , current_week, current_day )"
 			+ " VALUES ( #{certificationDto.cng_id}, #{certificationDto.img}, "
-			+ " #{certificationDto.content}, now(), #{certificationDto.result}, #{certificationDto.user_id}, '0' ,#{certificationDto.week} , #{certificationDto.day}  ) ")
+			+ " #{certificationDto.content}, now(), #{certificationDto.result}, #{certificationDto.user_id}, '0' ,#{certificationDto.current_week} , #{certificationDto.current_day}  ) ")
 	public int certificationInsert(@Param("certificationDto")CertificationDto certificationDto);
 
 	@Update("Update certification SET "
@@ -34,8 +34,8 @@ public interface CertificationDao {
 			+ "content = #{certificationDto.content},"
 			+ "result= #{certificationDto.result},"
 			+ "user_id = #{certificationDto.user_id} , "
-			+ "week = #{certificationDto.week } , "
-			+ "day = #{certificationDto.day} , "
+			+ "current_week = #{certificationDto.current_week } , "
+			+ "current_day = #{certificationDto.current_day} , "
 			+ "WHERE id = #{certificationDto.id}")
 	public int certificationUpdate(@Param("certificationDto")CertificationDto certificationDto);
 
@@ -45,24 +45,24 @@ public interface CertificationDao {
 	public int ceriticationDelete(@Param("certId")int certId);
 
 
-	@Select("SELECT cert.id , cert.cng_id ,  cert.user_id , user.nickname, cng.title , cert.img, cert.content , cert.create_date , cert.result , cert.like_cnt , cert.week , cert.day " +
+	@Select("SELECT cert.id , cert.cng_id ,  cert.user_id , user.nickname, cng.title , cert.img, cert.content , cert.create_date , cert.result , cert.like_cnt , cert.current_week , cert.current_day " +
 			"FROM certification cert " +
 			" JOIN user ON cert.user_id = user.id " +
 			" JOIN challenge cng ON cert.cng_id = cng.id  ")
 	public List<CertificationDto> certificationAllList();
 
-	@Select(" SELECT cert.id , cert.cng_id ,  cert.user_id , user.nickname, cng.title , cert.img, cert.content , cert.create_date , cert.result , cert.like_cnt , cert.week , cert.day " +
+	@Select(" SELECT cert.id , cert.cng_id ,  cert.user_id , user.nickname, cng.title , cert.img, cert.content , cert.create_date , cert.result , cert.like_cnt , cert.current_week , cert.current_day " +
 			"FROM certification cert " +
 			"JOIN user ON cert.user_id = user.id " +
 			"JOIN challenge cng ON cert.cng_id = cng.id " +
 			"WHERE cert.cng_id =  #{cngId} ")
 	public List<CertificationDto> sameChallengeCrtList(@Param("cngId")int cngId);
 
-	@Select(" SELECT id, cng_id, img, content, create_date , result, user_id, like_cnt, week, day "
+	@Select(" SELECT id, cng_id, img, content, create_date , result, user_id, like_cnt, current_week, current_day "
 			+ " FROM certification WHERE user_id = #{userId} ")
 	public List<CertificationDto> userCrtList(@Param("userId")int userId);
 
-	@Select(" SELECT id, cng_id, img, content, create_date , result, user_id, like_cnt , week , day "
+	@Select(" SELECT id, cng_id, img, content, create_date , result, user_id, like_cnt , current_week , current_day "
 			+ " FROM certification WHERE user_id = #{userId} AND cng_id = #{cngId} ")
 	public List<CertificationDto> userCrtListSort(@Param("userId")int userId ,@Param("cngId")int cngId);
 
@@ -89,7 +89,7 @@ public interface CertificationDao {
 	@Select("SELECT * FROM  certification WHERE content like CONCAT('%', #{keyword}, '%')")
     public List<CertificationDto> searchWordCert(@Param("keyword") String keyword);
 
-	@Select(" SELECT cha.id , cha.cng_id , user.nickname, cha.img , cha.content , cha.create_date , cha.result , cha.user_id, cha.like_cnt , cha.week, cha.day " +
+	@Select(" SELECT cha.id , cha.cng_id , user.nickname, cha.img , cha.content , cha.create_date , cha.result , cha.user_id, cha.like_cnt , cha.current_week, cha.current_day " +
 			" FROM like_certification AS joy  " +
 			" JOIN certification AS cha ON joy.user_id = #{userId} AND joy.cert_id = cha.id " +
 			" JOIN user ON cha.user_id = user.id ")

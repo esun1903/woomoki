@@ -3,7 +3,7 @@
     <v-img :src=SeedImg @click="goSeedDetail(seed.id)" aspect-ratio="1.5" class="cursor"></v-img>
 
     <div class="seed-card-top">
-      <v-chip id="category-chip" :ripple="false" :color=this.color class="white--text"> {{ this.category }}</v-chip>
+      <v-chip id="category-chip" :ripple="false" :color=color class="white--text"> {{ this.category }}</v-chip>
       <div class="btns">
         <v-btn :disabled="this.isLogin === false" icon @click.native="getLikes">
           <v-icon :color="liked ? 'red' : '' ">mdi-heart</v-icon>

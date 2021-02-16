@@ -35,8 +35,14 @@
             </v-row>
             <v-row class="like-btn">
                 <v-btn icon x-large @click="getScrap">
-                    <v-icon :color="scrapped ? 'pink' : '' ">mdi-heart</v-icon>
+                    <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
                 </v-btn>
+                 <v-btn icon x-large @click="getConfirm" class="ml-5">
+                    <v-icon :color="confirmed ? '#78909C' : '' ">fas fa-stamp</v-icon>
+                </v-btn>
+                <!-- <v-btn v-if="getCheckSeedOwner" icon x-large @click="goStampCard" class="ml-5">
+                    <v-icon :color="scrapped ? '#78909C' : '' ">fas fa-stamp</v-icon>
+                </v-btn> -->
             </v-row>
             <v-row class="edit-del-btn">
                 <v-btn class="ma-2" outlined fab color="green" v-on:click="updateCert()" v-if="checkUser">
@@ -81,6 +87,7 @@
 <script>
     import CommentInsert from '@/views/Certification/components/CommentInsert.vue'
     import CommentList from '@/views/Certification/components/CommentList.vue'
+    import {mapState} from "vuex";
     import axios from "axios";
 
     export default {
@@ -99,9 +106,20 @@
                 // photoUrl:"https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
                 dialog: false,
                 scrapped: false,
+                confirmed: false,
                 checkUser: false,
                 showResultBtn: false,
             };
+        },
+        computed: {
+            ...mapState('UserStore', ['user']),
+            getCheckSeedOwner () {
+                if (this.user.user_id === this.$route.params.cngUserId) {
+                    return true
+                } else {
+                    return false
+                }
+            }
         },
         mounted() {
 
@@ -249,7 +267,38 @@
             failCert() {
                 confirm("인증 실패로 할거냐고 물어볼건데 나중에 dialog로 바꾸기")
                 this.showResultBtn = false;
-            }
+            }, 
+            getConfirm: function () {
+                const certInfo = this.CertInfo
+                certInfo.user_id = this.user.user_id
+                    if (this.confirmed) {   
+                        // 확인 도장 취소하기  
+                        this.confirmed = false 
+                        axios.post(`http://127.0.0.1:8080/cancleConfirmation`, certInfo)
+                        .then((res) => {
+                            console.log(res)
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        })
+                        
+                    } else {
+                        // 확인 도장 찍기
+                        this.confirmed = true
+                        axios.post(`http://127.0.0.1:8080/completeConfirmation`, certInfo)
+                        .then((res) => {
+                            console.log(res)
+                            if (res.data === 2) {
+                                alert("씨앗을 성공적으로 키워낸 분을 위해 축하 댓글을 달아주세요!")
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                            console.log('확인도장 찍기 실패')
+                        })
+                        
+                    }
+            },
         },
     };
 </script>
