@@ -21,6 +21,9 @@
               <v-card-text class="d-flex justify-center" v-if="item === '보살핌 후기'">
                 <!-- <SeedCertification></SeedCertification> -->
                 <!-- <SeedCertification v-for="(certification, index) in total" :key="index" :certification="certification" /> -->
+                <v-row class="stamp-card-section">
+                  <v-btn @click="goStampCard">나의 스탬프카드</v-btn>
+                </v-row>
                 <v-row>
                   <v-col v-for="(card, $idx) in cards" :key="$idx" class="d-flex child-flex" cols="4">
                     <v-img :src="card.img" :lazy-src="card.img" aspect-ratio="1" class="grey lighten-2 cursor_test"
@@ -69,6 +72,7 @@
 <script>
 import $ from 'jquery'
 import axios from "axios"
+import {mapState} from "vuex"
 import SeedThumbnail from "./components/SeedThumbnail"
 import SeedBasicInfo from "./components/SeedBasicInfo"
 import SeedCertification from "./components/SeedCertification"
@@ -92,6 +96,9 @@ export default {
       isMySeed: false,
       isLogin: this.$store.state.UserStore.isLogin,
     }
+  },
+  computed: {
+    ...mapState('UserStore', ['user']),
   },
   methods: {
     async getSeedCertification() {
@@ -157,7 +164,10 @@ export default {
           cngUserId: this.SeedInfo.user_id,
         }
       });
-    }
+    },
+    goStampCard: function () {
+      this.$router.push({ name: 'StampCard', params: { seedId: this.seedId, userId: this.user.user_id } })      
+    },
   },
   created() {
     this.getSeedCertification();
@@ -247,5 +257,13 @@ footer {
 
 .join-font {
   font-size: 35px;
+}
+
+.stamp-card-section{
+  margin-bottom: 1vh;
+  .v-btn{
+    display: flex;
+    justify-content: end;
+  }
 }
 </style>

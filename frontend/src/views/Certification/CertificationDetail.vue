@@ -37,8 +37,8 @@
                 <v-btn icon x-large @click="getScrap">
                     <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
                 </v-btn>
-                 <v-btn icon x-large @click="goStampCard" class="ml-5">
-                    <v-icon :color="scrapped ? '#78909C' : '' ">fas fa-stamp</v-icon>
+                 <v-btn icon x-large @click="getConfirm" class="ml-5">
+                    <v-icon :color="confirmed ? '#78909C' : '' ">fas fa-stamp</v-icon>
                 </v-btn>
                 <!-- <v-btn v-if="getCheckSeedOwner" icon x-large @click="goStampCard" class="ml-5">
                     <v-icon :color="scrapped ? '#78909C' : '' ">fas fa-stamp</v-icon>
@@ -106,6 +106,7 @@
                 // photoUrl:"https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
                 dialog: false,
                 scrapped: false,
+                confirmed: false,
                 checkUser: false,
                 showResultBtn: false,
             };
@@ -267,27 +268,38 @@
                 confirm("인증 실패로 할거냐고 물어볼건데 나중에 dialog로 바꾸기")
                 this.showResultBtn = false;
             }, 
-            goStampCart() {
-
-                if (this.scrapped) {
-                    axios.put(`http://127.0.0.1:8080/likeUpCertification/${userId}/${certId}`)
-                        .then((res) => {
-                            console.log(res)
-                        })
-                        .catch((err) => {
-                            console.log(err)
-                        })
+            getConfirm: function () {
+                const seedInfo = {};
+                const seedId_num = this.$route.params.cngId;
+                const userId_num = this.user.user_id;
+                seedInfo["cng_id"] = seedId_num
+                seedInfo["user_id"] = userId_num;
+                if (this.confirmed) {   
+                    // 확인 도장 취소하기   
+                    axios.get(`http://127.0.0.1:8080/certificationStamp`, seedInfo)
+                    .then(() => {
+                        this.confirmed = false 
+                        console.log('확인 도장 취소 성공')
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        console.log('확인 도장 취소 실패')
+                    })
+                     
                 } else {
-                    // 스크랩 되어 있을 때 스크랩 취소
-                    axios.put(`http://127.0.0.1:8080/likeDownCertification/${userId}/${certId}`)
-                        .then((res) => {
-                            console.log(res)
-                        })
-                        .catch((err) => {
-                            console.log(err)
-                        })
-                }               
-            }
+                    // 확인 도장 찍기
+                    axios.get(`http://127.0.0.1:8080/certificationStamp`, seedInfo)
+                    .then(() => {
+                        this.confirmed = false
+                        console.log('res값이 2면 맨 끝까지 인증 다 한거니까 축하해주러 가기')
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        console.log('확인도장 찍기 실패')
+                    })
+                      
+                }
+            },
         },
     };
 </script>
