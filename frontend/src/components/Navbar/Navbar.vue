@@ -29,7 +29,11 @@
                 </v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-title>씨앗 물 주기</v-list-item-title>
+                <v-list-item-title>
+                  <router-link to="/seedJoin">
+                      씨앗 물 주기
+                  </router-link>
+                </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -228,7 +232,7 @@ export default {
           this.seeds = seeds
         })
         .catch((err) => {
-          console.log(err)
+          console.log("에러발생", err)
         })
     },
     goSeedDetail: function (val) {

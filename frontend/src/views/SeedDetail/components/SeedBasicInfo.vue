@@ -46,7 +46,7 @@
       </v-col>
     </v-row>
 
-    <v-row ustify="center" class="mb-5">
+    <v-row justify="center" class="mb-5">
       <v-expansion-panels multiple popout hover disabled readonly v-model="panel">
         <v-expansion-panel
           v-for="(result, idx) in results"
