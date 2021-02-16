@@ -92,10 +92,20 @@
                   <v-tab-item v-for="(type,idx) in types" :key="idx">
                     <v-card v-for="(tab,idx) in tabs" :key="idx" @click="NotificationConfirm(tab.id)">
                       
-                      <v-card-text v-if="type=='알림' && tab.type=='reqFollow'">{{tab.reqUserName}}님이 팔로우 하였습니다. </v-card-text>
-                      <v-card-text v-if="type=='요청' && tab.type=='reqChallenge'">{{tab.reqUserName}}님이 {{tab.cngTitle}} 챌린지 참가 요청을 하였습니다. </v-card-text>
-                      <v-card-text v-if="type=='알림' && tab.type=='resChallenge'">{{tab.cngTitle}} 챌린지 참여 완료. </v-card-text>
-                  
+                      <v-card-text v-if="type=='알림' && tab.type=='reqFollow'">
+                          <router-link :to="{ name: 'UserPage', params: { userNickname: CheckUserInfo }}">
+                        {{tab.reqUserName}} </router-link>님이 팔로우 하였습니다. 
+                         <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">삭제하기</v-btn>  
+                      </v-card-text>
+                      <v-card-text v-if="type=='요청' && tab.type=='reqChallenge'"> 
+                        {{tab.reqUserName}}님이 {{tab.cngTitle}} 챌린지 참가 요청을 하였습니다.
+                          <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">삭제하기</v-btn>  
+                        </v-card-text>
+                      <v-card-text v-if="type=='알림' && tab.type=='resChallenge'"> 
+                        {{tab.cngTitle}} 챌린지 참여 완료. 
+                        <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">삭제하기</v-btn> 
+                        </v-card-text>
+                     
                     </v-card>
                   </v-tab-item>
                 </v-tabs-items>
@@ -248,6 +258,7 @@ export default {
     },
     NotificationList(){
       const userId =  this.user.user_id;
+   
        axios.get(`http://127.0.0.1:8080/notificationList/${userId}`)
         .then((response) => {
           this.tabs = response.data;
@@ -255,6 +266,17 @@ export default {
         .catch((error) => {
           console.log(error);
         });    
+    },
+
+    notificationDelete: function(id) {
+      const notificationId = id;
+       axios.delete(`http://127.0.0.1:8080/notificationDelete/${notificationId}`)
+        .then((response) => {
+          this.tabs = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });  
     },
     NotificationToast(){
         
@@ -269,14 +291,15 @@ export default {
               pushMsg ="'"+ this.tabs[i].cngTitle+"' 챌린지 참여 완료."
           }
         
-        //this.NotificationCallCheck(this.tabs[i].id);
-        if(pushMsg!=""){
+       
+        if(pushMsg!=""){  
         this.$toast.open({
         message: pushMsg,
         type: 'info',
-        duration: 5000,
+        duration: 3000,
         dismissible: true
         }); 
+         this.NotificationCallCheck(this.tabs[i].id);
         }
     }  
     }
@@ -284,8 +307,8 @@ export default {
   },
   created (){
     
-    //setInterval(() => this.NotificationList(), 3000);
-    // setInterval(() => this.NotificationToast(), 5000);
+    setInterval(() => this.NotificationList(), 2000);
+    setInterval(() => this.NotificationToast(), 3000);
       
   },
 
