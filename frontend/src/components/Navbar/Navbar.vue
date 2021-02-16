@@ -16,7 +16,7 @@
         <div class="btn-group">
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn icon v-bind="attrs" v-on="on" class="btn cursor-default">
+              <v-btn v-if="getCheckLogin" icon v-bind="attrs" v-on="on" class="btn cursor-default">
                 <v-icon>mdi-lead-pencil</v-icon>
               </v-btn>
             </template>
@@ -57,7 +57,7 @@
                   </router-link>
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item>
+              <v-list-item v-if="getCheckLogin">
                 <v-list-item-title>
                   <router-link to="/feedFollow">
                     팔로우 유저 피드
@@ -74,7 +74,7 @@
             width="25%"
           >
             <template v-slot:activator="{ on, attrs }">
-              <v-btn @click="getSeeds" icon v-bind="attrs" v-on="on" class="btn">
+              <v-btn v-if="getCheckLogin" @click="getSeeds" icon v-bind="attrs" v-on="on" class="btn">
                 <v-icon>mdi-cart</v-icon>
               </v-btn>
             </template>
@@ -105,7 +105,7 @@
             </v-card>
           </v-dialog>
 
-          <v-btn icon class="btn" @click="notice = true">
+          <v-btn v-if="getCheckLogin" icon class="btn" @click="notice = true">
             <v-icon>mdi-bell-ring</v-icon>
           </v-btn>
           <v-dialog v-model="notice" width="25%">
@@ -194,7 +194,7 @@ export default {
       notice: false,
       currentTab: null,
       tabs: [],
-      types:['알림','요청'],	
+      types:['알림','요청'],
     };
   },
   computed:  {

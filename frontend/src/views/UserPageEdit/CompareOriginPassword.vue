@@ -10,7 +10,10 @@
         color="#AED864"
         v-model="originPassword"
         label="비밀번호"
-        type="password"
+        :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
+        @click:append="showPass = !showPass"
+        @keydown.enter="comparePassword"
+        :type="showPass ? 'text' : 'password'"
         outlined
       ></v-text-field>
       
@@ -39,15 +42,16 @@ export default {
       originPassword: "",
       savedPassword: "",
       isSubmit: false,
+      showPass: false,
     }
   },
   methods:  {
     // db에서 로그인 정보와 일치하는 패스워드 불러오기
-    getPassword : function () {
-      const myId = this.$store.state.UserStore.user.user_id 
-      axios.get(`http://localhost:8080/userPage/${myId}`)
+    getPassword: function () {
+      const myId = this.$store.state.UserStore.user.user_id
+      axios.get(`http://localhost:8080/userPage/Id/${myId}`)
         .then((res) => {
-          console.log(res)
+          // console.log(res.data)
           this.savedPassword = res.data.password
         })
         .catch((err) => {
@@ -61,6 +65,7 @@ export default {
       } else {
         alert("패스워드 불일치!")
       }
+      console.log(this.originPassword, this.savedPassword)
     },
     // 입력된 패스워드 정규식 테스트
     // formPassword: function (password) {
@@ -79,13 +84,8 @@ export default {
     }
   },
   created() {
-    this.getPassword()
+    this.getPassword();
   },
-  computed: {
-    isComplete() {
-      return this.validatePassword(this.originPassword)
-    }
-  }
 }
 </script>
 

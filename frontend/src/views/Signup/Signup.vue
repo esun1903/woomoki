@@ -229,16 +229,17 @@
                 </validation-provider>
                 <validation-provider
                   v-slot="{ errors }"
-                  name="비밀번호 한 번 더"
+                  name="비밀번호 확인"
                   rules="required|passwordConfirm:@비밀번호"
                   vid="password"
                 >
                   <v-text-field
                     v-model="passwordConfirmation"
                     :error-messages="errors"
-                    label="비밀번호 재확인"
+                    label="비밀번호 확인"
                     :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
                     @click:append="showPass = !showPass"
+                    @keydown.enter="signUp"
                     required
                     outlined
                     dense
@@ -283,7 +284,7 @@ setInteractionMode("eager");
 
 extend("required", {
   ...required,
-  message: "{_field_}는 필수 항목입니다"
+  message: "{_field_}은(는) 필수 항목입니다"
 });
 
 extend("email", {
@@ -408,7 +409,7 @@ body, html {
 }
 
 .message {
-  margin-bottom: 5.5vh;
+  margin-bottom: 5vh;
 }
 
 
