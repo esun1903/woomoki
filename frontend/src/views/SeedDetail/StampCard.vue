@@ -6,24 +6,23 @@
         color="transparent"
       >
         <v-toolbar-title> 
-          <span>{{ user.nickname }}님의 <b>{{ seedTitle }}</b> 챌린지 도장카드</span>
+          <span>
+            <p class="nickname">{{ user.nickname }}</p>
+            님의
+            <p class="seed">챌린지</p>
+            <p class="seed-title">( {{ seedTitle }} )</p>
+            <p class="card-name">도장 카드</p>
+          </span>
         </v-toolbar-title>
       </v-toolbar>
       <v-divider></v-divider>
       <v-container>
-        <!-- week만큼의 세로 동그라미 갯수 -->
         <div v-for="i in week" :key="i">
-          <!-- day만큼의 가로 동그라미 갯수 -->
           <div v-for="j in day" :key="j">
-            <!-- 원과 설명 -->
-            <div :class=this.stampColor(i,j) @click="goCertInfo(i, j)"></div>
-             <!-- :color=stampColor(i,j)  -->
+            <div :class=stampColor(i,j) @click="goCertInfo(i, j)"></div>
           </div>
         </div>  
       </v-container>
-
-      <v-card-actions>
-      </v-card-actions>
     </v-card>
   </div>
 </template>
@@ -59,6 +58,7 @@ export default {
   computed: {
     ...mapState('UserStore', ['user']),
     stampColor() {
+      console.log(this.coloringInfo)
       return (a, b) => {
         const ordinal = (a-1) * this.day + (b-1)
         console.log('이게 바로 n번째다')
@@ -71,7 +71,7 @@ export default {
             return 'black-circle'
           }
         } else {
-          return 'grey-circle'
+          return 'gray-circle'
         }
 
       }
@@ -81,17 +81,14 @@ export default {
   methods: {
     getSeedInfo: function () {
       const seedId = {}
-      console.log("이게 챌린지 번호다")
-      console.log(this.seedId)
       seedId["cgId"] = this.seedId
       axios.get(`http://127.0.0.1:8080/detailChallenge/${this.seedId}`, seedId)
         .then((res) => {
-          console.log('타이틀, 오너 알고 싶다')
-          console.log(res)
           this.seedTitle = res.data.title
           this.cngOwner = res.data.user_id
         })
         .catch((err) => {
+          console.log('왕 실패')
           console.log(err)
         })      
     },
@@ -141,17 +138,43 @@ export default {
     height: auto;
     margin-top: 12vh;
     .v-toolbar{
-      .v-toolbar__content{
-        .v-toolbar__title{
-          
+      display: flex;
+      justify-content: center;
+      margin-top: 1.3vh;
+      .v-toolbar__content{      
+        .v-toolbar__title{  
+                 
+          span{
+            display: flex;
+            .nickname{
+              font-size: 1.3rem;
+              font-weight: bold;
+              color: #AED864;
+              margin-right: 0.6rem;
+            }
+            .seed{
+              margin-left: 1.5rem;
+            }
+            .seed-title{
+              margin: 0 0.5rem;
+              color: rgb(107, 107, 107);
+            }
+            .card-name {
+              font-weight: bold;
+              margin-left: 0.5rem;
+              font-size: 1.3rem;
+            }
+          }
         }
       }
     }
-    .container{    
+    .container{ 
+      padding: 5% 0;
       div{
         display: flex;
+        justify-content: center;
         div{
-          margin-bottom: 3%;
+          margin-bottom: 2.5%;
           margin-right: 3%;
           // .circle {
           //   height: 10vh;
@@ -188,7 +211,7 @@ export default {
   border-radius: 50%;
   display: inline-block;
 } 
-.grey-circle{
+.gray-circle{
   height: 10vh;
   width: 10vh;
   background-color: #bbb;

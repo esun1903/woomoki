@@ -165,9 +165,6 @@ export default {
         }
       });
     },
-    goStampCard: function () {
-      this.$router.push({ name: 'StampCard', params: { seedId: this.seedId, userId: this.user.user_id } })      
-    },
   },
   created() {
     this.getSeedCertification();
