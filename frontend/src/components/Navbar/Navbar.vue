@@ -16,7 +16,7 @@
         <div class="btn-group">
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn v-if="getCheckLogin" icon v-bind="attrs" v-on="on" class="btn cursor-default">
+              <v-btn v-if="getCheckLogin" icon v-bind="attrs" v-on="on" class="btn nav-cursur">
                 <v-icon>mdi-lead-pencil</v-icon>
               </v-btn>
             </template>
@@ -45,7 +45,7 @@
               </v-btn> -->
               <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
               <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
-              <v-btn icon class="btn cursor-default" v-bind="attrs" v-on="on">
+              <v-btn icon class="btn nav-cursur" v-bind="attrs" v-on="on">
                 <v-icon>fas fa-user-friends</v-icon>
               </v-btn>
             </template>
@@ -140,7 +140,7 @@
           
           <v-menu offset-y open-on-hover bottom>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn icon v-bind="attrs" v-on="on" class="btn">
+              <v-btn icon v-bind="attrs" v-on="on" class="btn nav-cursur">
                 <v-icon color="grey darken-1">mdi-account-circle</v-icon>
               </v-btn>
             </template>
@@ -444,4 +444,9 @@ a:-webkit-any-link {
     }
   }
 }
+
+.nav-cursur {
+  cursor: default
+}
+
 </style>
