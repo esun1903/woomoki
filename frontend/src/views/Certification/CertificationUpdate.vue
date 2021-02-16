@@ -2,21 +2,19 @@
     <v-container>
         <div class="detail">
             <v-row class="cng-name">
-                <!-- 챌린지명: {{ this.$route.params.cngName }} -->
-                챌린지명: 챌린지명입니다
+                챌린지명: {{ CertInfo.title}}
             </v-row>
             <v-row class="nickname-date-row">
                 <v-col class="user-id">
-                    아이디: {{ CertInfo.user_id }}
+                    아이디: {{ CertInfo.nickname}}
                 </v-col>
                 <v-col class="date">
                     인증날짜: {{ CertInfo.create_date }}
                 </v-col>
             </v-row>
-            <v-row class="img">
+            <v-row class="img-div">
                 <v-avatar rounded size=auto @click="updateImg()">
                     <v-img v-if="CertInfo.img" :src="CertInfo.img">
-                        <!-- <div style="background: grey">{{this.explain}}</div> -->
                     </v-img>
                     <input ref="imageInput" type="file" hidden @change="onChangeImages">
                 </v-avatar>
@@ -61,7 +59,6 @@
                 CertInfo: [],
                 // photoUrl: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
                 dialog: false,
-                // explain: "사진 변경을 희망한다면 여기를 눌러주세요"
 
             };
         },
@@ -108,7 +105,6 @@
                 console.log(e.target.files)
                 const file = e.target.files[0]; // Get first index in files
                 this.CertInfo.img = URL.createObjectURL(file);
-                this.explain = "";
             },
             updateCert() {
                 // // AWS Setting Start
@@ -238,12 +234,18 @@
         margin-top: 15%;
     }
 
-    .img,
     .content,
     .nickname-date-row {
         justify-content: center;
         margin-top: 5%;
     }
+
+    .img-div:hover {
+        opacity: 0.4;
+    }
+
+
+
 
 
     .cng-name {

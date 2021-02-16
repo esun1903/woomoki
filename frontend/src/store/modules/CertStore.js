@@ -28,7 +28,7 @@ const CertStore = {
             .post(`${SERVER_URL}/insertCertification`, certForm)
             .then(() => {
                 alert('인증 등록 완료!');
-                router.push('/seedDetail');
+                router.push({ name: 'SeedDetail', params: { seedId: certForm.cng_id }})
             }).catch((error) => {
                 console.log(error);
                 alert("인증 등록 실패!");

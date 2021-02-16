@@ -81,6 +81,7 @@ export default {
       imageUrl: "https://t1.daumcdn.net/cfile/tistory/995A17455A409C9A28",
       // text: "썸네일 사진 변경",
       overlay: false,
+      fileName: null,
     }
   },
   methods: {
@@ -91,14 +92,17 @@ export default {
         console.log(e.target.files)
         const file = e.target.files[0]; // Get first index in files
         this.imageUrl = URL.createObjectURL(file); // Create File URL
-        this.text = ""
+        this.fileName = file.name;
+        console.log(this.fileName);
+        this.text = "";
     },
     onDeleteImage() {
       this.text = "썸네일 사진 변경"
       this.imageUrl = ""
+      this.fileName = ""
     },
     transferThumbnail: function () {
-      this.$emit('transferThumbnail', this.imageUrl)
+      this.$emit('transferThumbnail', this.fileName)
     }
   }
 }

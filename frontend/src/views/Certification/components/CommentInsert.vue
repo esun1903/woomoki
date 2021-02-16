@@ -1,19 +1,44 @@
 <template>
     <div>
-        <v-textarea outlined v-model="comment" label="댓글"></v-textarea>
-        <div id="insert-btn-div">
-            <v-btn color="warning" id="insert-btn" @click="writeComment">
-                등록하기
-            </v-btn>
-        </div>
+        <validation-observer v-slot="{ invalid }" ref="observer">
+            <v-form @submit.prevent="writeComment">
+                <validation-provider v-slot="{ errors }" rules="required">
+                    <v-textarea outlined v-model="comment" :error-messages="errors" label="댓글"></v-textarea>
+                </validation-provider>
+                <div id="insert-btn-div">
+                    <v-btn color="warning" id="insert-btn" :disabled="invalid" @click="writeComment">
+                        등록하기
+                    </v-btn>
+                </div>
+            </v-form>
+        </validation-observer>
     </div>
 </template>
 
 <script>
+    import {
+        required
+    } from 'vee-validate/dist/rules'
+    import {
+        extend,
+        ValidationProvider,
+        setInteractionMode,
+        ValidationObserver
+    } from 'vee-validate'
+
+    setInteractionMode('eager')
+
+    extend('required', {
+        ...required,
+        message: '댓글 내용은 공백일 수 없습니다!'
+    })
     import axios from "axios";
     export default {
         name: 'CommentInsert',
-        components: {},
+        components: {
+            ValidationObserver,
+            ValidationProvider
+        },
         directives: {},
         data() {
             return {
@@ -24,30 +49,31 @@
 
         },
         methods: {
-            writeComment() {
+            async writeComment() {
                 //  댓글 유효성 검사하기
 
-                const certId = this.$route.params.certId;
+                const valid = await this.$refs.observer.validate()
+                if (valid) {
+                    const certId = this.$route.params.certId;
 
-                const CommentForm = {
-                    cert_id: certId,
-                    user_id: this.$store.state.UserStore.user.user_id,
-                    content: this.comment,
+                    const CommentForm = {
+                        cert_id: certId,
+                        user_id: this.$store.state.UserStore.user.user_id,
+                        content: this.comment,
+                    }
+                    console.log(CommentForm);
+
+                    axios.post("http://localhost:8080/insertComment", CommentForm)
+                        .then(res => {
+                            console.log(res);
+                            this.$router.go(this.$router.currentRoute);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
                 }
-                console.log(CommentForm);
-                axios.post("http://localhost:8080/insertComment", CommentForm)
-                .then(res => {
-                    console.log(res);
-                   this.$router.go(this.$router.currentRoute);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+            }
 
-                // 해당 게시글로 다시 요청
-                // this.$router.push("/");
-
-            },
         },
     };
 </script>
@@ -56,7 +82,8 @@
     #insert-btn {
         float: right;
     }
-    #insert-btn-div{
-        margin-bottom:5%;
+
+    #insert-btn-div {
+        margin-bottom: 5%;
     }
 </style>
