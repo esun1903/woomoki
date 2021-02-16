@@ -24,6 +24,11 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public int notificationCallCheck(int id) {
+        return dao.notificationCallCheck(id);
+    }
+
+    @Override
     public int notificationFollow(int notificationId, int followId, String type) {
         return dao.notificationFollow(notificationId, followId, type);
     }
