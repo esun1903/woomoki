@@ -11,7 +11,10 @@ import "./common/filters";
 import InfiniteLoading from "vue-infinite-loading";
 import { UserStore } from "./store/modules/UserStore"
 import VueSplide from '@splidejs/vue-splide';
+import VueToast from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 
+Vue.use(VueToast);
 Vue.use( VueSplide );
 
 Vue.config.productionTip = false;

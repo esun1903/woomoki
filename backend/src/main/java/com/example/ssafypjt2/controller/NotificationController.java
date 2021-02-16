@@ -25,7 +25,10 @@ public class NotificationController {
     public int notificationConfirm(@PathVariable int notificationId){
         return notificationService.notificationConfirm(notificationId);
     }
-
+    @PutMapping("/notificationCallCheck/{notificationId}")
+    public int notificationCallCheck(@PathVariable int notificationId){
+        return notificationService.notificationCallCheck(notificationId);
+    }
     @PostMapping("/notificationFollow/{userId}/{followId}/{type}")
     public int notificationFollow(@PathVariable int userId ,@PathVariable int followId, @PathVariable String type){
         return notificationService.notificationFollow(userId, followId, type);
