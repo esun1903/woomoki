@@ -10,16 +10,18 @@
     <v-row>
       <v-hover>
         <template v-slot:default="{ hover }">
-          <v-img :class="`rounded-lg`" width="100%" height="450px" max-width="100%" max-height="100%" v-if="imageUrl"
+          <v-avatar rounded width="100%" height="450px">
+          <v-img :class="`rounded-lg`" width="100%" height="450px" max-width="100%" max-height="100%" v-if="SeedInfo.sum_img"
             readonly :src="SeedInfo.sum_img">
             <v-fade-transition>
               <v-overlay v-if="hover" absolute color="#036358">
-                <v-btn text plain class="img-cursor">
+                
                   대표 사진
-                </v-btn>
+                
               </v-overlay>
             </v-fade-transition>
           </v-img>
+          </v-avatar>
         </template>
       </v-hover>
     </v-row>
@@ -51,8 +53,9 @@
     <v-row>
       <v-hover>
         <template v-slot:default="{ hover }">
-          <v-img :class="`rounded-lg`" width="100%" height="450px" max-width="100%" max-height="100%" v-if="imageUrl"
-            :src="example_img" @click="onClickImageUpload">
+          <v-avatar rounded width="100%" height="450px">
+          <v-img :class="`rounded-lg`" width="100%" height="450px" max-width="100%" max-height="100%" v-if="SeedInfo.example_img"
+            :src="SeedInfo.example_img" @click="onClickImageUpload">
             <v-fade-transition>
               <v-overlay
                 v-if="hover"
@@ -63,6 +66,7 @@
               </v-overlay>
             </v-fade-transition>
           </v-img>
+          </v-avatar>
         </template>
       </v-hover>
     </v-row>
@@ -179,7 +183,7 @@
       onChangeImages(e) {
         console.log(e.target.files)
         this.file = e.target.files[0]; // Get first index in files
-        this.imageUrl = URL.createObjectURL(this.file); // Create File URL
+        this.SeedInfo.example_img = URL.createObjectURL(this.file); // Create File URL
         this.text = ""
         this.fileNameSetting();
       },
@@ -216,6 +220,7 @@
             console.log(res.data)
             this.SeedInfo = res.data
             this.sum_img = res.data.sum_img
+            console.log("받아온썸네일사진값:" + this.sum_img)
             this.content = res.data.content
             this.example_img = res.data.example_img
             this.max_people = res.data.max_people
@@ -275,10 +280,12 @@
           end_date: this.SeedInfo.end_date,
           cert_count: this.SeedInfo.cert_count,
           max_people: this.max_people,
+          sum_img: this.SeedInfo.sum_img,
           example_img: this.example_img,
           join_deposit: this.SeedInfo.join_deposit,
           like_cnt: this.SeedInfo.like_cnt,
           result: this.SeedInfo.result,
+          day: this.SeedInfo.day,
           week: this.SeedInfo.week
         }
 
