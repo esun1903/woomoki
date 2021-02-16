@@ -22,7 +22,7 @@
       <v-card>
           <v-card-title class="d-flex justify-space-between">팔로잉
             <v-btn
-              color="light-green lighten-1"
+              color="#AED864"
               text
               icon
               @click="dialog = false"

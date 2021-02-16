@@ -6,7 +6,7 @@
     </v-main>
     <div class="loader">
       <UpPage></UpPage>
-      <Chat v-if="this.isLogin"></Chat>
+      <Chat></Chat>
     </div>
     <Footer></Footer>
   </v-app>

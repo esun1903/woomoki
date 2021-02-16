@@ -3,7 +3,7 @@
     class="cursor_img profile-img-margin"
     width="250"
     height="250"
-    color="light-green lighten-1"
+    color="#AED864"
     @click="onClickImageUpload"
     >
       <span class="white--text">

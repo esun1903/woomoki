@@ -30,7 +30,7 @@
           <v-col v-if="isMyPage === false">
             <v-btn
               :ripple="false"
-              :color="isFollow ? 'grey' : 'light-green lighten-1' "
+              :color="isFollow ? 'grey' : '#AED864' "
               width="60"
               height="30"
               @click="UserFollow"

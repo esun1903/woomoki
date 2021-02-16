@@ -1,7 +1,7 @@
 <template>
   <v-col class="pa-0">
     <v-textarea
-      color="light-green lighten-1"
+      color="#AED864"
       placeholder="EX) 코딩을 꾸준히 하지 않으면 까먹기 쉽지 않나요? 각자 조금씩이라도 코딩을 하고 매일매일 커밋하는 씨앗을 심고 싶어요! 함께하실 가꾸미님 구합니다!!"
       v-model="content"
       :rules="contentRules"

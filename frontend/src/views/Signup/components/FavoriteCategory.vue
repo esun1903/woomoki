@@ -135,7 +135,7 @@
           <v-btn
             :disabled="!selected.length"
             :loading="loading"
-            color="light-green lighten-1"
+            color="#AED864"
             text
             @click="sendFavoriteCategories"
           >우목이 시작하기!</v-btn>
