@@ -208,6 +208,7 @@ body, html {
 }
 
 .link {
+  font-size: 0.9vw;
   color: black;
 }
 
@@ -215,121 +216,5 @@ body, html {
   margin-bottom: 5.5vh;
 }
 
-  /* ./assets/styles.scss */
-
-  // .socialBtnToggle {
-  //         background-color: rgba(255,255,255,0) !important;
-  //     }
-
-
-  // #join-find {
-  //   display: flex;
-  //   justify-content: space-around;
-  // }
-
-  // #socialBtn {
-  //   display: flex;
-  //   justify-content: space-around;
-  //   margin-right: 50px;
-  //   margin-left: 50px;
-  //   padding-left: 20px;
-  //   padding-right: 20px;
-
-  // }
-
-  // a {
-  //   text-decoration: none;
-  //   color: black !important;
-  // }
-
-  // ul {
-  //   list-style: none;
-  //   font-size: 13px;
-  // }
-
-  // li {
-  //   float: left;
-  //   font-size: 13px;
-  //   margin-right: 20px;
-
-  // }
-
-  // .login-box-hd {
-  //   text-align: center;
-  //   font-weight: 400;
-  //   font-size: 11px;
-  //   line-height: 28px;
-  //   color: black;
-  // }
-
-  // .section-container {
-  //   //   padding: 20px;
-  //   //   margin: 20px;
-  //   background: #fff;
-  //   width: 100%;
-  //   // box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
-  //   box-sizing: border-box;
-
-  //   .login {
-  //     padding: 0;
-  //     margin: 0 auto;
-  //     min-height: 91vh;
-  //     // box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
-
-  //     .left {
-  //       //   padding: 30px;
-  //       justify-content: center;
-  //       align-items: center;
-  //       // box-sizing: border-box;
-  //       display: flex;
-  //       color: #30ac7c;
-  //       background-color: #f9f9f9;
-  //       // background-size: cover;
-  //       background-size: cover;
-  //       // background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2z9HX0e8x5yymedl_0bacIHJvoS1WOUafww&usqp=CAU");
-  //       // background-image: url("https://demos.creative-tim.com/vue-material-kit/img/vue-mk-header.98fb6ce8.jpg");
-  //       background-image: url("https://demos.creative-tim.com/vue-material-kit/img/profile_city.435c148e.jpg");
-  //       // background-image: url("./login.jpg");
-        
-  //     }
-
-  //     .right {
-  //       //   padding: 30px;
-  //       display: flex;
-  //       flex-direction: column;
-  //       align-items: center;
-  //       box-sizing: border-box;
-  //       background: #F3ECE2;
-  //       color: black;
-  //       padding-left: 50px;
-  //       padding-right: 50px;
-  //       padding-top: 10vh;
-
-  //       h2,
-  //       h4 {
-  //         text-align: center;
-  //         margin: 30px 0;
-  //       }
-
-  //       .login-btn {
-  //         width: 100%;
-  //         color: #30ac7c;
-  //       }
-
-  //       .disabled,
-  //       .disabled:hover {
-  //         background-color: rgb(136, 154, 152, 0.25);
-  //         color: #f8f8f8;
-  //         cursor: inherit;
-  //       }
-
-  //       .all {
-  //         .application--wrap {
-  //           min-height: 80vh !important;
-  //         }
-  //       }
-
-  //     }
-  //   }
-  // }
+  
 </style>

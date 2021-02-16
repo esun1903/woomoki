@@ -16,7 +16,8 @@
 </template>
 
 <script>
-import moment from 'moment'
+import axios from 'axios';
+import moment from 'moment';
 export default {
   name: 'FeedCard',
   components: {  },
@@ -28,6 +29,7 @@ export default {
     return {
       dialogm1: '',
       dialog: false,
+      cngOwner: '',
     };
   },
   filters: {
@@ -41,8 +43,24 @@ export default {
     
   },
   methods: {
+    getChallengeOwner: function () {
+      const cngId = {}
+      const cngId_num = this.slide.cng_id
+      cngId["cgId"] = cngId_num 
+      axios.get(`http://127.0.0.1:8080/detailChallenge/${cngId_num}`, cngId)
+        .then((res) => {
+          console.log('오너 잘 받아와지나?')
+          console.log(res.data)
+          this.cngOwner = res.data.user_id
+        })
+        .catch((err) => {
+          console.log(err)
+          console.log('대실패')
+        })
+    },
     goCertDetail: function () {
-      this.$router.push({ name: 'CertificationDetail', params: { cngId: this.slide.cng_id, certId: this.slide.id } })
+      this.getChallengeOwner()
+      this.$router.push({ name: 'CertificationDetail', params: { cngUserId: this.cngOwner, cngId: this.slide.cng_id, certId: this.slide.id } })
     },
   },
   computed: {
@@ -71,7 +89,7 @@ export default {
   transition: .5s ease;
   }
   .mask {
-    width: 100%;
+    width: 320px;
     height: 300px;
     padding: 5% 10%;
     transition: .5s ease;

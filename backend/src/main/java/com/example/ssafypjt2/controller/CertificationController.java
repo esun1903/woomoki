@@ -115,7 +115,30 @@ public class CertificationController {
 	   System.out.println(user_id+"가 가입한 챌린지"+cngId+"의 인증을 week, day를 리스트로 리턴해주기");
 	  return certificationService.CngCertificationList(user_id, cngId);
     }
-	
+
+
+//     1) 개설자가 도장을 클릭 시
+//     2) 해당 joined_challenge의
+//	   3) sum_stamp ++ 하고
+//	   4) 만약, 그 결과(week/day)  week * day 와 같다면
+//	   5) joined_challnege result를 3으로 변경(성공한 챌린지)
+//	   6) 성공한 챌린지가 변경되면 -> user의 level의 변경 됨
+   @PostMapping("/certificationStamp")
+    public int certificationStamp ( @RequestBody CertificationDto certificationDto) {
+	// 만약, week , day 가 마지막이라면 ? ->
+	   System.out.println("이 인증를 도장찍을 겁니다." + certificationDto);
+	   int result = certificationService.certificationStamp(certificationDto);
+        if(result == 1) {
+			System.out.println("도장찍기 완료");
+		}else
+		{
+			System.out.println(" 챌린지가 끝났고 성공한챌린지로 변경되고 -> 레벨업이 되었습니다.");
+		}
+	 return result;
+   }
+
+
+
 }
 
 

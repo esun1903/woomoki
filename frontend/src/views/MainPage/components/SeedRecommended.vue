@@ -102,8 +102,9 @@ export default {
     margin: 1% 0 3% 0;  
     .checkLogin{
       .nickname{
-        // color: #AED581;
-        color: #65a11f;
+        color: #AED864;
+        // color: #65a11f;
+        // color: #68a720;
         font-weight: bold;
         font-size: 2rem;
       }
@@ -138,5 +139,4 @@ export default {
     }
   }
 }
-
 </style>

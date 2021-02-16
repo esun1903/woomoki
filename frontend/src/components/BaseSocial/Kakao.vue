@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn @click="kakao" color="transparent" depressed icon>
-      <v-icon color="white" size="2vw">fab fa-twitter</v-icon>
+      <v-icon color="white" size="1.5vw">fab fa-twitter</v-icon>
       <!-- <v-img :src="require('@/assets/images/kakao.png')" max-height="40" max-width="40" /> -->
     </v-btn>
   </div>
