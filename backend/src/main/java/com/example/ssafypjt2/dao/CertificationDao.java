@@ -103,5 +103,22 @@ public interface CertificationDao {
 			"JOIN challenge cng ON cert.cng_id = cng.id " +
 			"WHERE cert.user_id = #{userId} AND  cert.cng_id = #{cngId} ")
     public List<CertificationDto> CngCertificationList(@Param("userId")int userId, @Param("cngId")int cngId);
+
+	@Update("UPDATE joined_challenge " +
+			"SET sum_stamp = sum_stamp+1  " +
+			"WHERE user_id = #{userId} AND cng_id = #{cngId} ")
+    public int certificationStamp(@Param("userId")int user_id, @Param("cngId")int cng_id);
+
+	@Select("SELECT sum_stamp FROM joined_challenge WHERE user_id = #{userId} AND cng_id = #{cngId} ")
+	public int certificationStampCount(@Param("userId")int user_id, @Param("cngId")int cng_id);
+
+	@Select("SELECT WEEK , DAY  FROM challenge WHERE id = #{cngId}")
+	public ChallengeDto challengeDetail(@Param("cngId")int cng_id);
+
+	@Select("UPDATE joined_challenge SET result = 3 WHERE user_id = #{userId} AND cng_id = #{cngId}")
+	public void challengeSuccess(@Param("userId") int user_id, @Param("cngId") int cng_id);
+
+	@Select(" UPDATE user SET levelnum = levelnum + 1 WHERE id = #{userId} ")
+	public void userLevelUp(@Param("userId") int user_id );
 }
 
