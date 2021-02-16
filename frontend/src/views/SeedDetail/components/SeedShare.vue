@@ -21,8 +21,8 @@
         </v-card-title>
         <div class="fb-share-button d-flex justify-center" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button_count" data-size="small">
           <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">
-            <v-btn icon>
-              <v-icon color="blue">fab fa-facebook-square</v-icon>
+            <v-btn class="mt-2" icon>
+              <v-icon size="40" color="blue">fab fa-facebook-square</v-icon>
             </v-btn>
           </a>
         </div>
@@ -53,6 +53,6 @@ export default {
 
 <style lang="scss" scoped>
 
-.a { text-decoration: none; }
+a { text-decoration: none; }
 
 </style>

@@ -189,7 +189,7 @@ export default {
 .container {
   width: 100%;
   height: 100%;
-  margin-bottom: 5%;
+  margin-bottom: 1%;
   .searched-option {
     display: flex;
     justify-content: center;
@@ -210,7 +210,7 @@ export default {
     .cards {
       width: 100%;
       height: 100%;
-      margin-bottom: 10%;
+      margin-bottom: 5%;
       .row {
         .card {
           padding: 1%;

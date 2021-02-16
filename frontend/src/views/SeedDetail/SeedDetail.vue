@@ -259,9 +259,9 @@ footer {
   font-size: 35px;
 }
 
-.stamp-card-section{
+.stamp-card-section {
   margin-bottom: 1vh;
-  .v-btn{
+  .v-btn {
     display: flex;
     justify-content: end;
   }

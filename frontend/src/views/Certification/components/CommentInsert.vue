@@ -30,7 +30,7 @@
 
     extend('required', {
         ...required,
-        message: '댓글 내용은 공백일 수 없습니다!'
+        message: '{_field_}은(는) 필수 항목입니다'
     })
     import axios from "axios";
     export default {
