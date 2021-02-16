@@ -18,17 +18,17 @@ import CertificationDetail from "@/views/Certification/CertificationDetail.vue";
 import CertificationUpdate from "@/views/Certification/CertificationUpdate.vue";
 import SeedCreate from "@/views/SeedCreate/CreateSeed.vue";
 import Feed from "@/views/Feed/Feed.vue";
-import SeedCreated from "@/views/SeedList/SeedCreated.vue"
-import SeedFail from "@/views/SeedList/SeedFail.vue"
-import SeedJoin from "@/views/SeedList/SeedJoin.vue"
-import SeedSuccess from "@/views/SeedList/SeedSuccess.vue"
-import SeedDetail from "@/views/SeedDetail/SeedDetail.vue"
-import SearchedPage from "@/views/SearchedPage/SearchedPage.vue"
-import SeedUpdate from "@/views/SeedUpdate/SeedUpdate.vue"
-// import KakaoTalk from "@/views/Login/callback/KakaoTalk.vue";
+import SeedCreated from "@/views/SeedList/SeedCreated.vue";
+import SeedFail from "@/views/SeedList/SeedFail.vue";
+import SeedJoin from "@/views/SeedList/SeedJoin.vue";
+import SeedSuccess from "@/views/SeedList/SeedSuccess.vue";
+import SeedDetail from "@/views/SeedDetail/SeedDetail.vue";
+import SearchedPage from "@/views/SearchedPage/SearchedPage.vue";
+import SeedUpdate from "@/views/SeedUpdate/SeedUpdate.vue";
+import StampCard from "@/views/SeedDetail/StampCard.vue";
+
 Vue.use(VueRouter);
 
-// Containers
 const BlankContainer = () => import('@/containers/BlankContainer')
 
 
@@ -165,6 +165,11 @@ const routes = [
     path: '/seedDetail/:seedId',
     name: 'SeedDetail',
     component: SeedDetail,        
+  },
+  {
+    path: '/seedDetail/stampcard/:cngId?/:userId?',
+    name: 'StampCard',
+    component: StampCard,       
   },
   {
     path: '/searchedPage',

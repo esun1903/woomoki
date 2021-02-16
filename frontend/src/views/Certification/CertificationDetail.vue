@@ -35,8 +35,14 @@
             </v-row>
             <v-row class="like-btn">
                 <v-btn icon x-large @click="getScrap">
-                    <v-icon :color="scrapped ? 'pink' : '' ">mdi-heart</v-icon>
+                    <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
                 </v-btn>
+                 <v-btn icon x-large @click="goStampCard" class="ml-5">
+                    <v-icon :color="scrapped ? '#78909C' : '' ">fas fa-stamp</v-icon>
+                </v-btn>
+                <!-- <v-btn v-if="getCheckSeedOwner" icon x-large @click="goStampCard" class="ml-5">
+                    <v-icon :color="scrapped ? '#78909C' : '' ">fas fa-stamp</v-icon>
+                </v-btn> -->
             </v-row>
             <v-row class="edit-del-btn">
                 <v-btn class="ma-2" outlined fab color="green" v-on:click="updateCert()" v-if="checkUser">
@@ -81,6 +87,7 @@
 <script>
     import CommentInsert from '@/views/Certification/components/CommentInsert.vue'
     import CommentList from '@/views/Certification/components/CommentList.vue'
+    import {mapState} from "vuex";
     import axios from "axios";
 
     export default {
@@ -102,6 +109,16 @@
                 checkUser: false,
                 showResultBtn: false,
             };
+        },
+        computed: {
+            ...mapState('UserStore', ['user']),
+            getCheckSeedOwner () {
+                if (this.user.user_id === this.$route.params.cngUserId) {
+                    return true
+                } else {
+                    return false
+                }
+            }
         },
         mounted() {
 
@@ -249,6 +266,27 @@
             failCert() {
                 confirm("인증 실패로 할거냐고 물어볼건데 나중에 dialog로 바꾸기")
                 this.showResultBtn = false;
+            }, 
+            goStampCart() {
+
+                if (this.scrapped) {
+                    axios.put(`http://127.0.0.1:8080/likeUpCertification/${userId}/${certId}`)
+                        .then((res) => {
+                            console.log(res)
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        })
+                } else {
+                    // 스크랩 되어 있을 때 스크랩 취소
+                    axios.put(`http://127.0.0.1:8080/likeDownCertification/${userId}/${certId}`)
+                        .then((res) => {
+                            console.log(res)
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        })
+                }               
             }
         },
     };
