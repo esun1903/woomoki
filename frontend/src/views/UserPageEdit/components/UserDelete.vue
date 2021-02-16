@@ -19,7 +19,7 @@
           <div>
             <v-toolbar
               class="d-flex justify-end message"
-              color="light-green lighten-1"
+              color="#AED864"
               width="100%"
               dark
             >

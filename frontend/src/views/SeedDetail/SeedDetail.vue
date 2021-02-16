@@ -7,7 +7,7 @@
     <v-row>
       <v-col>
 
-        <v-tabs v-model="tab" slider-size="4" color="light-green lighten-1" right>
+        <v-tabs v-model="tab" slider-size="4" color="#AED864" right>
           <v-tab v-for="item in items" :key="item" @click="CheckisBasicInfo(item)">
             {{ item }}
           </v-tab>
@@ -56,7 +56,7 @@
       <div id="content"></div>
       <footer></footer>
       <v-btn @click="JoinSeed" depressed tile id="banner" width="65.55vw" height="5vw" class="position-fixed"
-        color="light-green lighten-1">
+        color="#AED864">
         <h1 class="join-font">
           함께하기
         </h1>

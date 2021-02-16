@@ -13,7 +13,7 @@
             v-model="tab"
             slider-size="4"
             background-color="transparent"
-            color="light-green lighten-1"
+            color="#AED864"
             grow
             >
             <v-tab
