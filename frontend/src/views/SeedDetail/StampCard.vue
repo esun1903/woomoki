@@ -6,23 +6,23 @@
         color="transparent"
       >
         <v-toolbar-title> 
-          <span>{{ user.nickname }}님의 <b>{{ seedTitle }}</b> 챌린지 도장카드</span>
+          <span>
+            <p class="nickname">{{ user.nickname }}</p>
+            님의
+            <p class="seed">챌린지</p>
+            <p class="seed-title">( {{ seedTitle }} )</p>
+            <p class="card-name">도장 카드</p>
+          </span>
         </v-toolbar-title>
       </v-toolbar>
       <v-divider></v-divider>
       <v-container>
-        <!-- week만큼의 세로 동그라미 갯수 -->
-        <div v-for="i in 2" :key="i">
-          <!-- day만큼의 가로 동그라미 갯수 -->
-          <div v-for="j in 3" :key="j">
-            <!-- 원과 설명 -->
-            <div :color=stampColor(i,j) @click="goCertInfo(i, j)" class="circle"></div>
+        <div v-for="i in week" :key="i">
+          <div v-for="j in day" :key="j">
+            <div :class=stampColor(i,j) @click="goCertInfo(i, j)"></div>
           </div>
         </div>  
       </v-container>
-
-      <v-card-actions>
-      </v-card-actions>
     </v-card>
   </div>
 </template>
@@ -37,7 +37,8 @@ export default {
   data() {
     return {
       userId: this.$route.params.userId,
-      seedId: this.$route.params.cngId,
+      seedId: this.$route.params.seedId,
+      cngOwner: "",
       seedTitle: "",
       day: "",
       week: "",
@@ -48,8 +49,8 @@ export default {
   },
   created () {
     this.drawCircles();
-    this.getSeedTitle();
-    // this.coloringCircles();
+    this.getSeedInfo();
+    this.coloringCircles();
   },
   mounted() {
     
@@ -57,29 +58,37 @@ export default {
   computed: {
     ...mapState('UserStore', ['user']),
     stampColor() {
-      return a, b => {
-        const ordinal = a * this.week + b
-        if (this.coloringInfo[ordinal] === 1) {
-          return 'purple'
+      console.log(this.coloringInfo)
+      return (a, b) => {
+        const ordinal = (a-1) * this.day + (b-1)
+        console.log('이게 바로 n번째다')
+        console.log(ordinal)
+        console.log(this.coloringInfo.length)
+        if (ordinal < this.coloringInfo.length) {
+          if (this.coloringInfo[ordinal][1] === 1) {
+            return 'purple-circle'
+          } else {
+            return 'black-circle'
+          }
         } else {
-          return 'black'
+          return 'gray-circle'
         }
+
       }
     },
-    stampCertificationId: function(a, b){
-      const ordinal = a * this.week + b
-      return this.coloringInfo[ordinal][0]
-    },
+
   },
   methods: {
-    getSeedTitle: function () {
-      axios.get(`http://127.0.0.1:8080/detailChallenge/${this.seedId}`)
+    getSeedInfo: function () {
+      const seedId = {}
+      seedId["cgId"] = this.seedId
+      axios.get(`http://127.0.0.1:8080/detailChallenge/${this.seedId}`, seedId)
         .then((res) => {
-          console.log('타이틀 알고 싶다')
-          console.log(res)
           this.seedTitle = res.data.title
+          this.cngOwner = res.data.user_id
         })
         .catch((err) => {
+          console.log('왕 실패')
           console.log(err)
         })      
     },
@@ -97,21 +106,25 @@ export default {
           console.log(err)
         })
     },
-    // coloringCircles: function () {
-    //   const Info = {}
-    //   Info["userid"] = this.userId
-    //   Info["cngId"] = this.seedId
-    //   axios.get(`http://127.0.0.1:8080/certification/${this.userId}/${this.seedId}`, Info)
-    //     .then((res) => {
-    //       console.log(res)
-    //       console.log('무엇을 채색할까요')
-    //       this.coloringInfo = res.data 
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // }
-
+    coloringCircles: function () {
+      const Info = {}
+      Info["userid"] = this.userId
+      Info["cngId"] = this.seedId
+      axios.get(`http://127.0.0.1:8080/confirmstatus/${this.userId}/${this.seedId}`, Info)
+        .then((res) => {
+          console.log(res)
+          console.log('무엇을 채색할까요')
+          this.coloringInfo = res.data 
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    goCertInfo: function (a, b) {
+      const ordinal = a * this.week + b
+      const CertId = this.coloringInfo[ordinal][0]
+      this.$router.push({ name: 'CertificationDetail', params: { cngUserId: this.cngOwner, cngId: this.seedId, certId: CertId } })
+    }
   },
 };
 </script>
@@ -125,25 +138,51 @@ export default {
     height: auto;
     margin-top: 12vh;
     .v-toolbar{
-      .v-toolbar__content{
-        .v-toolbar__title{
-          
+      display: flex;
+      justify-content: center;
+      margin-top: 1.3vh;
+      .v-toolbar__content{      
+        .v-toolbar__title{  
+                 
+          span{
+            display: flex;
+            .nickname{
+              font-size: 1.3rem;
+              font-weight: bold;
+              color: #AED864;
+              margin-right: 0.6rem;
+            }
+            .seed{
+              margin-left: 1.5rem;
+            }
+            .seed-title{
+              margin: 0 0.5rem;
+              color: rgb(107, 107, 107);
+            }
+            .card-name {
+              font-weight: bold;
+              margin-left: 0.5rem;
+              font-size: 1.3rem;
+            }
+          }
         }
       }
     }
-    .container{    
+    .container{ 
+      padding: 5% 0;
       div{
         display: flex;
+        justify-content: center;
         div{
-          margin-bottom: 3%;
+          margin-bottom: 2.5%;
           margin-right: 3%;
-          .circle {
-            height: 10vh;
-            width: 10vh;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-          }
+          // .circle {
+          //   height: 10vh;
+          //   width: 10vh;
+          //   background-color: #bbb;
+          //   border-radius: 50%;
+          //   display: inline-block;
+          // }
           .circle-info{
 
           }
@@ -157,5 +196,26 @@ export default {
 
     }
   }
+}
+.purple-circle {
+  height: 10vh;
+  width: 10vh;
+  background-color: purple;
+  border-radius: 50%;
+  display: inline-block;
+}
+.black-circle {
+  height: 10vh;
+  width: 10vh;
+  background-color: black;
+  border-radius: 50%;
+  display: inline-block;
+} 
+.gray-circle{
+  height: 10vh;
+  width: 10vh;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
 }
 </style>

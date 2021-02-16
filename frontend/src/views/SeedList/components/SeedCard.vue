@@ -54,6 +54,7 @@ export default {
     goSeedDetail: function () {
       // console.log(this.seed)
       this.$router.push({ name: 'SeedDetail', params: { seedId: this.seed.id } })
+      console.log("11111111")
       console.log(this.seed.id)
       // this.$router.push({ name: "SeedDetail" })
     },
