@@ -16,7 +16,7 @@
         <div class="btn-group">
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn icon v-bind="attrs" v-on="on" class="btn cursor-default">
+              <v-btn icon v-bind="attrs" v-on="on" class="btn">
                 <v-icon>mdi-lead-pencil</v-icon>
               </v-btn>
             </template>
@@ -34,35 +34,9 @@
             </v-list>
           </v-menu>
 
-          <v-menu offset-y open-on-hover bottom left>
-            <template v-slot:activator="{ on, attrs }">
-              <!-- <v-btn icon  class="btn">
-                <v-icon>mdi-lead-pencil</v-icon>
-              </v-btn> -->
-              <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
-              <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
-              <v-btn icon class="btn cursor-default" v-bind="attrs" v-on="on">
-                <v-icon>fas fa-user-friends</v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item>
-                <v-list-item-title>
-                  <router-link to="/feedAll">
-                    모든 유저 피드
-                  </router-link>
-                </v-list-item-title>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-title>
-                  <router-link to="/feedFollow">
-                    팔로우 유저 피드
-                  </router-link>
-                </v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-
+          <v-btn icon class="btn" @click="goFeed">
+            <v-icon>fas fa-user-friends</v-icon>
+          </v-btn>
 
           <v-dialog
             class="scrap-dialog"
@@ -136,7 +110,7 @@
           
           <v-menu offset-y open-on-hover bottom>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn icon v-bind="attrs" v-on="on" class="btn cursor-default">
+              <v-btn icon v-bind="attrs" v-on="on" class="btn">
                 <v-icon color="grey darken-1">mdi-account-circle</v-icon>
               </v-btn>
             </template>
@@ -234,9 +208,9 @@ export default {
     goSeedDetail: function (val) {
       this.$router.push({ name: 'SeedDetail', params: { seedId: val } })
     },
-    // goFeed: function () {
-    //   this.$router.push({ name: 'Feed' }) 
-    // },
+    goFeed: function () {
+      this.$router.push({ name: 'Feed' }) 
+    },
     goLogout: function () {
       this.$store.dispatch('UserStore/logOut')
       this.$router.go(this.$router.currentRoute)
@@ -287,7 +261,7 @@ export default {
        for(var i =0 ; i<this.tabs.length ;i++){
          var pushMsg ="";
          
-          if(this.tabs[i].type=='reqFollow' ){
+          if(this.tabs[i].type=='reqFollow' && this.tabs[i].msg =='1' ){
               pushMsg = this.tabs[i].reqUserName+"님이 팔로우 하였습니다.";
           }else if(this.tabs[i].type=='reqChallenge' && this.tabs[i].msg =='1'){
               pushMsg = this.tabs[i].reqUserName+"님이  '"+ this.tabs[i].cngTitle+"'챌린지 참가 신청을 하였습니다.";
@@ -296,22 +270,22 @@ export default {
           }
         
         //this.NotificationCallCheck(this.tabs[i].id);
-       
+        if(pushMsg!=""){
         this.$toast.open({
         message: pushMsg,
         type: 'info',
         duration: 5000,
         dismissible: true
         }); 
-        
+        }
     }  
     }
     
   },
   created (){
     
-    setInterval(() => this.NotificationList(), 5000);
-     setInterval(() => this.NotificationToast(), 5000);
+    //setInterval(() => this.NotificationList(), 3000);
+    // setInterval(() => this.NotificationToast(), 5000);
       
   },
 
@@ -341,7 +315,7 @@ a:-webkit-any-link {
 }
 
 .router {
-  margin-right:30%;;
+  padding-right:30%;;
 }
 
 .navbar {
@@ -440,9 +414,4 @@ a:-webkit-any-link {
     }
   }
 }
-
-.cursor-default {
-  cursor: default;
-}
-
 </style>
