@@ -98,13 +98,15 @@
                     user_id: "",
                     content: "",
                     img: "",
-                    // select: [],
+                    // 현재 주, 날짜 바꾸기
+                    current_week : 1,
+                    current_day : 1
+
                 }
             };
         },
         created() {
-            // this.getFiles();
-            // console.log(this.photoURL);
+
         },
         computed: {
             ...mapState('UserStore', ['user']),
@@ -147,6 +149,7 @@
                 this.certForm.user_id = user_id;
                 //챌린지 id값 받아오기
                 this.certForm.cng_id = this.$route.params.cngId;
+
 
                 var now = new Date();
 
