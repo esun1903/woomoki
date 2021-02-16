@@ -105,8 +105,10 @@ public class CertificationServiceImpl implements CertificationService {
         int result = 1;
         int cng_id = certificationDto.cng_id;
         int user_id = certificationDto.user_id;
-        int stampPlus = dao.certificationStamp(user_id,cng_id); // ++ 하는 것
+        dao.certificationStamp(user_id,cng_id); // ++ 하는 것
+        System.out.println(2);
         int stampCount = dao.certificationStampCount(user_id,cng_id); // 현재 stampCount의 개수를 구하기
+        System.out.println(3);
         ChallengeDto  cngDto = dao.challengeDetail(cng_id); // 챌린지의 week, day를 가져오기
 
         int week = cngDto.getWeek();
@@ -118,6 +120,30 @@ public class CertificationServiceImpl implements CertificationService {
             // 레벨이  ++ 해진다.
              dao.userLevelUp(user_id);
               result = 2;
+        }
+
+        return result;
+    }
+
+    @Override
+    public int cancleConfirmation(CertificationDto certificationDto) {
+        System.out.println("서비스 단 들어왔다");
+        int result = 1;
+        int cng_id = certificationDto.cng_id;
+        int user_id = certificationDto.user_id;
+         dao.canclecertificationStamp(user_id,cng_id); // -- 하는 것
+        int stampCount = dao.certificationStampCount(user_id,cng_id); // 현재 stampCount의 개수를 구하기
+        ChallengeDto  cngDto = dao.challengeDetail(cng_id); // 챌린지의 week, day를 가져오기
+
+        int week = cngDto.getWeek();
+        int day = cngDto.getDay();
+        // 만약, 마지막 인증 -1 이었다면 진행중으로 변경
+        if( stampCount+1 == week * day) {
+            // 챌린지가 성공했다는 것으로 바뀌고
+            dao.challengeFail(user_id,cng_id);
+            // 레벨이  ++ 해진다.
+            dao.userLevelDown(user_id);
+            result = 0;
         }
 
         return result;

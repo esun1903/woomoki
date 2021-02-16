@@ -16,7 +16,7 @@ import com.example.ssafypjt2.dto.CertificationDto;
 
 @Mapper
 public interface CertificationDao {
-	@Select(" SELECT cert.id , cert.cng_id ,  cert.user_id , user.nickname, cng.title , cert.img, cert.content , cert.create_date , cert.result , cert.like_cnt " +
+	@Select(" SELECT cert.id , cert.cng_id ,  cert.user_id , user.nickname, cng.title , cert.img, cert.content , cert.create_date , cert.result , cert.like_cnt  " +
 			" FROM certification cert " +
 			" JOIN user ON cert.user_id = user.id " +
 			" JOIN challenge cng ON cert.cng_id = cng.id " +
@@ -107,7 +107,7 @@ public interface CertificationDao {
 	@Update("UPDATE joined_challenge " +
 			"SET sum_stamp = sum_stamp+1  " +
 			"WHERE user_id = #{userId} AND cng_id = #{cngId} ")
-    public int certificationStamp(@Param("userId")int user_id, @Param("cngId")int cng_id);
+    public void certificationStamp(@Param("userId")int user_id, @Param("cngId")int cng_id);
 
 	@Select("SELECT sum_stamp FROM joined_challenge WHERE user_id = #{userId} AND cng_id = #{cngId} ")
 	public int certificationStampCount(@Param("userId")int user_id, @Param("cngId")int cng_id);
@@ -120,5 +120,16 @@ public interface CertificationDao {
 
 	@Select(" UPDATE user SET levelnum = levelnum + 1 WHERE id = #{userId} ")
 	public void userLevelUp(@Param("userId") int user_id );
+
+	@Update("UPDATE joined_challenge " +
+			"SET sum_stamp = sum_stamp-1  " +
+			"WHERE user_id = #{userId} AND cng_id = #{cngId} ")
+	public void canclecertificationStamp(@Param("userId") int user_id, @Param("cngId") int cng_id);
+
+	@Select("UPDATE joined_challenge SET result = 2 WHERE user_id = #{userId} AND cng_id = #{cngId}")
+	public void challengeFail(@Param("userId") int user_id, @Param("cngId") int cng_id);
+
+	@Select(" UPDATE user SET levelnum = levelnum - 1 WHERE id = #{userId} ")
+	public void userLevelDown(@Param("userId") int user_id );
 }
 

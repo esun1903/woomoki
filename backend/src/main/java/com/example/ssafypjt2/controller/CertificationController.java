@@ -123,20 +123,31 @@ public class CertificationController {
 //	   4) 만약, 그 결과(week/day)  week * day 와 같다면
 //	   5) joined_challnege result를 3으로 변경(성공한 챌린지)
 //	   6) 성공한 챌린지가 변경되면 -> user의 level의 변경 됨
-   @PostMapping("/certificationStamp")
-    public int certificationStamp ( @RequestBody CertificationDto certificationDto) {
+   @PostMapping("/completeConfirmation")
+    public int completeConfirmation ( @RequestBody CertificationDto certificationDto) {
 	// 만약, week , day 가 마지막이라면 ? ->
 	   System.out.println("이 인증를 도장찍을 겁니다." + certificationDto);
 	   int result = certificationService.certificationStamp(certificationDto);
         if(result == 1) {
 			System.out.println("도장찍기 완료");
-		}else
-		{
+		} else {
 			System.out.println(" 챌린지가 끝났고 성공한챌린지로 변경되고 -> 레벨업이 되었습니다.");
-		}
-	 return result;
+   }
+	    return result;
    }
 
+	@PostMapping("/cancleConfirmation")
+	public int cancelConfirmation ( @RequestBody CertificationDto certificationDto) {
+		// 만약, week , day 가 마지막이라면 ? ->
+		System.out.println("이 인증를 도장찍는걸 삭제할 겁니다." + certificationDto);
+		int result = certificationService.cancleConfirmation(certificationDto);
+		if(result == 1) {
+			System.out.println("도장빼기 완료");
+		} else {
+			System.out.println(" 성공한 챌린지에서 진행중인 챌린지로 변경되고 -> 레벨다운이 되었습니다.");
+		}
+		return result;
+	}
 
 
 }
