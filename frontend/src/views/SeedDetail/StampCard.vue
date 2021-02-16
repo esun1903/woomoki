@@ -12,11 +12,12 @@
       <v-divider></v-divider>
       <v-container>
         <!-- week만큼의 세로 동그라미 갯수 -->
-        <div v-for="i in 2" :key="i">
+        <div v-for="i in week" :key="i">
           <!-- day만큼의 가로 동그라미 갯수 -->
-          <div v-for="j in 3" :key="j">
+          <div v-for="j in day" :key="j">
             <!-- 원과 설명 -->
-            <div :color=stampColor(i,j) @click="goCertInfo(i, j)" class="circle"></div>
+            <div :class=this.stampColor(i,j) @click="goCertInfo(i, j)"></div>
+             <!-- :color=stampColor(i,j)  -->
           </div>
         </div>  
       </v-container>
@@ -37,7 +38,8 @@ export default {
   data() {
     return {
       userId: this.$route.params.userId,
-      seedId: this.$route.params.cngId,
+      seedId: this.$route.params.seedId,
+      cngOwner: "",
       seedTitle: "",
       day: "",
       week: "",
@@ -48,8 +50,8 @@ export default {
   },
   created () {
     this.drawCircles();
-    this.getSeedTitle();
-    // this.coloringCircles();
+    this.getSeedInfo();
+    this.coloringCircles();
   },
   mounted() {
     
@@ -57,27 +59,37 @@ export default {
   computed: {
     ...mapState('UserStore', ['user']),
     stampColor() {
-      return a, b => {
-        const ordinal = a * this.week + b
-        if (this.coloringInfo[ordinal] === 1) {
-          return 'purple'
+      return (a, b) => {
+        const ordinal = (a-1) * this.day + (b-1)
+        console.log('이게 바로 n번째다')
+        console.log(ordinal)
+        console.log(this.coloringInfo.length)
+        if (ordinal < this.coloringInfo.length) {
+          if (this.coloringInfo[ordinal][1] === 1) {
+            return 'purple-circle'
+          } else {
+            return 'black-circle'
+          }
         } else {
-          return 'black'
+          return 'grey-circle'
         }
+
       }
     },
-    stampCertificationId: function(a, b){
-      const ordinal = a * this.week + b
-      return this.coloringInfo[ordinal][0]
-    },
+
   },
   methods: {
-    getSeedTitle: function () {
-      axios.get(`http://127.0.0.1:8080/detailChallenge/${this.seedId}`)
+    getSeedInfo: function () {
+      const seedId = {}
+      console.log("이게 챌린지 번호다")
+      console.log(this.seedId)
+      seedId["cgId"] = this.seedId
+      axios.get(`http://127.0.0.1:8080/detailChallenge/${this.seedId}`, seedId)
         .then((res) => {
-          console.log('타이틀 알고 싶다')
+          console.log('타이틀, 오너 알고 싶다')
           console.log(res)
           this.seedTitle = res.data.title
+          this.cngOwner = res.data.user_id
         })
         .catch((err) => {
           console.log(err)
@@ -97,21 +109,25 @@ export default {
           console.log(err)
         })
     },
-    // coloringCircles: function () {
-    //   const Info = {}
-    //   Info["userid"] = this.userId
-    //   Info["cngId"] = this.seedId
-    //   axios.get(`http://127.0.0.1:8080/certification/${this.userId}/${this.seedId}`, Info)
-    //     .then((res) => {
-    //       console.log(res)
-    //       console.log('무엇을 채색할까요')
-    //       this.coloringInfo = res.data 
-    //     })
-    //     .catch((err) => {
-    //       console.log(err)
-    //     })
-    // }
-
+    coloringCircles: function () {
+      const Info = {}
+      Info["userid"] = this.userId
+      Info["cngId"] = this.seedId
+      axios.get(`http://127.0.0.1:8080/confirmstatus/${this.userId}/${this.seedId}`, Info)
+        .then((res) => {
+          console.log(res)
+          console.log('무엇을 채색할까요')
+          this.coloringInfo = res.data 
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    goCertInfo: function (a, b) {
+      const ordinal = a * this.week + b
+      const CertId = this.coloringInfo[ordinal][0]
+      this.$router.push({ name: 'CertificationDetail', params: { cngUserId: this.cngOwner, cngId: this.seedId, certId: CertId } })
+    }
   },
 };
 </script>
@@ -137,13 +153,13 @@ export default {
         div{
           margin-bottom: 3%;
           margin-right: 3%;
-          .circle {
-            height: 10vh;
-            width: 10vh;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-          }
+          // .circle {
+          //   height: 10vh;
+          //   width: 10vh;
+          //   background-color: #bbb;
+          //   border-radius: 50%;
+          //   display: inline-block;
+          // }
           .circle-info{
 
           }
@@ -157,5 +173,26 @@ export default {
 
     }
   }
+}
+.purple-circle {
+  height: 10vh;
+  width: 10vh;
+  background-color: purple;
+  border-radius: 50%;
+  display: inline-block;
+}
+.black-circle {
+  height: 10vh;
+  width: 10vh;
+  background-color: black;
+  border-radius: 50%;
+  display: inline-block;
+} 
+.grey-circle{
+  height: 10vh;
+  width: 10vh;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
 }
 </style>
