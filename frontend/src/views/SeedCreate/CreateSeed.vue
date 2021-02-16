@@ -28,7 +28,9 @@
             @transferHobby="receiveHobby"></SeedCategory>
 
           <div class="d-flex justify-end mb-1">
-            <v-btn color="#AED864 white--text" @click="e1 = 2" :disabled="isSubmitCategory === false">
+            <v-btn color="#AED864"
+              class="seed-btn" 
+              @click="e1 = 2" :disabled="isSubmitCategory === false">
               다음
             </v-btn>
 
@@ -47,7 +49,8 @@
           <SeedContent @transferContent="receiveContent"></SeedContent>
 
           <div class="d-flex justify-end mb-1">
-            <v-btn color="#AED864 white--text" @click="e1 = 3"
+            <v-btn color="#AED864" @click="e1 = 3"
+              class="seed-btn"
               :disabled="BasicInfo.isSubmitBasicInfo === false">
               다음
             </v-btn>
@@ -74,9 +77,12 @@
           <SeedDeposit @transferDeposit="receiveDeposit"></SeedDeposit>
           <SeedCheckbox @transferCheckbox="receiveCheckbox"></SeedCheckbox>
 
-          <div class="text-end">
-            <v-btn color="#AED864 white--text" @click="InsertSeed"
-              :disabled="EtcInfo.isSubmitEtcInfo === false">생성
+          <div class="text-end mb-2">
+            <v-btn color="#AED864" 
+              class="seed-btn"
+              @click="InsertSeed"
+              :disabled="EtcInfo.isSubmitEtcInfo === false">
+              생성
             </v-btn>
 
             <router-link to="/">
@@ -191,9 +197,9 @@
 
         // end_date 계산
         function getDateStr(myDate) {
-          if ((myDate.getMonth() + 1) < 10) {
+          if ((myDate.getMonth() + 1) < 10 && myDate.getDate() >= 10) {
             return (myDate.getFullYear() + '-0' + (myDate.getMonth() + 1) + '-' + myDate.getDate())
-          } else if (myDate.getDate() < 10) {
+          } else if ((myDate.getMonth() + 1) >= 10 && myDate.getDate() < 10) {
             return (myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-0' + myDate.getDate())
           } else if ((myDate.getMonth() + 1) < 10 && myDate.getDate() < 10) {
             return (myDate.getFullYear() + '-0' + (myDate.getMonth() + 1) + '-0' + myDate.getDate())
@@ -205,11 +211,9 @@
 
         const days = this.week * 7
         const start_year = this.dates.slice(0, 4)
-        const start_date = new Date(Number(start_year), Number(this.dates.slice(5, 7)) - 1, Number(this.dates.slice(8,
-          10)));
+        const start_date = new Date(Number(start_year), Number(this.dates.slice(5, 7)) - 1, Number(this.dates.slice(8, 10)));
         var dayOfMonth = start_date.getDate()
         start_date.setDate(dayOfMonth + days)
-
         const end_date = getDateStr(start_date)
 
 
@@ -507,5 +511,9 @@
 
   .container-size {
     width: 50%;
+  }
+
+  .seed-btn {
+    color: white;
   }
 </style>

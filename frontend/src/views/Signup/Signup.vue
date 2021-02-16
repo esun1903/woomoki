@@ -169,7 +169,6 @@
                   label="닉네임"
                   required
                   outlined
-                  filled
                   color="#AED864"
                   dense
                 ></v-text-field>
@@ -185,7 +184,6 @@
                   label="이메일"
                   required
                   outlined
-                  filled
                   color="#AED864"
                   dense
                 ></v-text-field>
@@ -206,7 +204,6 @@
                   label="핸드폰 번호(숫자만)"
                   required
                   outlined
-                  filled
                   color="#AED864"
                   dense
                 ></v-text-field>
@@ -226,7 +223,6 @@
                     required
                     outlined
                     dense
-                    filled
                     color="#AED864"
                     :type="showPass ? 'text' : 'password'"
                   ></v-text-field>
@@ -246,7 +242,6 @@
                     required
                     outlined
                     dense
-                    filled
                     color="#AED864"
                     :type="showPass ? 'text' : 'password'"
                   ></v-text-field>
@@ -364,7 +359,7 @@ body, html {
     border: 0;
     padding: 0;
     height: 100vh;
-    background-image: url("https://demos.creative-tim.com/vue-material-kit/img/profile_city.435c148e.jpg");
+    background-image: url("https://demos.creative-tim.com/vue-material-kit/img/vue-mk-header.98fb6ce8.jpg");
     min-height: 100%;
     background-position: center;
     background-size: cover;
@@ -376,7 +371,7 @@ body, html {
   height: 80%;
   background-color: whitesmoke;
   border-radius: 10px;
-  box-shadow: 1px 1px 7px rgb(172, 172, 172);
+  box-shadow: 0.5px 0.5px 5px rgb(172, 172, 172);
 }
 
 .input-size{

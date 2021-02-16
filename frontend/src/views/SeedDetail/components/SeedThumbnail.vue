@@ -24,7 +24,11 @@
               <h1>{{ SeedInfo.title }}</h1>
               <br>
 
-              <v-chip :color="this.color" class="white--text mb-2">{{this.category}}</v-chip>
+              <v-chip :color="this.color" class="white--text mb-2">
+                <span class="chip-size">
+                  {{this.category}}
+                </span>
+              </v-chip>
               <v-row>
                 <v-col>
                   <div>참여: / {{ this.SeedInfo.max_people }}</div>
@@ -72,7 +76,7 @@
                 
                 <v-row>
                   <v-col>
-                    <v-btn v-if="this.isLogin" :disabled="isMySeed" class="mt-10" icon @click="Like">
+                    <v-btn v-if="!isMySeed" :disabled="this.isLogin === false" class="mt-10" icon @click="Like">
                       <div>
                         <v-icon size="48" :color="liked ? 'red' : 'white' ">fas fa-heart</v-icon>
                         <h2 class="mt-5 count">{{this.likeCount}}</h2>
@@ -80,7 +84,7 @@
                     </v-btn>
                   </v-col>
                   <v-col>
-                    <v-btn v-if="this.isLogin" :disabled="isMySeed" class="mt-10" icon @click="getScrap">
+                    <v-btn v-if="!isMySeed" :disabled="this.isLogin === false" class="mt-10" icon @click="getScrap">
                       <div>
                         <v-icon size="48" :color="scrapped ? 'yellow' : 'white' ">fas fa-bookmark</v-icon>
                         <h2 class="mt-5 count">{{this.scrapCount}}</h2>
@@ -317,6 +321,10 @@ export default {
 
 .count {
   color: white
+}
+
+.chip-size {
+  font-size: 15px;
 }
 
 </style>

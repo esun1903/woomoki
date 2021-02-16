@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <!-- <div>
     <splide :options="options" :slides="slides" has-slider-wrpper>
-      <splide-slide v-for="(slide, index) in slides" :key="index">
+      <splide-slide v-for="(slide, index) in slides" :key="index"> -->
         <FeedCard :slide="slide" class="image-card" />
-      </splide-slide>
+      <!-- </splide-slide>
       <template v-slot:controls>
         <div class="splide__progress">
           <div class="splide__progress__bar">
@@ -20,65 +20,65 @@
         </div>
       </template>
     </splide>
-  </div>
+  </div> -->
 </template>
 
 <script>
-import FeedCard from "@/views/Feed/components/FeedCard.vue"
-import { Splide, SplideSlide } from '@splidejs/vue-splide';
-import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
-import axios from "axios";
+// import FeedCard from "@/views/Feed/components/FeedCard.vue"
+// import { Splide, SplideSlide } from '@splidejs/vue-splide';
+// import '@splidejs/splide/dist/css/themes/splide-sea-green.min.css';
+// import axios from "axios";
 
-export default {
-  name: 'FeedAll',
-  components: { FeedCard, Splide, SplideSlide },
-  directives: {  },
-  data() {
-    return {
-      slides: [],
+// export default {
+//   name: 'FeedAll',
+//   components: { FeedCard, Splide, SplideSlide },
+//   directives: {  },
+//   data() {
+//     return {
+//       slides: [],
 
-      options: {
-        rewind: true,
-        perPage: 3,
-        // padding: {
-        //   left: 0,
-        //   right: 0
-        // },
-        width: '100%',
-        autoplay: true,
-        pauseOnHover: false,
-        arrows : 'slider',
-        type: 'loop',
-        focus: 'center',
-        easing: 'ease',
-        cover  : true,
-      },
+//       options: {
+//         rewind: true,
+//         perPage: 3,
+//         // padding: {
+//         //   left: 0,
+//         //   right: 0
+//         // },
+//         width: '100%',
+//         autoplay: true,
+//         pauseOnHover: false,
+//         arrows : 'slider',
+//         type: 'loop',
+//         focus: 'center',
+//         easing: 'ease',
+//         cover  : true,
+//       },
 
-  }
-  },
-  mounted() {
+//   }
+//   },
+//   mounted() {
 
-  },
-  methods: {
+//   },
+//   methods: {
 
-  },
-  created () {
-    axios.get("http://127.0.0.1:8080/allCertification")
-      .then((res) => {
-        const certifications = res.data
-        certifications.sort(function(a,b) {
-          return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
-        })
-        this.slides = certifications
-        console.log(this.slides)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  },
-  computed: {
-  }
-};
+//   },
+//   created () {
+//     axios.get("http://127.0.0.1:8080/allCertification")
+//       .then((res) => {
+//         const certifications = res.data
+//         certifications.sort(function(a,b) {
+//           return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
+//         })
+//         this.slides = certifications
+//         console.log(this.slides)
+//       })
+//       .catch((err) => {
+//         console.log(err)
+//       })
+//   },
+//   computed: {
+//   }
+// };
 </script>
 
 <style lang="scss" scoped>
