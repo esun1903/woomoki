@@ -22,7 +22,9 @@ export default {
   data: function () {
       return {
         imageUrl: null,
-        text: "프로필 변경"
+        text: "프로필 변경",
+        file:null,
+        fileName:null,
     }
   },
   methods: {
@@ -31,10 +33,36 @@ export default {
     },
     onChangeImages(e) {
         console.log(e.target.files)
-        const file = e.target.files[0]; // Get first index in files
-        this.imageUrl = URL.createObjectURL(file); // Create File URL
+        this.file = e.target.files[0]; // Get first index in files
+        this.imageUrl = URL.createObjectURL(this.file); // Create File URL
+        this.fileNameSetting();
+        this.transferUpdateProfileImg();
         this.text = ""
-    }
+    },
+    transferUpdateProfileImg: function () {
+        this.$emit('transferUpdateProfileImg', this.file, this.fileName)
+      },
+      async fileNameSetting() {
+
+        const user_id = this.$store.state.UserStore.user.user_id;
+
+        var now = new Date();
+
+        var year = now.getFullYear(); // 연도
+        var month = now.getMonth() + 1; // 월
+        var date = now.getDate(); // 일
+        var hours = now.getHours(); // 시간
+        var minutes = now.getMinutes(); // 분
+        var seconds = now.getSeconds(); // 초
+        var milliseconds = now.getMilliseconds(); // 밀리초
+
+        // console.log("현재 : ", now);
+        var realtime = year + "" + month + "" + date + "_" + hours + minutes + seconds + milliseconds;
+        console.log(realtime);
+
+        this.fileName = user_id + "_" + realtime + "_" + this.file.name
+
+      },
   }
 };
 </script>
