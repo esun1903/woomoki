@@ -98,7 +98,7 @@
             </div>
             
             <div class="img-cover"></div>
-            <router-link :to="{ name: 'CertificationInsert', params: { cngId: SeedInfo.id }}">
+            <router-link :to="{ name: 'CertificationInsert', params: { cngId: this.$route.params.seedId }}">
               <v-btn 
                 :ripple="false"
                 color="#AED864"

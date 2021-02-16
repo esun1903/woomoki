@@ -61,10 +61,13 @@
 </template>
 <script>
     // import AWS from 'aws-sdk'
+
     import BackBtn from '@/views/Certification/components/BackBtn.vue'
     import {
         mapState
     } from "vuex";
+
+    import axios from "axios"
 
     export default {
 
@@ -98,21 +101,35 @@
                     user_id: "",
                     content: "",
                     img: "",
-                    // 현재 주, 날짜 바꾸기
-                    current_week : 1,
-                    current_day : 1
+                    current_week: "",
+                    current_day: "",
 
-                }
+                },
+                dateInfo: [],
             };
         },
         created() {
-
+            this.getCurrentWeekDay();
         },
         computed: {
             ...mapState('UserStore', ['user']),
         },
         mounted() {},
         methods: {
+            getCurrentWeekDay() {
+                const userId = this.$store.state.UserStore.user.user_id;
+                const cngId = this.$route.params.cngId;
+                console.log("userId: "+ userId +", cngId: " + cngId);
+                axios.get(`http://127.0.0.1:8080/confirmstatus/${userId}/${cngId}`)
+                    .then((res) => {
+                        this.dataInfo = res.data;
+                        console.log("날짜정보들: "+this.dataInfo);
+
+                        // 가져온 값 current_ 에 넣기
+                        this.current_week = this.dataInfo;
+                        this.current_day = this.dataInfo;
+                    })
+            },
             handleFileUpload() {
                 this.file = this.$refs.file.files[0]
                 console.log(this.file, '파일이 선택되었음')
@@ -170,7 +187,7 @@
                 this.certForm.img = this.photoURL + photoKey;
 
                 // let photoKey = "http://www.topstarnews.net/news/photo/first/201709/img_306795_1.jpg"
-                
+
                 console.log(this.certForm.content);
                 console.log(this.certForm.img);
                 console.log(this.certForm.user_id);
