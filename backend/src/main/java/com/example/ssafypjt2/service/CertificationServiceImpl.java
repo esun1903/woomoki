@@ -105,8 +105,10 @@ public class CertificationServiceImpl implements CertificationService {
         int result = 1;
         int cng_id = certificationDto.cng_id;
         int user_id = certificationDto.user_id;
-        int stampPlus = dao.certificationStamp(user_id,cng_id); // ++ 하는 것
+        dao.certificationStamp(user_id,cng_id); // ++ 하는 것
+        System.out.println(2);
         int stampCount = dao.certificationStampCount(user_id,cng_id); // 현재 stampCount의 개수를 구하기
+        System.out.println(3);
         ChallengeDto  cngDto = dao.challengeDetail(cng_id); // 챌린지의 week, day를 가져오기
 
         int week = cngDto.getWeek();
@@ -129,7 +131,7 @@ public class CertificationServiceImpl implements CertificationService {
         int result = 1;
         int cng_id = certificationDto.cng_id;
         int user_id = certificationDto.user_id;
-        int stampPlus = dao.canclecertificationStamp(user_id,cng_id); // -- 하는 것
+         dao.canclecertificationStamp(user_id,cng_id); // -- 하는 것
         int stampCount = dao.certificationStampCount(user_id,cng_id); // 현재 stampCount의 개수를 구하기
         ChallengeDto  cngDto = dao.challengeDetail(cng_id); // 챌린지의 week, day를 가져오기
 

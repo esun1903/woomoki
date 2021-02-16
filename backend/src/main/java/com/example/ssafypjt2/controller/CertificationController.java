@@ -137,7 +137,7 @@ public class CertificationController {
    }
 
 	@PostMapping("/cancleConfirmation")
-	public int cancleConfirmation ( @RequestBody CertificationDto certificationDto) {
+	public int cancelConfirmation ( @RequestBody CertificationDto certificationDto) {
 		// 만약, week , day 가 마지막이라면 ? ->
 		System.out.println("이 인증를 도장찍는걸 삭제할 겁니다." + certificationDto);
 		int result = certificationService.cancleConfirmation(certificationDto);
