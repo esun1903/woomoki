@@ -280,10 +280,10 @@
 
         axios.post("http://127.0.0.1:8080/insertChallenge", SeedData)
           .then((res) => {
-            console.log(res)
-            console.log(this.end_date)
-            console.log(this.dates)
-            console.log(this.date[0], this.date[1])
+            // console.log(res)
+            // console.log(this.end_date)
+            // console.log(this.dates)
+            // console.log(this.date[0], this.date[1])
             this.$router.push({
               name: "Main"
             })

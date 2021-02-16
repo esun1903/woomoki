@@ -122,7 +122,7 @@ export default {
       })
     },
     CheckisLiked: function () {
-      if (this.user.isLogin) {
+      // if (this.user.isLogin) {
         const userId = {};
         const userId_num = this.user.user_id;
         const seedId_num = this.seed.id;
@@ -141,9 +141,9 @@ export default {
         .catch((err) => {
           console.log("에러발생",err)
         })
-      } else {
-        console.log("로그인이 필요합니다")
-      }
+      // } else {
+      //   console.log("로그인이 필요합니다")
+      // }
     },
   },
   created() {

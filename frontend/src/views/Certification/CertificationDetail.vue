@@ -3,11 +3,16 @@
         <div class="detail">
             <v-row class="cng-name">
                 <!-- 챌린지명: {{ this.$route.params.cngName }} -->
-                챌린지명: {{ CertInfo.title }}
+                씨앗 이름: {{ CertInfo.title }}
+            </v-row>
+            <v-row class="d-flex justify-center">
+                <v-chip class="white--text" :color="color">
+                    {{ this.category }}
+                </v-chip>
             </v-row>
             <v-row class="nickname-date-row">
                 <v-col class="user-id">
-                    아이디: {{ CertInfo.nickname }}
+                    닉네임: {{ CertInfo.nickname }}
                 </v-col>
                 <v-col class="date">
                     인증날짜: {{ CertInfo.create_date }}
@@ -25,25 +30,35 @@
                 <!-- s3 주소 주석 풀기
                 <v-img :src="photoUrl + CertInfo.img"></v-img> -->
                 <div class="div-img">
-                    <v-img :src="CertInfo.img"></v-img>
+                    <v-img width="100%" :src="CertInfo.img"></v-img>
                 </div>
             </v-row>
-            <v-row class="content">
-                <div class="div-content">
+            <v-row class="d-flex justify-start content">
+                <v-col class="d-flex align-center div-content">
                     {{CertInfo.content}}
-                </div>
-            </v-row>
-            <v-row class="like-btn">
-                <v-btn icon x-large @click="getScrap">
+                </v-col>
+                <v-col class="d-flex justify-end">
+                    <v-btn icon x-large @click="getScrap">
                     <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
+                    <span>{{ this.likeCount }}</span>
                 </v-btn>
                  <v-btn icon x-large @click="getConfirm" class="ml-5">
                     <v-icon :color="confirmed ? '#78909C' : '' ">fas fa-stamp</v-icon>
                 </v-btn>
+                </v-col>
+            </v-row>
+            <!-- <v-row class="like-btn"> -->
+                <!-- <v-btn icon x-large @click="getScrap">
+                    <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
+                    <span>{{ this.likeCount }}</span>
+                </v-btn>
+                 <v-btn icon x-large @click="getConfirm" class="ml-5">
+                    <v-icon :color="confirmed ? '#78909C' : '' ">fas fa-stamp</v-icon>
+                </v-btn> -->
                 <!-- <v-btn v-if="getCheckSeedOwner" icon x-large @click="goStampCard" class="ml-5">
                     <v-icon :color="scrapped ? '#78909C' : '' ">fas fa-stamp</v-icon>
                 </v-btn> -->
-            </v-row>
+            <!-- </v-row> -->
             <v-row class="edit-del-btn">
                 <v-btn class="ma-2" outlined fab color="green" v-on:click="updateCert()" v-if="checkUser">
                     <v-icon>mdi-pencil</v-icon>
@@ -74,13 +89,12 @@
             </v-row>
         </div>
 
-        <div>
             <v-divider></v-divider>
             <CommentInsert />
             <!-- v-for 돌 때 마다 comment.user_id를 axios get -> userinfo 받아
             이 받은 usernickname을 자식컴포넌트에 보내 -->
             <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" :nickname="Nicknames[index]" />
-        </div>
+        
     </v-container>
 </template>
 
@@ -109,6 +123,9 @@
                 confirmed: false,
                 checkUser: false,
                 showResultBtn: false,
+                likeCount: 0,
+                category: "",
+                color: "",
             };
         },
         computed: {
@@ -125,6 +142,8 @@
 
         },
         created() {
+            this.getCategory()
+            this.CheckisLikeSeed();
             this.detailCert();
             this.detailComment();
             const certId = this.$route.params.certId;
@@ -244,6 +263,7 @@
                 if (this.scrapped) {
                     axios.put(`http://127.0.0.1:8080/likeUpCertification/${userId}/${certId}`)
                         .then((res) => {
+                            this.likeCount += 1
                             console.log(res)
                         })
                         .catch((err) => {
@@ -253,12 +273,58 @@
                     // 스크랩 되어 있을 때 스크랩 취소
                     axios.put(`http://127.0.0.1:8080/likeDownCertification/${userId}/${certId}`)
                         .then((res) => {
+                            this.likeCount -= 1
                             console.log(res)
                         })
                         .catch((err) => {
                             console.log(err)
                         })
                 }
+            },
+            CheckisLikeSeed: function () {
+                const certId = this.$route.params.certId;
+                const userId = this.$store.state.UserStore.user.user_id
+                axios.get(`http://127.0.0.1:8080/LikeAndCertification/${userId}`)
+                    .then((res) => {
+                    const CertList = res.data
+                    this.likeCount = CertList.length
+                    console.log(this.likeCount)
+                    var i;
+                    for (i=0; i < CertList.length; i++) {
+                        if (CertList[i].id === Number(certId)) {
+                        this.scrapped = true
+                        }
+                    }
+                    })
+                },
+            getCategory: function () {
+                const seedId = this.$route.params.cngId
+                axios.get(`http://127.0.0.1:8080/detailChallenge/${seedId}`)
+                    .then((res) => {
+                        if (res.data.category_id === '1') {
+                            this.category = "건강"
+                            this.color = "light-blue lighten-1"
+                        } else if (res.data.category_id === '2') {
+                            this.category = "생활습관"
+                            this.color = "orange lighten-1"
+                        } else if (res.data.category_id === '3') {
+                            this.category = "독서"
+                            this.color = "teal lighten-1"
+                        } else if (res.data.category_id === '4') {
+                            this.category = "자산"
+                            this.color = "indigo lighten-1"
+                        } else if (res.data.category_id === '5') {
+                            this.category = "자기계발"
+                            this.color = "purple lighten-1"
+                        } else {
+                            this.category = "취미"
+                            this.color = "pink lighten-1"
+                        }
+                        console.log("카테고리", this.category)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
             },
             successCert() {
                 confirm("인증 성공으로 할거냐고 물어볼건데 나중에 dialog로 바꾸기")
@@ -305,7 +371,8 @@
 
 <style lang="scss" scoped>
     .detail {
-        margin: 10% 30% 0% 30%;
+        width: 70%;
+        // margin: 10% 30% 0% 30%;
     }
 
     .v-divider {
