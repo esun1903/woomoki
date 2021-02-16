@@ -117,6 +117,15 @@ public class CertificationController {
     }
 
 
+	@GetMapping("/confirmstatus/{userid}/{cngId}")
+	public int [][] ConfirmStatus(@PathVariable(value = "userid") int user_id , @PathVariable(value = "cngId") int cngId){
+		// week/day를
+		System.out.println(user_id+"가 가입한 챌린지"+cngId+"의 인증을 certId, result 를 리스트로 리턴해주기");
+		int [][] result = certificationService.ConfirmStatus(user_id, cngId);
+		System.out.println(result);
+		return result;
+	}
+
 //     1) 개설자가 도장을 클릭 시
 //     2) 해당 joined_challenge의
 //	   3) sum_stamp ++ 하고
@@ -124,20 +133,20 @@ public class CertificationController {
 //	   5) joined_challnege result를 3으로 변경(성공한 챌린지)
 //	   6) 성공한 챌린지가 변경되면 -> user의 level의 변경 됨
    @PostMapping("/completeConfirmation")
-    public int completeConfirmation ( @RequestBody CertificationDto certificationDto) {
-	// 만약, week , day 가 마지막이라면 ? ->
-	   System.out.println("이 인증를 도장찍을 겁니다." + certificationDto);
-	   int result = certificationService.certificationStamp(certificationDto);
-        if(result == 1) {
+	public int completeConfirmation ( @RequestBody CertificationDto certificationDto) {
+		// 만약, week, day 가 마지막이라면 ? ->
+		System.out.println("이 인증를 도장찍을 겁니다." + certificationDto);
+		int result = certificationService.certificationStamp(certificationDto);
+		if(result == 1) {
 			System.out.println("도장찍기 완료");
 		} else {
 			System.out.println(" 챌린지가 끝났고 성공한챌린지로 변경되고 -> 레벨업이 되었습니다.");
-   }
-	    return result;
-   }
+		}
+		return result;
+	}
 
 	@PostMapping("/cancleConfirmation")
-	public int cancleConfirmation ( @RequestBody CertificationDto certificationDto) {
+	public int cancelConfirmation ( @RequestBody CertificationDto certificationDto) {
 		// 만약, week , day 가 마지막이라면 ? ->
 		System.out.println("이 인증를 도장찍는걸 삭제할 겁니다." + certificationDto);
 		int result = certificationService.cancleConfirmation(certificationDto);

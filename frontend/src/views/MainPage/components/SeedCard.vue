@@ -5,10 +5,10 @@
     <div class="seed-card-top">
       <v-chip id="category-chip" :ripple="false" :color=color class="white--text"> {{ this.category }}</v-chip>
       <div class="btns">
-        <v-btn icon @click.native="getLikes">
+        <v-btn :disabled="this.isLogin === false" icon @click.native="getLikes">
           <v-icon :color="liked ? 'red' : '' ">mdi-heart</v-icon>
         </v-btn>
-        <v-btn icon @click.native="getScrap">
+        <v-btn :disabled="this.isLogin === false" icon @click.native="getScrap">
           <v-icon :color="scrapped ? '#FFC400' : '' ">fas fa-bookmark</v-icon>
         </v-btn>      
       </div>
@@ -52,6 +52,7 @@ export default {
     return {
       liked: false,
       scrapped: false,
+      isLogin : this.$store.state.UserStore.isLogin,
     };
   },
   mounted() {

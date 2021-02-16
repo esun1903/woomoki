@@ -32,7 +32,7 @@
               <v-form @submit.prevent="submit">
                 <v-row class="d-flex justify-center">
                   <validation-provider v-slot="{ errors }" name="email" rules="required|email">
-                    <v-text-field class="input-size" color="#AED864" v-model="user.email" :error-messages="errors" label="Email" required outlined filled
+                    <v-text-field class="input-size" color="#AED864" v-model="user.email" :error-messages="errors" label="Email" required outlined
                       dense></v-text-field>
                   </validation-provider>
                 </v-row>
@@ -40,7 +40,7 @@
                   <validation-provider v-slot="{ errors }" name="password" rules="required|password">
                     <v-text-field class="input-size" v-model="user.password" :error-messages="errors" label="Password"
                       :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'" @click:append="showPass = !showPass" required
-                      outlined color="#AED864" dense filled :type="showPass ? 'text' : 'password'"></v-text-field>
+                      outlined color="#AED864" dense :type="showPass ? 'text' : 'password'"></v-text-field>
                   </validation-provider>
                 </v-row>
                 <v-row class="d-flex justify-center">
@@ -173,9 +173,9 @@ body, html {
   margin-top: 6%;
   width: 23%;
   height: 70%;
-  background-color: whitesmoke;
+  background-color: white;
   border-radius: 10px;
-  box-shadow: 1px 1px 7px rgb(172, 172, 172);
+  box-shadow: 0.5px 0.5px 5px rgb(172, 172, 172);
 }
 
 .input-size{

@@ -45,7 +45,7 @@ public class FavChallengeServiceImpl implements FavChallengeService {
 
 		List<ChallengeDto> list = new ArrayList<ChallengeDto>();
 
-		for (int i = 0; i < favChallengeDto .size(); i++) {
+		for (int i = 0; i < favChallengeDto.size(); i++) {
 			int id = favChallengeDto.get(i).getCng_id();
 
 			//followingList의 id를 하나 뽑아서 챌린지를 뽑기

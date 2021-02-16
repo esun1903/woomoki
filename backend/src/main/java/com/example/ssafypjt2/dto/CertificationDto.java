@@ -12,8 +12,8 @@ public class CertificationDto {
 	public String create_date;
 	public int result;
 	public int like_cnt;
-	public int week;
-	public int day;
+	public int current_week;
+	public int current_day;
 
 
 	public int getId() {
@@ -96,18 +96,22 @@ public class CertificationDto {
 		this.like_cnt = like_cnt;
 	}
 
-	public int getWeek() {
-		return week;
+	public int getCurrent_week() {
+		return current_week;
 	}
-	public void setWeek(int week) {
-		this.week = week;
+
+	public void setCurrent_week(int current_week) {
+		this.current_week = current_week;
 	}
-	public int getDay() {
-		return day;
+
+	public int getCurrent_day() {
+		return current_day;
 	}
-	public void setDay(int day) {
-		this.day = day;
+
+	public void setCurrent_day(int current_day) {
+		this.current_day = current_day;
 	}
+
 
 
 

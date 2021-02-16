@@ -45,41 +45,46 @@
                       class="d-flex child-flex"
                       cols="4"
                       >
-                      <v-img
-                        :src="card.img"
-                        :lazy-src="card.img"
-                        aspect-ratio="1"
-                        class="grey lighten-2 cursor_test"
-                      >
-                      <template v-slot:placeholder>
-                        <v-row
-                          class="fill-height ma-0"
-                          align="center"
-                          justify="center"
+                      <router-link :to="{ name: 'CertificationDetail', params: { cngUserId: card.user_id, cngId: card.cng_id, certId: card.id } }">
+                        <v-img
+                          :src="card.img"
+                          :lazy-src="card.img"
+                          aspect-ratio="1"
+                          class="grey lighten-2 cursor_test"
                         >
-                          <v-progress-circular
-                            indeterminate
-                            color="grey lighten-5"
-                          ></v-progress-circular>
-                        </v-row>
-                      </template>
-                      </v-img>
+                        <template v-slot:placeholder>
+                          <v-row
+                            class="fill-height ma-0"
+                            align="center"
+                            justify="center"
+                          >
+                            <v-progress-circular
+                              indeterminate
+                              color="grey lighten-5"
+                            ></v-progress-circular>
+                          </v-row>
+                        </template>
+                        </v-img>
+                      </router-link>
                     </v-col>
                   </v-row>
                 
                 </v-card-text>
                   <!-- <v-card-text v-if="item === '챌린지'"><ChallengeResults></ChallengeResults></v-card-text> -->
-                <v-card-text v-if="item === '통계'">
+                <!-- <v-card-text v-if="item === '통계'">
                   <UserStat></UserStat>
-                </v-card-text>
+                </v-card-text> -->
               </v-card>
             </v-tab-item>
           </v-tabs-items>
         </v-col>
       </v-row>
       <infinite-loading v-if="isUserstat === false" @infinite="infiniteHandler" spinner="waveDots">
-        <div slot="no-more">
-          보살핌 후기가 없습니다 씨앗에 물을 줘보세요
+        <div class="infinite-margin" slot="no-more">
+          "보살핌 후기가 더 이상 없습니다"
+        </div>
+        <div class="infinite-margin" slot="no-result">
+          "보살핌 후기가 없습니다 씨앗에 물을 줘보세요"
         </div>
       </infinite-loading>
     </v-container>
@@ -137,7 +142,7 @@ export default {
         } else {
           $state.complete();
         }
-        }, 1000)
+        }, 500)
       },
       CheckisUserstat: function (item) {
         if (item === "피드") {
@@ -166,5 +171,7 @@ export default {
   font-size: 1.5vw;
 }
 
-
+.infinite-margin {
+  margin-top: 5vh;
+}
 </style>

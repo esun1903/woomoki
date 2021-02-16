@@ -1,5 +1,5 @@
 <template>
-  <splide-slide>
+  <!-- <splide-slide>
     <div class="image-box">
       <img :src=CertificationImg>
       <div class="mask">
@@ -12,65 +12,93 @@
         </div>
       </div>
     </div>
-  </splide-slide>
+  </splide-slide> -->
+  <v-row>
+    <!-- <v-col
+      v-for="(card, $idx) in slide"
+      :key="$idx"
+      class="d-flex child-flex"
+      cols="4"
+      >
+      <v-img
+        :src="card.img"
+        :lazy-src="card.img"
+        aspect-ratio="1"
+        class="grey lighten-2 cursor_test"
+      >
+      <template v-slot:placeholder>
+        <v-row
+          class="fill-height ma-0"
+          align="center"
+          justify="center"
+        >
+          <v-progress-circular
+            indeterminate
+            color="grey lighten-5"
+          ></v-progress-circular>
+        </v-row>
+      </template>
+      </v-img>
+    </v-col> -->
+  </v-row>
 </template>
 
 <script>
-import axios from 'axios';
-import moment from 'moment';
-export default {
-  name: 'FeedCard',
-  components: {  },
-  directives: {  },
-  props: {
-    slide: Object,
-  },
-  data() {
-    return {
-      dialogm1: '',
-      dialog: false,
-      cngOwner: '',
-    };
-  },
-  filters: {
-    formatDate: function(value) {
-      if (value) {
-        return moment(String(value)).format('YYYY년 MM월 DD일 hh:mm')
-      }
-    },
-  }, 
-  mounted() {
+// import axios from 'axios';
+// import moment from 'moment';
+// export default {
+//   name: 'FeedCard',
+//   components: {  },
+//   directives: {  },
+//   props: {
+//     slide: Object,
+//   },
+//   data() {
+//     return {
+//       dialogm1: '',
+//       dialog: false,
+//       cngOwner: '',
+//     };
+//   },
+//   filters: {
+//     formatDate: function(value) {
+//       if (value) {
+//         return moment(String(value)).format('YYYY년 MM월 DD일 hh:mm')
+//       }
+//     },
+//   }, 
+//   mounted() {
     
-  },
-  methods: {
-    getChallengeOwner: function () {
-      const cngId = {}
-      const cngId_num = this.slide.cng_id
-      cngId["cgId"] = cngId_num 
-      axios.get(`http://127.0.0.1:8080/detailChallenge/${cngId_num}`, cngId)
-        .then((res) => {
-          console.log('오너 잘 받아와지나?')
-          console.log(res.data)
-          this.cngOwner = res.data.user_id
-        })
-        .catch((err) => {
-          console.log(err)
-          console.log('대실패')
-        })
-    },
-    goCertDetail: function () {
-      this.getChallengeOwner()
-      this.$router.push({ name: 'CertificationDetail', params: { cngUserId: this.cngOwner, cngId: this.slide.cng_id, certId: this.slide.id } })
-    },
-  },
-  computed: {
-    CertificationImg: function () {
-      console.log('확인룡룡')
-      console.log(this.slide)
-      return this.slide.img 
-    },
-  }
-};
+//   },
+//   methods: {
+//     getChallengeOwner: function () {
+//       const cngId = {}
+//       const cngId_num = this.slide.cng_id
+//       cngId["cgId"] = cngId_num 
+//       axios.get(`http://127.0.0.1:8080/detailChallenge/${cngId_num}`, cngId)
+//         .then((res) => {
+//           console.log('오너 잘 받아와지나?')
+//           console.log(res.data)
+//           this.cngOwner = res.data.user_id
+//         })
+//         .catch((err) => {
+//           console.log(err)
+//           console.log('대실패')
+//         })
+//     },
+//     goCertDetail: function () {
+//       this.getChallengeOwner()
+//       this.$router.push({ name: 'CertificationDetail', params: { cngUserId: this.cngOwner, cngId: this.slide.cng_id, certId: this.slide.id } })
+//     },
+//   },
+//   computed: {
+//     CertificationImg: function () {
+//       console.log('확인룡룡')
+//       console.log(this.slide)
+//       return this.slide.img 
+//     },
+//   }
+// };
 </script>
 
 <style lang="scss" scoped>
