@@ -78,7 +78,7 @@
                   <v-col>
                     <v-btn v-if="!isMySeed" :disabled="this.isLogin === false" class="mt-10" icon @click="Like">
                       <div>
-                        <v-icon size="48" :color="liked ? 'red' : 'white' ">fas fa-heart</v-icon>
+                        <v-icon size="36" :color="liked ? 'red' : 'white' ">fas fa-heart</v-icon>
                         <h2 class="mt-5 count">{{this.likeCount}}</h2>
                       </div>
                     </v-btn>
@@ -86,18 +86,35 @@
                   <v-col>
                     <v-btn v-if="!isMySeed" :disabled="this.isLogin === false" class="mt-10" icon @click="getScrap">
                       <div>
-                        <v-icon size="48" :color="scrapped ? 'yellow' : 'white' ">fas fa-bookmark</v-icon>
+                        <v-icon size="36" :color="scrapped ? 'yellow' : 'white' ">fas fa-bookmark</v-icon>
                         <h2 class="mt-5 count">{{this.scrapCount}}</h2>
                       </div>
                     </v-btn>
                   </v-col>
                 </v-row>
-
+                  
               </v-row>
               
             </div>
             
             <div class="img-cover"></div>
+            <router-link :to="{ name: 'CertificationInsert', params: { cngId: SeedInfo.id }}">
+              <v-btn 
+                :ripple="false"
+                color="#AED864"
+                class="btn-position white--text">
+                인증 작성
+              </v-btn>
+            </router-link>
+            
+            <!-- <router-link> -->
+              <v-btn
+                :ripple="false"
+                color="#AED864" 
+                class="btn-position white--text">
+                나의 인증 현황
+              </v-btn>
+            <!-- </router-link> -->
           </v-img>
     <!-- </v-avatar> -->
   <!-- </v-row> -->
@@ -325,6 +342,18 @@ export default {
 
 .chip-size {
   font-size: 15px;
+}
+
+.btn-position {
+  margin: 1% 1% 0% 1%;
+  z-index: 6;
+  position: relative;
+  left: 73%;
+  top: 85%;
+}
+
+a {
+  text-decoration: none;
 }
 
 </style>

@@ -83,7 +83,7 @@
         <div class="infinite-margin" slot="no-more">
           "보살핌 후기가 더 이상 없습니다"
         </div>
-        <div class="infinite-margin" slot="no-result">
+        <div class="infinite-margin" slot="no-results">
           "보살핌 후기가 없습니다 씨앗에 물을 줘보세요"
         </div>
       </infinite-loading>
@@ -126,7 +126,7 @@ export default {
       await axios.get(`http://127.0.0.1:8080/userCertification/${userid}`)
         .then((res) => {
         this.total = res.data
-        // console.log("생성되었을 때 tmp: ", this.total)
+        console.log("생성되었을 때 tmp: ", this.total)
         // console.log("isUserstat: ", this.isUserstat)
         })
       },

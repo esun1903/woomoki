@@ -78,12 +78,14 @@ export default {
     console.log(id)
     axios.post("http://127.0.0.1:8080/", id)
       .then((res) => {
+        console.log(res.data)
         const seeds = res.data
         seeds.sort(function(a,b) {
           return a.like_cnt > b.like_cnt ? -1 : a.like_cnt < b.like_cnt ? 1 : 0;
         })
         // seeds.splice(8)
         this.seeds = seeds
+        console.log(this.seeds)
       })
       .catch((err) => {
         console.log(err)
@@ -124,7 +126,7 @@ export default {
     .cards {
       width: 100%;
       height: 100%;
-      margin-bottom: 10%;
+      margin-bottom: 5%;
       .row {
         .card {
           padding: 1%;

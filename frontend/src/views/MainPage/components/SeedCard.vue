@@ -108,7 +108,7 @@ export default {
       const seedId_num = this.seed.id;
       axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId_num}`)
       .then((res) => {
-        console.log(res)
+        // console.log("likeand",res)
         const seedList = res.data
         var i;
         for (i=0; i < seedList.length; i++) {
@@ -122,24 +122,28 @@ export default {
       })
     },
     CheckisLiked: function () {
-      const userId = {};
-      const userId_num = this.user.user_id;
-      const seedId_num = this.seed.id;
-      userId["userId"] = userId_num;
-      axios.get(`http://127.0.0.1:8080/LikeAndChallenge/${userId_num}`, userId)
-      .then((res) => {
-        console.log(res)
-        const seedList = res.data
-        var i;
-        for (i=0; i < seedList.length; i++) {
-          if (seedList[i].id === Number(seedId_num)) {
-            this.liked = true
+      if (this.user.isLogin) {
+        const userId = {};
+        const userId_num = this.user.user_id;
+        const seedId_num = this.seed.id;
+        userId["userId"] = userId_num;
+        axios.get(`http://127.0.0.1:8080/LikeAndChallenge/${userId_num}`, userId)
+        .then((res) => {
+          console.log(res)
+          const seedList = res.data
+          var i;
+          for (i=0; i < seedList.length; i++) {
+            if (seedList[i].id === Number(seedId_num)) {
+              this.liked = true
+            }
           }
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+        })
+        .catch((err) => {
+          console.log("에러발생",err)
+        })
+      } else {
+        console.log("로그인이 필요합니다")
+      }
     },
   },
   created() {

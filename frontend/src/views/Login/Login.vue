@@ -31,15 +31,15 @@
             <validation-observer v-slot="{ invalid }" ref="observer">
               <v-form @submit.prevent="submit">
                 <v-row class="d-flex justify-center">
-                  <validation-provider v-slot="{ errors }" name="email" rules="required|email">
-                    <v-text-field class="input-size" color="#AED864" v-model="user.email" :error-messages="errors" label="Email" required outlined
+                  <validation-provider v-slot="{ errors }" name="이메일" rules="required|email">
+                    <v-text-field class="input-size" color="#AED864" v-model="user.email" :error-messages="errors" label="이메일" required outlined
                       dense></v-text-field>
                   </validation-provider>
                 </v-row>
                 <v-row class="d-flex justify-center">
-                  <validation-provider v-slot="{ errors }" name="password" rules="required|password">
-                    <v-text-field class="input-size" v-model="user.password" :error-messages="errors" label="Password"
-                      :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'" @click:append="showPass = !showPass" required
+                  <validation-provider v-slot="{ errors }" name="비밀번호" rules="required|password">
+                    <v-text-field class="input-size" v-model="user.password" :error-messages="errors" label="비밀번호"
+                      :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'" @keydown.enter="submit" @click:append="showPass = !showPass" required
                       outlined color="#AED864" dense :type="showPass ? 'text' : 'password'"></v-text-field>
                   </validation-provider>
                 </v-row>
@@ -98,7 +98,7 @@
 
   extend('required', {
     ...required,
-    message: '{_field_} can not be empty'
+    message: '{_field_}(은)는 필수 항목입니다'
   })
 
   extend('email', {

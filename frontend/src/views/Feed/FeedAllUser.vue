@@ -149,7 +149,7 @@
         <div class="infinite-margin" slot="no-more">
           "보살핌 후기가 더 이상 없습니다"
         </div>
-        <div class="infinite-margin" slot="no-result">
+        <div class="infinite-margin" slot="no-results">
           "보살핌 후기가 없습니다 씨앗에 물을 줘보세요"
         </div>
       </infinite-loading>

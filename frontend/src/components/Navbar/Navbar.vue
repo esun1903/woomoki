@@ -16,7 +16,7 @@
         <div class="btn-group">
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn icon v-bind="attrs" v-on="on" class="btn cursor-default">
+              <v-btn v-if="getCheckLogin" icon v-bind="attrs" v-on="on" class="btn cursor-default">
                 <v-icon>mdi-lead-pencil</v-icon>
               </v-btn>
             </template>
@@ -29,7 +29,11 @@
                 </v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-title>씨앗 물 주기</v-list-item-title>
+                <v-list-item-title>
+                  <router-link to="/seedJoin">
+                      씨앗 물 주기
+                  </router-link>
+                </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -53,7 +57,7 @@
                   </router-link>
                 </v-list-item-title>
               </v-list-item>
-              <v-list-item>
+              <v-list-item v-if="getCheckLogin">
                 <v-list-item-title>
                   <router-link to="/feedFollow">
                     팔로우 유저 피드
@@ -70,7 +74,7 @@
             width="25%"
           >
             <template v-slot:activator="{ on, attrs }">
-              <v-btn @click="getSeeds" icon v-bind="attrs" v-on="on" class="btn">
+              <v-btn v-if="getCheckLogin" @click="getSeeds" icon v-bind="attrs" v-on="on" class="btn">
                 <v-icon>mdi-cart</v-icon>
               </v-btn>
             </template>
@@ -101,7 +105,7 @@
             </v-card>
           </v-dialog>
 
-          <v-btn icon class="btn" @click="notice = true">
+          <v-btn v-if="getCheckLogin" icon class="btn" @click="notice = true">
             <v-icon>mdi-bell-ring</v-icon>
           </v-btn>
           <v-dialog v-model="notice" width="25%">
@@ -118,10 +122,9 @@
                   <v-tab-item v-for="(type,idx) in types" :key="idx">
                     <v-card v-for="(tab,idx) in tabs" :key="idx" @click="NotificationConfirm(tab.id)">
                       
-                      <v-card-text v-if="type=='요청' && tab.type=='reqFollow'">{{tab.get_user}}님이 팔로우 요청을 하였습니다. </v-card-text>
-                      <v-card-text v-if="type=='요청' && tab.type=='reqChallenge'">{{tab.get_user}}님이 {{tab.cng_id}} 챌린지 참가 요청을 하였습니다. </v-card-text>
-                      <v-card-text v-if="type=='알림' && tab.type=='resFollow'">{{tab.get_user}}님의 팔로워가 되었습니다.</v-card-text>
-                      <v-card-text v-if="type=='알림' && tab.type=='resChallenge'">{{tab.cng_id}} 챌린지 참여 완료. </v-card-text>
+                      <v-card-text v-if="type=='알림' && tab.type=='reqFollow'">{{tab.reqUserName}}님이 팔로우 하였습니다. </v-card-text>
+                      <v-card-text v-if="type=='요청' && tab.type=='reqChallenge'">{{tab.reqUserName}}님이 {{tab.cngTitle}} 챌린지 참가 요청을 하였습니다. </v-card-text>
+                      <v-card-text v-if="type=='알림' && tab.type=='resChallenge'">{{tab.cngTitle}} 챌린지 참여 완료. </v-card-text>
                   
                     </v-card>
                   </v-tab-item>
@@ -137,7 +140,7 @@
           
           <v-menu offset-y open-on-hover bottom>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn icon v-bind="attrs" v-on="on" class="btn cursor-default">
+              <v-btn icon v-bind="attrs" v-on="on" class="btn">
                 <v-icon color="grey darken-1">mdi-account-circle</v-icon>
               </v-btn>
             </template>
@@ -190,7 +193,7 @@ export default {
       notice: false,
       currentTab: null,
       tabs: [],
-      types:['알림','요청'],	
+      types:['알림','요청'],
     };
   },
   computed:  {
@@ -207,6 +210,7 @@ export default {
     tabs : function(){
       if(!this.tabs.length)
         this.NotificationList();
+
     },
     seeds(newVal, oldVal) {
       if (newVal!== oldVal) {
@@ -228,15 +232,15 @@ export default {
           this.seeds = seeds
         })
         .catch((err) => {
-          console.log(err)
+          console.log("에러발생", err)
         })
     },
     goSeedDetail: function (val) {
       this.$router.push({ name: 'SeedDetail', params: { seedId: val } })
     },
-    // goFeed: function () {
-    //   this.$router.push({ name: 'Feed' }) 
-    // },
+    goFeed: function () {
+      this.$router.push({ name: 'Feed' }) 
+    },
     goLogout: function () {
       this.$store.dispatch('UserStore/logOut')
       this.$router.go(this.$router.currentRoute)
@@ -262,6 +266,16 @@ export default {
           console.log(error);
         });  
     },
+    NotificationCallCheck: function(id) {
+      const notificationId = id;
+       axios.put(`http://127.0.0.1:8080/notificationCallCheck/${notificationId}`)
+        .then((response) => {
+          this.tabs = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });  
+    },
     NotificationList(){
       const userId =  this.user.user_id;
        axios.get(`http://127.0.0.1:8080/notificationList/${userId}`)
@@ -271,10 +285,38 @@ export default {
         .catch((error) => {
           console.log(error);
         });    
+    },
+    NotificationToast(){
+        
+       for(var i =0 ; i<this.tabs.length ;i++){
+         var pushMsg ="";
+         
+          if(this.tabs[i].type=='reqFollow' && this.tabs[i].msg =='1' ){
+              pushMsg = this.tabs[i].reqUserName+"님이 팔로우 하였습니다.";
+          }else if(this.tabs[i].type=='reqChallenge' && this.tabs[i].msg =='1'){
+              pushMsg = this.tabs[i].reqUserName+"님이  '"+ this.tabs[i].cngTitle+"'챌린지 참가 신청을 하였습니다.";
+          }else if(this.tabs[i].type=='resChallenge' && this.tabs[i].msg =='1'){
+              pushMsg ="'"+ this.tabs[i].cngTitle+"' 챌린지 참여 완료."
+          }
+        
+        //this.NotificationCallCheck(this.tabs[i].id);
+        if(pushMsg!=""){
+        this.$toast.open({
+        message: pushMsg,
+        type: 'info',
+        duration: 5000,
+        dismissible: true
+        }); 
+        }
+    }  
     }
+    
   },
-  mounted (){
-  this.NotificationList();
+  created (){
+    
+    //setInterval(() => this.NotificationList(), 3000);
+    // setInterval(() => this.NotificationToast(), 5000);
+      
   },
 
 };
@@ -303,7 +345,7 @@ a:-webkit-any-link {
 }
 
 .router {
-  margin-right:30%;;
+  padding-right:30%;;
 }
 
 .navbar {
@@ -402,9 +444,4 @@ a:-webkit-any-link {
     }
   }
 }
-
-.cursor-default {
-  cursor: default;
-}
-
 </style>
