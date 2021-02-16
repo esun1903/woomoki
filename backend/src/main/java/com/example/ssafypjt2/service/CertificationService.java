@@ -35,4 +35,6 @@ public interface CertificationService {
     public ChallengeDto challengeWeekDay(int cngId);
 
     public List<CertificationDto> CngCertificationList(int user_id, int cngId);
+
+	public int certificationStamp(CertificationDto certificationDto);
 }

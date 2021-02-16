@@ -95,7 +95,31 @@ public class CertificationServiceImpl implements CertificationService {
     @Override
     public List<CertificationDto> CngCertificationList(int user_id, int cngId) {
         System.out.println("서비스 단 들어왔다");
-        List<CertificationDto> result = dao. CngCertificationList(user_id,cngId);
+        List<CertificationDto> result = dao.CngCertificationList(user_id,cngId);
+        return result;
+    }
+
+    @Override
+    public int certificationStamp(CertificationDto certificationDto) {
+        System.out.println("서비스 단 들어왔다");
+        int result = 1;
+        int cng_id = certificationDto.cng_id;
+        int user_id = certificationDto.user_id;
+        int stampPlus = dao.certificationStamp(user_id,cng_id); // ++ 하는 것
+        int stampCount = dao.certificationStampCount(user_id,cng_id); // 현재 stampCount의 개수를 구하기
+        ChallengeDto  cngDto = dao.challengeDetail(cng_id); // 챌린지의 week, day를 가져오기
+
+        int week = cngDto.getWeek();
+        int day = cngDto.getDay();
+        // 만약, 마지막 인증이라면
+        if( stampCount  >= week * day) {
+            // 챌린지가 성공했다는 것으로 바뀌고
+             dao.challengeSuccess(user_id,cng_id);
+            // 레벨이  ++ 해진다.
+             dao.userLevelUp(user_id);
+              result = 2;
+        }
+
         return result;
     }
 
