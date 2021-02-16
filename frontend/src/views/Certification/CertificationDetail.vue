@@ -269,36 +269,35 @@
                 this.showResultBtn = false;
             }, 
             getConfirm: function () {
-                const seedInfo = {};
-                const seedId_num = this.$route.params.cngId;
-                const userId_num = this.user.user_id;
-                seedInfo["cng_id"] = seedId_num
-                seedInfo["user_id"] = userId_num;
-                if (this.confirmed) {   
-                    // 확인 도장 취소하기   
-                    axios.get(`http://127.0.0.1:8080/certificationStamp`, seedInfo)
-                    .then(() => {
+                const certInfo = this.CertInfo
+                certInfo.user_id = this.user.user_id
+                    if (this.confirmed) {   
+                        // 확인 도장 취소하기  
                         this.confirmed = false 
-                        console.log('확인 도장 취소 성공')
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                        console.log('확인 도장 취소 실패')
-                    })
-                     
-                } else {
-                    // 확인 도장 찍기
-                    axios.get(`http://127.0.0.1:8080/certificationStamp`, seedInfo)
-                    .then(() => {
-                        this.confirmed = false
-                        console.log('res값이 2면 맨 끝까지 인증 다 한거니까 축하해주러 가기')
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                        console.log('확인도장 찍기 실패')
-                    })
-                      
-                }
+                        axios.post(`http://127.0.0.1:8080/cancleConfirmation`, certInfo)
+                        .then((res) => {
+                            console.log(res)
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                        })
+                        
+                    } else {
+                        // 확인 도장 찍기
+                        this.confirmed = true
+                        axios.post(`http://127.0.0.1:8080/completeConfirmation`, certInfo)
+                        .then((res) => {
+                            console.log(res)
+                            if (res.data === 2) {
+                                alert("씨앗을 성공적으로 키워낸 분을 위해 축하 댓글을 달아주세요!")
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err)
+                            console.log('확인도장 찍기 실패')
+                        })
+                        
+                    }
             },
         },
     };

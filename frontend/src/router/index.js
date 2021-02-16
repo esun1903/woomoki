@@ -167,7 +167,7 @@ const routes = [
     component: SeedDetail,        
   },
   {
-    path: '/seedDetail/stampCard/:cngId?/:userId?',
+    path: '/seedDetail/stampCard/:seedId?/:userId?',
     name: 'StampCard',
     component: StampCard,       
   },
