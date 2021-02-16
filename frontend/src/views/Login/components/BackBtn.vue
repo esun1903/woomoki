@@ -1,7 +1,7 @@
 <template>
     <div>
             <v-btn class="back-btn" rounded color="white">
-                이전 페이지로 돌아가기
+                이전으로 돌아가기
             </v-btn>
     </div>
 </template>
@@ -33,7 +33,7 @@
     
     .back-btn {
         width: 100%;
-        color: #be5656;
+        color: #black;
         margin-top: 20px;
         text-decoration: none;
     }

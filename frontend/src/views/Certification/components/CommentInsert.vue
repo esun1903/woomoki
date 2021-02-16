@@ -3,7 +3,7 @@
         <validation-observer v-slot="{ invalid }" ref="observer">
             <v-form @submit.prevent="writeComment">
                 <validation-provider v-slot="{ errors }" rules="required">
-                    <v-textarea outlined v-model="comment" :error-messages="errors" label="댓글"></v-textarea>
+                    <v-textarea outlined v-model="comment" :error-messages="errors" label="댓글" required></v-textarea>
                 </validation-provider>
                 <div id="insert-btn-div">
                     <v-btn color="warning" id="insert-btn" :disabled="invalid" @click="writeComment">
@@ -30,7 +30,7 @@
 
     extend('required', {
         ...required,
-        message: '{_field_}은(는) 필수 항목입니다'
+        message: '댓글 내용을 넣어주세요!'
     })
     import axios from "axios";
     export default {

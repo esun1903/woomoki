@@ -89,7 +89,7 @@ export default {
       tab: null,
       items: ["씨앗 정보", "보살핌 후기"],
       SeedInfo: {},
-      seedId: "this.$route.params.seedId",
+      seedId: this.$route.params.seedId,
       total: [],
       cards: [],
       isBasicInfo: true,

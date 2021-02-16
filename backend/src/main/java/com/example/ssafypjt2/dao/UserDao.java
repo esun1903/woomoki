@@ -65,6 +65,9 @@ public interface UserDao {
 
 	@Select(" SELECT * FROM user WHERE id = #{user_id}  ")
 	public UserDto userPageIdDetail(@Param("user_id") int user_id);
+	
+	@Select(" SELECT * FROM user WHERE phone = #{phone}  ")
+	public UserDto userInfo(@Param("phone") String phone);
 }
 
 /*

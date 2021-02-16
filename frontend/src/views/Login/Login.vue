@@ -98,7 +98,7 @@
 
   extend('required', {
     ...required,
-    message: '{_field_}(은)는 필수 항목입니다'
+    message: '{_field_}(은)는 필수 항목입니다.'
   })
 
   extend('email', {
@@ -107,7 +107,7 @@
   })
 
   extend("password", {
-    message: "문자, 숫자, 특수문자 8자리",
+    message: "문자, 숫자, 특수문자 포함 8자리 이상 입력해주세요.",
     validate: value => {
       return /^.*(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[$@$!%*#?&]).*$/.test(value)
     }

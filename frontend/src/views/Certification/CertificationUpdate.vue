@@ -37,7 +37,8 @@
         <div>
             <v-divider></v-divider>
             <CommentInsert />
-            <CommentList />
+            <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" :nickname="Nicknames[index]" />
+        
         </div>
     </v-container>
 </template>
@@ -57,6 +58,9 @@
         data() {
             return {
                 CertInfo: [],
+                comments: [],
+                UserInfo: [],
+                Nicknames: [],
                 photoURL: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
                 dialog: false,
 
@@ -67,6 +71,7 @@
         },
         created() {
             this.detailCert();
+            this.detailComment();
             const cngId = this.$route.params.cngId;
             const certId = this.$route.params.certId;
             const cngUserId = this.$route.params.cngUserId;
@@ -86,6 +91,38 @@
                     .catch((err) => {
                         console.log(err)
                     })
+            },
+            
+            detailComment: function () {
+                const certId = this.$route.params.certId;
+                console.log(certId);
+                axios.get(`http://localhost:8080/commentList/${certId}`)
+                    .then((response) => {
+                        // console.log(response.data);
+                        this.comments = response.data;
+                        for (const i in this.comments) {
+                            const comment = this.comments[i]
+                            const commentUserId = comment["user_id"]
+                            // console.log("cmt user id: " + commentUserId);
+                            this.getUserInfo(commentUserId);
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            },
+            async getUserInfo(commentUserId) {
+                // console.log("getUserInfo를 들어왔ㅇㅓ : " + commentUserId);
+                await axios.get(`http://localhost:8080/userPage/Id/${commentUserId}`)
+                    .then((response) => {
+                        // console.log(response.data);
+                        this.UserInfo = response.data;
+                        this.Nicknames.push(this.UserInfo.nickname)
+                        // console.log("nickname: " + this.UserInfo.nickname);
+                        // console.log(this.Nicknames);
+                        // this.saveNickname();
+                    })
+
             },
             back() {
                 // this.$router.go(-1);
