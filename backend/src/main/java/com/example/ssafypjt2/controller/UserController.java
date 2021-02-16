@@ -231,6 +231,18 @@ public class UserController {
 
 		return new ResponseEntity<>(new ResponseData(returnMessage, null), HttpStatus.OK);
 	}
+	
+	//유저의 휴대폰 번호 얻어오면 메일 정보 알려주기
+		@CrossOrigin(origins = "*")
+		@GetMapping("/userInfo/{phone}")
+		public UserDto userInfo(@PathVariable(value = "phone") String phone ) throws Exception{
+
+			System.out.println(phone+"을 가진 유저에 대한 정보를 알려줄게!");
+
+			UserDto result = userService.userInfo(phone);
+			System.out.println(result);
+			return result;
+		}
 
 }
 

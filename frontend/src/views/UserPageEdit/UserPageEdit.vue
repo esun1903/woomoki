@@ -2,7 +2,7 @@
   <v-container class="container-size">
 
     <v-row class="d-flex justify-center img-margin">
-      <ImgEdit @transferUpdateProfileImg="receiveUpdateProfileImg"></ImgEdit>
+      <ImgEdit :profileImg="profileImg" @transferUpdateProfileImg="receiveUpdateProfileImg"></ImgEdit>
     </v-row>
 
     <validation-observer ref="observer" v-slot="{ invalid }">
@@ -28,13 +28,13 @@
 
         <validation-provider v-slot="{ errors }" name="새로운 비밀번호" rules="required|newPassword">
           <v-text-field color="#AED864" v-model="newPassword" :error-messages="errors" label="새로운 비밀번호 입력"
-            :type="showPass ? 'text' : 'password'" counter="12" outlined></v-text-field>
+            :type="showPass ? 'text' : 'password'" outlined></v-text-field>
         </validation-provider>
 
         <validation-provider v-slot="{ errors }" name="새로운 비밀번호 확인" rules="required|passwordConfirm:@새로운 비밀번호"
           vid="newPassword">
           <v-text-field color="#AED864" v-model="passwordConfirmation" :error-messages="errors" label="새로운 비밀번호 확인"
-            :type="showPass ? 'text' : 'password'" counter="12" outlined></v-text-field>
+            :type="showPass ? 'text' : 'password'" outlined></v-text-field>
         </validation-provider>
 
         <CategoryEdit></CategoryEdit>
@@ -117,7 +117,7 @@
   });
 
   extend("newPassword", {
-    message: "문자, 숫자, 특수 문자 포함 8자리 이상 12자리 이하로 입력해주세요",
+    message: "문자, 숫자, 특수문자 포함 8자리 이상으로 입력해주세요.",
     validate: value => {
       return /^.*(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[$@$!%*#?&]).*$/.test(value);
     }
@@ -170,6 +170,8 @@
         axios.get(`http://localhost:8080/userPage/${userNickname}`)
           .then((res) => {
             this.UserInfo = res.data
+            this.profileImg = this.UserInfo.img
+            console.log("이미지: "+this.profileImg);
             console.log("기존 데이터", res.data)
           })
           .catch((err) => {

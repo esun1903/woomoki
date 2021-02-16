@@ -256,6 +256,15 @@
               </div>
             </v-form>
           </validation-observer>
+          
+              <div class="text-center">
+          <router-link :to="'/login'">
+                <v-btn class="signUpbtn" color="black" :ripple="false" plain rounded :disabled="invalid" 
+                >
+                  이전으로 돌아가기
+                </v-btn>
+                </router-link>
+                </div>
             
 
             <span class="or-bar or-bar-right"></span>
@@ -284,17 +293,17 @@ setInteractionMode("eager");
 
 extend("required", {
   ...required,
-  message: "{_field_}은(는) 필수 항목입니다"
+  message: "{_field_}은(는) 필수 항목입니다."
 });
 
 extend("email", {
   ...email,
-  message: "이메일 형식이 아닙니다"
+  message: "이메일 형식이 아닙니다."
 });
 
 
 extend( "password", {
-  message: "문자, 숫자, 특수문자 8자리",
+  message: "문자, 숫자, 특수문자 포함 8자리 이상으로 입력해주세요.",
   validate: value => {
     return /^.*(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[$@$!%*#?&]).*$/.test(value)
   }

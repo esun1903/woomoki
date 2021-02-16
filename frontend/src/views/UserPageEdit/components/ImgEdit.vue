@@ -1,45 +1,48 @@
 <template>
-  <v-avatar
-    class="cursor_img profile-img-margin"
-    width="250"
-    height="250"
-    color="#AED864"
-    @click="onClickImageUpload"
-    >
-      <span class="white--text">
-        {{ this.text }}
-      </span>
-    <v-img
-        v-if="imageUrl" :src="imageUrl"
-    ></v-img>
+  <v-avatar class="cursor_img profile-img-margin" width="250" height="250" color="#AED864" @click="onClickImageUpload">
+    <span class="white--text">
+      {{ this.text }}
+    </span>
+    <v-img v-if="imageUrl" :src="imageUrl"></v-img>
     <input ref="imageInput" type="file" hidden @change="onChangeImages">
   </v-avatar>
 </template>
 
 <script>
-export default {
-  name: "ImgEdit",
-  data: function () {
+  export default {
+    name: "ImgEdit",
+    data: function () {
       return {
         imageUrl: null,
         text: "프로필 변경",
-        file:null,
-        fileName:null,
-    }
-  },
-  methods: {
-    onClickImageUpload() {
-    this.$refs.imageInput.click();
+        file: null,
+        fileName: null,
+      }
     },
-    onChangeImages(e) {
+    created() {
+      this.getImage();
+    },
+    props: {
+      profileImg: String,
+    },
+    methods: {
+      getImage() {
+
+        this.imageUrl = this.profileImg;
+        console.log("보여줄 이미지: " + this.imageUrl);
+      },
+      onClickImageUpload() {
+        this.$refs.imageInput.click();
+      },
+      onChangeImages(e) {
         console.log(e.target.files)
         this.file = e.target.files[0]; // Get first index in files
         this.imageUrl = URL.createObjectURL(this.file); // Create File URL
         this.fileNameSetting();
         this.transferUpdateProfileImg();
         this.text = ""
-    },
-    transferUpdateProfileImg: function () {
+      },
+      transferUpdateProfileImg: function () {
         this.$emit('transferUpdateProfileImg', this.file, this.fileName)
       },
       async fileNameSetting() {
@@ -63,17 +66,16 @@ export default {
         this.fileName = user_id + "_" + realtime + "_" + this.file.name
 
       },
-  }
-};
+    }
+  };
 </script>
 
 <style scoped>
+  .cursor_img {
+    cursor: pointer;
+  }
 
-.cursor_img {cursor: pointer;}
-
-.profile-img-margin {
-  margin-bottom: 10%;
-}
-
+  .profile-img-margin {
+    margin-bottom: 10%;
+  }
 </style>
-

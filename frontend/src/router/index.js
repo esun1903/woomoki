@@ -5,7 +5,6 @@ import Signup from "@/views/Signup/Signup.vue";
 import FavoriteCategory from "@/views/Signup/components/FavoriteCategory.vue";
 import Login from "@/views/Login/Login.vue";
 import FindId from "@/views/Login/components/FindId.vue";
-import FindIdResult from "@/views/Login/components/FindIdResult.vue";
 import FindPassword from "@/views/Login/components/FindPassword.vue";
 import FindPasswordByEmail from "@/views/Login/components/FindPasswordByEmail.vue";
 import FindPasswordByPhone from "@/views/Login/components/FindPasswordByPhone.vue";
@@ -60,11 +59,6 @@ const routes = [
     path: '/login/findId',
     name: 'FindId',
     component: FindId,        
-  },
-  {
-    path: '/login/findIdResult',
-    name: 'FindIdResult',
-    component: FindIdResult,        
   },
   {
     path: '/login/findPassword',

@@ -23,4 +23,5 @@ public interface UserService {
 	public int changeUser(UserDto userDto) throws Exception;
 
     public UserDto userPageIdDetail(int user_id);
+    public UserDto userInfo(String phone);
 }

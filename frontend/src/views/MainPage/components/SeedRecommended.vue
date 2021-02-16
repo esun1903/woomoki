@@ -6,7 +6,7 @@
           <span v-if="getCheckFavoriteCategory" class="checkFavCategory">님, 이런 씨앗은 어때요?</span>
           <span v-else class="checkFavCategory">님, 관심 카테고리를 설정해주시면 씨앗을 추천해드릴게요!</span>
         </div>
-        <span v-else class="notLogined">익명의 방문자님, 로그인 먼저 진행해주시겠어요??</span>
+        <span v-else class="notLogined">익명의 방문자님, <router-link to="/login">로그인</router-link> 먼저 진행해주시겠어요??</span>
     </div>
     <v-data-iterator
       no-data-text=""

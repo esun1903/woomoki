@@ -6,12 +6,11 @@
           <h1>로고로고로고로고로고로고로고</h1>
         </v-col>
         <v-col cols="4" class="right">
-          <h2>Oops!!!!!!!비밀번호를 잊었다니!</h2>
-          <h4>임시 비밀번호 발급 수단 선택</h4>
+          <h2>비밀번호를 잊으셨나요?</h2>
+          <h4>이메일로 임시 비밀번호 발급 받기</h4>
           <div class="find-password-btn">
-            <FindPasswordByPhoneBtn />
             <v-divider></v-divider>
-            <FindPasswordByEmailBtn />
+            <FindPasswordByEmail />
           </div>
             <router-link :to="'/login'">
             <BackBtn />
@@ -23,15 +22,13 @@
 </template>
 
 <script>
-  import FindPasswordByPhoneBtn from "@/views/Login/components/FindPasswordByPhoneBtn.vue"
-  import FindPasswordByEmailBtn from "@/views/Login/components/FindPasswordByEmailBtn.vue"
+  import FindPasswordByEmail from "@/views/Login/components/FindPasswordByEmail.vue"
   import BackBtn from "@/views/Login/components/BackBtn.vue"
 
   export default {
     name: 'FindPassword',
     components: {
-      FindPasswordByPhoneBtn,
-      FindPasswordByEmailBtn,
+      FindPasswordByEmail,
       BackBtn,
     },
     computed: {
@@ -86,8 +83,8 @@
         flex-direction: column;
         align-items: center;
         box-sizing: border-box;
-        background: #be5656;
-        color: #fff;
+        background: #F3ECE2;
+        color: #black;
         padding-left: 50px;
         padding-right: 50px;
 

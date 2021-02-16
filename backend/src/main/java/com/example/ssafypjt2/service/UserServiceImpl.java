@@ -95,6 +95,14 @@ public class UserServiceImpl implements UserService {
 		System.out.println(get);
 		return get;
 	}
+	
+	@Override
+	public UserDto userInfo(String phone) {
+		System.out.println("여기는 회원에 대한 상세화면을 담당하는 Service에 도달했습니다. "+ phone);
+		UserDto get = dao.userInfo(phone);
+		System.out.println(get);
+		return get;
+	}
 
 
 }
