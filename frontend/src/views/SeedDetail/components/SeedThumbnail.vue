@@ -109,6 +109,7 @@
             
             <!-- <router-link> -->
               <v-btn
+                @click="goStampCard"
                 :ripple="false"
                 color="#AED864" 
                 class="btn-position white--text">
@@ -122,7 +123,7 @@
 
 <script>
 import axios from "axios"
-
+import {mapState} from "vuex"
 export default {
   name: "SeedThumbnail",
   data: function () {
@@ -254,7 +255,10 @@ export default {
             }
           }
         })
-    }
+    },    
+    goStampCard: function () {
+      this.$router.push({ name: 'StampCard', params: { seedId: this.seedId, userId: this.user.user_id } })      
+    },
     // getScrappedCount: function () {
     //   const seedId = this.seedId
     //   // fav_challenge 테이블에서 해당 seedId를 하트 누른 유저의 숫자를 가져와야함
@@ -274,6 +278,7 @@ export default {
     this.CheckisLikeSeed();
   },
   computed: {
+    ...mapState('UserStore', ['user']),
     category: function () {
       if (this.SeedInfo.category_id === 1) {
         return '건강'
