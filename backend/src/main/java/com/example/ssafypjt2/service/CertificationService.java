@@ -39,4 +39,6 @@ public interface CertificationService {
 	public int certificationStamp(CertificationDto certificationDto);
 
 	public int cancleConfirmation(CertificationDto certificationDto);
+
+	public int[][] ConfirmStatus(int user_id, int cngId);
 }
