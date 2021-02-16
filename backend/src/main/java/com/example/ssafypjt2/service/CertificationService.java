@@ -37,4 +37,6 @@ public interface CertificationService {
     public List<CertificationDto> CngCertificationList(int user_id, int cngId);
 
 	public int certificationStamp(CertificationDto certificationDto);
+
+	public int cancleConfirmation(CertificationDto certificationDto);
 }
