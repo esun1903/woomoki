@@ -2,7 +2,7 @@
   <v-col class="pa-0">
     <v-text-field
       placeholder="EX) 3000"
-      color="light-green lighten-1"
+      color="#AED864"
       v-model="joinDeposit"
       :rules="joinDepositRules"
       :counter="5"

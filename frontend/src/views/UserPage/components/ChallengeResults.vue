@@ -4,7 +4,7 @@
       <v-icon 
         class="challenge-icon"
         size="40"
-        color="light-green lighten-1"
+        color="#AED864"
         >
         fas fa-user-plus</v-icon>
       <div class="challenge-state">참가</div>
@@ -14,7 +14,7 @@
       <v-icon 
         class="challenge-icon"
         size="40"
-        color="light-green lighten-1"
+        color="#AED864"
         >
         fas fa-seedling</v-icon>
       <div class="challenge-state">성공</div>
@@ -24,7 +24,7 @@
       <v-icon 
         class="challenge-icon"
         size="40"
-        color="light-green lighten-1"
+        color="#AED864"
         >
         fas fa-dizzy</v-icon>
       <div class="challenge-state">실패</div>
@@ -34,7 +34,7 @@
       <v-icon 
         class="challenge-icon"
         size="40"
-        color="light-green lighten-1"
+        color="#AED864"
         >
         fas fa-pencil-alt</v-icon>
       <div class="challenge-state">개설</div>

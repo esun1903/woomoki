@@ -35,11 +35,11 @@
       <v-col class="d-flex align-center">
         <v-row class="d-flex justify-end">
           <router-link v-if="isMySeed === true" :to="{ name: 'SeedUpdate', params: { seedId: this.seedId }}">
-            <v-btn color="white--text light-green lighten-1">
+            <v-btn color="white--text #AED864">
               수정
             </v-btn>
           </router-link>
-          <v-btn v-if="isMySeed === true" color="white--text light-green lighten-1" @click="deleteSeed">삭제</v-btn>
+          <v-btn v-if="isMySeed === true" color="white--text #AED864" @click="deleteSeed">삭제</v-btn>
           <SeedShare></SeedShare>
           <SeedViewMore></SeedViewMore>
         </v-row>
@@ -53,7 +53,7 @@
           :key="idx"
         >
           <v-expansion-panel-header :color="color" :ripple="false">
-            <h3 class="white--text">
+            <h3 class="black--text">
               {{ result.key }}  
             </h3>
           </v-expansion-panel-header>
@@ -159,17 +159,17 @@ export default {
   computed: {
     color: function () {
       if (this.SeedInfo.category_id === 1) {
-        return 'light-blue lighten-1'
+        return '#F3ECE2'
       } else if (this.SeedInfo.category_id === 2) {
-        return 'orange lighten-1'
+        return '#F3ECE2'
       } else if (this.SeedInfo.category_id === 3) {
-        return 'teal lighten-1'
+        return '#F3ECE2'
       } else if (this.SeedInfo.category_id === 4) {
-        return 'indigo lighten-1'
+        return '#F3ECE2'
       } else if (this.SeedInfo.category_id === 5) {
-        return 'purple lighten-1'
+        return '#F3ECE2'
       } else {
-        return 'pink lighten-1'
+        return '#F3ECE2'
       }
     }
   },
@@ -190,5 +190,9 @@ a {
 
 .content-size {
   font-size: 20px;
+}
+
+.TEST {
+  color: #97c24e;
 }
 </style>

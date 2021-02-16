@@ -25,13 +25,25 @@
     </v-row>
 
     <v-row class="mt-10">
-      <v-text-field color="light-green lighten-1" v-model="SeedInfo.title" outlined placeholder="EX) 매일매일 코딩 공부하기"
-        label="씨앗 이름" readonly disabled></v-text-field>
+      <v-text-field
+        color="#AED864"
+        v-model="SeedInfo.title"
+        outlined
+        placeholder="EX) 매일매일 코딩 공부하기"
+        label="씨앗 이름"
+        readonly
+        disabled
+      ></v-text-field>
     </v-row>
 
     <v-row>
-      <v-textarea color="light-green lighten-1" clear-icon="fas fa-times" v-model="content" :rules="contentRules"
-        :counter="200" outlined
+      <v-textarea
+        color="#AED864"
+        clear-icon="fas fa-times"
+        v-model="content"
+        :rules="contentRules"
+        :counter="200"
+        outlined
         placeholder="EX) 코딩을 꾸준히 하지 않으면 까먹기 쉽지 않나요? 각자 조금씩이라도 코딩을 하고 매일매일 커밋하는 씨앗을 심고 싶어요! 함께하실 가꾸미님 구합니다!!"
         label="씨앗에 물주는 방법" no-resize></v-textarea>
     </v-row>
@@ -42,9 +54,12 @@
           <v-img :class="`rounded-lg`" width="100%" height="450px" max-width="100%" max-height="100%" v-if="imageUrl"
             :src="example_img" @click="onClickImageUpload">
             <v-fade-transition>
-              <v-overlay v-if="hover" absolute color="#036358">
-                <v-btn color="light-green lighten-1">인증 예시 사진 변경<input ref="imageInput" type="file" hidden
-                    @change="onChangeImages"></v-btn>
+              <v-overlay
+                v-if="hover"
+                absolute
+                color="#036358"
+              >
+                <v-btn color="#AED864">인증 예시 사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
               </v-overlay>
             </v-fade-transition>
           </v-img>
@@ -53,26 +68,57 @@
     </v-row>
 
     <v-row class="mt-10">
-      <v-text-field suffix="원" color="light-green lighten-1" v-model="SeedInfo.join_deposit" outlined label="참여 금액(원)"
-        readonly disabled></v-text-field>
+      <v-text-field
+        suffix="원"
+        color="#AED864"
+        v-model="SeedInfo.join_deposit"
+        outlined
+        label="참여 금액(원)"
+        readonly
+        disabled
+      ></v-text-field>
     </v-row>
     <v-row>
-      <v-slider v-model="max_people" label="최대 인원" color="grey" track-color="grey" thumb-color="light-green lighten-1"
-        :thumb-label="true" min="0" max="50"></v-slider>
+      <v-slider
+        v-model="max_people"
+        label="최대 인원"
+        color="grey"
+        track-color="grey"
+        thumb-color="#AED864"
+        :thumb-label="true"
+        min="0"
+        max="50"
+      ></v-slider>
     </v-row>
     <v-row>
-      <v-text-field color="light-green lighten-1" v-model="dateRangeText" outlined label="기간" readonly disabled>
-      </v-text-field>
+      <v-text-field
+        color="#AED864"
+        v-model="dateRangeText"
+        outlined
+        label="기간"
+        readonly
+        disabled
+      ></v-text-field>
     </v-row>
 
     <v-row>
-      <v-text-field color="light-green lighten-1" clear-icon="fas fa-times" v-model="weekDay" outlined label="보살핌 횟수"
-        disabled></v-text-field>
+      <v-text-field
+        color="#AED864"
+        clear-icon="fas fa-times"
+        v-model="weekDay"
+        outlined
+        label="보살핌 횟수"
+        disabled
+      ></v-text-field>
     </v-row>
 
     <v-row class="d-flex justify-end">
       <router-link :to="{ name: 'SeedDetail', params: { seedId: this.seedId } }">
-        <v-btn color="light-green lighten-1 white--text" @click="UpdateSeed" :disabled="isAllSubmit === false">
+        <v-btn
+          color="#AED864 white--text"
+          @click="UpdateSeed"
+          :disabled="isAllSubmit === false"
+          >
           적용
         </v-btn>
       </router-link>

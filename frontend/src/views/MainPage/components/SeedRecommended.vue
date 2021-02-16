@@ -29,7 +29,7 @@
       
       <template v-slot:footer>
         <v-pagination
-          color="light-green lighten-1"
+          color="#AED864"
           v-model="page"
           :length="pageCount"
           prev-icon="mdi-menu-left"
@@ -102,7 +102,9 @@ export default {
     margin: 1% 0 3% 0;  
     .checkLogin{
       .nickname{
-        color: #AED581;
+        color: #AED864;
+        // color: #65a11f;
+        // color: #68a720;
         font-weight: bold;
         font-size: 2rem;
       }
@@ -137,9 +139,4 @@ export default {
     }
   }
 }
-
-.nickname {
-  color: #9CCC65
-}
-
 </style>

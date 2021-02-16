@@ -1,17 +1,38 @@
 <template>
   <v-hover>
-    <template v-slot:default="{ hover }">
-      <v-avatar tile :class="`rounded-lg`" width="100%" height="100%" max-width="100%" max-height="100%"
-        color="light-green lighten-1" class="cursor-img" @click="onClickImageUpload">
-        <v-img :class="`rounded-lg`" width="100%" height="100%" max-width="100%" max-height="100%" v-if="imageUrl"
-          :src="imageUrl" @click="onClickImageUpload">
-          <v-fade-transition>
-            <v-overlay v-if="hover" absolute color="#036358">
-              <v-btn>인증 예시 사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
-            </v-overlay>
-          </v-fade-transition>
-        </v-img>
-
+    <template v-slot:default="{ hover }"> 
+      <v-avatar
+          tile
+          :class="`rounded-lg`"
+          width="100%"
+          height="100%"
+          max-width="100%"
+          max-height="100%"
+          color="#AED864"
+          class="cursor-img"
+          @click="onClickImageUpload"
+          >
+          <v-img
+            :class="`rounded-lg`"
+            width="100%"
+            height="100%"
+            max-width="100%"
+            max-height="100%"
+            v-if="imageUrl"
+            :src="imageUrl"
+            @click="onClickImageUpload"
+          >
+            <v-fade-transition>
+              <v-overlay
+                v-if="hover"
+                absolute
+                color="#036358"
+              >
+                <v-btn>인증 예시 사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
+              </v-overlay>
+            </v-fade-transition>
+          </v-img>
+        
         <!-- <v-fade-transition>
           <v-overlay
             v-if="hover"

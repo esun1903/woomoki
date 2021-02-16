@@ -2,7 +2,7 @@
   <v-col class="pa-0">
     <v-select
       v-model="value"
-      color="light-green lighten-1"
+      color="#AED864"
       :items="week"
       label="몇 주 짜리 씨앗인가요? (최대 14주)"
       suffix="주"

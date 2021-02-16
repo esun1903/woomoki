@@ -122,14 +122,14 @@
         <!-- <v-btn
           :disabled="!selected.length"
           :loading="loading"
-          color="light-green lighten-2"
+          color="#AED864"
           text
           @click="sendFavoriteCategories"
           >카테고리 저장</v-btn
         > -->
         <v-btn
           :loading="loading"
-          color="light-green lighten-1"
+          color="#AED864"
           class="white--text"
           @click="sendFavoriteCategories"
           >카테고리 저장</v-btn

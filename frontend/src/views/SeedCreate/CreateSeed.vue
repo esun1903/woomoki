@@ -3,19 +3,19 @@
 
     <v-stepper non-linear v-model="e1">
       <v-stepper-header>
-        <v-stepper-step color="light-green lighten-1" complete-icon="fas fa-check-circle" :complete="e1 > 1" step="1">
+        <v-stepper-step color="#AED864" complete-icon="fas fa-check-circle" :complete="e1 > 1" step="1">
           씨앗 종류
         </v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step color="light-green lighten-1" complete-icon="fas fa-check-circle" :complete="e1 > 2" step="2">
+        <v-stepper-step color="#AED864" complete-icon="fas fa-check-circle" :complete="e1 > 2" step="2">
           씨앗 내용
         </v-stepper-step>
 
         <v-divider></v-divider>
 
-        <v-stepper-step color="light-green lighten-1" complete-icon="fas fa-check-circle" step="3">
+        <v-stepper-step color="#AED864" complete-icon="fas fa-check-circle" step="3">
           기타
         </v-stepper-step>
       </v-stepper-header>
@@ -28,7 +28,7 @@
             @transferHobby="receiveHobby"></SeedCategory>
 
           <div class="d-flex justify-end mb-1">
-            <v-btn color="light-green lighten-1 white--text" @click="e1 = 2" :disabled="isSubmitCategory === false">
+            <v-btn color="#AED864 white--text" @click="e1 = 2" :disabled="isSubmitCategory === false">
               다음
             </v-btn>
 
@@ -47,7 +47,7 @@
           <SeedContent @transferContent="receiveContent"></SeedContent>
 
           <div class="d-flex justify-end mb-1">
-            <v-btn color="light-green lighten-1 white--text" @click="[e1 = 3, uploadThumbnail()]"
+            <v-btn color="#AED864 white--text" @click="e1 = 3"
               :disabled="BasicInfo.isSubmitBasicInfo === false">
               다음
             </v-btn>
@@ -75,7 +75,7 @@
           <SeedCheckbox @transferCheckbox="receiveCheckbox"></SeedCheckbox>
 
           <div class="text-end">
-            <v-btn color="light-green lighten-1 white--text" @click="InsertSeed"
+            <v-btn color="#AED864 white--text" @click="InsertSeed"
               :disabled="EtcInfo.isSubmitEtcInfo === false">생성
             </v-btn>
 
