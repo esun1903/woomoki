@@ -1,7 +1,6 @@
 <template>
     <v-app>
         <v-container>
-            <h2>인증하기</h2>
             <v-row>
                 <v-col cols="6" class="left">
                     <!-- <v-layout wrap align-center> -->
@@ -82,14 +81,14 @@
             return {
                 // S3 관련 코드
 
-                // file: null,
-                // // albumBucketName, bucketRegion, IdentityPoolId = AWS S3 bucket value -> .env save 
-                // albumBucketName: "cert-photo-upload",
-                // bucketRegion: "ap-northeast-2",
-                // IdentityPoolId: "ap-northeast-2:8cf7cb29-d051-4f38-885f-09b1e4dd8153",
-                // // 
+                file: null,
+                // albumBucketName, bucketRegion, IdentityPoolId = AWS S3 bucket value -> .env save 
+                albumBucketName: "cert-photo-upload",
+                bucketRegion: "ap-northeast-2",
+                IdentityPoolId: "ap-northeast-2:8cf7cb29-d051-4f38-885f-09b1e4dd8153",
+                // 
                 selectedImage: null,
-                // photoURL: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
+                photoURL: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
                 // fileList: [],
                 // select: [],
                 // items: [],
@@ -119,30 +118,30 @@
                 this.selectedImage = URL.createObjectURL(this.file);
             },
             writeCert() {
-                // // AWS Setting Start
+                // AWS Setting Start
 
                 // S3 관련 코드
-                // AWS.config.update({
+                AWS.config.update({
 
-                //         region: this.bucketRegion,
-                //         credentials: new AWS.CognitoIdentityCredentials({
-                //                 IdentityPoolId: this.IdentityPoolId
-                //             }
+                        region: this.bucketRegion,
+                        credentials: new AWS.CognitoIdentityCredentials({
+                                IdentityPoolId: this.IdentityPoolId
+                            }
 
-                //         )
-                //     }
+                        )
+                    }
 
-                // );
+                );
 
-                // const s3 = new AWS.S3({
+                const s3 = new AWS.S3({
 
-                //     apiVersion: "2006-03-01",
-                //     params: {
-                //         Bucket: this.albumBucketName
-                //     }
-                // });
+                    apiVersion: "2006-03-01",
+                    params: {
+                        Bucket: this.albumBucketName
+                    }
+                });
 
-                // // AWS Setting End
+                // AWS Setting End
 
                 const user_id = this.$store.state.UserStore.user.user_id;
                 this.certForm.user_id = user_id;
@@ -163,43 +162,39 @@
                 var realtime = year + "" + month + "" + date + "_" + hours + minutes + seconds + milliseconds;
                 console.log(realtime);
 
-                // S3 관련 주소 풀기
-                // let photoKey = user_id + "_" + realtime + "_" + this.file.name
-                // this.certForm.img = this.photoURL + photoKey;
+                // S3 관련 url값
+                let photoKey = user_id + "_" + realtime + "_" + this.file.name
+                this.certForm.img = this.photoURL + photoKey;
 
-                let photoKey = "http://www.topstarnews.net/news/photo/first/201709/img_306795_1.jpg"
-
-console.log(photoKey);
-                this.certForm.img = photoKey;
-
+                // let photoKey = "http://www.topstarnews.net/news/photo/first/201709/img_306795_1.jpg"
+                
                 console.log(this.certForm.content);
                 console.log(this.certForm.img);
                 console.log(this.certForm.user_id);
                 console.log(this.certForm.cng_id);
                 // console.log(this.certForm.select);
 
-                // S3 관련 코드 풀면서 제거하기
-                this.$store.dispatch("CertStore/writeCert", this.certForm);
-                console.log(this.certForm);
+                // // S3 관련 코드 풀면서 제거하기
+                // this.$store.dispatch("CertStore/writeCert", this.certForm);
+                // console.log(this.certForm);
 
                 // S3 관련 코드
 
-                // s3.upload({
-                //         Key: photoKey,
-                //         Body: this.file,
-                //         ACL: 'public-read'
-                //     }, (err, data) => {
-                //         if (err) {
-                //             console.log(err)
-                //             return alert('There was an error uploading your photo: ', err.message);
-                //         }
-                //         this.$store.dispatch("CertStore/writeCert", this.certForm);
-                //         console.log(this.certForm);
-                //         console.log(data);
-                //         this.getFiles();
-                //     }
+                s3.upload({
+                        Key: photoKey,
+                        Body: this.file,
+                        ACL: 'public-read'
+                    }, (err, data) => {
+                        if (err) {
+                            console.log(err)
+                            return alert('There was an error uploading your photo: ', err.message);
+                        }
+                        this.$store.dispatch("CertStore/writeCert", this.certForm);
+                        console.log(this.certForm);
+                        console.log(data);
+                    }
 
-                // );
+                );
 
             },
             // S3 관련 코드
@@ -302,28 +297,24 @@ console.log(photoKey);
         margin-top: 5%;
     }
 
-    h2 {
-        text-align: center;
-        margin-top: 5%;
-    }
 
+    // 해시태그
 
-
-    .tag-input span.v-chip::before {
-        content: "label";
-        font-weight: normal;
-        font-style: normal;
-        font-size: 20px;
-        line-height: 1;
-        letter-spacing: normal;
-        text-transform: none;
-        display: inline-block;
-        white-space: nowrap;
-        word-wrap: normal;
-        direction: ltr;
-        -webkit-font-feature-settings: 'liga';
-        -webkit-font-smoothing: antialiased;
-    }
+    // .tag-input span.v-chip::before {
+    //     content: "label";
+    //     font-weight: normal;
+    //     font-style: normal;
+    //     font-size: 20px;
+    //     line-height: 1;
+    //     letter-spacing: normal;
+    //     text-transform: none;
+    //     display: inline-block;
+    //     white-space: nowrap;
+    //     word-wrap: normal;
+    //     direction: ltr;
+    //     -webkit-font-feature-settings: 'liga';
+    //     -webkit-font-smoothing: antialiased;
+    // }
 
     .cert-insert-btn {
         width: 100%;
