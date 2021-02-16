@@ -47,7 +47,7 @@
           <SeedContent @transferContent="receiveContent"></SeedContent>
 
           <div class="d-flex justify-end mb-1">
-            <v-btn color="#AED864 white--text" @click="e1 = 3"
+            <v-btn color="#AED864 white--text" @click="[e1 = 3, uploadThumbnail()]"
               :disabled="BasicInfo.isSubmitBasicInfo === false">
               다음
             </v-btn>
