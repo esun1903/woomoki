@@ -1,7 +1,8 @@
 <template>
   <div>
     <v-btn @click="naver" color="transparent" depressed icon>
-      <v-img :src="require('@/assets/images/naver.png')" max-height="40" max-width="40" />
+      <v-icon color="white" size="2vw">fab fa-facebook</v-icon>
+      <!-- <v-img :src="require('@/assets/images/naver.png')" max-height="40" max-width="40" /> -->
     </v-btn>
   </div>
 </template>

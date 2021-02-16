@@ -188,7 +188,7 @@
         flex-direction: column;
         align-items: center;
         box-sizing: border-box;
-        background: #be5656;
+        background: #F3ECE2;
         color: #fff;
         padding-left: 50px;
         padding-right: 50px;

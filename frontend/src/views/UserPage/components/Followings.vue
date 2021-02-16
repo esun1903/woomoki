@@ -10,7 +10,7 @@
       <v-btn
         @click="UserUnfollow"
         v-if="isMyPage === true"
-        :color="isFollow ? 'grey' : 'light-green lighten-1' "
+        :color="isFollow ? 'grey' : '#AED864' "
         small
         class="white--text"
         >

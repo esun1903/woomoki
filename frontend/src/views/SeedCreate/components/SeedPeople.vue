@@ -5,7 +5,7 @@
       label="최대 인원"
       color="grey"
       track-color="grey"
-      thumb-color="light-green lighten-1"
+      thumb-color="#AED864"
       :thumb-label="true"
       min="0"
       max="50"

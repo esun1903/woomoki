@@ -8,7 +8,7 @@
         height="100%"
         max-width="100%"
         max-height="100%"
-        color="light-green lighten-1"
+        color="#AED864"
         class="cursor-img"
         @click="onClickImageUpload"
         >
