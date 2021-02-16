@@ -120,5 +120,16 @@ public interface CertificationDao {
 
 	@Select(" UPDATE user SET levelnum = levelnum + 1 WHERE id = #{userId} ")
 	public void userLevelUp(@Param("userId") int user_id );
+
+	@Update("UPDATE joined_challenge " +
+			"SET sum_stamp = sum_stamp-1  " +
+			"WHERE user_id = #{userId} AND cng_id = #{cngId} ")
+	public int canclecertificationStamp(@Param("userId") int user_id, @Param("cngId") int cng_id);
+
+	@Select("UPDATE joined_challenge SET result = 2 WHERE user_id = #{userId} AND cng_id = #{cngId}")
+	public void challengeFail(@Param("userId") int user_id, @Param("cngId") int cng_id);
+
+	@Select(" UPDATE user SET levelnum = levelnum - 1 WHERE id = #{userId} ")
+	public void userLevelDown(@Param("userId") int user_id );
 }
 
