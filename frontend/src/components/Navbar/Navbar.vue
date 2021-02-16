@@ -92,10 +92,9 @@
                   <v-tab-item v-for="(type,idx) in types" :key="idx">
                     <v-card v-for="(tab,idx) in tabs" :key="idx" @click="NotificationConfirm(tab.id)">
                       
-                      <v-card-text v-if="type=='요청' && tab.type=='reqFollow'">{{tab.get_user}}님이 팔로우 요청을 하였습니다. </v-card-text>
-                      <v-card-text v-if="type=='요청' && tab.type=='reqChallenge'">{{tab.get_user}}님이 {{tab.cng_id}} 챌린지 참가 요청을 하였습니다. </v-card-text>
-                      <v-card-text v-if="type=='알림' && tab.type=='resFollow'">{{tab.get_user}}님의 팔로워가 되었습니다.</v-card-text>
-                      <v-card-text v-if="type=='알림' && tab.type=='resChallenge'">{{tab.cng_id}} 챌린지 참여 완료. </v-card-text>
+                      <v-card-text v-if="type=='알림' && tab.type=='reqFollow'">{{tab.reqUserName}}님이 팔로우 하였습니다. </v-card-text>
+                      <v-card-text v-if="type=='요청' && tab.type=='reqChallenge'">{{tab.reqUserName}}님이 {{tab.cngTitle}} 챌린지 참가 요청을 하였습니다. </v-card-text>
+                      <v-card-text v-if="type=='알림' && tab.type=='resChallenge'">{{tab.cngTitle}} 챌린지 참여 완료. </v-card-text>
                   
                     </v-card>
                   </v-tab-item>
@@ -181,6 +180,7 @@ export default {
     tabs : function(){
       if(!this.tabs.length)
         this.NotificationList();
+
     },
     seeds(newVal, oldVal) {
       if (newVal!== oldVal) {
@@ -236,6 +236,16 @@ export default {
           console.log(error);
         });  
     },
+    NotificationCallCheck: function(id) {
+      const notificationId = id;
+       axios.put(`http://127.0.0.1:8080/notificationCallCheck/${notificationId}`)
+        .then((response) => {
+          this.tabs = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });  
+    },
     NotificationList(){
       const userId =  this.user.user_id;
        axios.get(`http://127.0.0.1:8080/notificationList/${userId}`)
@@ -245,10 +255,38 @@ export default {
         .catch((error) => {
           console.log(error);
         });    
+    },
+    NotificationToast(){
+        
+       for(var i =0 ; i<this.tabs.length ;i++){
+         var pushMsg ="";
+         
+          if(this.tabs[i].type=='reqFollow' ){
+              pushMsg = this.tabs[i].reqUserName+"님이 팔로우 하였습니다.";
+          }else if(this.tabs[i].type=='reqChallenge' && this.tabs[i].msg =='1'){
+              pushMsg = this.tabs[i].reqUserName+"님이  '"+ this.tabs[i].cngTitle+"'챌린지 참가 신청을 하였습니다.";
+          }else if(this.tabs[i].type=='resChallenge' && this.tabs[i].msg =='1'){
+              pushMsg ="'"+ this.tabs[i].cngTitle+"' 챌린지 참여 완료."
+          }
+        
+        //this.NotificationCallCheck(this.tabs[i].id);
+       
+        this.$toast.open({
+        message: pushMsg,
+        type: 'info',
+        duration: 5000,
+        dismissible: true
+        }); 
+        
+    }  
     }
+    
   },
-  mounted (){
-  this.NotificationList();
+  created (){
+    
+    setInterval(() => this.NotificationList(), 5000);
+     setInterval(() => this.NotificationToast(), 5000);
+      
   },
 
 };
