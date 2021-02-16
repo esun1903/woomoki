@@ -191,7 +191,7 @@
     .login {
       padding: 0;
       margin: 0 auto;
-      min-height: 750px;
+      min-height: 71.3vh;
       box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
 
       .left {
@@ -235,7 +235,7 @@
 
         .all {
           .application--wrap {
-            min-height: 80vh !important;
+            min-height: 70vh !important;
           }
         }
 

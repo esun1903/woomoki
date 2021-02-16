@@ -196,8 +196,6 @@ export default {
       axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId_num}`, userId)
         .then((res) => {
           const seeds = res.data
-          console.log('화아앙아아악인')
-          console.log(seeds)
           seeds.sort(function(a,b) {
             return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
           })
@@ -357,6 +355,7 @@ a:-webkit-any-link {
                   -webkit-line-clamp: 1;
                   overflow: hidden;
                   p{
+                    font-family: 'S-CoreDream-4Regular';
                     font-size: 1.1rem;
                   }
                 }
