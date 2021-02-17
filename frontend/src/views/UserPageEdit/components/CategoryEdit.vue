@@ -244,7 +244,6 @@ export default {
   },
   watch: {
     selected: function () {
-      console.log("?")
     }
   },
   created() {
