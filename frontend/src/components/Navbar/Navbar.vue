@@ -9,14 +9,11 @@
         </router-link>
         
         <SearchBar/>
-        <!-- <div v-if="getCheckLogin">
-          안녕하세요, 
-          <span class="nickname">{{ this.user.nickname }}</span>님
-        </div> -->
         <div class="btn-group">
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
-               <v-btn v-if="getCheckLogin" icon v-bind="attrs" v-on="on" class="btn nav-cursur">
+              <!-- <v-btn v-if="getCheckLogin" icon v-bind="attrs" v-on="on" class="btn nav-cursur"> -->
+              <v-btn icon v-bind="attrs" v-on="on" class="btn nav-cursur">                 
                 <v-icon>mdi-lead-pencil</v-icon>
               </v-btn>
             </template>
@@ -29,7 +26,7 @@
                 </v-list-item-title>
               </v-list-item>
               <v-list-item>
-          <v-list-item-title>
+                <v-list-item-title>
                   <router-link to="/seedJoin">
                       씨앗 물 주기
                   </router-link>
@@ -40,11 +37,6 @@
 
            <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
-              <!-- <v-btn icon  class="btn">
-                <v-icon>mdi-lead-pencil</v-icon>
-              </v-btn> -->
-              <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
-              <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
             <v-btn icon class="btn nav-cursur" v-bind="attrs" v-on="on">
                 <v-icon>fas fa-user-friends</v-icon>
               </v-btn>
@@ -74,7 +66,8 @@
             width="25%"
           >
             <template v-slot:activator="{ on, attrs }">
-               <v-btn v-if="getCheckLogin" @click="getSeeds" icon v-bind="attrs" v-on="on" class="btn">
+               <!-- <v-btn v-if="getCheckLogin" @click="getSeeds" icon v-bind="attrs" v-on="on" class="btn"> -->
+               <v-btn @click="getSeeds" icon v-bind="attrs" v-on="on" class="btn">
                 <v-icon>mdi-cart</v-icon>
               </v-btn>
             </template>
@@ -105,7 +98,8 @@
             </v-card>
           </v-dialog>
 
-          <v-btn v-if="getCheckLogin" icon class="btn" @click="notice = true">
+          <!-- <v-btn v-if="getCheckLogin" icon class="btn" @click="notice = true"> -->
+          <v-btn icon class="btn" @click="notice = true">
             <v-icon>mdi-bell-ring</v-icon>
           </v-btn>
           <v-dialog v-model="notice" width="25%" >
@@ -188,7 +182,7 @@
           
           <v-menu offset-y open-on-hover bottom>
             <template v-slot:activator="{ on, attrs }">
-                         <v-btn icon v-bind="attrs" v-on="on" class="btn nav-cursur">
+              <v-btn icon v-bind="attrs" v-on="on" class="btn nav-cursur">
                 <v-icon color="grey darken-1">mdi-account-circle</v-icon>
               </v-btn>
             </template>
@@ -197,7 +191,7 @@
                 <v-list-item>
                   <router-link :to="{ name: 'UserPage', params: { userNickname: CheckUserInfo }}">
                     <v-list-item-title>마이페이지</v-list-item-title>
-                   </router-link>
+                  </router-link>
                 </v-list-item>
                 <v-list-item @click="goLogout">
                   <v-list-item-title>로그아웃</v-list-item-title>
@@ -215,7 +209,6 @@
                   </router-link>
                 </v-list-item>
               </div>
-
             </v-list>
           </v-menu>
         </div>
