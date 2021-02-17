@@ -2,15 +2,14 @@
     <v-container class="container-size">
         <!-- <v-row> -->
         <v-col class="cng-name">
-            <span class="d-flex justify-center align-center mb-3 title-size">
-                {{ CertInfo.title }}
-            </span>
-            <span class="d-flex justify-center">
-                <v-chip class="white--text" :color="color">
-                    {{ this.category }}
-                </v-chip>
-            </span>
-
+          <span class="d-flex justify-center align-center mb-3 title-size">
+              {{ CertInfo.title }}
+          </span>
+          <span class="d-flex justify-center">
+              <v-chip class="white--text" :color="color">
+                  {{ this.category }}
+              </v-chip> 
+          </span>
         </v-col>
         <!-- </v-row> -->
         <v-list-item class="border-list">
@@ -210,134 +209,129 @@
 </template>
 
 <script>
-    import CommentInsert from '@/views/Certification/components/CommentInsert.vue'
-    import CommentList from '@/views/Certification/components/CommentList.vue'
-    import {
-        mapState
-    } from "vuex";
-    import axios from "axios";
+import CommentInsert from '@/views/Certification/components/CommentInsert.vue'
+import CommentList from '@/views/Certification/components/CommentList.vue'
+import {
+    mapState
+} from "vuex";
+import axios from "axios";
 
-    export default {
-        name: 'CertificationDetail',
-        components: {
-            CommentList,
-            CommentInsert
-        },
-        directives: {},
-        data() {
-            return {
-                CertUserImg: "",
-                CertInfo: [],
-                comments: [],
-                UserInfo: [],
-                Nicknames: [],
-                ProfileImgs: [],
-                // photoUrl:"https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
-                dialog: false,
-                dialogFail: false,
-                dialogSuccess: false,
-                scrapped: false,
-                confirmed: false,
-                checkUser: false,
-                showResultBtn: false,
-                likeCount: 0,
-                category: "",
-                color: "",
-            };
-        },
-        computed: {
-            ...mapState('UserStore', ['user']),
-            getCheckSeedOwner() {
-                if (this.user.user_id === this.$route.params.cngUserId) {
-                    return true
-                } else {
-                    return false
-                }
-            },
-        },
-        mounted() {
+export default {
+  name: 'CertificationDetail',
+  components: {
+      CommentList,
+      CommentInsert
+  },
+  data() {
+    return {
+        CertUserImg: "",
+        CertInfo: [],
+        comments: [],
+        UserInfo: [],
+        Nicknames: [],
+        ProfileImgs: [],
+        // photoUrl:"https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
+        dialog: false,
+        dialogFail: false,
+        dialogSuccess: false,
+        scrapped: false,
+        confirmed: false,
+        checkUser: false,
+        showResultBtn: false,
+        likeCount: 0,
+        category: "",
+        color: "",
+    };
+},
+computed: {
+  ...mapState('UserStore', ['user']),
+  getCheckSeedOwner() {
+      if (this.user.user_id === this.$route.params.cngUserId) {
+          return true
+      } else {
+          return false
+      }
+  },
+},
+created() {
+    this.getCategory()
+    this.CheckisLikeSeed();
+    this.detailCert();
+    this.detailComment();
+    const certId = this.$route.params.certId;
+    const cngId = this.$route.params.cngId;
+    const cngUserId = this.$route.params.cngUserId;
+    // const cngName = this.$route.params.cngName;
+    // console.log(cngName);
+    // console.log("detail's cngid: " + cngId);
+    // console.log("detail's certid: " + certId);
+    // console.log("cngUserId " + cngUserId);
+    if (certId === undefined || cngId === undefined || cngUserId === undefined) {
+        this.$router.go(-1);
+    }
+    // console.log("check create: " + this.checkUser);
+},
+methods: {
+  async detailCert() {
+    const userId = this.$store.state.UserStore.user.user_id;
+    console.log("userid: " + userId);
+    const certId = this.$route.params.certId;
+    await axios.get(`http://localhost:8080/detailCertification/${certId}`)
+      .then((response) => {
+        this.CertInfo = response.data;
+        const certUserId = this.CertInfo.user_id;
+        const cngUserId = this.$route.params.cngUserId;
+        console.log("지금 인증글에 해당하는 결과: "+ this.CertInfo.result)
 
-        },
-        created() {
-            this.getCategory()
-            this.CheckisLikeSeed();
-            this.detailCert();
-            this.detailComment();
-            const certId = this.$route.params.certId;
-            const cngId = this.$route.params.cngId;
-            const cngUserId = this.$route.params.cngUserId;
-            // const cngName = this.$route.params.cngName;
-            // console.log(cngName);
-            console.log("detail's cngid: " + cngId);
-            console.log("detail's certid: " + certId);
-            console.log("cngUserId " + cngUserId);
-            if (certId === undefined || cngId === undefined || cngUserId === undefined) {
-                this.$router.go(-1);
+        console.log("cngUserId: " + cngUserId);
+        console.log("certUserId: " + certUserId);
+        if (userId === certUserId) {
+            this.checkUser = true;
+        }
+
+        console.log("cngUserId: " + cngUserId);
+        if (userId === Number(cngUserId)) {
+            this.showResultBtn = true;
+        }
+        console.log(response.data)
+        this.getCertUserImg();
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+},
+  detailComment: function () {
+    const certId = this.$route.params.certId;
+    console.log(certId);
+    axios.get(`http://localhost:8080/commentList/${certId}`)
+        .then((response) => {
+            console.log(response.data);
+            this.comments = response.data;
+            for (const i in this.comments) {
+                const comment = this.comments[i]
+                // const commentUserId = comment["user_id"]
+                // // console.log("cmt user id: " + commentUserId);
+                // this.getUserInfo(commentUserId);
             }
-            // console.log("check create: " + this.checkUser);
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+  },
 
-        },
-        methods: {
-            async detailCert() {
-                const userId = this.$store.state.UserStore.user.user_id;
-                console.log("userid: " + userId);
-                const certId = this.$route.params.certId;
-                await axios.get(`http://localhost:8080/detailCertification/${certId}`)
-                    .then((response) => {
-                        this.CertInfo = response.data;
-                        const certUserId = this.CertInfo.user_id;
-                        const cngUserId = this.$route.params.cngUserId;
-                        console.log("지금 인증글에 해당하는 결과: "+ this.CertInfo.result)
-
-                        console.log("cngUserId: " + cngUserId);
-                        console.log("certUserId: " + certUserId);
-                        if (userId === certUserId) {
-                            this.checkUser = true;
-                        }
-
-                        console.log("cngUserId: " + cngUserId);
-                        if (userId === Number(cngUserId)) {
-                            this.showResultBtn = true;
-                        }
-                        console.log(response.data)
-                        this.getCertUserImg();
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                    })
-
-
-            },
-            detailComment: function () {
-                const certId = this.$route.params.certId;
-                console.log(certId);
-                axios.get(`http://localhost:8080/commentList/${certId}`)
-                    .then((response) => {
-                        console.log(response.data);
-                        this.comments = response.data;
-                        for (const i in this.comments) {
-                            const comment = this.comments[i]
-                            // const commentUserId = comment["user_id"]
-                            // // console.log("cmt user id: " + commentUserId);
-                            // this.getUserInfo(commentUserId);
-                        }
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                    })
-            },
-            // async getUserInfo(commentUserId) {
-            //     // console.log("getUserInfo를 들어왔ㅇㅓ : " + commentUserId);
-            //     await axios.get(`http://localhost:8080/userPage/Id/${commentUserId}`)
-            //         .then((response) => {
-            //             console.log(response.data);
-            //             this.UserInfo = response.data;
-            //             this.Nicknames.push(this.UserInfo.nickname)
-            //             this.ProfileImgs.push(this.UserInfo.img)
-            //             // console.log("nickname: " + this.UserInfo.nickname);
-            //             // console.log(this.Nicknames);
-            //             // this.saveNickname();
-            //         })
+            // 댓글단 유저 정보
+  async getUserInfo(commentUserId) {
+      // console.log("getUserInfo를 들어왔ㅇㅓ : " + commentUserId);
+      await axios.get(`http://localhost:8080/userPage/Id/${commentUserId}`)
+          .then((response) => {
+              // console.log(response.data);
+              this.UserInfo = response.data;
+              this.Nicknames.push(this.UserInfo.nickname)
+              this.ProfileImgs.push(this.UserInfo.img)
+              // console.log("nickname: " + this.UserInfo.nickname);
+              // console.log(this.Nicknames);
+              // this.saveNickname();
+          })
 
             // },
             // saveNickname(){
@@ -347,167 +341,167 @@
             //     }
             //     // console.log("commments: " + this.comments);
             // },
-            updateCert: function () {
-                this.$router.push({
-                    name: 'CertificationUpdate',
-                    params: {
-                        cngId: this.$route.params.cngId,
-                        certId: this.$route.params.certId,
-                        cngUserId: this.$route.params.cngUserId,
-                    }
-                });
-            },
-            deleteCert() {
-                const certId = this.$route.params.certId;
-                axios.delete(`http://localhost:8080/deleteCertification/${certId}`)
-                    .then((response) => {
-                        console.log(response.data)
-                        this.$router.push({
-                            name: 'SeedDetail',
-                            params: {
-                                seedId: this.$route.params.cngId
-                            }
-                        });
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                    })
-
-            },
-            getScrap() {
-                // 클릭 때 마다 scrapped가 토글
-                this.scrapped = !this.scrapped
-                const certId = this.$route.params.certId;
-                const userId = this.$store.state.UserStore.user.user_id
-                // 스크랩이 되어있지 않을 때 스크랩
-                if (this.scrapped) {
-                    axios.put(`http://127.0.0.1:8080/likeUpCertification/${userId}/${certId}`)
-                        .then((res) => {
-                            this.likeCount += 1
-                            console.log(res)
-                        })
-                        .catch((err) => {
-                            console.log(err)
-                        })
-                } else {
-                    // 스크랩 되어 있을 때 스크랩 취소
-                    axios.put(`http://127.0.0.1:8080/likeDownCertification/${userId}/${certId}`)
-                        .then((res) => {
-                            this.likeCount -= 1
-                            console.log(res)
-                        })
-                        .catch((err) => {
-                            console.log(err)
-                        })
-                }
-            },
-            CheckisLikeSeed: function () {
-                const certId = this.$route.params.certId;
-                const userId = this.CertInfo.user_id
-                axios.get(`http://127.0.0.1:8080/LikeAndCertification/${certId}`)
-                    .then((res) => {
-                        const UserList = res.data
-                        this.likeCount = UserList.length
-                        console.log(this.likeCount)
-                        var i;
-                        for (i = 0; i < UserList.length; i++) {
-                            if (UserList[i].id === Number(userId)) {
-                                this.scrapped = true
-                            }
-                        }
-                    })
-            },
-            getCategory: function () {
-                const seedId = this.$route.params.cngId
-                axios.get(`http://127.0.0.1:8080/detailChallenge/${seedId}`)
-                    .then((res) => {
-                        if (res.data.category_id === '1') {
-                            this.category = "건강"
-                            this.color = "light-blue lighten-1"
-                        } else if (res.data.category_id === '2') {
-                            this.category = "생활습관"
-                            this.color = "orange lighten-1"
-                        } else if (res.data.category_id === '3') {
-                            this.category = "독서"
-                            this.color = "teal lighten-1"
-                        } else if (res.data.category_id === '4') {
-                            this.category = "자산"
-                            this.color = "indigo lighten-1"
-                        } else if (res.data.category_id === '5') {
-                            this.category = "자기계발"
-                            this.color = "purple lighten-1"
-                        } else {
-                            this.category = "취미"
-                            this.color = "pink lighten-1"
-                        }
-                        console.log("카테고리", this.category)
-                    })
-                    .catch((err) => {
-                        console.log(err)
-                    })
-            },
-            resultSuccess() {
-
-                const certId = this.$route.params.certId;
-                const UpdateCertInfo = {
-                    cng_id: this.CertInfo.cng_id,
-                    content: this.CertInfo.content,
-                    id: certId,
-                    img: this.CertInfo.img,
-                    user_id: this.CertInfo.user_id,
-                    like_cnt: this.CertInfo.like_cnt,
-                    result: 3,
-                    current_week: this.CertInfo.current_week,
-                    current_day: this.CertInfo.current_day,
-                }
-
-                axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
-                    .then(res => {
-                        console.log(res);
-                        this.$router.go(this.$router.currentRoute);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-
-                    //  this.showResultBtn = false;
-
-            },
-            resultFail() {
-                const certId = this.$route.params.certId;
-                const UpdateCertInfo = {
-                    cng_id: this.CertInfo.cng_id,
-                    content: this.CertInfo.content,
-                    id: certId,
-                    img: this.CertInfo.img,
-                    user_id: this.CertInfo.user_id,
-                    like_cnt: this.CertInfo.like_cnt,
-                    result: 1,
-                    current_week: this.CertInfo.current_week,
-                    current_day: this.CertInfo.current_day,
-                }
-
-                axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
-                    .then(res => {
-                        console.log(res);
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-                
-                this.showResultBtn = false;
-            },
-            getCertUserImg() {
-                const certUser = this.CertInfo.user_id;
-                axios.get(`http://localhost:8080/userPage/Id/${certUser}`)
-                    .then((res) => {
-                        console.log('내 프로필 잘 나와야하는데')
-                        console.log(res)
-                        this.CertUserImg = res.data.img
-                    })
-            },
         },
-    };
+  updateCert: function () {
+      this.$router.push({
+          name: 'CertificationUpdate',
+          params: {
+              cngId: this.$route.params.cngId,
+              certId: this.$route.params.certId,
+              cngUserId: this.$route.params.cngUserId,
+          }
+      });
+  },
+  deleteCert() {
+      const certId = this.$route.params.certId;
+      axios.delete(`http://localhost:8080/deleteCertification/${certId}`)
+          .then((response) => {
+              console.log(response.data)
+              this.$router.push({
+                  name: 'SeedDetail',
+                  params: {
+                      seedId: this.$route.params.cngId
+                  }
+              });
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+
+  },
+  getScrap() {
+      // 클릭 때 마다 scrapped가 토글
+      this.scrapped = !this.scrapped
+      const certId = this.$route.params.certId;
+      const userId = this.$store.state.UserStore.user.user_id
+      // 스크랩이 되어있지 않을 때 스크랩
+      if (this.scrapped) {
+          axios.put(`http://127.0.0.1:8080/likeUpCertification/${userId}/${certId}`)
+              .then((res) => {
+                  this.likeCount += 1
+                  console.log(res)
+              })
+              .catch((err) => {
+                  console.log(err)
+              })
+      } else {
+          // 스크랩 되어 있을 때 스크랩 취소
+          axios.put(`http://127.0.0.1:8080/likeDownCertification/${userId}/${certId}`)
+              .then((res) => {
+                  this.likeCount -= 1
+                  console.log(res)
+              })
+              .catch((err) => {
+                  console.log(err)
+              })
+      }
+  },
+  CheckisLikeSeed: function () {
+      const certId = this.$route.params.certId;
+      const userId = this.$store.state.UserStore.user.user_id
+      axios.get(`http://127.0.0.1:8080/LikeAndCertification/${certId}`)
+          .then((res) => {
+          const UserList = res.data
+          this.likeCount = UserList.length
+
+          for (var i=0; i < UserList.length; i++) {
+              if (UserList[i].id === Number(userId)) {
+              this.scrapped = true
+              }
+          }})
+      
+      },
+    getCategory: function () {
+      const seedId = this.$route.params.cngId
+      axios.get(`http://127.0.0.1:8080/detailChallenge/${seedId}`)
+          .then((res) => {
+              if (res.data.category_id === '1') {
+                  this.category = "건강"
+                  this.color = "light-blue lighten-1"
+              } else if (res.data.category_id === '2') {
+                  this.category = "생활습관"
+                  this.color = "orange lighten-1"
+              } else if (res.data.category_id === '3') {
+                  this.category = "독서"
+                  this.color = "teal lighten-1"
+              } else if (res.data.category_id === '4') {
+                  this.category = "자산"
+                  this.color = "indigo lighten-1"
+              } else if (res.data.category_id === '5') {
+                  this.category = "자기계발"
+                  this.color = "purple lighten-1"
+              } else {
+                  this.category = "취미"
+                  this.color = "pink lighten-1"
+              }
+              console.log("카테고리", this.category)
+          })
+          .catch((err) => {
+              console.log(err)
+          })
+          },
+    resultSuccess() {
+
+        const certId = this.$route.params.certId;
+        const UpdateCertInfo = {
+            cng_id: this.CertInfo.cng_id,
+            content: this.CertInfo.content,
+            id: certId,
+            img: this.CertInfo.img,
+            user_id: this.CertInfo.user_id,
+            like_cnt: this.CertInfo.like_cnt,
+            result: 3,
+            current_week: this.CertInfo.current_week,
+            current_day: this.CertInfo.current_day,
+        }
+
+        axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
+            .then(res => {
+                console.log(res);
+                this.$router.go(this.$router.currentRoute);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+            //  this.showResultBtn = false;
+
+    },
+    resultFail() {
+        const certId = this.$route.params.certId;
+        const UpdateCertInfo = {
+            cng_id: this.CertInfo.cng_id,
+            content: this.CertInfo.content,
+            id: certId,
+            img: this.CertInfo.img,
+            user_id: this.CertInfo.user_id,
+            like_cnt: this.CertInfo.like_cnt,
+            result: 1,
+            current_week: this.CertInfo.current_week,
+            current_day: this.CertInfo.current_day,
+        }
+
+        axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        
+        this.showResultBtn = false;
+    },
+        getCertUserImg() {
+            const certUser = this.CertInfo.user_id;
+            axios.get(`http://localhost:8080/userPage/Id/${certUser}`)
+                .then((res) => {
+                    console.log('내 프로필 잘 나와야하는데')
+                    console.log(res)
+                    this.CertUserImg = res.data.img
+                })
+        },
+    }
+}  
 </script>
 
 <style lang="scss" scoped>

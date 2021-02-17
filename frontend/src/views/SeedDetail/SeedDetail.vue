@@ -1,7 +1,7 @@
 <template>
   <v-container class="container-size">
     <v-row>
-      <SeedThumbnail></SeedThumbnail>
+      <SeedThumbnail :joinUser="joinUser"></SeedThumbnail>
     </v-row>
 
     <v-row>
@@ -16,7 +16,7 @@
           <v-tab-item v-for="item in items" :key="item">
             <v-card width="100vw">
               <v-card-text class="d-flex justify-center" v-if="item === '씨앗 정보'">
-                <SeedBasicInfo :SeedInfo="SeedInfo"></SeedBasicInfo>
+                <SeedBasicInfo :SeedInfo="SeedInfo" :waitUser="waitUser" :isJoin="isJoin"></SeedBasicInfo>
               </v-card-text>
               <v-card-text class="d-flex justify-center" v-if="item === '보살핌 후기'">
                 <!-- <SeedCertification></SeedCertification> -->
@@ -56,13 +56,13 @@
       <div id="rules"></div>
       <div id="content"></div>
       <footer></footer>
-      <v-btn v-if="!isJoin" @click="JoinSeed" depressed tile id="banner" width="65.55vw" height="5vw" class="position-fixed"
+      <v-btn v-if="!isJoin && !checkAcception" @click="JoinSeed" depressed tile id="banner" width="65.55vw" height="5vw" class="position-fixed"
         color="#AED864">
         <h1 class="join-font">
           함께하기
         </h1>
       </v-btn>
-      <v-btn v-if="isJoin" disabled depressed tile id="banner" width="65.55vw" height="5vw" class="position-fixed"
+      <v-btn v-if="isJoin && checkAcception" disabled depressed tile id="banner" width="65.55vw" height="5vw" class="position-fixed"
         color="#AED864">
         <h1 class="join-font">
           참여 수락을 기다리고 있습니다
@@ -100,6 +100,9 @@ export default {
       isMySeed: false,
       isLogin: this.$store.state.UserStore.isLogin,
       isJoin: false,
+      isAccepted: false,
+      joinUser: [],
+      waitUser: [],
     }
   },
   computed: {
@@ -160,6 +163,43 @@ export default {
           console.log(res)
           this.isJoin = true
         })
+        .catch((err) => {
+          console.log("join err", err)
+        })
+      
+      const joinData = {
+        cng_id: this.seedId,
+        user_id: this.$store.state.UserStore.user.user_id
+      }
+      console.log(joinData)
+      axios.post(`http://127.0.0.1:8080/joinChallengeInsert`, joinData)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log("insert err", err)
+        })
+    },
+    async allJoinUser () {
+    const seedId = this.seedId
+    await axios.get(`http://127.0.0.1:8080/joinChallengeUserList/${seedId}`)
+      .then((res) => {
+        const allUser = res.data
+
+        console.log("전체 유저 리스트",res.data)
+
+        for (var i=0; i < allUser.length; i++) {
+          console.log("for문", allUser[i].result)
+          if (allUser[i].result == 1) {
+            console.log("if문", allUser[i])
+            this.joinUser.push(allUser[i])
+          } else if (allUser[i].result == 0) {
+            console.log("if문", allUser[i])
+            this.waitUser.push(allUser[i])
+          }
+        }
+      console.log("참여중인, 참여대기중인",this.joinUser, this.waitUser) 
+      })     
     },
     detailCertification: function (certid) {
       this.$router.push({
@@ -174,6 +214,24 @@ export default {
   },
   created() {
     this.getSeedCertification();
+    this.allJoinUser();
+  },
+  computed: {
+    checkAcception: function () {
+      const seedId = this.seedId
+      const userId = this.$store.state.UserStore.user.user_id
+      axios.get(`http://127.0.0.1:8080/joinChallengeUserList/${seedId}`)
+        .then((res) => {
+          const userList = res.data
+          for (var i=0; userList.length; i++) {
+            if (userList[i].id === userId) {
+              this.isAccepted = true
+              console.log("accpeted",this.isAccepted)
+            }
+          }
+        })
+      return this.isAccepted
+    }
   },
   mounted() {
     $(function () {

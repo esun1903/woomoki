@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row class="mb-5">
-      <v-col class="d-flex justify-start align-center">
+      <v-col cols="4" class="d-flex justify-start align-center">
         <router-link :to="{ name: 'UserPage', params: { userNickname: UserInfo.nickname}}">
           <v-avatar
             size="64"
@@ -30,10 +30,32 @@
           </v-row>
         </div>
       </v-col>
-      <v-col>
-      </v-col>
-      <v-col class="d-flex align-center">
-        <v-row class="d-flex justify-end">
+      <!-- <v-col>
+      </v-col> -->
+      <v-col cols="8" class="d-flex align-center">
+        <v-row class="d-flex justify-end align-center">
+          <!-- isJoin에 따라 보이거나 안보이거나 -->
+            <router-link v-if="checkAcception" :to="{ name: 'CertificationInsert', params: { cngId: this.$route.params.seedId }}">
+              <v-btn 
+                :ripple="false"
+                color="#AED864"
+                class="btn-position white--text mr-2">
+                인증 작성
+              </v-btn>
+            </router-link>
+            
+            <!-- <router-link> -->
+              <v-btn
+                v-if="checkAcception"
+                @click="goStampCard"
+                :ripple="false"
+                color="#AED864" 
+                class="btn-position white--text mr-2">
+                나의 인증 현황
+              </v-btn>
+            <!-- </router-link> -->
+          <WaitList v-if="isMySeed === true" :waitUser="waitUser"></WaitList>
+          
           <router-link v-if="isMySeed === true" :to="{ name: 'SeedUpdate', params: { seedId: this.seedId }}">
             <!-- <v-btn class="mr-5 btn-color" color="#AED864">
               수정
@@ -102,12 +124,15 @@
 import axios from 'axios'
 import SeedShare from "./SeedShare"
 import SeedViewMore from "./SeedViewMore"
+import WaitList from "./WaitList"
+import {mapState} from "vuex"
 
 export default {
   name: "SeedBasicInfo",
   components: {
     SeedShare,
-    SeedViewMore
+    SeedViewMore,
+    WaitList
   },
   data: function () {
     return {
@@ -116,21 +141,30 @@ export default {
       SeedInfo: [],
       UserInfo: [],
       results: [],
+      allUser: [],
       isMySeed: false,
-      panel: [0, 1, 2, 3, 4]
+      panel: [0, 1, 2, 3, 4, 5],
+      joinUser: [],
+      waitUser: [],
+      isAccepted: false
     }
+  },
+  props: {
+    isJoin: Boolean
   },
   methods: {
     async SeedDetailInfo () {
       // 씨앗 정보 가져오기
       const SeedInfo = await axios.get(`http://127.0.0.1:8080/detailChallenge/${this.seedId}`)
       this.SeedInfo = SeedInfo.data
+      this.results.push({key: "예시 이미지", value: this.SeedInfo.example_img})
       this.results.push({key: "내용", value: this.SeedInfo.content})
       this.results.push({key: "참여 인원", value: `${this.SeedInfo.max_people}명`})
       this.results.push({key: "참여 기간", value: `${this.SeedInfo.start_date} ~ ${this.SeedInfo.end_date}`})
+      this.results.push({key: "보살핌 횟수", value: `${this.SeedInfo.week}동안 주 ${this.SeedInfo.day}회`})
       this.results.push({key: "참여 금액", value: `${this.SeedInfo.join_deposit}원`})
-      this.results.push({key: "예시 이미지", value: this.SeedInfo.example_img})
       
+      console.log(this.results)
       // 유저 정보 가져오기
       const user_id = this.SeedInfo.user_id
       // 유저 닉네임 -> 아이디 -> 유저정보...?
@@ -158,14 +192,20 @@ export default {
           console.log(err)
         })
     },
+    goStampCard: function () {
+      this.$router.push({ name: 'StampCard', params: { seedId: this.seedId, userId: this.user.user_id } })      
+    },
+  
   },
   created() {
     this.SeedDetailInfo();
+    
   },
   // jquery
   mounted() {
   },
   computed: {
+    ...mapState('UserStore', ['user']),
     color: function () {
       if (this.SeedInfo.category_id === 1) {
         return '#F3ECE2'
@@ -180,7 +220,22 @@ export default {
       } else {
         return '#F3ECE2'
       }
+    },
+    checkAcception: function () {
+      const seedId = this.seedId
+      const userId = this.$store.state.UserStore.user.user_id
+      axios.get(`http://127.0.0.1:8080/joinChallengeUserList/${seedId}`)
+        .then((res) => {
+          const userList = res.data
+          for (var i=0; userList.length; i++) {
+            if (userList[i].id === userId) {
+              this.isAccepted = true
+            }
+          }
+        })
+      return this.isAccepted
     }
+
   },
 }
 
