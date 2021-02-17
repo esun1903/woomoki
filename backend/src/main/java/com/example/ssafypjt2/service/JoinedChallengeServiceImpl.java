@@ -2,6 +2,7 @@ package com.example.ssafypjt2.service;
 
 import com.example.ssafypjt2.dao.JoinedChallengeDao;
 import com.example.ssafypjt2.dto.JoinedChallengeDto;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,4 +23,11 @@ public class JoinedChallengeServiceImpl implements JoinedChallengeService {
     public int joinResultUpdate(int userId, int cngId,int result) {
         return dao.joinResultUpdate(userId, cngId,result);
     }
+
+    @Override
+    public int joinChallengeInsert(JoinedChallengeDto joinedChallengeDto) {
+        return dao.joinChallengeInsert(joinedChallengeDto);
+    }
+
+
 }

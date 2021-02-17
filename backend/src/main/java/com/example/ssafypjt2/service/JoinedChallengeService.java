@@ -12,4 +12,6 @@ public interface JoinedChallengeService {
 
     public List<JoinedChallengeDto> joinChallengeUserList(int cngId);
     public int joinResultUpdate(int userId, int cngId,int result);
+    public int joinChallengeInsert(JoinedChallengeDto joinedChallengeDto);
+
 }

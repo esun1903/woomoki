@@ -25,4 +25,10 @@ public class JoinedChallengeController {
     public int joinResultUpdate(@PathVariable("userId")int userId, @PathVariable("cngId")int cngId, @PathVariable("result")int result){
         return service.joinResultUpdate(userId,cngId,result);
     }
+
+    @PostMapping("/joinChallengeInsert")
+    public int joinChallengeInsert(@RequestBody JoinedChallengeDto joinedChallengeDto){
+        return service.joinChallengeInsert(joinedChallengeDto);
+    }
+
 }

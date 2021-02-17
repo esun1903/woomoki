@@ -1,10 +1,8 @@
 package com.example.ssafypjt2.dao;
 
+import com.example.ssafypjt2.dto.CertificationDto;
 import com.example.ssafypjt2.dto.JoinedChallengeDto;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -21,6 +19,9 @@ public interface JoinedChallengeDao {
             + "result =  #{result} "
             + "WHERE user_id = #{userId} AND cng_id = ${cngId}")
     public int joinResultUpdate(@Param("userId")int userId, @Param("cngId")int cngId,@Param("result")int result);
+
+    @Insert("INSERT INTO joined_challenge ( user_id, cng_id  ) VALUES ( #{joinedChallengeDto.user_id} , #{joinedChallengeDto.cng_id} ) ")
+    public int joinChallengeInsert(@Param("joinedChallengeDto") JoinedChallengeDto joinedChallengeDto);
 
 
 }
