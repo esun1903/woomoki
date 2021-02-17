@@ -7,6 +7,8 @@ public class CommentDto {
     private String content;
     private String create_date;
     private int like_cnt;
+    private String nickname;
+    private String img;
 
     public CommentDto() {
         super();
@@ -70,15 +72,19 @@ public class CommentDto {
         this.like_cnt = like_cnt;
     }
 
-    @Override
-    public String toString() {
-        return "CommentDto{" +
-                "id=" + id +
-                ", cert_id=" + cert_id +
-                ", user_id=" + user_id +
-                ", content='" + content + '\'' +
-                ", create_date='" + create_date + '\'' +
-                ", like_cnt=" + like_cnt +
-                '}';
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

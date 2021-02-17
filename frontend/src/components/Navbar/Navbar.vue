@@ -120,8 +120,9 @@
 
                 <v-tabs-items v-model="currentTab">
                   <v-tab-item v-for="(type,idx) in types" :key="idx">
-                    <v-card v-for="(tab,idx) in tabs" :key="idx" @click="NotificationConfirm(tab.id)">
-                      
+                    <v-card  v-for="(tab,idx) in tabs" :key="idx" @click="NotificationConfirm(tab.id)">
+                      {{tab.confirm_date}}
+                    <v-card color ="red" v-if="tab.confirm_date === null">
                       <v-card-text v-if="type=='알림' && tab.type=='reqFollow'">
                         {{tab.reqUserName}}님이 팔로우 하였습니다. 
                          <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">알림삭제</v-btn>  
@@ -135,7 +136,23 @@
                         {{tab.cngTitle}} 챌린지 참여 완료. 
                         <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">알림삭제</v-btn> 
                         </v-card-text>
-                     
+                    </v-card>
+
+                     <v-card v-else color ="blue" >
+                      <v-card-text v-if="type=='알림' && tab.type=='reqFollow'">
+                        {{tab.reqUserName}}님이 팔로우 하였습니다. 
+                         <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">알림삭제</v-btn>  
+                      </v-card-text>
+                      <v-card-text v-if="type=='요청' && tab.type=='reqChallenge'"> 
+                        {{tab.reqUserName}}님이 {{tab.cngTitle}} 챌린지 참가 요청을 하였습니다.
+                        <v-btn color="#9CCC65" class="white--text" @click="challengeOKay(tab.request_user,tab.cng_id),notificationDelete(tab.id)">수락</v-btn>
+                        <v-btn color="#9CCC65" class="white--text" @click="challengeReject(tab.request_user,tab.cng_id),notificationDelete(tab.id)">거절</v-btn> 
+                        </v-card-text>
+                      <v-card-text v-if="type=='알림' && tab.type=='resChallenge'"> 
+                        {{tab.cngTitle}} 챌린지 참여 완료. 
+                        <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">알림삭제</v-btn> 
+                        </v-card-text>
+                    </v-card>
                     </v-card>
                   </v-tab-item>
                 </v-tabs-items>
