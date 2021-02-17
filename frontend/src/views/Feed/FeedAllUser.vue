@@ -8,28 +8,26 @@
           class="d-flex child-flex"
           cols="4"
         >
-          <!-- <router-link :to="{ name: 'CertificationDetail', params: { cngUserId: card.user_id, cngId: card.cng_id, certId: card.id } }"> -->
-            <v-img
-              @click="detailCertification(card)"
-              :src="card.img"
-              :lazy-src="card.img"
-              aspect-ratio="1"
-              class="grey lighten-2 cursor_test"
+          <v-img
+            @click="detailCertification(card)"
+            :src="card.img"
+            :lazy-src="card.img"
+            aspect-ratio="1"
+            class="grey lighten-2 cursor_test"
+          >
+          <template v-slot:placeholder>
+            <v-row
+              class="fill-height ma-0"
+              align="center"
+              justify="center"
             >
-            <template v-slot:placeholder>
-              <v-row
-                class="fill-height ma-0"
-                align="center"
-                justify="center"
-              >
-                <v-progress-circular
-                  indeterminate
-                  color="grey lighten-5"
-                ></v-progress-circular>
-              </v-row>
-            </template>
-            </v-img>
-          <!-- </router-link> -->
+              <v-progress-circular
+                indeterminate
+                color="grey lighten-5"
+              ></v-progress-circular>
+            </v-row>
+          </template>
+          </v-img>
         </v-col>
       </v-row>             
       <infinite-loading @infinite="AllinfiniteHandler" spinner="waveDots">
