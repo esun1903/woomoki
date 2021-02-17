@@ -366,7 +366,7 @@ export default {
   margin: 1% 1% 0% 1%;
   z-index: 6;
   position: relative;
-  left: 68%;
+  left: 73%;
   top: 80%;
 }
 

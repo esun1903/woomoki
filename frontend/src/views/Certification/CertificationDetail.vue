@@ -23,7 +23,7 @@
           <v-list-item-content>
             <v-list-item-title>
               <router-link :to="{ name: 'UserPage', params: { userNickname: CertInfo.nickname }}">
-                <span style="font-size:15px; color:black;"> {{ CertInfo.nickname }}</span>
+                <span class="nickname-bold" style="font-size:15px; color:black;"> {{ CertInfo.nickname }}</span>
               </router-link>
               
             </v-list-item-title>
@@ -516,5 +516,11 @@ a { text-decoration: none;}
 
     .border-list {
         border: solid rgb(231, 231, 231);
+    }
+
+    .nickname-bold {
+        color: black;
+        font-size: 17px;
+        font-weight: bold;
     }
 </style>
