@@ -83,14 +83,6 @@
                       </div>
                     </v-btn>
                   </v-col>
-                  <v-col>
-                    <v-btn v-if="!isMySeed" :disabled="this.isLogin === false" class="mt-10" icon @click="getScrap">
-                      <div>
-                        <v-icon size="36" :color="scrapped ? 'yellow' : 'white' ">fas fa-bookmark</v-icon>
-                        <h2 class="mt-5 count">{{this.scrapCount}}</h2>
-                      </div>
-                    </v-btn>
-                  </v-col>
                 </v-row>
                   
               </v-row>
@@ -98,6 +90,12 @@
             </div>
             
             <div class="img-cover"></div>
+            <v-btn v-if="!isMySeed" :ripple="false" :disabled="this.isLogin === false" class="scrap-position" icon @click="getScrap">
+              <div>
+                <v-icon size="36" :color="scrapped ? 'yellow' : 'white' ">fas fa-bookmark</v-icon>
+                <!-- <h2 class="mt-5 count">{{this.scrapCount}}</h2> -->
+              </div>
+            </v-btn>
             <!-- isJoin에 따라 보이거나 안보이거나 -->
             <router-link :to="{ name: 'CertificationInsert', params: { cngId: this.$route.params.seedId }}">
               <v-btn 
@@ -211,14 +209,14 @@ export default {
     CheckisfavSeed: function () {
       const seedId = this.seedId
       const userId = this.$store.state.UserStore.user.user_id
-      axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId}`)
+      axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${seedId}`)
         .then((res) => {
             console.log(res)
-            const SeedList = res.data
-            this.scrapCount = SeedList.length
+            const UserList = res.data
+            this.scrapCount = UserList.length
             var i;
-            for (i=0; i < SeedList.length; i++) {
-              if (SeedList[i].id === Number(seedId)) {
+            for (i=0; i < UserList.length; i++) {
+              if (UserList[i].id === Number(userId)) {
                 this.scrapped = true
               }
             }
@@ -370,6 +368,14 @@ export default {
   position: relative;
   left: 73%;
   top: 80%;
+}
+
+.scrap-position {
+  margin: 1% 1% 0% 1%;
+  z-index: 6;
+  position: relative;
+  left: 93%;
+  top: -2%;
 }
 
 a {

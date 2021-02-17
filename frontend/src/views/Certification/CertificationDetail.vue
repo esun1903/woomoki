@@ -1,73 +1,63 @@
 <template>
-    <v-container>
-        <div class="detail">
-            <v-row class="cng-name">
-                <!-- 챌린지명: {{ this.$route.params.cngName }} -->
-                씨앗 이름: {{ CertInfo.title }}
-            </v-row>
-            <v-row class="d-flex justify-center">
-                <v-chip class="white--text" :color="color">
-                    {{ this.category }}
-                </v-chip>
-            </v-row>
-            <v-row class="nickname-date-row">
-                <v-col class="user-id">
-                    닉네임: {{ CertInfo.nickname }}
-                </v-col>
-                <v-col class="date">
-                    인증날짜: {{ CertInfo.create_date }}
-                </v-col>
-            </v-row>
-             <!-- v-if="showResultBtn" -->
-            <v-row class="result-btn-row">
-                <v-btn icon color="blue" value="1" v-on:click="successCert()">
-                    <v-icon>mdi-thumb-up</v-icon>
-                </v-btn>
-                <v-btn icon color="red" value="0" v-on:click="failCert()">
-                    <v-icon>mdi-thumb-down</v-icon>
-                </v-btn>
-            </v-row>
-            <v-row class="img">
-                <!-- s3 주소 주석 풀기
-                <v-img :src="photoUrl + CertInfo.img"></v-img> -->
-                <div class="div-img">
-                    <v-img width="100%" :src="CertInfo.img"></v-img>
-                </div>
-            </v-row>
-            <v-row class="d-flex justify-start content">
-                <v-col class="d-flex align-center div-content">
-                    {{CertInfo.content}}
-                </v-col>
-                <v-col class="d-flex justify-end">
-                    <v-btn icon x-large @click="getScrap">
-                    <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
-                    <span>{{ this.likeCount }}</span>
-                </v-btn>
-                 <v-btn icon x-large @click="getConfirm" class="ml-5">
-                    <v-icon :color="confirmed ? '#78909C' : '' ">fas fa-stamp</v-icon>
-                </v-btn>
-                </v-col>
-            </v-row>
-            <!-- <v-row class="like-btn"> -->
-                <!-- <v-btn icon x-large @click="getScrap">
-                    <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
-                    <span>{{ this.likeCount }}</span>
-                </v-btn>
-                 <v-btn icon x-large @click="getConfirm" class="ml-5">
-                    <v-icon :color="confirmed ? '#78909C' : '' ">fas fa-stamp</v-icon>
-                </v-btn> -->
-                <!-- <v-btn v-if="getCheckSeedOwner" icon x-large @click="goStampCard" class="ml-5">
-                    <v-icon :color="scrapped ? '#78909C' : '' ">fas fa-stamp</v-icon>
-                </v-btn> -->
-            <!-- </v-row> -->
-            <v-row class="edit-del-btn">
-                <v-btn class="ma-2" outlined fab color="green" v-on:click="updateCert()" v-if="checkUser">
-                    <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-                <v-dialog v-model="dialog" persistent max-width="290" v-if="checkUser">
+    <v-container class="container-size">
+        <!-- <v-row> -->
+            <v-col class="cng-name">
+                <span class="d-flex justify-center align-center mb-3 title-size">
+                    {{ CertInfo.title }}
+                </span>
+                <span class="d-flex justify-center">
+                    <v-chip class="white--text" :color="color">
+                        {{ this.category }}
+                    </v-chip> 
+                </span>
+                
+            </v-col>
+        <!-- </v-row> -->
+        <v-list-item class="border-list">
+          <router-link :to="{ name: 'UserPage', params: { userNickname: CertInfo.nickname }}">
+          <v-list-item-avatar size="55">
+            <v-img :src="UserInfo.img"></v-img>
+          </v-list-item-avatar>
+          </router-link>
+
+          <v-list-item-content>
+            <v-list-item-title>
+              <router-link :to="{ name: 'UserPage', params: { userNickname: CertInfo.nickname }}">
+                <span class="nickname-bold" style="font-size:15px; color:black;"> {{ CertInfo.nickname }}</span>
+              </router-link>
+              
+            </v-list-item-title>
+            <v-list-item-subtitle>
+                <span class="date">{{ CertInfo.create_date }}</span>
+            </v-list-item-subtitle>
+          </v-list-item-content>
+
+          <v-menu offset-y open-on-click bottom left>
+            <template v-slot:activator="{ on, attrs }">
+              <!-- <v-btn icon  class="btn">
+                <v-icon>mdi-lead-pencil</v-icon>
+              </v-btn> -->
+              <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
+              <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
+              <v-btn icon color="black" v-bind="attrs" v-on="on">
+                <v-icon>fas fa-ellipsis-v</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item>
+                <v-list-item-title>
+                    <v-btn class="ma-2" icon color="#AED864" v-on:click="updateCert()" v-if="checkUser">
+                        <v-btn plain text>수정</v-btn>
+                    </v-btn>
+                </v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>
+                    <v-dialog v-model="dialog" persistent max-width="290" v-if="checkUser">
                     <template v-slot:activator="{ on, attrs }">
-                        <v-btn class="ma-2" outlined fab color="red" v-bind="attrs" v-on="on">
-                            <v-icon>mdi-trash-can</v-icon>
+                        <!-- <v-btn class="ma-2" outlined fab color="red" v-bind="attrs" v-on="on"> -->
+                        <v-btn class="ma-2" icon color="#EF5350" v-bind="attrs" v-on="on">
+                            <v-btn plain text>삭제</v-btn>
                         </v-btn>
                     </template>
                     <v-card>
@@ -86,6 +76,95 @@
                         </v-card-actions>
                     </v-card>
                 </v-dialog>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+
+          
+        </v-list-item>
+
+
+        <div class="detail">
+            
+            <!-- <v-row class="nickname-date-row">
+                <v-col class="user-id">
+                    닉네임: {{ CertInfo.nickname }}
+                </v-col>
+                <v-col class="date">
+                    인증날짜: {{ CertInfo.create_date }}
+                </v-col>
+            </v-row> -->
+             <!-- v-if="showResultBtn" -->
+            
+            <v-row class="img">
+                <!-- s3 주소 주석 풀기
+                <v-img :src="photoUrl + CertInfo.img"></v-img> -->
+                <div>
+                    <v-img width="35vw" :src="CertInfo.img"></v-img>
+                </div>
+            </v-row>
+            <v-row class="d-flex justify-start content">
+                <v-col class="d-flex align-center div-content">
+                    <router-link :to="{ name: 'UserPage', params: { userNickname: CertInfo.nickname }}">
+                        <span class="nickname-bold">{{ CertInfo.nickname }}</span>   
+                    </router-link>
+                </v-col>
+                
+                <v-col class="d-flex justify-end">
+                    <v-btn icon x-large @click="getScrap">
+                        <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
+                    <!-- <span>{{ this.likeCount }}</span> -->
+                </v-btn>
+                 <v-btn icon x-large @click="getConfirm" class="ml-5">
+                        <v-icon :color="confirmed ? '#78909C' : '' ">fas fa-stamp</v-icon>
+                </v-btn>
+                </v-col>
+            </v-row>
+            
+            <v-row>
+                <div class="ml-5">{{ CertInfo.content }}</div>
+            </v-row>
+            <!-- <v-row class="like-btn"> -->
+                <!-- <v-btn icon x-large @click="getScrap">
+                    <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
+                    <span>{{ this.likeCount }}</span>
+                </v-btn>
+                 <v-btn icon x-large @click="getConfirm" class="ml-5">
+                    <v-icon :color="confirmed ? '#78909C' : '' ">fas fa-stamp</v-icon>
+                </v-btn> -->
+                <!-- <v-btn v-if="getCheckSeedOwner" icon x-large @click="goStampCard" class="ml-5">
+                    <v-icon :color="scrapped ? '#78909C' : '' ">fas fa-stamp</v-icon>
+                </v-btn> -->
+            <!-- </v-row> -->
+            <v-row class="edit-del-btn">
+                <!-- <v-btn class="ma-2" icon color="#AED864" v-on:click="updateCert()" v-if="checkUser">
+                    <v-icon>mdi-pencil</v-icon>
+                </v-btn> -->
+                <!-- <v-dialog v-model="dialog" persistent max-width="290" v-if="checkUser">
+                    <template v-slot:activator="{ on, attrs }"> -->
+                        <!-- <v-btn class="ma-2" outlined fab color="red" v-bind="attrs" v-on="on"> -->
+                        <!-- <v-btn class="ma-2" icon color="#EF5350" v-bind="attrs" v-on="on">
+                            <v-icon>mdi-trash-can</v-icon>
+                        </v-btn>
+                    </template>
+                    <v-card>
+                        <v-card-title class="headline">
+                            인증글을 삭제하시겠습니까?
+                        </v-card-title>
+                        <v-card-text>한번 삭제된 인증글은 되돌릴 수 없습니다! 인증글을 삭제 시, 재인증을 시도해주세요.</v-card-text>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn color="green darken-1" text @click="dialog = false">
+                                취소
+                            </v-btn>
+                            <v-btn color="red darken-1" text @click="dialog = false; deleteCert()">
+                                삭제
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog> -->
 
             </v-row>
         </div>
@@ -286,15 +365,15 @@
             },
             CheckisLikeSeed: function () {
                 const certId = this.$route.params.certId;
-                const userId = this.$store.state.UserStore.user.user_id
-                axios.get(`http://127.0.0.1:8080/LikeAndCertification/${userId}`)
+                const userId = this.CertInfo.user_id
+                axios.get(`http://127.0.0.1:8080/LikeAndCertification/${certId}`)
                     .then((res) => {
-                    const CertList = res.data
-                    this.likeCount = CertList.length
+                    const UserList = res.data
+                    this.likeCount = UserList.length
                     console.log(this.likeCount)
                     var i;
-                    for (i=0; i < CertList.length; i++) {
-                        if (CertList[i].id === Number(certId)) {
+                    for (i=0; i < UserList.length; i++) {
+                        if (UserList[i].id === Number(userId)) {
                         this.scrapped = true
                         }
                     }
@@ -373,8 +452,11 @@
 </script>
 
 <style lang="scss" scoped>
+
+a { text-decoration: none;}
+
     .detail {
-        width: 70%;
+        width: 100%;
         // margin: 10% 30% 0% 30%;
     }
 
@@ -395,7 +477,8 @@
 
     .edit-del-btn {
         justify-content: center;
-        margin-top: 15%;
+        margin-top: 3%;
+        margin-bottom: 3%;
     }
 
     .img,
@@ -409,14 +492,35 @@
         word-break: break-all; // 영어 범위 벗어남 해결
     }
 
-    .div-img {
-        max-width: 100%;
-        max-height: 100%;
-    }
 
     .cng-name {
         justify-content: center;
         font-style: italic;
         margin-bottom: 3%;
+    }
+
+    .container-size {
+        border: 5px;
+        width: 40vw;
+    }
+
+    .nickname-bold {
+        color: black;
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    .title-size {
+        font-size: 25px;
+    }
+
+    .border-list {
+        border: solid rgb(231, 231, 231);
+    }
+
+    .nickname-bold {
+        color: black;
+        font-size: 17px;
+        font-weight: bold;
     }
 </style>
