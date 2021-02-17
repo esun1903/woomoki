@@ -31,9 +31,10 @@
               </v-chip>
               <v-row>
                 <v-col>
-                  <div>참여: / {{ this.SeedInfo.max_people }}</div>
+                  <JoinList :joinUser="joinUser" :SeedInfo="SeedInfo"></JoinList>
+                  <!-- <div @click="joinList">참여: {{ this.joinUser.length }} / {{ this.SeedInfo.max_people }}</div> -->
                 </v-col>
-                <v-col>
+                <v-col class="d-flex align-center">
                   <div>인증률: </div>
                 </v-col>
               </v-row>
@@ -96,25 +97,7 @@
                 <!-- <h2 class="mt-5 count">{{this.scrapCount}}</h2> -->
               </div>
             </v-btn>
-            <!-- isJoin에 따라 보이거나 안보이거나 -->
-            <router-link :to="{ name: 'CertificationInsert', params: { cngId: this.$route.params.seedId }}">
-              <v-btn 
-                :ripple="false"
-                color="#AED864"
-                class="btn-position white--text">
-                인증 작성
-              </v-btn>
-            </router-link>
             
-            <!-- <router-link> -->
-              <v-btn
-                @click="goStampCard"
-                :ripple="false"
-                color="#AED864" 
-                class="btn-position white--text">
-                나의 인증 현황
-              </v-btn>
-            <!-- </router-link> -->
           </v-img>
     <!-- </v-avatar> -->
   <!-- </v-row> -->
@@ -123,6 +106,7 @@
 <script>
 import axios from "axios"
 import {mapState} from "vuex"
+import JoinList from "./JoinList.vue"
 export default {
   name: "SeedThumbnail",
   data: function () {
@@ -141,6 +125,12 @@ export default {
       scrapCount: 0,
       // isJoin: false,
     }
+  },
+  components: {
+    JoinList
+  },
+  props: {
+    joinUser: Array
   },
   methods: {
     async getSeedThumbnail () {
@@ -209,14 +199,14 @@ export default {
     CheckisfavSeed: function () {
       const seedId = this.seedId
       const userId = this.$store.state.UserStore.user.user_id
-      axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${seedId}`)
+      axios.get(`http://127.0.0.1:8080/LikeAndChallenge/${seedId}`)
         .then((res) => {
-            console.log(res)
-            const UserList = res.data
-            this.scrapCount = UserList.length
+            console.log("res",res.data)
+            const SeedList = res.data
+            this.scrapCount = SeedList.length
             var i;
-            for (i=0; i < UserList.length; i++) {
-              if (UserList[i].id === Number(userId)) {
+            for (i=0; i < SeedList.length; i++) {
+              if (SeedList[i].id === Number(userId)) {
                 this.scrapped = true
               }
             }
@@ -243,22 +233,42 @@ export default {
     CheckisLikeSeed: function () {
       const seedId = this.seedId
       const userId = this.$store.state.UserStore.user.user_id
-      axios.get(`http://127.0.0.1:8080/LikeAndChallenge/${userId}`)
+      axios.get(`http://127.0.0.1:8080/LikeAndChallenge/${seedId}`)
         .then((res) => {
           console.log(res)
-          const SeedList = res.data
-          this.likeCount = SeedList.length
+          const UserList = res.data
+          this.likeCount = UserList.length
           var i;
-          for (i=0; i < SeedList.length; i++) {
-            if (SeedList[i].id === Number(seedId)) {
+          for (i=0; i < UserList.length; i++) {
+            if (UserList[i].id === Number(userId)) {
               this.liked = true
             }
           }
         })
     },    
-    goStampCard: function () {
-      this.$router.push({ name: 'StampCard', params: { seedId: this.seedId, userId: this.user.user_id } })      
-    },
+    
+    // 참여중인 리스트
+    async allJoinUser () {
+    const seedId = this.seedId
+    await axios.get(`http://127.0.0.1:8080/joinChallengeUserList/${seedId}`)
+      .then((res) => {
+        const allUser = res.data
+
+        console.log("전체 유저 리스트",res.data)
+
+        for (var i=0; i < allUser.length; i++) {
+          console.log("for문", allUser[i].result)
+          if (allUser[i].result == 1) {
+            console.log("if문", allUser[i])
+            this.joinUser.push(allUser[i])
+          } 
+        }
+      console.log("참여중인",this.joinUser) 
+      })     
+  },
+  joinList: function () {
+
+  }
     // getScrappedCount: function () {
     //   const seedId = this.seedId
     //   // fav_challenge 테이블에서 해당 seedId를 하트 누른 유저의 숫자를 가져와야함

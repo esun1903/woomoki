@@ -27,8 +27,9 @@ public interface CommentDao {
             + "WHERE id=#{comId}")
     public int commentDelete(@Param("comId")int comId);
 
-    @Select(" SELECT id, cert_id, user_id, content, create_date, like_cnt"
-            + " FROM comment WHERE cert_id = #{certId} ")
+    @Select(" SELECT c.id, c.cert_id, c.user_id, c.content, c.create_date, c.like_cnt, u.nickname, u.img "
+            + " FROM comment AS c  INNER JOIN user AS u " +
+            " WHERE c.cert_id = #{certId} AND c.user_id = u.id")
     public List<CommentDto> commentShowList(@Param("certId")int certId);
 
 //    @Update("Update comment SET "

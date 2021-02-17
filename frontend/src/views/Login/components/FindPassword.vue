@@ -1,25 +1,26 @@
 <template>
-  <div>
-    <section class="section-container">
-      <v-row class="find-password">
-        <v-col cols="8" class="left">
-          <h1>로고로고로고로고로고로고로고</h1>
-        </v-col>
-        <v-col cols="4" class="right">
-          <h2>비밀번호를 잊으셨나요?</h2>
-          <h4>이메일로 임시 비밀번호 발급 받기</h4>
-          <div class="find-password-btn">
-            <v-divider></v-divider>
-            <FindPasswordByEmail />
-          </div>
+  <div class="d-flex justify-center bgimg">
+    <section class="size">
+        <v-container class="title-box">
+          <h2 class="login-text">비밀번호 찾기</h2>
+        </v-container>
+        
+        <v-container>
+          <v-row>
+            <p class="question">비밀번호를 잊으셨나요?</p>
+            <p class="information">이메일로 임시 비밀번호 발급 받기</p>
+            <FindPasswordByEmail class="email-btn" />
             <router-link :to="'/login'">
-            <BackBtn />
+              <BackBtn class="back-btn"/>
             </router-link>
-        </v-col>
-      </v-row>
+          </v-row>
+
+        </v-container>
     </section>
   </div>
+  
 </template>
+
 
 <script>
   import FindPasswordByEmail from "@/views/Login/components/FindPasswordByEmail.vue"
@@ -31,69 +32,106 @@
       FindPasswordByEmail,
       BackBtn,
     },
-    computed: {
+    data: function () {
 
     },
+    computed: {
+    },
     methods: {
-
     }
   }
 </script>
 
 <style lang="scss" scoped>
-
   #find-password-btn {
     display: flex;
     justify-content: space-around;
     font-size: 15px;
   }
 
-  a {
-    text-decoration: none;
-    color: #ffffff;
-  }
+a { text-decoration: none; }
 
-  .section-container {
-    //   padding: 20px;
-    //   margin: 20px;
-    background: #fff;
-    width: 100%;
-    box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
-    box-sizing: border-box;
+body, html { 
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 
-    .find-password {
-      padding: 0;
-      margin: 0 auto;
-      min-height: 750px;
-      box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
+.email-btn{
+  margin-bottom: 0;
+}
 
-      .left {
-        //   padding: 30px;
-        justify-content: center;
-        align-items: center;
-        box-sizing: border-box;
-        display: flex;
-        color: #be5656;
-        background-color: #f9f9f9;
+.back-btn{
+  margin-top: 0 !important;
+}
+
+
+.bgimg {
+  border: 0;
+  padding: 0;
+  height: 91vh;
+  background-image: url("https://demos.creative-tim.com/vue-material-kit/img/profile_city.435c148e.jpg");
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+  .size{
+    .title-box{
+      .login-text{
+        font-size: 1.6vw;
+        color: white;
+        margin-top: 1.5vh;
+        margin-bottom: 1vh;
       }
-
-      .right {
-        //   padding: 30px;
+    }
+    .container{
+      .row{
+        margin-top: 0.5vh;
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        box-sizing: border-box;
-        background: #F3ECE2;
-        color: #black;
-        padding-left: 50px;
-        padding-right: 50px;
-
-        h2,
-        h4 {
-          text-align: center;
-          margin: 30px 0;
+        justify-content: center;
+        .question{
+          font-size: 0.9rem;
+        }
+        .information{
+          margin-top: 2vh;
         }
       }
     }
+
   }
+}
+
+
+.input-size{
+  width: 20vw;
+}
+
+
+
+.login-text {
+  font-size: 1.6vw;
+  color: white;
+  margin-top: 1.5vh;
+  margin-bottom: 1vh;
+}
+
+.loginbtn {
+  font-size: 1.5vw;
+  margin-bottom: 2vh;
+  color: #AED864;
+}
+
+.link {
+  font-size: 0.9vw;
+  color: black;
+}
+
+.message {
+  margin-bottom: 5.5vh;
+}
+
+.seed-icon{
+  font-size: 1rem;
+}
+
+
 </style>

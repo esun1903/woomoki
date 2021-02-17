@@ -61,11 +61,11 @@ export default {
       }, 500)
     },  
     goSearchedPage (val) {
-      this.$router.push({ name: "SearchedPage", query: {keyword: val}})
+      this.$router.push({ name: "SearchedPage", query: {keyword: val}}).catch(()=>{});
       this.select = ""
     },
     onSearch (val) {
-      this.$router.push({ name: "SearchedPage", query: {keyword: val}})
+      this.$router.push({ name: "SearchedPage", query: {keyword: val}}).catch(()=>{});
       this.search = ""
     }
   },

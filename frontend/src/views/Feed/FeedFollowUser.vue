@@ -108,7 +108,7 @@
                       class="d-flex child-flex"
                       cols="4"
                       >
-                      <router-link :to="{ name: 'CertificationDetail', params: { cngUserId: card.user_id, cngId: card.cng_id, certId: card.id } }">
+                      <!-- <router-link :to="{ name: 'CertificationDetail', params: { cngUserId: card.cng_id, cngId: card.cng_id, certId: card.id } }"> -->
                         <v-img
                           :src="card.img"
                           :lazy-src="card.img"
@@ -128,7 +128,7 @@
                         </v-row>
                       </template>
                       </v-img>
-                      </router-link>
+                      <!-- </router-link> -->
                     </v-col>
                     <!-- <infinite-loading @infinite="FollowinfiniteHandler" spinner="waveDots">
         <div slot="no-more">

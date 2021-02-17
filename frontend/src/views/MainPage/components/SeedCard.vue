@@ -41,6 +41,7 @@
 <script>
 import axios from "axios";
 import {mapState} from "vuex";
+
 export default {
   name: 'SeedCard',
   components: {  },
@@ -127,13 +128,13 @@ export default {
         const userId_num = this.user.user_id;
         const seedId_num = this.seed.id;
         userId["userId"] = userId_num;
-        axios.get(`http://127.0.0.1:8080/LikeAndChallenge/${userId_num}`, userId)
+        axios.get(`http://127.0.0.1:8080/LikeAndChallenge/${seedId_num}`)
         .then((res) => {
           console.log(res)
-          const seedList = res.data
+          const UserList = res.data
           var i;
-          for (i=0; i < seedList.length; i++) {
-            if (seedList[i].id === Number(seedId_num)) {
+          for (i=0; i < UserList.length; i++) {
+            if (UserList[i].id === Number(userId_num)) {
               this.liked = true
             }
           }

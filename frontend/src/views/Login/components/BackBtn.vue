@@ -32,7 +32,7 @@
 <style lang="scss" scoped>
     
     .back-btn {
-        width: 100%;
+        width: 13vw;
         color: #black;
         margin-top: 20px;
         text-decoration: none;

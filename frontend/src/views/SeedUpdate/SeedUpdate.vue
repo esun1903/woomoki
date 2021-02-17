@@ -1,29 +1,57 @@
 <template>
   <v-container class="container-size">
     <v-row class="d-flex justify-center mb-5">
-      <h1>씨앗 변경</h1>
+      <h1>씨앗 내용 변경</h1>
     </v-row>
     <v-row class="d-flex justify-center mb-10">
       <v-icon color="red lighten-2">fas fa-exclamation-triangle</v-icon>
       <span class="caution-font ml-2">씨앗은 내용, 보살핌 예시 사진, 최대 참여 인원만 수정 할 수 있습니다</span>
     </v-row>
-    <v-row>
+    <v-row class="img-size">
       <v-hover>
         <template v-slot:default="{ hover }">
-          <v-avatar rounded width="100%" height="450px">
+          <v-avatar color="gery" rounded width="100%" height="450px">
+          
+            <!-- <span v-if="!SeedInfo.sum_img" class="white--text">
+              {{ this.text2 }}
+            </span> -->
           <v-img :class="`rounded-lg`" width="100%" height="450px" max-width="100%" max-height="100%" v-if="SeedInfo.sum_img"
-            readonly :src="SeedInfo.sum_img">
+            readonly :src="SeedInfo.sum_img"></v-img>
             <v-fade-transition>
-              <v-overlay v-if="hover" absolute color="#036358">
-                
+              <v-overlay class="black--text" v-if="hover" absolute color="white">
                   대표 사진
-                
               </v-overlay>
             </v-fade-transition>
-          </v-img>
+          
           </v-avatar>
         </template>
       </v-hover>
+    </v-row>
+
+    <v-row class="mt-10">
+      <!-- <v-hover> -->
+        <!-- <template v-slot:default="{ hover }"> -->
+          <v-avatar class="img-cursor" rounded width="100%" height="450px" color="grey" @click="onClickImageUpload">
+            <span v-if="!SeedInfo.example_img" class="white--text">
+              {{ this.text }}
+            </span>
+            <v-img :class="`rounded-lg`" width="100%" height="450px" max-width="100%" max-height="100%" v-if="SeedInfo.example_img"
+            :src="SeedInfo.example_img">
+            <!-- <v-fade-transition>
+              <v-overlay
+                v-if="hover"
+                absolute
+                color="#036358"
+              > -->
+                <!-- <v-btn color="#AED864">인증 예시 사진 변경 -->
+                <!-- </v-btn> -->
+              <!-- </v-overlay>
+            </v-fade-transition> -->
+            </v-img>
+            <input ref="imageInput" type="file" hidden @change="onChangeImages">
+          </v-avatar>
+        <!-- </template> -->
+      <!-- </v-hover> -->
     </v-row>
 
     <v-row class="mt-10">
@@ -50,38 +78,7 @@
         label="씨앗에 물주는 방법" no-resize></v-textarea>
     </v-row>
 
-    <v-row>
-      <v-hover>
-        <template v-slot:default="{ hover }">
-          <v-avatar rounded width="100%" height="450px">
-          <v-img :class="`rounded-lg`" width="100%" height="450px" max-width="100%" max-height="100%" v-if="SeedInfo.example_img"
-            :src="SeedInfo.example_img" @click="onClickImageUpload">
-            <v-fade-transition>
-              <v-overlay
-                v-if="hover"
-                absolute
-                color="#036358"
-              >
-                <v-btn color="#AED864">인증 예시 사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
-              </v-overlay>
-            </v-fade-transition>
-          </v-img>
-          </v-avatar>
-        </template>
-      </v-hover>
-    </v-row>
-
-    <v-row class="mt-10">
-      <v-text-field
-        suffix="원"
-        color="#AED864"
-        v-model="SeedInfo.join_deposit"
-        outlined
-        label="참여 금액(원)"
-        readonly
-        disabled
-      ></v-text-field>
-    </v-row>
+    
     <v-row>
       <v-slider
         v-model="max_people"
@@ -94,6 +91,7 @@
         max="50"
       ></v-slider>
     </v-row>
+
     <v-row>
       <v-text-field
         color="#AED864"
@@ -104,7 +102,7 @@
         disabled
       ></v-text-field>
     </v-row>
-
+    
     <v-row>
       <v-text-field
         color="#AED864"
@@ -116,10 +114,23 @@
       ></v-text-field>
     </v-row>
 
+    <v-row>
+      <v-text-field
+        suffix="원"
+        color="#AED864"
+        v-model="SeedInfo.join_deposit"
+        outlined
+        label="참여 금액(원)"
+        readonly
+        disabled
+      ></v-text-field>
+    </v-row>
+
     <v-row class="d-flex justify-end">
       <router-link :to="{ name: 'SeedDetail', params: { seedId: this.seedId } }">
         <v-btn
-          color="#AED864 white--text"
+          color="#AED864"
+          class="white--text"
           @click="UpdateSeed"
           :disabled="isAllSubmit === false"
           >
@@ -139,6 +150,7 @@
     components: {},
     data: function () {
       return {
+        text: "보살핌 대표 사진 변경",
         seedId: this.$route.params.seedId,
         SeedInfo: [],
         sum_img: "",
@@ -152,7 +164,6 @@
         max_people: "",
         dates: [],
         imageUrl: "https://t1.daumcdn.net/cfile/tistory/995A17455A409C9A28",
-        text: "썸네일 사진 변경",
         overlay: false,
         count: [],
         isSubmit: {
@@ -376,7 +387,7 @@
 
   .container-size {
     margin-top: 10vh;
-    width: 40%;
+    width: 80%;
   }
 
   .form-margin {
@@ -388,6 +399,10 @@
   }
 
   .img-cursor {
-    cursor: default
+    cursor: pointer
   }
+
+  // .img-size {
+  //   width: 10%
+  // }
 </style>

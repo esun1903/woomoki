@@ -254,7 +254,6 @@
                         console.log(err);
                     });
                 console.log(this.certForm);
-                console.log(data);
 
             },
         },
