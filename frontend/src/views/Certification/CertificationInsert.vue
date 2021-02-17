@@ -124,10 +124,8 @@
                     .then((res) => {
                         this.dataInfo = res.data;
                         console.log("날짜정보들: "+this.dataInfo);
-
                         // 가져온 값 current_ 에 넣기
                         this.current_week = this.dataInfo;
-                        this.current_day = this.dataInfo;
                     })
             },
             handleFileUpload() {
