@@ -4,12 +4,19 @@
       <template>
         <v-divider></v-divider>
         <v-list-item :key="comment.index">
-          <!-- <v-list-item-avatar>
-            <v-img :src="item.avatar"></v-img>
-          </v-list-item-avatar> -->
+          <router-link :to="{ name: 'UserPage', params: { userNickname: nickname }}">
+          <v-list-item-avatar size="55">
+            <v-img :src="profileImg"></v-img>
+          </v-list-item-avatar>
+          </router-link>
 
           <v-list-item-content>
-            <v-list-item-title><b>작성자:</b> {{nickname}} <span style = "font-size:5px;"><b>시간:</b> {{comment.create_date}}</span></v-list-item-title>
+            <v-list-item-title>
+              <router-link :to="{ name: 'UserPage', params: { userNickname: nickname }}">
+                <span style="font-size:15px; color:black;">{{nickname}}</span>
+              </router-link>
+              <span class= "date" style="">{{comment.create_date}}</span>
+            </v-list-item-title>
             <v-list-item-subtitle v-text="comment.content"></v-list-item-subtitle>
           </v-list-item-content>
           <v-btn icon color="indigo" @click="updateConfirm" v-if="checkUser">
@@ -42,11 +49,13 @@
   </div>
   <div class="edit-div" v-else>
     <v-divider></v-divider>
-    <v-list-item-title id="user-id-list"><b>작성자:</b> {{nickname}}<div class="time"><b>시간:</b> {{comment.create_date}}</div></v-list-item-title>
+    <v-list-item-title id="user-id-list"><b>작성자:</b> {{nickname}}<div class="time"><b>시간:</b> {{comment.create_date}}
+      </div>
+    </v-list-item-title>
     <validation-observer ref="observer">
       <v-form @submit.prevent="updateComment">
         <validation-provider v-slot="{ errors }" rules="required">
-          <v-textarea outlined v-model="comment.content" :error-messages="errors" ></v-textarea>
+          <v-textarea outlined v-model="comment.content" :error-messages="errors"></v-textarea>
         </validation-provider>
       </v-form>
     </validation-observer>
@@ -99,6 +108,7 @@
     props: {
       comment: Object,
       nickname: String,
+      profileImg: String,
     },
     computed: {
       ...mapState('UserStore', ['user']),
@@ -149,6 +159,10 @@
 </script>
 
 <style lang="scss" scoped>
+  a {
+    text-decoration: none;
+  }
+
   #user-id-list {
     margin-top: 2%;
     margin-bottom: 2%;
@@ -161,7 +175,14 @@
   .edit-div {
     margin-bottom: 5%;
   }
-  .time{
-    margin-left:4%;
+
+  .time {
+    margin-left: 4%;
+  }
+
+  .date{
+    margin-left:1%;
+    font-size:5px;
+    color:grey;
   }
 </style>

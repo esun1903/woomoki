@@ -19,10 +19,10 @@
                 </v-col>
             </v-row>
             <v-row class="result-btn-row" v-if="showResultBtn">
-                <v-btn icon color="blue" v-on:click="successCert()">
+                <v-btn icon color="blue" value="1" v-on:click="successCert()">
                     <v-icon>mdi-thumb-up</v-icon>
                 </v-btn>
-                <v-btn icon color="red" v-on:click="failCert()">
+                <v-btn icon color="red" value="0" v-on:click="failCert()">
                     <v-icon>mdi-thumb-down</v-icon>
                 </v-btn>
             </v-row>
@@ -93,7 +93,7 @@
             <CommentInsert />
             <!-- v-for 돌 때 마다 comment.user_id를 axios get -> userinfo 받아
             이 받은 usernickname을 자식컴포넌트에 보내 -->
-            <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" :nickname="Nicknames[index]" />
+            <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" :nickname="Nicknames[index]" :profileImg="ProfileImgs[index]" />
         
     </v-container>
 </template>
@@ -117,6 +117,7 @@
                 comments: [],
                 UserInfo: [],
                 Nicknames: [],
+                ProfileImgs: [],
                 // photoUrl:"https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
                 dialog: false,
                 scrapped: false,
@@ -214,6 +215,7 @@
                         // console.log(response.data);
                         this.UserInfo = response.data;
                         this.Nicknames.push(this.UserInfo.nickname)
+                        this.ProfileImgs.push(this.UserInfo.img)
                         // console.log("nickname: " + this.UserInfo.nickname);
                         // console.log(this.Nicknames);
                         // this.saveNickname();
