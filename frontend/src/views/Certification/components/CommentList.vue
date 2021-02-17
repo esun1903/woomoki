@@ -4,16 +4,16 @@
       <template>
         <v-divider></v-divider>
         <v-list-item :key="comment.index">
-          <router-link :to="{ name: 'UserPage', params: { userNickname: nickname }}">
+          <router-link :to="{ name: 'UserPage', params: { userNickname: comment.nickname }}">
           <v-list-item-avatar size="55">
-            <v-img :src="profileImg"></v-img>
+            <v-img :src="comment.img"></v-img>
           </v-list-item-avatar>
           </router-link>
 
           <v-list-item-content>
             <v-list-item-title>
-              <router-link :to="{ name: 'UserPage', params: { userNickname: nickname }}">
-                <span style="font-size:15px; color:black;">{{nickname}}</span>
+              <router-link :to="{ name: 'UserPage', params: { userNickname: comment.nickname }}">
+                <span style="font-size:15px; color:black;">{{comment.nickname}}</span>
               </router-link>
               <span class="date" style="">{{comment.create_date}}</span>
             </v-list-item-title>
@@ -51,7 +51,7 @@
     <v-divider></v-divider>
     <v-list-item-title id="user-id-list">
         <b>작성자:</b> 
-          {{nickname}}
+          {{comment.nickname}}
             <div class="time">
               <b>시간:</b> 
                 {{comment.create_date}}

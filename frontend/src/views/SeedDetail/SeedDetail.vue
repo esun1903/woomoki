@@ -21,9 +21,7 @@
               <v-card-text class="d-flex justify-center" v-if="item === '보살핌 후기'">
                 <!-- <SeedCertification></SeedCertification> -->
                 <!-- <SeedCertification v-for="(certification, index) in total" :key="index" :certification="certification" /> -->
-                <v-row class="stamp-card-section">
-                  <v-btn @click="goStampCard">나의 스탬프카드</v-btn>
-                </v-row>
+                
                 <v-row>
                   <v-col v-for="(card, $idx) in cards" :key="$idx" class="d-flex child-flex" cols="4">
                     <v-img :src="card.img" :lazy-src="card.img" aspect-ratio="1" class="grey lighten-2 cursor_test"

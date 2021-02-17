@@ -1,93 +1,90 @@
 <template>
     <v-container class="container-size">
         <!-- <v-row> -->
-            <v-col class="cng-name">
-                <span class="d-flex justify-center align-center mb-3 title-size">
-                    {{ CertInfo.title }}
-                </span>
-                <span class="d-flex justify-center">
-                    <v-chip class="white--text" :color="color">
-                        {{ this.category }}
-                    </v-chip> 
-                </span>
-                
-            </v-col>
+        <v-col class="cng-name">
+            <span class="d-flex justify-center align-center mb-3 title-size">
+                {{ CertInfo.title }}
+            </span>
+            <span class="d-flex justify-center">
+                <v-chip class="white--text" :color="color">
+                    {{ this.category }}
+                </v-chip>
+            </span>
+
+        </v-col>
         <!-- </v-row> -->
         <v-list-item class="border-list">
-          <router-link :to="{ name: 'UserPage', params: { userNickname: CertInfo.nickname }}">
-          <v-list-item-avatar size="55">
-            <v-img :src="UserInfo.img"></v-img>
-          </v-list-item-avatar>
-          </router-link>
+            <router-link :to="{ name: 'UserPage', params: { userNickname: CertInfo.nickname }}">
+                <v-list-item-avatar size="55">
+                    <v-img :src="UserInfo.img"></v-img>
+                </v-list-item-avatar>
+            </router-link>
 
-          <v-list-item-content>
-            <v-list-item-title>
-              <router-link :to="{ name: 'UserPage', params: { userNickname: CertInfo.nickname }}">
-                <span style="font-size:15px; color:black;"> {{ CertInfo.nickname }}</span>
-              </router-link>
-              
-            </v-list-item-title>
-            <v-list-item-subtitle>
-                <span class="date">{{ CertInfo.create_date }}</span>
-            </v-list-item-subtitle>
-          </v-list-item-content>
+            <v-list-item-content>
+                <v-list-item-title>
+                    <router-link :to="{ name: 'UserPage', params: { userNickname: CertInfo.nickname }}">
+                        <span style="font-size:15px; color:black;"> {{ CertInfo.nickname }}</span>
+                    </router-link>
 
-          <v-menu offset-y open-on-click bottom left>
-            <template v-slot:activator="{ on, attrs }">
-              <!-- <v-btn icon  class="btn">
+                </v-list-item-title>
+                <v-list-item-subtitle>
+                    <span class="date">{{ CertInfo.create_date }}</span>
+                </v-list-item-subtitle>
+            </v-list-item-content>
+
+            <v-menu offset-y open-on-click bottom left>
+                <template v-slot:activator="{ on, attrs }">
+                    <!-- <v-btn icon  class="btn">
                 <v-icon>mdi-lead-pencil</v-icon>
               </v-btn> -->
-              <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
-              <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
-              <v-btn icon color="black" v-bind="attrs" v-on="on">
-                <v-icon>fas fa-ellipsis-v</v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item>
-                <v-list-item-title>
-                    <v-btn class="ma-2" icon color="#AED864" v-on:click="updateCert()" v-if="checkUser">
-                        <v-btn plain text>수정</v-btn>
+                    <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
+                    <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
+                    <v-btn icon color="black" v-bind="attrs" v-on="on">
+                        <v-icon>fas fa-ellipsis-v</v-icon>
                     </v-btn>
-                </v-list-item-title>
-              </v-list-item>
-              <v-list-item>
-                <v-list-item-title>
-                    <v-dialog v-model="dialog" persistent max-width="290" v-if="checkUser">
-                    <template v-slot:activator="{ on, attrs }">
-                        <!-- <v-btn class="ma-2" outlined fab color="red" v-bind="attrs" v-on="on"> -->
-                        <v-btn class="ma-2" icon color="#EF5350" v-bind="attrs" v-on="on">
-                            <v-btn plain text>삭제</v-btn>
-                        </v-btn>
-                    </template>
-                    <v-card>
-                        <v-card-title class="headline">
-                            인증글을 삭제하시겠습니까?
-                        </v-card-title>
-                        <v-card-text>한번 삭제된 인증글은 되돌릴 수 없습니다! 인증글을 삭제 시, 재인증을 시도해주세요.</v-card-text>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn color="green darken-1" text @click="dialog = false">
-                                취소
+                </template>
+                <v-list v-if="checkUser">
+                    <v-list-item>
+                        <v-list-item-title>
+                            <v-btn class="ma-2" icon color="#AED864" v-on:click="updateCert()">
+                                <v-btn plain text>수정</v-btn>
                             </v-btn>
-                            <v-btn color="red darken-1" text @click="dialog = false; deleteCert()">
-                                삭제
-                            </v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-dialog>
-                </v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-
-
-          
+                        </v-list-item-title>
+                    </v-list-item>
+                    <v-list-item>
+                        <v-list-item-title>
+                            <v-dialog v-model="dialog" persistent max-width="290">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <!-- <v-btn class="ma-2" outlined fab color="red" v-bind="attrs" v-on="on"> -->
+                                    <v-btn class="ma-2" icon color="#EF5350" v-bind="attrs" v-on="on">
+                                        <v-btn plain text>삭제</v-btn>
+                                    </v-btn>
+                                </template>
+                                <v-card>
+                                    <v-card-title class="headline">
+                                        인증글을 삭제하시겠습니까?
+                                    </v-card-title>
+                                    <v-card-text>한번 삭제된 인증글은 되돌릴 수 없습니다! 인증글을 삭제 시, 재인증을 시도해주세요.</v-card-text>
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn color="green darken-1" text @click="dialog = false">
+                                            취소
+                                        </v-btn>
+                                        <v-btn color="red darken-1" text @click="dialog = false; deleteCert()">
+                                            삭제
+                                        </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                        </v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
         </v-list-item>
 
 
         <div class="detail">
-            
+
             <!-- <v-row class="nickname-date-row">
                 <v-col class="user-id">
                     닉네임: {{ CertInfo.nickname }}
@@ -96,8 +93,7 @@
                     인증날짜: {{ CertInfo.create_date }}
                 </v-col>
             </v-row> -->
-             <!-- v-if="showResultBtn" -->
-            
+
             <v-row class="img">
                 <!-- s3 주소 주석 풀기
                 <v-img :src="photoUrl + CertInfo.img"></v-img> -->
@@ -108,80 +104,117 @@
             <v-row class="d-flex justify-start content">
                 <v-col class="d-flex align-center div-content">
                     <router-link :to="{ name: 'UserPage', params: { userNickname: CertInfo.nickname }}">
-                        <span class="nickname-bold">{{ CertInfo.nickname }}</span>   
+                        <span class="nickname-bold">{{ CertInfo.nickname }}</span>
                     </router-link>
                 </v-col>
-                
+
                 <v-col class="d-flex justify-end">
                     <v-btn icon x-large @click="getScrap">
                         <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
-                    <!-- <span>{{ this.likeCount }}</span> -->
-                </v-btn>
-                 <v-btn icon x-large @click="getConfirm" class="ml-5">
-                        <v-icon :color="confirmed ? '#78909C' : '' ">fas fa-stamp</v-icon>
-                </v-btn>
+                        <!-- <span>{{ this.likeCount }}</span> -->
+                    </v-btn>
                 </v-col>
             </v-row>
-            
+
             <v-row>
                 <div class="ml-5">{{ CertInfo.content }}</div>
             </v-row>
-            <!-- <v-row class="like-btn"> -->
-                <!-- <v-btn icon x-large @click="getScrap">
-                    <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
-                    <span>{{ this.likeCount }}</span>
+            <v-row class="good-bad-btn" v-if="showResultBtn && CertInfo.result==0">
+                <v-btn class="ma-2" outlined fab color="blue" @click.stop="dialogSuccess = true">
+                    <v-icon>mdi-thumb-up</v-icon>
                 </v-btn>
-                 <v-btn icon x-large @click="getConfirm" class="ml-5">
-                    <v-icon :color="confirmed ? '#78909C' : '' ">fas fa-stamp</v-icon>
-                </v-btn> -->
-                <!-- <v-btn v-if="getCheckSeedOwner" icon x-large @click="goStampCard" class="ml-5">
-                    <v-icon :color="scrapped ? '#78909C' : '' ">fas fa-stamp</v-icon>
-                </v-btn> -->
-            <!-- </v-row> -->
-            <v-row class="edit-del-btn">
-                <!-- <v-btn class="ma-2" icon color="#AED864" v-on:click="updateCert()" v-if="checkUser">
-                    <v-icon>mdi-pencil</v-icon>
-                </v-btn> -->
-                <!-- <v-dialog v-model="dialog" persistent max-width="290" v-if="checkUser">
-                    <template v-slot:activator="{ on, attrs }"> -->
-                        <!-- <v-btn class="ma-2" outlined fab color="red" v-bind="attrs" v-on="on"> -->
-                        <!-- <v-btn class="ma-2" icon color="#EF5350" v-bind="attrs" v-on="on">
-                            <v-icon>mdi-trash-can</v-icon>
-                        </v-btn>
-                    </template>
-                    <v-card>
-                        <v-card-title class="headline">
-                            인증글을 삭제하시겠습니까?
-                        </v-card-title>
-                        <v-card-text>한번 삭제된 인증글은 되돌릴 수 없습니다! 인증글을 삭제 시, 재인증을 시도해주세요.</v-card-text>
-                        <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn color="green darken-1" text @click="dialog = false">
-                                취소
-                            </v-btn>
-                            <v-btn color="red darken-1" text @click="dialog = false; deleteCert()">
-                                삭제
-                            </v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-dialog> -->
 
+    <v-dialog
+      v-model="dialogSuccess"
+      max-width="350"
+    >
+      <v-card>
+        <v-card-title class="headline">
+          인증 결과가 <span style="color:blue; margin-left:2%;">성공</span> 인가요?
+        </v-card-title>
+
+        <v-card-text>
+          한번 등록된 인증 결과는 번복 할 수 없어요! <br>신중히 결정해주세요.
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="grey"
+            text
+            @click="dialogSuccess = false"
+          >
+            취소
+          </v-btn>
+
+          <v-btn
+            color="green darken-1"
+            text
+             @click="dialogSuccess = false; resultSuccess()"
+          >
+            계속
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-btn class="ma-2" outlined fab color="red" @click.stop="dialogFail = true">
+                    <v-icon>mdi-thumb-down</v-icon>
+                </v-btn>
+    <v-dialog
+      v-model="dialogFail"
+      max-width="350"
+    >
+      <v-card>
+        <v-card-title class="headline">
+          인증 결과가 <span style="color:red; margin-left:2%; ">실패</span>인가요?
+        </v-card-title>
+
+        <v-card-text>
+          한번 등록된 인증 결과는 번복 할 수 없어요! <br> 신중히 결정해주세요.
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="grey"
+            text
+            @click="dialogFail = false"
+          >
+            취소
+          </v-btn>
+
+          <v-btn
+            color="green darken-1"
+            text
+             @click="dialogFail = false; resultFail()"
+          >
+            계속
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+              
+            </v-row>
+            <v-row class="result-done"  v-if="showResultBtn && CertInfo.result!=0">
+                확인이 완료된 인증글입니다.
             </v-row>
         </div>
 
-            <v-divider></v-divider>
-            <CommentInsert />
-            <!-- v-for 돌 때 마다 comment.user_id를 axios get -> userinfo 받아
-            이 받은 usernickname을 자식컴포넌트에 보내 -->
-            <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" :nickname="Nicknames[index]" :profileImg="ProfileImgs[index]" />
-        
+        <v-divider></v-divider>
+        <CommentInsert />
+        <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment"/>
+
     </v-container>
 </template>
 
 <script>
     import CommentInsert from '@/views/Certification/components/CommentInsert.vue'
     import CommentList from '@/views/Certification/components/CommentList.vue'
-    import {mapState} from "vuex";
+    import {
+        mapState
+    } from "vuex";
     import axios from "axios";
 
     export default {
@@ -200,6 +233,8 @@
                 ProfileImgs: [],
                 // photoUrl:"https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
                 dialog: false,
+                dialogFail: false,
+                dialogSuccess: false,
                 scrapped: false,
                 confirmed: false,
                 checkUser: false,
@@ -211,7 +246,7 @@
         },
         computed: {
             ...mapState('UserStore', ['user']),
-            getCheckSeedOwner () {
+            getCheckSeedOwner() {
                 if (this.user.user_id === this.$route.params.cngUserId) {
                     return true
                 } else {
@@ -251,6 +286,7 @@
                         this.CertInfo = response.data;
                         const certUserId = this.CertInfo.user_id;
                         const cngUserId = this.$route.params.cngUserId;
+                        console.log("지금 인증글에 해당하는 결과: "+ this.CertInfo.result)
 
                         console.log("cngUserId: " + cngUserId);
                         console.log("certUserId: " + certUserId);
@@ -275,33 +311,33 @@
                 console.log(certId);
                 axios.get(`http://localhost:8080/commentList/${certId}`)
                     .then((response) => {
-                        // console.log(response.data);
+                        console.log(response.data);
                         this.comments = response.data;
                         for (const i in this.comments) {
                             const comment = this.comments[i]
-                            const commentUserId = comment["user_id"]
-                            // console.log("cmt user id: " + commentUserId);
-                            this.getUserInfo(commentUserId);
+                            // const commentUserId = comment["user_id"]
+                            // // console.log("cmt user id: " + commentUserId);
+                            // this.getUserInfo(commentUserId);
                         }
                     })
                     .catch((err) => {
                         console.log(err)
                     })
             },
-            async getUserInfo(commentUserId) {
-                // console.log("getUserInfo를 들어왔ㅇㅓ : " + commentUserId);
-                await axios.get(`http://localhost:8080/userPage/Id/${commentUserId}`)
-                    .then((response) => {
-                        // console.log(response.data);
-                        this.UserInfo = response.data;
-                        this.Nicknames.push(this.UserInfo.nickname)
-                        this.ProfileImgs.push(this.UserInfo.img)
-                        // console.log("nickname: " + this.UserInfo.nickname);
-                        // console.log(this.Nicknames);
-                        // this.saveNickname();
-                    })
+            // async getUserInfo(commentUserId) {
+            //     // console.log("getUserInfo를 들어왔ㅇㅓ : " + commentUserId);
+            //     await axios.get(`http://localhost:8080/userPage/Id/${commentUserId}`)
+            //         .then((response) => {
+            //             console.log(response.data);
+            //             this.UserInfo = response.data;
+            //             this.Nicknames.push(this.UserInfo.nickname)
+            //             this.ProfileImgs.push(this.UserInfo.img)
+            //             // console.log("nickname: " + this.UserInfo.nickname);
+            //             // console.log(this.Nicknames);
+            //             // this.saveNickname();
+            //         })
 
-            },
+            // },
             // saveNickname(){
             //     for(const i in this.comments.length){
             //         console.log("nickname value: " + this.UserInfo.nickname[i]);
@@ -368,17 +404,17 @@
                 const userId = this.CertInfo.user_id
                 axios.get(`http://127.0.0.1:8080/LikeAndCertification/${certId}`)
                     .then((res) => {
-                    const UserList = res.data
-                    this.likeCount = UserList.length
-                    console.log(this.likeCount)
-                    var i;
-                    for (i=0; i < UserList.length; i++) {
-                        if (UserList[i].id === Number(userId)) {
-                        this.scrapped = true
+                        const UserList = res.data
+                        this.likeCount = UserList.length
+                        console.log(this.likeCount)
+                        var i;
+                        for (i = 0; i < UserList.length; i++) {
+                            if (UserList[i].id === Number(userId)) {
+                                this.scrapped = true
+                            }
                         }
-                    }
                     })
-                },
+            },
             getCategory: function () {
                 const seedId = this.$route.params.cngId
                 axios.get(`http://127.0.0.1:8080/detailChallenge/${seedId}`)
@@ -408,52 +444,65 @@
                         console.log(err)
                     })
             },
-            successCert() {
-                confirm("인증 성공으로 할거냐고 물어볼건데 나중에 dialog로 바꾸기")
-                this.showResultBtn = false;
+            resultSuccess() {
+
+                const certId = this.$route.params.certId;
+                const UpdateCertInfo = {
+                    cng_id: this.CertInfo.cng_id,
+                    content: this.CertInfo.content,
+                    id: certId,
+                    img: this.CertInfo.img,
+                    user_id: this.CertInfo.user_id,
+                    like_cnt: this.CertInfo.like_cnt,
+                    result: 3,
+                    current_week: this.CertInfo.current_week,
+                    current_day: this.CertInfo.current_day,
+                }
+
+                axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
+                    .then(res => {
+                        console.log(res);
+                        this.$router.go(this.$router.currentRoute);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+
+                    //  this.showResultBtn = false;
+
             },
-            failCert() {
-                confirm("인증 실패로 할거냐고 물어볼건데 나중에 dialog로 바꾸기")
+            resultFail() {
+                const certId = this.$route.params.certId;
+                const UpdateCertInfo = {
+                    cng_id: this.CertInfo.cng_id,
+                    content: this.CertInfo.content,
+                    id: certId,
+                    img: this.CertInfo.img,
+                    user_id: this.CertInfo.user_id,
+                    like_cnt: this.CertInfo.like_cnt,
+                    result: 1,
+                    current_week: this.CertInfo.current_week,
+                    current_day: this.CertInfo.current_day,
+                }
+
+                axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+                
                 this.showResultBtn = false;
-            }, 
-            getConfirm: function () {
-                const certInfo = this.CertInfo
-                certInfo.user_id = this.user.user_id
-                    if (this.confirmed) {   
-                        // 확인 도장 취소하기  
-                        this.confirmed = false 
-                        axios.post(`http://127.0.0.1:8080/cancleConfirmation`, certInfo)
-                        .then((res) => {
-                            console.log(res)
-                        })
-                        .catch((err) => {
-                            console.log(err)
-                        })
-                        
-                    } else {
-                        // 확인 도장 찍기
-                        this.confirmed = true
-                        axios.post(`http://127.0.0.1:8080/completeConfirmation`, certInfo)
-                        .then((res) => {
-                            console.log(res)
-                            if (res.data === 2) {
-                                alert("씨앗을 성공적으로 키워낸 분을 위해 축하 댓글을 달아주세요!")
-                            }
-                        })
-                        .catch((err) => {
-                            console.log(err)
-                            console.log('확인도장 찍기 실패')
-                        })
-                        
-                    }
-            },
+            }
         },
     };
 </script>
 
 <style lang="scss" scoped>
-
-a { text-decoration: none;}
+    a {
+        text-decoration: none;
+    }
 
     .detail {
         width: 100%;
@@ -516,5 +565,12 @@ a { text-decoration: none;}
 
     .border-list {
         border: solid rgb(231, 231, 231);
+    }
+
+    .good-bad-btn,
+    .result-done {
+        margin-top: 5%;
+        margin-bottom: 5%;
+        justify-content: center;
     }
 </style>
