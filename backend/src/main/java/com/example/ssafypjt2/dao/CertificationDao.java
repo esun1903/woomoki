@@ -14,6 +14,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.example.ssafypjt2.dto.CertificationDto;
 
+// 변경 
 
 @Mapper
 public interface CertificationDao {
@@ -133,7 +134,7 @@ public interface CertificationDao {
 			"WHERE user_id = #{userId} AND cng_id = #{cngId} ")
 	public void canclecertificationStamp(@Param("userId") int user_id, @Param("cngId") int cng_id);
 
-	@Select("UPDATE joined_challenge SET result = 2 WHERE user_id = #{userId} AND cng_id = #{cngId}")
+	@Select("UPDATE joined_challenge SET result = 1 WHERE user_id = #{userId} AND cng_id = #{cngId}")
 	public void challengeFail(@Param("userId") int user_id, @Param("cngId") int cng_id);
 
 	@Select(" UPDATE user SET levelnum = levelnum - 1 WHERE id = #{userId} ")

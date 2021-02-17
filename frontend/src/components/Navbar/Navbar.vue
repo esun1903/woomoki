@@ -9,14 +9,11 @@
         </router-link>
         
         <SearchBar/>
-        <!-- <div v-if="getCheckLogin">
-          안녕하세요, 
-          <span class="nickname">{{ this.user.nickname }}</span>님
-        </div> -->
         <div class="btn-group">
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
-              <v-btn v-if="getCheckLogin" icon v-bind="attrs" v-on="on" class="btn nav-cursur">
+              <!-- <v-btn v-if="getCheckLogin" icon v-bind="attrs" v-on="on" class="btn nav-cursur"> -->
+              <v-btn icon v-bind="attrs" v-on="on" class="btn nav-cursur">                 
                 <v-icon>mdi-lead-pencil</v-icon>
               </v-btn>
             </template>
@@ -38,14 +35,9 @@
             </v-list>
           </v-menu>
 
-          <v-menu offset-y open-on-hover bottom left>
+           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
-              <!-- <v-btn icon  class="btn">
-                <v-icon>mdi-lead-pencil</v-icon>
-              </v-btn> -->
-              <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
-              <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
-              <v-btn icon class="btn nav-cursur" v-bind="attrs" v-on="on">
+            <v-btn icon class="btn nav-cursur" v-bind="attrs" v-on="on">
                 <v-icon>fas fa-user-friends</v-icon>
               </v-btn>
             </template>
@@ -74,7 +66,8 @@
             width="25%"
           >
             <template v-slot:activator="{ on, attrs }">
-              <v-btn v-if="getCheckLogin" @click="getSeeds" icon v-bind="attrs" v-on="on" class="btn">
+               <!-- <v-btn v-if="getCheckLogin" @click="getSeeds" icon v-bind="attrs" v-on="on" class="btn"> -->
+               <v-btn @click="getSeeds" icon v-bind="attrs" v-on="on" class="btn">
                 <v-icon>mdi-cart</v-icon>
               </v-btn>
             </template>
@@ -105,37 +98,76 @@
             </v-card>
           </v-dialog>
 
-          <v-btn v-if="getCheckLogin" icon class="btn" @click="notice = true">
+          <!-- <v-btn v-if="getCheckLogin" icon class="btn" @click="notice = true"> -->
+          <v-btn icon class="btn" @click="notice = true">
             <v-icon>mdi-bell-ring</v-icon>
           </v-btn>
-          <v-dialog v-model="notice" width="25%">
-            <div class="notification">
+          <v-dialog v-model="notice" width="25%" >
+            <div class="notification" >
               <v-card class="notice-card">
-                <v-tabs v-model="currentTab" grow dark>
+                <v-tabs background-color ="#1DE9B6" v-model="currentTab" grow dark>
                   <v-tabs-slider></v-tabs-slider>
                   <v-tab v-for="(type,idx) in types" :key="idx">
                     {{ type}}
                   </v-tab>
                 </v-tabs>
 
-                <v-tabs-items v-model="currentTab">
-                  <v-tab-item v-for="(type,idx) in types" :key="idx">
-                    <v-card v-for="(tab,idx) in tabs" :key="idx" @click="NotificationConfirm(tab.id)">
+                <v-tabs-items v-model="currentTab" >
+                  <v-tab-item v-for="(type,idx) in types" :key="idx" >
+                    <v-card v-for="(tab,idx) in tabs" :key="idx" @click="NotificationConfirm(tab.id)"   height="100">
+                    <v-card color ="#B2DFDB" v-if="tab.confirm_date === null">
+                      <div class ="diCard">
+                      <v-card-text v-if="tab.type=='reqFollow'">
+                         <router-link :to="{ name: 'UserPage', params: { userNickname: tab.reqUserName }}">{{tab.reqUserName}}</router-link>
+                        님이 팔로우 하였습니다.
+                        <div class="notiBtn" > 
+                         <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">알림삭제</v-btn>  
+                        </div>
+                      </v-card-text> 
+                      <v-card-text v-if="tab.type=='reqChallenge'"> 
+                        <router-link :to="{ name: 'UserPage', params: { userNickname: tab.reqUserName }}">{{tab.reqUserName}}</router-link>
+                        님이 <router-link :to="{ name: 'SeedDetail', params: { seedId: tab.cng_id }}" >{{tab.cngTitle}}</router-link> 챌린지 참가 요청을 하였습니다.
+                        <div class="notirqBtn" >
+                        <v-btn color="#9CCC65" class="white--text" @click="challengeOKay(tab.request_user,tab.cng_id),notificationDelete(tab.id)">수락</v-btn>
+                        <v-btn color="#9CCC65" class="white--text" @click="challengeReject(tab.request_user,tab.cng_id),notificationDelete(tab.id)">거절</v-btn> 
+                        </div>
+                        </v-card-text>
                       
-                      <v-card-text v-if="type=='알림' && tab.type=='reqFollow'">
-                          <router-link :to="{ name: 'UserPage', params: { userNickname: CheckUserInfo }}">
-                        {{tab.reqUserName}} </router-link>님이 팔로우 하였습니다. 
-                         <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">삭제하기</v-btn>  
-                      </v-card-text>
-                      <v-card-text v-if="type=='요청' && tab.type=='reqChallenge'"> 
-                        {{tab.reqUserName}}님이 {{tab.cngTitle}} 챌린지 참가 요청을 하였습니다.
-                          <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">삭제하기</v-btn>  
+                      <v-card-text v-if="tab.type=='resChallenge'"> 
+                       <router-link :to="{ name: 'SeedDetail', params: { seedId: tab.cng_id }}" >{{tab.cngTitle}}</router-link>챌린지 참여 완료. 
+                        <div class="notiBtn" >
+                        <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">알림삭제</v-btn> 
+                        </div>
                         </v-card-text>
-                      <v-card-text v-if="type=='알림' && tab.type=='resChallenge'"> 
-                        {{tab.cngTitle}} 챌린지 참여 완료. 
-                        <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">삭제하기</v-btn> 
+                        </div>
+                    </v-card>
+
+                     <v-card v-else color ="#E0F2F1">
+                     <div class ="diCard">
+                      <v-card-text v-if="tab.type=='reqFollow'">
+                         <router-link :to="{ name: 'UserPage', params: { userNickname: tab.reqUserName }}">{{tab.reqUserName}}</router-link>
+                        님이 팔로우 하였습니다.
+                        <div class="notiBtn" > 
+                         <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">알림삭제</v-btn>  
+                        </div>
+                      </v-card-text> 
+                      <v-card-text v-if="tab.type=='reqChallenge'"> 
+                        <router-link :to="{ name: 'UserPage', params: { userNickname: tab.reqUserName }}">{{tab.reqUserName}}</router-link>
+                        님이 <router-link :to="{ name: 'SeedDetail', params: { seedId: tab.cng_id }}" >{{tab.cngTitle}}</router-link> 챌린지 참가 요청을 하였습니다.
+                        <div class="notirqBtn" >
+                        <v-btn color="#9CCC65" class="white--text" @click="challengeOKay(tab.request_user,tab.cng_id),notificationDelete(tab.id)">수락</v-btn>
+                        <v-btn color="#9CCC65" class="white--text" @click="challengeReject(tab.request_user,tab.cng_id),notificationDelete(tab.id)">거절</v-btn> 
+                        </div>
                         </v-card-text>
-                     
+                      
+                      <v-card-text v-if="tab.type=='resChallenge'"> 
+                       <router-link :to="{ name: 'SeedDetail', params: { seedId: tab.cng_id }}" >{{tab.cngTitle}}</router-link>챌린지 참여 완료. 
+                        <div class="notiBtn" >
+                        <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">알림삭제</v-btn> 
+                        </div>
+                        </v-card-text>
+                        </div>
+                    </v-card>
                     </v-card>
                   </v-tab-item>
                 </v-tabs-items>
@@ -159,7 +191,7 @@
                 <v-list-item>
                   <router-link :to="{ name: 'UserPage', params: { userNickname: CheckUserInfo }}">
                     <v-list-item-title>마이페이지</v-list-item-title>
-                   </router-link>
+                  </router-link>
                 </v-list-item>
                 <v-list-item @click="goLogout">
                   <v-list-item-title>로그아웃</v-list-item-title>
@@ -177,7 +209,6 @@
                   </router-link>
                 </v-list-item>
               </div>
-
             </v-list>
           </v-menu>
         </div>
@@ -203,7 +234,7 @@ export default {
       notice: false,
       currentTab: null,
       tabs: [],
-      types:['알림','요청'],
+      types:['알림'],	
     };
   },
   computed:  {
@@ -242,7 +273,7 @@ export default {
           this.seeds = seeds
         })
         .catch((err) => {
-          console.log("에러발생", err)
+          console.log(err)
         })
     },
     goSeedDetail: function (val) {
@@ -308,6 +339,28 @@ export default {
           console.log(error);
         });  
     },
+     challengeOKay: function(user_id,cng_id) {
+      const userId= user_id;
+      const cngId=  cng_id;
+       axios.put(`http://127.0.0.1:8080/joinResultUpdate/${userId}/${cngId}/1`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });  
+    },
+     challengeReject: function(user_id,cng_id) {
+      const userId= user_id;
+      const cngId=  cng_id;
+       axios.delete(`http://127.0.0.1:8080/joinChallengeDelete/${userId}/${cngId}`)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });  
+    },
     NotificationToast(){
         
        for(var i =0 ; i<this.tabs.length ;i++){
@@ -357,6 +410,19 @@ a:-webkit-any-link {
     color: black;
     cursor: pointer;
     text-decoration: none;
+}
+.diCard{
+padding-left: 2%;
+}
+.notirqBtn{
+  position: absolute;
+  margin-top: 2%;
+  padding-left: 62%;
+}
+.notiBtn{
+  position: absolute;
+  margin-top: 2%;
+  padding-left: 72%;
 }
 
 .btn-group {

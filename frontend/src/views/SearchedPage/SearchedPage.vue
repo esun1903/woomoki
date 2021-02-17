@@ -111,6 +111,7 @@ export default {
 .container {
   width: 100%;
   height: 89.5vh;
+  margin-top: 10vh;
   margin-bottom: 10%;
   .searched-keyword {
     display: flex;
@@ -122,6 +123,9 @@ export default {
       span {
         font-size: 1.2em;
       }
+    }
+    .notLogined{
+      margin-bottom: 5%;
     }
   }
   .cards {

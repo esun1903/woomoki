@@ -1,78 +1,61 @@
 <template>
-  <div class="d-flex justify-center bgimg">
-    
+  <div class="d-flex justify-center bgimg">  
     <section class="size">
-        <v-container class="title-box">
-          <v-row class="d-flex justify-center">
-            <h2 class="login-text">로그인</h2>
+      <v-container class="title-box">
+        <h2 class="login-text">로그인</h2>
+      </v-container>
+      
+      <v-container>
+        <v-col>
+          <v-row class="d-flex justify-center message">
+            <h4>이메일 로그인하기</h4>
           </v-row>
-          <v-row>
-            <v-col class="d-flex justify-center">
-              <Kakao />
-            </v-col>
-            <v-col class="d-flex justify-center">
-              <Naver />
-            </v-col>
-            <v-col class="d-flex justify-center">
-              <Google />
-            </v-col>
-          </v-row>
-            <!-- <v-row class="d-flex justify-center">
-              <p class="login-box-hd">또는 다른 서비스 계정으로 로그인</p>
-            </v-row> -->
-        </v-container>
-        
-        <v-container>
-          <v-col>
-            <v-row class="d-flex justify-center message">
-              <h4>이메일 로그인하기</h4>
-            </v-row>
 
-            <validation-observer v-slot="{ invalid }" ref="observer">
-              <v-form @submit.prevent="submit">
-                <v-row class="d-flex justify-center">
-                  <validation-provider v-slot="{ errors }" name="이메일" rules="required|email">
-                    <v-text-field class="input-size" color="#AED864" v-model="user.email" :error-messages="errors" label="이메일" required outlined
-                      dense></v-text-field>
-                  </validation-provider>
-                </v-row>
-                <v-row class="d-flex justify-center">
-                  <validation-provider v-slot="{ errors }" name="비밀번호" rules="required|password">
-                    <v-text-field class="input-size" v-model="user.password" :error-messages="errors" label="비밀번호"
-                      :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'" @keydown.enter="submit" @click:append="showPass = !showPass" required
-                      outlined color="#AED864" dense :type="showPass ? 'text' : 'password'"></v-text-field>
-                  </validation-provider>
-                </v-row>
-                <v-row class="d-flex justify-center">
-                  
-                  <div class="text-center">
-                    <v-btn class="loginbtn" plain :ripple="false" type="submit" rounded color="#AED864" :disabled="invalid">
-                      로그인
-                    </v-btn>
-                  </div>
-                </v-row>
-                <v-row> 
-                  <v-col class="d-flex justify-center">
-                    <router-link class="link" :to="'/login/findId'">아이디 찾기</router-link>
-                  </v-col>
+          <validation-observer v-slot="{ invalid }" ref="observer">
+            <v-form @submit.prevent="submit">
+              <v-row class="d-flex justify-center">
+                <validation-provider v-slot="{ errors }" name="이메일" rules="required|email">
+                  <v-text-field class="input-size" color="#AED864" v-model="user.email" :error-messages="errors" label="이메일" required outlined
+                    dense></v-text-field>
+                </validation-provider>
+              </v-row>
+              <v-row class="d-flex justify-center">
+                <validation-provider v-slot="{ errors }" name="비밀번호" rules="required|password">
+                  <v-text-field class="input-size" v-model="user.password" :error-messages="errors" label="비밀번호"
+                    :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'" @keydown.enter="submit" @click:append="showPass = !showPass" required
+                    outlined color="#AED864" dense :type="showPass ? 'text' : 'password'"></v-text-field>
+                </validation-provider>
+              </v-row>
+              <v-row class="d-flex justify-center">
+                
+                <div class="text-center">
+                  <v-btn class="loginbtn" plain :ripple="false" type="submit" rounded color="#AED864" :disabled="invalid">
+                    로그인
+                  </v-btn>
+                </div>
+              </v-row>
+              <v-row> 
+                <v-col class="d-flex justify-center">
+                  <router-link class="link" :to="'/login/findId'">아이디 찾기</router-link>
+                </v-col>
 
-                  <v-col class="d-flex justify-center">
-                    <router-link class="link" :to="'/login/findPassword'">비밀번호 찾기</router-link>
-                  </v-col>
+                <v-col class="d-flex justify-center">
+                  <router-link class="link" :to="'/login/findPassword'">비밀번호 찾기</router-link>
+                </v-col>
 
-                  <v-col class="d-flex justify-center">
-                    <router-link class="link" :to="'signup'">회원가입</router-link>
-                  </v-col>
-                </v-row>
-       
-              </v-form>
-            </validation-observer>
-            
+                <v-col class="d-flex justify-center">
+                  <router-link class="link" :to="'signup'">회원가입</router-link>
+                </v-col>
+              </v-row>
+      
+            </v-form>
+          </validation-observer>
+          
 
-            <span class="or-bar or-bar-right"></span>
-            
-          </v-col>
-        </v-container>
+          <span class="or-bar or-bar-right"></span>
+          
+        </v-col>
+      </v-container>
     </section>
   </div>
   
@@ -162,7 +145,7 @@ body, html {
 .bgimg {
     border: 0;
     padding: 0;
-    height: 80vh;
+    height: 91vh;
     background-image: url("https://demos.creative-tim.com/vue-material-kit/img/profile_city.435c148e.jpg");
     min-height: 100%;
     background-position: center;
@@ -170,36 +153,38 @@ body, html {
 }
 
 .size {
-  margin-top: 6%;
+  margin-top: 22vh;
   width: 23%;
-  height: 70%;
-  background-color: white;
+  height: 50vh;
+  background-color: whitesmoke;
   border-radius: 10px;
   box-shadow: 0.5px 0.5px 5px rgb(172, 172, 172);
+  .title-box{
+    width: 90%;
+    height: 20%;
+    background: linear-gradient(70deg, #7CB342, #AED864,);
+    // background-color: #AED864;
+    box-shadow: 5px 5px 10px grey;
+    position: relative;
+    top: -5vh;
+    border-radius: 10px;
+    margin-bottom: -2.5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .login-text{
+      font-size: 1.6vw;
+      color: white;
+      margin-top: 1.5vh;
+      margin-bottom: 1vh;
+    }
+  }
 }
 
 .input-size{
   width: 20vw;
 }
 
-.title-box {
-  width: 90%;
-  height: 30%;
-  background: linear-gradient(70deg, #7CB342, #AED864,);
-  // background-color: #AED864;
-  box-shadow: 5px 5px 10px grey;
-  position: relative;
-  top: -5vh;
-  border-radius: 10px;
-  margin-bottom: -2.5vh;
-}
-
-.login-text {
-  font-size: 1.6vw;
-  color: white;
-  margin-top: 1.5vh;
-  margin-bottom: 1vh;
-}
 
 .loginbtn {
   font-size: 1.5vw;
@@ -216,5 +201,4 @@ body, html {
   margin-bottom: 5.5vh;
 }
 
-  
 </style>
