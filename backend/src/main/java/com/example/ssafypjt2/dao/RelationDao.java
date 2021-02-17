@@ -29,8 +29,6 @@ public interface RelationDao {
     @Insert("INSERT INTO relation (request_user_id, get_user_id) VALUES (#{user_id} ,#{following_id} ) ")
 	int followingInsert(@Param("user_id") int user_id, @Param("following_id")  int following_id);
 
-
-
     @Select("SELECT * FROM certification WHERE user_id = #{user_id} ")
 	List<CertificationDto> feedFollower(@Param("user_id")int user_id);
 
