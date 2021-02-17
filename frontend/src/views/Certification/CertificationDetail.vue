@@ -10,7 +10,6 @@
                         {{ this.category }}
                     </v-chip> 
                 </span>
-                
             </v-col>
         <!-- </v-row> -->
         <v-list-item class="border-list">
@@ -223,6 +222,7 @@
 
         },
         created() {
+            
             this.getCategory()
             this.CheckisLikeSeed();
             this.detailCert();
@@ -232,13 +232,14 @@
             const cngUserId = this.$route.params.cngUserId;
             // const cngName = this.$route.params.cngName;
             // console.log(cngName);
-            console.log("detail's cngid: " + cngId);
-            console.log("detail's certid: " + certId);
-            console.log("cngUserId " + cngUserId);
+            // console.log("detail's cngid: " + cngId);
+            // console.log("detail's certid: " + certId);
+            // console.log("cngUserId " + cngUserId);
             if (certId === undefined || cngId === undefined || cngUserId === undefined) {
                 this.$router.go(-1);
             }
             // console.log("check create: " + this.checkUser);
+            
 
         },
         methods: {
@@ -251,8 +252,8 @@
                         this.CertInfo = response.data;
                         const certUserId = this.CertInfo.user_id;
                         const cngUserId = this.$route.params.cngUserId;
-
-                        console.log("cngUserId: " + cngUserId);
+                        
+                        console.log("seedid: cngUserId: " + cngUserId);
                         console.log("certUserId: " + certUserId);
                         if (userId === certUserId) {
                             this.checkUser = true;
@@ -288,6 +289,8 @@
                         console.log(err)
                     })
             },
+
+            // 댓글단 유저 정보
             async getUserInfo(commentUserId) {
                 // console.log("getUserInfo를 들어왔ㅇㅓ : " + commentUserId);
                 await axios.get(`http://localhost:8080/userPage/Id/${commentUserId}`)
@@ -365,19 +368,19 @@
             },
             CheckisLikeSeed: function () {
                 const certId = this.$route.params.certId;
-                const userId = this.CertInfo.user_id
+                const userId = this.$store.state.UserStore.user.user_id
                 axios.get(`http://127.0.0.1:8080/LikeAndCertification/${certId}`)
                     .then((res) => {
                     const UserList = res.data
                     this.likeCount = UserList.length
-                    console.log(this.likeCount)
-                    var i;
-                    for (i=0; i < UserList.length; i++) {
+
+                    for (var i=0; i < UserList.length; i++) {
                         if (UserList[i].id === Number(userId)) {
                         this.scrapped = true
                         }
                     }
                     })
+                
                 },
             getCategory: function () {
                 const seedId = this.$route.params.cngId

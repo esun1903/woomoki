@@ -4,9 +4,14 @@
 
     <div class="seed-card-top">
       <v-chip id="category-chip" :ripple="false" :color=color class="white--text"> {{ this.category }}</v-chip>
-      <v-btn icon @click.native="getScrap">
-        <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
-      </v-btn>
+      <div class="btns">
+        <v-btn :disabled="this.isLogin === false" icon @click.native="getLikes">
+          <v-icon :color="liked ? 'red' : '' ">mdi-heart</v-icon>
+        </v-btn>
+        <v-btn :disabled="this.isLogin === false" icon @click.native="getScrap">
+          <v-icon :color="scrapped ? '#FFC400' : '' ">fas fa-bookmark</v-icon>
+        </v-btn>      
+      </div>
     </div>
 
     <div>
@@ -34,6 +39,9 @@
 
 
 <script>
+import axios from "axios";
+import {mapState} from "vuex";
+
 export default {
   name: 'SeedCard',
   components: {  },
@@ -43,7 +51,9 @@ export default {
   },
   data() {
     return {
+      liked: false,
       scrapped: false,
+      isLogin : this.$store.state.UserStore.isLogin,
     };
   },
   mounted() {
@@ -51,23 +61,98 @@ export default {
   },
   methods: {
     // 해당 게시글 아이디 담아줘야해
-    goSeedDetail: function () {
-      // console.log(this.seed)
-      this.$router.push({ name: 'SeedDetail', params: { seedId: this.seed.id } })
-      console.log("11111111")
-      console.log(this.seed.id)
-      // this.$router.push({ name: "SeedDetail" })
+    goSeedDetail: function (val) {
+      this.$router.push({ name: 'SeedDetail', params: { seedId: val } })
+    },
+    getLikes: function () {
+      const likeInfo = {};
+      const userId_num = this.user.user_id;
+      const seedId_num = this.seed.id;
+      likeInfo["userId"] = userId_num;
+      likeInfo["cngId"] = seedId_num;
+      if (this.liked) {
+        axios.put(`http://127.0.0.1:8080/likeDownChallenge/${userId_num}/${seedId_num}`, likeInfo )
+        this.liked = false
+        
+      } else {
+        axios.put(`http://127.0.0.1:8080/likeUpChallenge/${userId_num}/${seedId_num}`, likeInfo )
+        this.liked = true
+      }
     },
     getScrap: function () {
-      if (this.scrapped) {
-        this.scrapped = false
-        // 스크랩 기능 구현 아직 안 함.....
+      const userId_num = this.user.user_id;
+      const seedId_num = this.seed.id;
+      if (this.scrapped) {      
+        axios.get(`http://127.0.0.1:8080/userPage/DeletefavChallenge/${userId_num}/${seedId_num}`)
+        .then(() => {
+          console.log('스크랩취소성공')
+        })
+        .catch((err) => {
+          console.log(err)
+          console.log('스크랩취소실패')
+        })
+        this.scrapped = false  
       } else {
+        axios.get(`http://127.0.0.1:8080/userPage/favChallenge/${userId_num}/${seedId_num}`)
+        .then(() => {
+          console.log('스크랩성공')
+        })
+        .catch((err) => {
+          console.log(err)
+          console.log('스크랩실패')
+        })
         this.scrapped = true
       }
-    }
+    },
+    CheckisScrapped: function () {
+      const userId_num = this.user.user_id;
+      const seedId_num = this.seed.id;
+      axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId_num}`)
+      .then((res) => {
+        // console.log("likeand",res)
+        const seedList = res.data
+        var i;
+        for (i=0; i < seedList.length; i++) {
+          if (seedList[i].id === Number(seedId_num)) {
+            this.scrapped = true
+          }
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    CheckisLiked: function () {
+      // if (this.user.isLogin) {
+        const userId = {};
+        const userId_num = this.user.user_id;
+        const seedId_num = this.seed.id;
+        userId["userId"] = userId_num;
+        axios.get(`http://127.0.0.1:8080/LikeAndChallenge/${seedId_num}`)
+        .then((res) => {
+          console.log(res)
+          const UserList = res.data
+          var i;
+          for (i=0; i < UserList.length; i++) {
+            if (UserList[i].id === Number(userId_num)) {
+              this.liked = true
+            }
+          }
+        })
+        .catch((err) => {
+          console.log("에러발생",err)
+        })
+      // } else {
+      //   console.log("로그인이 필요합니다")
+      // }
+    },
+  },
+  created() {
+    this.CheckisScrapped();
+    this.CheckisLiked();
   },
   computed: {
+    ...mapState('UserStore', ['user']),
     SeedImg: function () {
       return this.seed.sum_img 
     },

@@ -202,6 +202,16 @@ export default {
       //     // console.log("팔로잉 리스트",res.data)
       //   })
     },
+    requestFollow: function () {
+      const followInfo = {
+        userId : this.$store.state.UserStore.user.user_id,
+        followingid : this.UserInfo.id
+      }
+      axios.delete(`http://127.0.0.1:8080/notificationFollow/${followInfo.userId}/${followInfo.followingid}/reqFollow`, followInfo)
+        .then((res) => {
+          console.log(res)
+        })
+    }
     // 페이지에 접속했을 때 로그인한 유저의 팔로잉 리스트에 해당 유저가 있는지 확인
     // CheckisFollow: function (nickname) {
       

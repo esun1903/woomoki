@@ -76,7 +76,7 @@
                       class="d-flex child-flex"
                       cols="4"
                       >
-                      <router-link :to="{ name: 'CertificationDetail', params: { cngUserId: card.user_id, cngId: card.cng_id, certId: card.id } }">
+                      <!-- <router-link :to="{ name: 'CertificationDetail', params: { cngUserId: getChallengUserId(card), cngId: card.cng_id, certId: card.id } }"> -->
                         <v-img
                           :src="card.img"
                           :lazy-src="card.img"
@@ -96,7 +96,7 @@
                         </v-row>
                       </template>
                       </v-img>
-                    </router-link>
+                    <!-- </router-link> -->
                     </v-col>
                   </v-row>
                 
@@ -209,7 +209,7 @@ export default {
         }
         }, 500)
       },
-
+    
     //   getChallengeOwner: function () {
     //   const cngId = {}
     //   const cngId_num = this.slide.cng_id
