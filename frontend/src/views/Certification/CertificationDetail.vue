@@ -16,7 +16,7 @@
         <v-list-item class="border-list">
           <router-link :to="{ name: 'UserPage', params: { userNickname: CertInfo.nickname }}">
           <v-list-item-avatar size="55">
-            <v-img :src="UserInfo.img"></v-img>
+            <v-img :src="CertUserImg"></v-img>
           </v-list-item-avatar>
           </router-link>
 
@@ -226,6 +226,7 @@
         directives: {},
         data() {
             return {
+                CertUserImg: "",
                 CertInfo: [],
                 comments: [],
                 UserInfo: [],
@@ -252,7 +253,7 @@
                 } else {
                     return false
                 }
-            }
+            },
         },
         mounted() {
 
@@ -299,6 +300,7 @@
                             this.showResultBtn = true;
                         }
                         console.log(response.data)
+                        this.getCertUserImg();
                     })
                     .catch((err) => {
                         console.log(err)
@@ -494,7 +496,16 @@
                     });
                 
                 this.showResultBtn = false;
-            }
+            },
+            getCertUserImg() {
+                const certUser = this.CertInfo.user_id;
+                axios.get(`http://localhost:8080/userPage/Id/${certUser}`)
+                    .then((res) => {
+                        console.log('내 프로필 잘 나와야하는데')
+                        console.log(res)
+                        this.CertUserImg = res.data.img
+                    })
+            },
         },
     };
 </script>
