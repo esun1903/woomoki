@@ -19,7 +19,7 @@
       <v-container>
         <div v-for="i in week" :key="i">
           <div v-for="j in day" :key="j">
-            <div :class=stampColor(i,j) @click="goCertInfo(i, j)"></div>
+            <div :class=stampColor(i,j) @click="goDetailorInsert(i, j)"></div>
           </div>
         </div>  
       </v-container>
@@ -120,10 +120,14 @@ export default {
           console.log(err)
         })
     },
-    goCertInfo: function (a, b) {
-      const ordinal = a * this.week + b
+    goDetailorInsert: function (a, b) {
+      const ordinal = (a-1) * this.day + (b-1)
       const CertId = this.coloringInfo[ordinal][0]
-      this.$router.push({ name: 'CertificationDetail', params: { cngUserId: this.cngOwner, cngId: this.seedId, certId: CertId } })
+      if (ordinal >= this.coloringInfo.length) {
+        this.$router.push({ name: 'CertificationInsert', params: { cngId: this.seedId, currentWeek: a, currentDay: b } }) 
+      } else {
+        this.$router.push({ name: 'CertificationDetail', params: { cngUserId: this.cngOwner, cngId: this.seedId, certId: CertId } })
+      }
     }
   },
 };
