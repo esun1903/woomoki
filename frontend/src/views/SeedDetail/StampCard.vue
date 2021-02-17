@@ -65,10 +65,12 @@ export default {
         console.log(ordinal)
         console.log(this.coloringInfo.length)
         if (ordinal < this.coloringInfo.length) {
-          if (this.coloringInfo[ordinal][1] === 1) {
+          if (this.coloringInfo[ordinal][1] === 3) {
             return 'confirmed-stamp'
-          } else {
-            return 'unconfirmed-stamp'
+          } else if (this.coloringInfo[ordinal][1] === 1){
+            return 'rejected-stamp'
+          } else if (this.coloringInfo[ordinal][1] === 0){
+            return 'unreviewed-stamp'
           }
         } else {
           return 'empty-stamp'
@@ -196,7 +198,7 @@ export default {
           .confirmed-stamp:before{
             content: "confirmed";
           }
-          .unconfirmed-stamp {
+          .rejected-stamp {
             height: 5.5vh;
             width: 16vh;
             border-radius: 50%;
@@ -209,8 +211,24 @@ export default {
             text-transform: uppercase;
             border-radius: 1rem;
           } 
-          .unconfirmed-stamp:before {
-            content: "unconfirmed";
+          .rejected-stamp:before {
+            content: "rejected";
+          }
+          .unreviewed-stamp {
+            height: 5.5vh;
+            width: 16vh;
+            border-radius: 50%;
+            display: inline-block;
+            color: #7986CB;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border: 0.25rem solid #7986CB;
+            padding: 5% 4%;
+            text-transform: uppercase;
+            border-radius: 1rem;
+          } 
+          .unreviewed-stamp:before {
+            content: "unreviewed";
           }
           .empty-stamp{
             height: 5.5vh;
@@ -218,7 +236,7 @@ export default {
             border-radius: 50%;
             display: inline-block;
             color: #BDBDBD;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 700;
             border: 0.25rem solid #BDBDBD;
             padding: 5% 4%;
