@@ -18,7 +18,8 @@
                     인증날짜: {{ CertInfo.create_date }}
                 </v-col>
             </v-row>
-            <v-row class="result-btn-row" v-if="showResultBtn">
+             <!-- v-if="showResultBtn" -->
+            <v-row class="result-btn-row">
                 <v-btn icon color="blue" value="1" v-on:click="successCert()">
                     <v-icon>mdi-thumb-up</v-icon>
                 </v-btn>

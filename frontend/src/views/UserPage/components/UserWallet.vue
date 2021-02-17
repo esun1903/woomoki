@@ -1,25 +1,37 @@
 <template>
 
   <v-col class="d-flex justify-center">
-    <v-dialog
+    <!-- <v-dialog
       v-model="dialog.dialog"
       scrollable
       max-width="300px"
     >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
+      <template v-slot:activator="{ on, attrs }"> -->
+        <!-- <v-btn
           plain
           text
           v-bind="attrs"
           v-on="on"
           :ripple="false"
+          class="btn-cursor"
+        >
+          <div>
+            <h2>나의 캐시</h2>
+            <div>{{ UserInfo.deposit }}</div>
+          </div>
+        </v-btn> -->
+        <v-btn
+          plain
+          text
+          :ripple="false"
+          class="btn-cursor"
         >
           <div>
             <h2>나의 캐시</h2>
             <div>{{ UserInfo.deposit }}</div>
           </div>
         </v-btn>
-      </template>
+      <!-- </template>
 
       <v-card>
           <v-card-title class="d-flex justify-space-between">충전하기
@@ -42,7 +54,7 @@
         <v-card-actions>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog> -->
   </v-col>
 
 
@@ -67,5 +79,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.btn-cursor {
+  cursor: default;
+}
 
 </style>

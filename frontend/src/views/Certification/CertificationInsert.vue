@@ -109,27 +109,13 @@
             };
         },
         created() {
-            this.getCurrentWeekDay();
         },
         computed: {
             ...mapState('UserStore', ['user']),
         },
         mounted() {},
         methods: {
-            getCurrentWeekDay() {
-                const userId = this.$store.state.UserStore.user.user_id;
-                const cngId = this.$route.params.cngId;
-                console.log("userId: "+ userId +", cngId: " + cngId);
-                axios.get(`http://127.0.0.1:8080/confirmstatus/${userId}/${cngId}`)
-                    .then((res) => {
-                        this.dataInfo = res.data;
-                        console.log("날짜정보들: "+this.dataInfo);
 
-                        // 가져온 값 current_ 에 넣기
-                        this.current_week = this.dataInfo;
-                        this.current_day = this.dataInfo;
-                    })
-            },
             handleFileUpload() {
                 this.file = this.$refs.file.files[0]
                 console.log(this.file, '파일이 선택되었음')
@@ -164,8 +150,9 @@
 
                 const user_id = this.$store.state.UserStore.user.user_id;
                 this.certForm.user_id = user_id;
-                //챌린지 id값 받아오기
                 this.certForm.cng_id = this.$route.params.cngId;
+                this.certForm.current_week = this.$route.params.currentWeek;
+                this.certForm.current_day = this.$route.params.currentDay;
 
 
                 var now = new Date();

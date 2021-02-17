@@ -13,7 +13,7 @@
             ></v-img>
           </v-avatar>
         </router-link>
-        <div class="ml-7">
+        <div class="ml-8">
           <v-row>
             <router-link :to="{ name: 'UserPage', params: { userNickname: UserInfo.nickname}}">
               <h1 class="d-inline-flex ninckname">{{ UserInfo.nickname }}</h1>

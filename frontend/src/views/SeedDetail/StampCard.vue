@@ -122,6 +122,7 @@ export default {
     },
     goDetailorInsert: function (a, b) {
       const ordinal = (a-1) * this.day + (b-1)
+<<<<<<< HEAD
       console.log('글 쓰러 간 다앗')
       console.log(a)
       console.log(b)
@@ -129,6 +130,13 @@ export default {
         this.$router.push({ name: 'CertificationInsert', params: { cngId: this.seedId, currentWeek: a, currentDay: b } }) 
       } else {
         const CertId = this.coloringInfo[ordinal][0]
+=======
+      const CertId = this.coloringInfo[[ordinal][0]]
+      if (ordinal >= this.coloringInfo.length) {
+        this.$router.push({ name: 'CertificationInsert', params: { cngId: this.seedId, currentWeek: a, currentDay: b } }) 
+      } 
+      else {
+>>>>>>> 5825e2e0f6b9872ea316c889d6549c2ff27a67ba
         this.$router.push({ name: 'CertificationDetail', params: { cngUserId: this.cngOwner, cngId: this.seedId, certId: CertId } })
       }
     }
