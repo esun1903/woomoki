@@ -30,14 +30,14 @@ public interface CertificationDao {
 	public int certificationInsert(@Param("certificationDto")CertificationDto certificationDto);
 
 	@Update("Update certification SET "
-			+ "cng_id = #{certificationDto.cng_id},"
-			+ "img =  #{certificationDto.img}, "
-			+ "content = #{certificationDto.content},"
-			+ "result= #{certificationDto.result},"
-			+ "user_id = #{certificationDto.user_id} , "
-			+ "current_week = #{certificationDto.current_week } , "
-			+ "current_day = #{certificationDto.current_day} , "
-			+ "WHERE id = #{certificationDto.id}")
+			+ " cng_id = #{certificationDto.cng_id},"
+			+ " img =  #{certificationDto.img}, "
+			+ " content = #{certificationDto.content},"
+			+ " result= #{certificationDto.result},"
+			+ " user_id = #{certificationDto.user_id} , "
+			+ " current_week = #{certificationDto.current_week }, "
+			+ " current_day = #{certificationDto.current_day}, "
+			+ " WHERE id = #{certificationDto.id} ")
 	public int certificationUpdate(@Param("certificationDto")CertificationDto certificationDto);
 
 
@@ -138,5 +138,12 @@ public interface CertificationDao {
 
 	@Select(" UPDATE user SET levelnum = levelnum - 1 WHERE id = #{userId} ")
 	public void userLevelDown(@Param("userId") int user_id );
+
+	@Update(" UPDATE certification SET result = 1 WHERE id = #{certId} ")
+	public void rejectConfirmation(@Param("certId")int certId);
+
+	// 성공했다면 3으로 변경
+	@Update(" UPDATE certification SET result = 3 WHERE id = #{certId} ")
+	public void successConfirmation(@Param("certId")int certId);
 }
 
