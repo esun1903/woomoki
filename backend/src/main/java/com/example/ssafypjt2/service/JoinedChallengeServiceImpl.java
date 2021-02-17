@@ -29,5 +29,10 @@ public class JoinedChallengeServiceImpl implements JoinedChallengeService {
         return dao.joinChallengeInsert(joinedChallengeDto);
     }
 
+    @Override
+    public int joinChallengeDelete(int userId, int cngId) {
+        return dao.joinChallengeDelete(userId,cngId);
+    }
+
 
 }

@@ -30,5 +30,8 @@ public class JoinedChallengeController {
     public int joinChallengeInsert(@RequestBody JoinedChallengeDto joinedChallengeDto){
         return service.joinChallengeInsert(joinedChallengeDto);
     }
-
+    @DeleteMapping("/joinChallengeDelete/{userId}/{cngId}")
+    public int joinChallengeDelete(@PathVariable("userId")int userId, @PathVariable("cngId")int cngId){
+        return service.joinChallengeDelete(userId,cngId);
+    }
 }

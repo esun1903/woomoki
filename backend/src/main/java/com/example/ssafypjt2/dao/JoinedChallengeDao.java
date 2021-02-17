@@ -1,6 +1,5 @@
 package com.example.ssafypjt2.dao;
 
-import com.example.ssafypjt2.dto.CertificationDto;
 import com.example.ssafypjt2.dto.JoinedChallengeDto;
 import org.apache.ibatis.annotations.*;
 
@@ -23,5 +22,7 @@ public interface JoinedChallengeDao {
     @Insert("INSERT INTO joined_challenge ( user_id, cng_id  ) VALUES ( #{joinedChallengeDto.user_id} , #{joinedChallengeDto.cng_id} ) ")
     public int joinChallengeInsert(@Param("joinedChallengeDto") JoinedChallengeDto joinedChallengeDto);
 
-
+    @Delete("DELETE FROM joined_challenge "
+            + "WHERE user_id= #{userId} AND cng_id = #{cngId}")
+    public int joinChallengeDelete(@Param("userId")int userId, @Param("cngId")int cngId);
 }
