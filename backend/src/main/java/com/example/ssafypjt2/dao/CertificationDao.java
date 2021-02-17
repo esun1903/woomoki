@@ -3,6 +3,7 @@ package com.example.ssafypjt2.dao;
 import java.util.List;
 
 import com.example.ssafypjt2.dto.ChallengeDto;
+import com.example.ssafypjt2.dto.UserDto;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -89,11 +90,17 @@ public interface CertificationDao {
 	@Select("SELECT * FROM  certification WHERE content like CONCAT('%', #{keyword}, '%')")
     public List<CertificationDto> searchWordCert(@Param("keyword") String keyword);
 
-	@Select(" SELECT cha.id , cha.cng_id , user.nickname, cha.img , cha.content , cha.create_date , cha.result , cha.user_id, cha.like_cnt , cha.current_week, cha.current_day " +
-			" FROM like_certification AS joy  " +
-			" JOIN certification AS cha ON joy.user_id = #{userId} AND joy.cert_id = cha.id " +
-			" JOIN user ON cha.user_id = user.id ")
-	public List<CertificationDto> main_LikeCertificationList(@Param("userId")int userId);
+//	@Select(" SELECT cha.id , cha.cng_id , user.nickname, cha.img , cha.content , cha.create_date , cha.result , cha.user_id, cha.like_cnt , cha.current_week, cha.current_day " +
+//			" FROM like_certification AS joy  " +
+//			" JOIN certification AS cha ON joy.user_id = #{userId} AND joy.cert_id = cha.id " +
+//			" JOIN user ON cha.user_id = user.id ")
+//	public List<CertificationDto> main_LikeCertificationList(@Param("userId")int userId);
+
+	@Select(" SELECT joy.id , joy.nickname , joy.password , joy.phone , joy.email , joy.introduce , joy.levelnum , joy.leveltitle , joy.img , joy.deposit , joy.join_date\n" +
+			"FROM like_certification AS lik " +
+			"JOIN user AS joy ON joy.id = lik.user_id " +
+			"WHERE lik.cert_id = #{certId}  ")
+	public List<UserDto> main_LikeCertificationList(@Param("certId")int certId);
 
 	@Select("SELECT WEEK, DAY FROM challenge WHERE id = #{cngId} ")
     public ChallengeDto challengeWeekDay(@Param("cngId")int cngId);

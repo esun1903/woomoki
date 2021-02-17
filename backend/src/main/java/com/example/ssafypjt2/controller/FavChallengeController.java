@@ -57,7 +57,7 @@ public class FavChallengeController {
 		return result;
 	}
 
-	//내가 관심있는 챌린지의 id와 스크랩의 수
+	//내가 관심있는 챌린지의 id와 스크랩의 수 ->
 	@CrossOrigin(origins = "*")
 	@GetMapping("/userPage/LikeAndfavChallenge/{userid}")
 	public List<ChallengeDto> user_LikeAndfavChallengeList(@PathVariable(value = "userid") int user_id ) throws Exception {

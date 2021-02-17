@@ -97,12 +97,27 @@ public class ChallengeController {
 		return  result;
 	}
 
-	//내가 좋아요 한 챌린지의 id와 좋아요 수
+
+	/*
+	* 	//내가 좋아요 한 챌린지의 id와 좋아요 수
 	@CrossOrigin(origins = "*")
 	@GetMapping("LikeAndChallenge/{userid}")
 	public List<ChallengeDto> user_LikeAndChallengeList(@PathVariable(value = "userid") int user_id ) throws Exception {
 		System.out.println(user_id+"가 좋아요 한 챌린지들과 좋아요의 수를 보여줄게");
 		List<ChallengeDto> result = challengeService.user_LikeAndChallengeList(user_id);
+		System.out.println(result);
+		return result;
+	}
+
+	*
+	* */
+
+	//내가 좋아요 한 챌린지의 id와 좋아요 수
+	@CrossOrigin(origins = "*")
+	@GetMapping("LikeAndChallenge/{cngId}")
+	public List<UserDto> user_LikeAndChallengeList( @PathVariable(value = "cngId") int cng_id) throws Exception {
+		System.out.println(cng_id+"가 좋아요 한 챌린지들과 좋아요의 수를 보여줄게");
+		List<UserDto> result = challengeService.user_LikeAndChallengeList(cng_id);
 		System.out.println(result);
 		return result;
 	}
