@@ -63,6 +63,7 @@
                 Nicknames: [],
                 photoURL: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
                 dialog: false,
+                file: null,
 
             };
         },
@@ -140,8 +141,8 @@
             },
             onChangeImages(e) {
                 console.log(e.target.files)
-                const file = e.target.files[0]; // Get first index in files
-                this.CertInfo.img = URL.createObjectURL(file);
+                this.file = e.target.files[0]; // Get first index in files
+                this.CertInfo.img = URL.createObjectURL(this.file);
             },
             updateCert() {
                 // AWS Setting Start
@@ -184,7 +185,7 @@
                 console.log(realtime);
 
                 // S3 관련 주소 풀기
-                let photoKey = user_id + "_" + realtime + "_" + this.file.name
+                let photoKey = this.CertInfo.user_id + "_" + realtime + "_" + this.file.name
                 this.certForm.img = this.photoURL + photoKey;
 
                 const certId = this.$route.params.certId;
