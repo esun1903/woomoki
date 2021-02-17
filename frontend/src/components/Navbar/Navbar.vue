@@ -111,7 +111,7 @@
           <v-dialog v-model="notice" width="25%" >
             <div class="notification" >
               <v-card class="notice-card">
-                <v-tabs v-model="currentTab" grow dark>
+                <v-tabs background-color ="#1DE9B6" v-model="currentTab" grow dark>
                   <v-tabs-slider></v-tabs-slider>
                   <v-tab v-for="(type,idx) in types" :key="idx">
                     {{ type}}
@@ -120,16 +120,19 @@
 
                 <v-tabs-items v-model="currentTab" >
                   <v-tab-item v-for="(type,idx) in types" :key="idx" >
-                    <v-card  v-for="(tab,idx) in tabs" :key="idx" @click="NotificationConfirm(tab.id)"  height="100">
+                    <v-card v-for="(tab,idx) in tabs" :key="idx" @click="NotificationConfirm(tab.id)"   height="100">
                     <v-card color ="#B2DFDB" v-if="tab.confirm_date === null">
+                      <div class ="diCard">
                       <v-card-text v-if="tab.type=='reqFollow'">
-                        {{tab.reqUserName}}님이 팔로우 하였습니다.
+                         <router-link :to="{ name: 'UserPage', params: { userNickname: tab.reqUserName }}">{{tab.reqUserName}}</router-link>
+                        님이 팔로우 하였습니다.
                         <div class="notiBtn" > 
                          <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">알림삭제</v-btn>  
                         </div>
-                      </v-card-text>
+                      </v-card-text> 
                       <v-card-text v-if="tab.type=='reqChallenge'"> 
-                        {{tab.reqUserName}}님이 {{tab.cngTitle}} 챌린지 참가 요청을 하였습니다.
+                        <router-link :to="{ name: 'UserPage', params: { userNickname: tab.reqUserName }}">{{tab.reqUserName}}</router-link>
+                        님이 <router-link :to="{ name: 'SeedDetail', params: { seedId: tab.cng_id }}" >{{tab.cngTitle}}</router-link> 챌린지 참가 요청을 하였습니다.
                         <div class="notirqBtn" >
                         <v-btn color="#9CCC65" class="white--text" @click="challengeOKay(tab.request_user,tab.cng_id),notificationDelete(tab.id)">수락</v-btn>
                         <v-btn color="#9CCC65" class="white--text" @click="challengeReject(tab.request_user,tab.cng_id),notificationDelete(tab.id)">거절</v-btn> 
@@ -137,22 +140,26 @@
                         </v-card-text>
                       
                       <v-card-text v-if="tab.type=='resChallenge'"> 
-                        {{tab.cngTitle}} 챌린지 참여 완료. 
+                       <router-link :to="{ name: 'SeedDetail', params: { seedId: tab.cng_id }}" >{{tab.cngTitle}}</router-link>챌린지 참여 완료. 
                         <div class="notiBtn" >
                         <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">알림삭제</v-btn> 
                         </div>
                         </v-card-text>
+                        </div>
                     </v-card>
 
                      <v-card v-else color ="#E0F2F1">
+                     <div class ="diCard">
                       <v-card-text v-if="tab.type=='reqFollow'">
-                        {{tab.reqUserName}}님이 팔로우 하였습니다.
+                         <router-link :to="{ name: 'UserPage', params: { userNickname: tab.reqUserName }}">{{tab.reqUserName}}</router-link>
+                        님이 팔로우 하였습니다.
                         <div class="notiBtn" > 
                          <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">알림삭제</v-btn>  
                         </div>
-                      </v-card-text>
+                      </v-card-text> 
                       <v-card-text v-if="tab.type=='reqChallenge'"> 
-                        {{tab.reqUserName}}님이 {{tab.cngTitle}} 챌린지 참가 요청을 하였습니다.
+                        <router-link :to="{ name: 'UserPage', params: { userNickname: tab.reqUserName }}">{{tab.reqUserName}}</router-link>
+                        님이 <router-link :to="{ name: 'SeedDetail', params: { seedId: tab.cng_id }}" >{{tab.cngTitle}}</router-link> 챌린지 참가 요청을 하였습니다.
                         <div class="notirqBtn" >
                         <v-btn color="#9CCC65" class="white--text" @click="challengeOKay(tab.request_user,tab.cng_id),notificationDelete(tab.id)">수락</v-btn>
                         <v-btn color="#9CCC65" class="white--text" @click="challengeReject(tab.request_user,tab.cng_id),notificationDelete(tab.id)">거절</v-btn> 
@@ -160,11 +167,12 @@
                         </v-card-text>
                       
                       <v-card-text v-if="tab.type=='resChallenge'"> 
-                        {{tab.cngTitle}} 챌린지 참여 완료. 
+                       <router-link :to="{ name: 'SeedDetail', params: { seedId: tab.cng_id }}" >{{tab.cngTitle}}</router-link>챌린지 참여 완료. 
                         <div class="notiBtn" >
                         <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">알림삭제</v-btn> 
                         </div>
                         </v-card-text>
+                        </div>
                     </v-card>
                     </v-card>
                   </v-tab-item>
@@ -410,10 +418,13 @@ a:-webkit-any-link {
     cursor: pointer;
     text-decoration: none;
 }
+.diCard{
+padding-left: 2%;
+}
 .notirqBtn{
   position: absolute;
   margin-top: 2%;
-   padding-left: 62%;
+  padding-left: 62%;
 }
 .notiBtn{
   position: absolute;
