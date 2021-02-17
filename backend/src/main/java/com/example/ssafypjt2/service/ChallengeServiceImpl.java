@@ -2,6 +2,7 @@ package com.example.ssafypjt2.service;
 
 import java.util.List;
 
+import com.example.ssafypjt2.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.ssafypjt2.dao.ChallengeDao;
@@ -106,9 +107,17 @@ public class ChallengeServiceImpl implements ChallengeService {
 	}
 
 	@Override
+	public List<UserDto> user_LikeAndChallengeList(int cngId) {
+		List<UserDto> list = dao.main_LikeChallegeList(cngId);
+		return list;
+	}
+
+/*
+@Override
 	public List<ChallengeDto> user_LikeAndChallengeList(int user_id) {
 		List<ChallengeDto> list = dao.main_LikeChallegeList(user_id);
 		return list;
 	}
+ */
 
 }

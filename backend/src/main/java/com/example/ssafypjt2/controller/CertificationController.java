@@ -3,6 +3,7 @@ package com.example.ssafypjt2.controller;
 import java.util.List;
 
 import com.example.ssafypjt2.dto.ChallengeDto;
+import com.example.ssafypjt2.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -85,11 +86,22 @@ public class CertificationController {
 	}
 
 	//내가 좋아요 한 챌린지의 id와 좋아요 수
+//	@CrossOrigin(origins = "*")
+//	@GetMapping("LikeAndCertification/{userid}")
+//	public List<CertificationDto> user_LikeAndCertificationList(@PathVariable(value = "userid") int user_id ) throws Exception {
+//		System.out.println(user_id+"가 좋아요 한 인증들과 좋아요의 수를 보여줄게");
+//		List<CertificationDto> result = certificationService.user_LikeAndCertificationList(user_id);
+//		System.out.println(result);
+//		return result;
+//	}
+
+
+	//인증글에 누가 좋아요를 했는지
 	@CrossOrigin(origins = "*")
-	@GetMapping("LikeAndCertification/{userid}")
-	public List<CertificationDto> user_LikeAndCertificationList(@PathVariable(value = "userid") int user_id ) throws Exception {
-		System.out.println(user_id+"가 좋아요 한 인증들과 좋아요의 수를 보여줄게");
-		List<CertificationDto> result = certificationService.user_LikeAndCertificationList(user_id);
+	@GetMapping("LikeAndCertification/{certId}")
+	public List<UserDto> user_LikeAndCertificationList(@PathVariable(value = "certId") int cert_id) throws Exception {
+		System.out.println(cert_id+"를 좋아요한 사람들의 list");
+		List<UserDto> result = certificationService.user_LikeAndCertificationList(cert_id);
 		System.out.println(result);
 		return result;
 	}

@@ -3,6 +3,7 @@ package com.example.ssafypjt2.service;
 import java.util.List;
 
 import com.example.ssafypjt2.dto.ChallengeDto;
+import com.example.ssafypjt2.dto.UserDto;
 import org.springframework.stereotype.Service;
 import com.example.ssafypjt2.dto.CertificationDto;
 
@@ -30,7 +31,9 @@ public interface CertificationService {
 
 	public List<CertificationDto> searchWordCert(String keyword);
 
-	public List<CertificationDto> user_LikeAndCertificationList(int user_id);
+//	public List<CertificationDto> user_LikeAndCertificationList(int user_id);
+
+	public List<UserDto> user_LikeAndCertificationList(int user_id);
 
     public ChallengeDto challengeWeekDay(int cngId);
 
