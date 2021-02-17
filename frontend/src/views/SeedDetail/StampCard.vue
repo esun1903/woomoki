@@ -9,8 +9,8 @@
           <span>
             <p class="nickname">{{ user.nickname }}</p>
             님의
-            <p class="seed">챌린지</p>
-            <p class="seed-title">( {{ seedTitle }} )</p>
+            <p class="seed">🌱</p>
+            <p class="seed-title">( "{{ seedTitle }}" )</p>
             <p class="card-name">도장 카드</p>
           </span>
         </v-toolbar-title>
@@ -66,12 +66,12 @@ export default {
         console.log(this.coloringInfo.length)
         if (ordinal < this.coloringInfo.length) {
           if (this.coloringInfo[ordinal][1] === 1) {
-            return 'purple-circle'
+            return 'confirmed-stamp'
           } else {
-            return 'black-circle'
+            return 'unconfirmed-stamp'
           }
         } else {
-          return 'gray-circle'
+          return 'empty-stamp'
         }
 
       }
@@ -122,10 +122,13 @@ export default {
     },
     goDetailorInsert: function (a, b) {
       const ordinal = (a-1) * this.day + (b-1)
-      const CertId = this.coloringInfo[ordinal][0]
+      console.log('글 쓰러 간 다앗')
+      console.log(a)
+      console.log(b)
       if (ordinal >= this.coloringInfo.length) {
         this.$router.push({ name: 'CertificationInsert', params: { cngId: this.seedId, currentWeek: a, currentDay: b } }) 
       } else {
+        const CertId = this.coloringInfo[ordinal][0]
         this.$router.push({ name: 'CertificationDetail', params: { cngUserId: this.cngOwner, cngId: this.seedId, certId: CertId } })
       }
     }
@@ -147,7 +150,6 @@ export default {
       margin-top: 1.3vh;
       .v-toolbar__content{      
         .v-toolbar__title{  
-                 
           span{
             display: flex;
             .nickname{
@@ -157,7 +159,7 @@ export default {
               margin-right: 0.6rem;
             }
             .seed{
-              margin-left: 1.5rem;
+              margin-left: 1rem;
             }
             .seed-title{
               margin: 0 0.5rem;
@@ -178,17 +180,56 @@ export default {
         display: flex;
         justify-content: center;
         div{
-          margin-bottom: 2.5%;
-          margin-right: 3%;
-          // .circle {
-          //   height: 10vh;
-          //   width: 10vh;
-          //   background-color: #bbb;
-          //   border-radius: 50%;
-          //   display: inline-block;
-          // }
-          .circle-info{
-
+          margin-bottom: 1.5%;
+          margin-right: 1%;
+          text-align: center;
+          .confirmed-stamp {
+            height: 5.5vh;
+            width: 16vh;
+            border-radius: 50%;
+            display: inline-block;
+            color: #43A047;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: 0.25rem solid #43A047;
+            padding: 5% 4%;
+            text-transform: uppercase;
+            border-radius: 1rem;
+          }
+          .confirmed-stamp:before{
+            content: "confirmed";
+          }
+          .unconfirmed-stamp {
+            height: 5.5vh;
+            width: 16vh;
+            border-radius: 50%;
+            display: inline-block;
+            color: #BCAAA4;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border: 0.25rem solid #BCAAA4;
+            padding: 5% 4%;
+            text-transform: uppercase;
+            border-radius: 1rem;
+          } 
+          .unconfirmed-stamp:before {
+            content: "unconfirmed";
+          }
+          .empty-stamp{
+            height: 5.5vh;
+            width: 16vh;
+            border-radius: 50%;
+            display: inline-block;
+            color: #BDBDBD;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: 0.25rem solid #BDBDBD;
+            padding: 5% 4%;
+            text-transform: uppercase;
+            border-radius: 1rem;
+          }
+          .empty-stamp:before {
+            content: "empty"
           }
         }
       }
@@ -200,26 +241,5 @@ export default {
 
     }
   }
-}
-.purple-circle {
-  height: 10vh;
-  width: 10vh;
-  background-color: purple;
-  border-radius: 50%;
-  display: inline-block;
-}
-.black-circle {
-  height: 10vh;
-  width: 10vh;
-  background-color: black;
-  border-radius: 50%;
-  display: inline-block;
-} 
-.gray-circle{
-  height: 10vh;
-  width: 10vh;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
 }
 </style>
