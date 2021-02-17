@@ -49,27 +49,29 @@
   </div>
   <div class="edit-div" v-else>
     <v-divider></v-divider>
-    <v-list-item-title id="user-id-list">
-        <b>작성자:</b> 
-          {{comment.nickname}}
-            <div class="time">
-              <b>시간:</b> 
-                {{comment.create_date}}
-            </div>
+    <v-list-item-title id="user-id-list" class="d-flex align-center justify-space-between">
+      <router-link :to="{ name: 'UserPage', params: { userNickname: nickname }}">
+        <span class="nickname-bold" style="font-size:15px; color:black;">
+          {{nickname}} 
+        </span>
+      </router-link>
+      <span class="date">
+        {{comment.create_date}}
+      </span>
     </v-list-item-title>
     <validation-observer ref="observer">
       <v-form @submit.prevent="updateComment">
         <validation-provider v-slot="{ errors }" rules="required">
-          <v-textarea color="#AED864" no-resize outlined v-model="comment.content" :error-messages="errors"></v-textarea>
+          <v-text-field color="#AED864" outlined dense v-model="comment.content" :error-messages="errors"></v-text-field>
         </validation-provider>
       </v-form>
     </validation-observer>
     <div class="back-ok-btn">
-      <v-btn icon color="red" v-on:click="back()">
-        <v-icon>mdi-arrow-left</v-icon>
+      <v-btn icon color="#EF5350" v-on:click="back()">
+        <v-icon>fas fa-arrow-left</v-icon>
       </v-btn>
-      <v-btn icon color="green" @click="updateComment()">
-        <v-icon>mdi-check-outline</v-icon>
+      <v-btn icon color="#AED864" @click="updateComment()">
+        <v-icon>fas fa-check</v-icon>
       </v-btn>
     </div>
   </div>
@@ -182,7 +184,7 @@
   }
 
   .time {
-    margin-left: 4%;
+    // margin-left: 4%;
   }
 
   .date{
@@ -190,4 +192,10 @@
     font-size:5px;
     color:grey;
   }
+
+  .nickname-bold {
+        color: black;
+        font-size: 17px;
+        font-weight: bold;
+    }
 </style>

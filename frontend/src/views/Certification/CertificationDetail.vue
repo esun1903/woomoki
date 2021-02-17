@@ -14,27 +14,27 @@
         </v-col>
         <!-- </v-row> -->
         <v-list-item class="border-list">
-            <router-link :to="{ name: 'UserPage', params: { userNickname: CertInfo.nickname }}">
-                <v-list-item-avatar size="55">
-                    <v-img :src="UserInfo.img"></v-img>
-                </v-list-item-avatar>
-            </router-link>
+          <router-link :to="{ name: 'UserPage', params: { userNickname: CertInfo.nickname }}">
+          <v-list-item-avatar size="55">
+            <v-img :src="UserInfo.img"></v-img>
+          </v-list-item-avatar>
+          </router-link>
 
-            <v-list-item-content>
-                <v-list-item-title>
-                    <router-link :to="{ name: 'UserPage', params: { userNickname: CertInfo.nickname }}">
-                        <span style="font-size:15px; color:black;"> {{ CertInfo.nickname }}</span>
-                    </router-link>
+          <v-list-item-content>
+            <v-list-item-title>
+              <router-link :to="{ name: 'UserPage', params: { userNickname: CertInfo.nickname }}">
+                <span class="nickname-bold" style="font-size:15px; color:black;"> {{ CertInfo.nickname }}</span>
+              </router-link>
+              
+            </v-list-item-title>
+            <v-list-item-subtitle>
+                <span class="date">{{ CertInfo.create_date }}</span>
+            </v-list-item-subtitle>
+          </v-list-item-content>
 
-                </v-list-item-title>
-                <v-list-item-subtitle>
-                    <span class="date">{{ CertInfo.create_date }}</span>
-                </v-list-item-subtitle>
-            </v-list-item-content>
-
-            <v-menu offset-y open-on-click bottom left>
-                <template v-slot:activator="{ on, attrs }">
-                    <!-- <v-btn icon  class="btn">
+          <v-menu offset-y open-on-click bottom left>
+            <template v-slot:activator="{ on, attrs }">
+              <!-- <v-btn icon  class="btn">
                 <v-icon>mdi-lead-pencil</v-icon>
               </v-btn> -->
                     <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
@@ -567,10 +567,9 @@
         border: solid rgb(231, 231, 231);
     }
 
-    .good-bad-btn,
-    .result-done {
-        margin-top: 5%;
-        margin-bottom: 5%;
-        justify-content: center;
+    .nickname-bold {
+        color: black;
+        font-size: 17px;
+        font-weight: bold;
     }
 </style>

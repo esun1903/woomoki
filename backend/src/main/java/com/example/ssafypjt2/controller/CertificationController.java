@@ -160,7 +160,7 @@ public class CertificationController {
 	@PostMapping("/cancleConfirmation")
 	public int cancelConfirmation ( @RequestBody CertificationDto certificationDto) {
 		// 만약, week , day 가 마지막이라면 ? ->
-		System.out.println("이 인증를 도장찍는걸 삭제할 겁니다." + certificationDto);
+		System.out.println("이 인증를 도장찍은 걸 삭제할 겁니다." + certificationDto);
 		int result = certificationService.cancleConfirmation(certificationDto);
 		if(result == 1) {
 			System.out.println("도장빼기 완료");
@@ -169,6 +169,16 @@ public class CertificationController {
 		}
 		return result;
 	}
+
+	@PostMapping("/rejectConfirmation")
+	public int rejectConfirmation ( @RequestBody CertificationDto certificationDto) {
+		// 만약, week , day 가 마지막이라면 ? ->
+		System.out.println("이 인증은 잘못된 인증입니다." + certificationDto);
+		int result = certificationService.rejectConfirmation(certificationDto);
+		System.out.println("잘못된 인증 성공완료");
+		return result;
+	}
+
 
 
 }

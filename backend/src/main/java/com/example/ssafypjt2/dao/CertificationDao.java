@@ -14,6 +14,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.example.ssafypjt2.dto.CertificationDto;
 
+// 변경 
 
 @Mapper
 public interface CertificationDao {
@@ -31,13 +32,13 @@ public interface CertificationDao {
 
 	@Update("Update certification SET "
 			+ "cng_id = #{certificationDto.cng_id},"
-			+ "img =  #{certificationDto.img}, "
+			+ "img =  #{certificationDto.img},"
 			+ "content = #{certificationDto.content},"
 			+ "result= #{certificationDto.result},"
 			+ "user_id = #{certificationDto.user_id} , "
-			+ "current_week = #{certificationDto.current_week } , "
-			+ "current_day = #{certificationDto.current_day} , "
-			+ "WHERE id = #{certificationDto.id}")
+			+ "current_week = #{certificationDto.current_week}, "
+			+ "current_day = #{certificationDto.current_day}  "
+			+ "WHERE id = #{certificationDto.id} ")
 	public int certificationUpdate(@Param("certificationDto")CertificationDto certificationDto);
 
 
@@ -133,10 +134,17 @@ public interface CertificationDao {
 			"WHERE user_id = #{userId} AND cng_id = #{cngId} ")
 	public void canclecertificationStamp(@Param("userId") int user_id, @Param("cngId") int cng_id);
 
-	@Select("UPDATE joined_challenge SET result = 2 WHERE user_id = #{userId} AND cng_id = #{cngId}")
+	@Select("UPDATE joined_challenge SET result = 1 WHERE user_id = #{userId} AND cng_id = #{cngId}")
 	public void challengeFail(@Param("userId") int user_id, @Param("cngId") int cng_id);
 
 	@Select(" UPDATE user SET levelnum = levelnum - 1 WHERE id = #{userId} ")
 	public void userLevelDown(@Param("userId") int user_id );
+
+	@Update(" UPDATE certification SET result = 1 WHERE id = #{certId} ")
+	public void rejectConfirmation(@Param("certId")int certId);
+
+	// 성공했다면 3으로 변경
+	@Update(" UPDATE certification SET result = 3 WHERE id = #{certId} ")
+	public void successConfirmation(@Param("certId")int certId);
 }
 
