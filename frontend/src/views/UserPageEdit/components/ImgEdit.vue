@@ -21,6 +21,7 @@
     },
     created() {
       this.getImage();
+      console.log("렌더링 된 이미지",this.imageUrl)
     },
     props: {
       profileImg: String,

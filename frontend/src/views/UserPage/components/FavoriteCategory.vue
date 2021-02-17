@@ -101,21 +101,6 @@ export default {
   },
   computed: {
     ...mapState('UserStore', ['user']),
-    color: function () {
-      if (category.name === '건강') {
-        return 'light-blue lighten-1'
-      } else if (category.name === '생활습관') {
-        return 'orange lighten-1'
-      } else if (category.name === '독서') {
-        return 'teal lighten-1'
-      } else if (category.name === '자산') {
-        return 'indigo lighten-1'
-      } else if (category.name === '자기계발') {
-        return 'purple lighten-1'
-      } else {
-        return 'pink lighten-1'
-      }
-    },
   },
   created () {
     this.initialFavCategory();
