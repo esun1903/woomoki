@@ -1,68 +1,62 @@
 <template>
-    <v-app>
-        <v-container>
+    <v-container class="container-size">
+        <!-- <v-row> -->
+        <v-col class="cng-name">
+            <span class="d-flex justify-center align-center mb-3 title-size">
+                {{ CngInfo.title }}
+            </span>
+            <span class="d-flex justify-center">
+                <v-chip class="white--text" :color="color">
+                    {{ this.category }}
+                </v-chip>
+            </span>
+        </v-col>
+        <!-- </v-row> -->
+        <v-list-item class="border-list">
+            <v-list-item-avatar size="55">
+                <v-img :src="UserInfo.img"></v-img>
+            </v-list-item-avatar>
+
+            <v-list-item-content>
+                <v-list-item-title>
+                    <span class="nickname-bold" style="font-size:15px; color:black;"> {{ UserInfo.nickname }}</span>
+                </v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>
+
+        <div class="insert">
+            <v-row class="img">
+                <CertificationImg @transferCertImg="receiveCertImg" class="mb-5" />
+            </v-row>
+
             <v-row>
-                <v-col cols="6" class="left">
-                    <!-- <v-layout wrap align-center> -->
-                    <v-col>
-                        <v-textarea v-model="certForm.content" outlined rows="10" label="설명글"
-                            placeholder="자유롭게 인증에 대한 설명을 넣어주세요">
-                        </v-textarea>
-                        <!-- </v-col>
-                        <v-file-input v-model="certForm.photo" label="인증사진" outlined multiple dense :rules="rules"
-                            accept="image/png, image/jpeg, image/bmp, image/jpg" prepend-icon="mdi-camera">
-                        </v-file-input>
-                    <v-col> -->
-                        <v-col>
-                            <input id="file-selector" ref="file" type="file" @change="handleFileUpload()">
-                        </v-col>
-                        <!-- <v-combobox multiple v-model="certForm.select" label="Tags" small-chips deletable-chips
-                            class="tag-input" :search-input.sync="search"></v-combobox> -->
-                    </v-col>
-                </v-col>
-                <v-col cols="6" class="right">
-                    <v-img v-if="selectedImage" :src="selectedImage">
-                    </v-img>
-                </v-col>
+                <v-textarea v-model="certForm.content" outlined rows="10" label="설명글"
+                    placeholder="자유롭게 인증에 대한 설명을 넣어주세요">
+                </v-textarea>
             </v-row>
 
-            <v-row cols="12">
-                <v-col cols="6">
-                    <router-link :to="'/'">
-                        <BackBtn />
-                    </router-link>
-                </v-col>
+            <v-row class="cancel-done-btn">
+                 <router-link to="/">
+              <v-btn class="ml-2 mr-2" outlined>
+                취소
+              </v-btn>
+            </router-link>
 
-                <v-col cols="6">
-                    <v-btn class="cert-insert-btn" @click="writeCert" rounded color="white" type="upload">
-                        인증글 등록하기
-                    </v-btn>
-
-                </v-col>
+               <v-btn 
+               color="#AED864" 
+               class="create-btn"
+              @click="writeCert">
+              생성
+            </v-btn>
             </v-row>
+        </div>
 
-            <!-- </v-layout> -->
-
-
-
-            <!-- <h1>파일 리스트 </h1>
-            <div v-for="(file, index) in fileList" :key="file.Key">#{{index+1}} {{file.Key}}
-
-                <div>
-                    <v-img v-bind:src="photoURL" />
-                </div>
-                <v-btn @click="deleteFile(file.Key)" color="red" flat icon>X</v-btn>
-            </div> -->
-            <!-- <h1>파일 업로더 </h1><input id="file-selector" ref="file" type="file" @change="handleFileUpload()">
-            <v-btn @click="writeCert" color="primary">업로드</v-btn> -->
-
-        </v-container>
-    </v-app>
+    </v-container>
 </template>
 <script>
     // import AWS from 'aws-sdk'
+    import CertificationImg from "@/views/Certification/components/CertificationImg.vue"
 
-    import BackBtn from '@/views/Certification/components/BackBtn.vue'
     import {
         mapState
     } from "vuex";
@@ -73,7 +67,7 @@
 
         name: 'CertificationInsert',
         components: {
-            BackBtn
+            CertificationImg
         }
 
         ,
@@ -106,15 +100,63 @@
 
                 },
                 dateInfo: [],
+                CngInfo: [],
+                UserInfo: [],
+                category: "",
+                certFile: null,
+                certImg:"",
             };
         },
         created() {
+            this.getCngInfo();
+            this.getUserInfo();
         },
         computed: {
             ...mapState('UserStore', ['user']),
         },
         mounted() {},
         methods: {
+
+            getCngInfo() {
+                const cngId = this.$route.params.cngId;
+                axios.get(`http://localhost:8080/detailChallenge/${cngId}`)
+                    .then((response) => {
+                        console.log(response.data);
+                        this.CngInfo = response.data;
+
+                        if (this.CngInfo.category_id === '1') {
+                            this.category = "건강"
+                            this.color = "light-blue lighten-1"
+                        } else if (this.CngInfo.category_id === '2') {
+                            this.category = "생활습관"
+                            this.color = "orange lighten-1"
+                        } else if (this.CngInfo.category_id === '3') {
+                            this.category = "독서"
+                            this.color = "teal lighten-1"
+                        } else if (this.CngInfo.category_id === '4') {
+                            this.category = "자산"
+                            this.color = "indigo lighten-1"
+                        } else if (this.CngInfo.category_id === '5') {
+                            this.category = "자기계발"
+                            this.color = "purple lighten-1"
+                        } else {
+                            this.category = "취미"
+                            this.color = "pink lighten-1"
+                        }
+                        console.log("카테고리", this.category)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            },
+
+            getUserInfo() {
+                const userId = this.$store.state.UserStore.user.user_id
+                axios.get(`http://localhost:8080/userPage/Id/${userId}`)
+                    .then((res) => {
+                        this.UserInfo = res.data;
+                    })
+            },
 
             handleFileUpload() {
                 this.file = this.$refs.file.files[0]
@@ -170,7 +212,7 @@
                 console.log(realtime);
 
                 // S3 관련 url값
-                let photoKey = user_id + "_" + realtime + "_" + this.file.name
+                let photoKey = user_id + "_" + realtime + "_" + this.certImg
                 this.certForm.img = this.photoURL + photoKey;
 
                 // let photoKey = "http://www.topstarnews.net/news/photo/first/201709/img_306795_1.jpg"
@@ -189,7 +231,7 @@
 
                 s3.upload({
                         Key: photoKey,
-                        Body: this.file,
+                        Body: this.certFile,
                         ACL: 'public-read'
                     }, (err, data) => {
                         if (err) {
@@ -203,6 +245,12 @@
 
                 );
 
+            },
+            receiveCertImg: function (file, certImg) {
+                this.certFile = file
+                this.certImg = certImg
+                console.log("넘어온 file정보: " + this.certFile)
+                console.log("넘어온 thumbnail이름 : " + this.certImg)
             },
             // S3 관련 코드
             // getFiles() {
@@ -323,10 +371,25 @@
     //     -webkit-font-smoothing: antialiased;
     // }
 
-    .cert-insert-btn {
+    .container-size {
+        border: 5px;
+        width: 40vw;
+    }
+
+    .insert{
+        margin-top: 3%
+    }
+
+    .cancel-done-btn {
+        justify-content: center;
         width: 100%;
         color: #9CCC65;
         margin-top: 20px;
         text-decoration: none;
+    }
+
+    .create-btn{
+        color:#ffffff;
+
     }
 </style>

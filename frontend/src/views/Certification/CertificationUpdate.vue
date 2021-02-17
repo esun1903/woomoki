@@ -37,8 +37,7 @@
         <div>
             <v-divider></v-divider>
             <CommentInsert />
-            <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment"
-                :nickname="Nicknames[index]" :profileImg="ProfileImgs[index]" />
+            <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" />
 
         </div>
     </v-container>
@@ -290,13 +289,14 @@
         opacity: 0.4;
     }
 
-
-
-
-
     .cng-name {
         justify-content: center;
         font-style: italic;
         margin-bottom: 3%;
+    }
+
+      .container-size {
+        border: 5px;
+        width: 40vw;
     }
 </style>
