@@ -3,7 +3,7 @@
         <validation-observer v-slot="{ invalid }" ref="observer">
             <v-form @submit.prevent="writeComment">
                 <validation-provider v-slot="{ errors }" rules="required">
-                    <v-textarea color="#AED864" no-resize outlined v-model="comment" :error-messages="errors" label="댓글" required></v-textarea>
+                    <v-text-field color="#AED864" dense outlined v-model="comment" :error-messages="errors" label="댓글" required></v-text-field>
                 </validation-provider>
                 <div id="insert-btn-div">
                     <v-btn color="#AED864" class="white--text" id="insert-btn" :disabled="invalid" @click="writeComment">

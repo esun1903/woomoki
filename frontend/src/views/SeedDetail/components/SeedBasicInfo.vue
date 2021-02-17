@@ -35,11 +35,17 @@
       <v-col class="d-flex align-center">
         <v-row class="d-flex justify-end">
           <router-link v-if="isMySeed === true" :to="{ name: 'SeedUpdate', params: { seedId: this.seedId }}">
-            <v-btn class="mr-5 btn-color" color="#AED864">
+            <!-- <v-btn class="mr-5 btn-color" color="#AED864">
               수정
+            </v-btn> -->
+            <v-btn icon class="mr-5 btn-color" color="#AED864">
+              <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </router-link>
-          <v-btn v-if="isMySeed === true" class="mr-5 btn-color" color="#AED864" @click="deleteSeed">삭제</v-btn>
+          <v-btn icon v-if="isMySeed === true" class="mr-5 btn-color" color="#EF5350" @click="deleteSeed">
+            <v-icon>mdi-trash-can</v-icon>
+          </v-btn>
+          <!-- <v-btn v-if="isMySeed === true" class="mr-5 btn-color" color="#AED864" @click="deleteSeed">삭제</v-btn> -->
           <SeedShare></SeedShare>
           <!-- <SeedViewMore></SeedViewMore> -->
         </v-row>
