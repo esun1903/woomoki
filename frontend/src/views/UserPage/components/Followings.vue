@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex justify-space-between ma-1">
       <span class="d-flex align-center">
-        <router-link :to="{ name: 'UserPage', params: { userNickname: following.nickname }}">
+        <router-link class="username" :to="{ name: 'UserPage', params: { userNickname: following.nickname }}">
           {{ following.nickname }}
         </router-link>
       </span>
@@ -94,5 +94,10 @@ export default {
 <style lang="scss" scoped>
 
 a {text-decoration: none;}
+
+.username {
+  color: black
+}
+
 
 </style>

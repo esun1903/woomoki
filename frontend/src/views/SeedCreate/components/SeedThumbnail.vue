@@ -20,7 +20,6 @@
           max-height="100%"
           v-if="imageUrl"
           :src="imageUrl"
-          @click="onClickImageUpload"
         >
           <v-fade-transition>
             <v-overlay v-if="hover" absolute color="#036358">
@@ -74,8 +73,9 @@
     name: "SeedThumbnail",
     data: function () {
       return {
+        // imageUrl: "https://t1.daumcdn.net/cfile/tistory/995A17455A409C9A28",
         imageUrl: "https://t1.daumcdn.net/cfile/tistory/995A17455A409C9A28",
-        // text: "썸네일 사진 변경",
+        text: "썸네일 사진 변경",
         overlay: false,
         fileName: null,
         file: null,

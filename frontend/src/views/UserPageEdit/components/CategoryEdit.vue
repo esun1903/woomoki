@@ -288,9 +288,6 @@ export default {
         }
         console.log(this.selected)
     },
-    test: function() {
-      console.log(this.selected)
-    }
   },
   watch: {
     selected: function () {

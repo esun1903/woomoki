@@ -22,9 +22,9 @@
         <v-row 
           class="d-flex align-center">
           <v-col>
-            <h2>
+            <h1>
               {{ this.UserInfo.nickname }}
-            </h2>
+            </h1>
           </v-col>
 
           <v-col v-if="isMyPage === false">
@@ -77,13 +77,15 @@
     </v-row>
     
     <v-row class="mt-1">
-      <ChallengeResults></ChallengeResults>
+      <FavoriteCategory></FavoriteCategory>
+      <!-- <ChallengeResults></ChallengeResults> -->
     </v-row>
   </v-container>
 </template>
 
 <script>
-import ChallengeResults from "./ChallengeResults"
+// import ChallengeResults from "./ChallengeResults"
+import FavoriteCategory from "./FavoriteCategory"
 import UserWallet from "./UserWallet"
 import FollowerList from "./FollowerList"
 import FollowingList from "./FollowingList"
@@ -93,7 +95,8 @@ import { mapState } from "vuex"
 export default {
   name: "BasicUserInfo",
   components: {
-    ChallengeResults,
+    // ChallengeResults,
+    FavoriteCategory,
     UserWallet,
     FollowerList,
     FollowingList
