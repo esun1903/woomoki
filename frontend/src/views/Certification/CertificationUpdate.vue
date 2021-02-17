@@ -1,65 +1,77 @@
 <template>
-    <v-container>
-        <div class="detail">
-            <v-row class="cng-name">
-                챌린지명: {{ CertInfo.title}}
-            </v-row>
-            <v-row class="nickname-date-row">
-                <v-col class="user-id">
-                    아이디: {{ CertInfo.nickname}}
-                </v-col>
-                <v-col class="date">
-                    인증날짜: {{ CertInfo.create_date }}
-                </v-col>
-            </v-row>
-            <v-row class="img-div">
-                <v-avatar rounded size=auto @click="updateImg()">
-                    <v-img v-if="imageUrl" :src="imageUrl">
-                    </v-img>
-                    <input ref="imageInput" type="file" hidden @change="onChangeImages">
-                </v-avatar>
-            </v-row>
-            <v-row class="content">
-                <v-textarea v-model="CertInfo.content" outlined rows="10" label="content">
-                </v-textarea>
-            </v-row>
-            <v-row class="back-update-btn">
-                <v-btn class="ma-2" outlined fab color="red" v-on:click="back()">
-                    <v-icon>mdi-arrow-left</v-icon>
-                </v-btn>
-                <v-btn class="ma-2" outlined fab color="green" v-on:click="updateCert()">
-                    <v-icon>mdi-check-outline</v-icon>
-                </v-btn>
+    <v-container class="container-size">
+        <v-col class="cng-name">
+            <span class="d-flex justify-center align-center mb-3 title-size">
+                {{ CngInfo.title }}
+            </span>
+            <span class="d-flex justify-center">
+                <v-chip class="white--text" :color="color">
+                    {{ this.category }}
+                </v-chip>
+            </span>
+        </v-col>
+        <v-list-item class="border-list">
+            <v-list-item-avatar size="55">
+                <v-img :src="UserAllInfo.img"></v-img>
+            </v-list-item-avatar>
 
-            </v-row>
-        </div>
+            <v-list-item-content>
+                <v-list-item-title>
+                    <span class="nickname-bold" style="font-size:15px; color:black;"> {{ UserAllInfo.nickname }}</span>
+                </v-list-item-title>
+                <v-list-item-title>
+                    <span class="nickname-bold" style="font-size:13px; color:grey;"> {{ CertInfo.create_date }}</span>
+                </v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>
+        <v-row class="img-div">
+            <CertificationImgUpdate @transferCertImg="receiveCertImg" class="mb-5"
+                :currentSelectedImg="currentSelectedImg" />
+        </v-row>
+        <v-row class="content">
+            <v-textarea v-model="CertInfo.content" outlined rows="10" label="설명글">
+            </v-textarea>
+        </v-row>
+        <v-row class="back-update-btn">
+            <v-btn class="ma-2" outlined fab color="red" v-on:click="back()">
+                <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
+            <v-btn class="ma-2" outlined fab color="green" v-on:click="updateCert()">
+                <v-icon>mdi-check-outline</v-icon>
+            </v-btn>
 
-        <div>
-            <v-divider></v-divider>
-            <CommentInsert />
-            <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" />
+        </v-row>
 
-        </div>
+
+        <v-divider></v-divider>
+        <CommentInsert />
+        <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" />
+
     </v-container>
 </template>
 
 <script>
     import CommentInsert from '@/views/Certification/components/CommentInsert.vue'
     import CommentList from '@/views/Certification/components/CommentList.vue'
+    import CertificationImgUpdate from '@/views/Certification/components/CertificationImgUpdate.vue'
+
     import axios from "axios";
 
     export default {
         name: 'CertificationUpdate',
         components: {
             CommentList,
-            CommentInsert
+            CommentInsert,
+            CertificationImgUpdate
         },
         directives: {},
         data() {
             return {
                 CertInfo: [],
+                CngInfo: [],
                 comments: [],
-                UserInfo: [],
+                UserAllInfo: [], //update에서 사용 할 유저 정보 저장
+                UserInfo: [], //댓글 컴포넌트로 넘겨주는 유저 정보 저장
                 Nicknames: [],
                 ProfileImgs: [],
                 photoURL: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
@@ -70,6 +82,11 @@
                 file: null,
                 photoKey: "",
                 imageURL: "",
+                category: "",
+                currentSelectedImg: "",
+                certFile: null,
+                certImg: "",
+                color: "",
 
             };
         },
@@ -77,6 +94,9 @@
 
         },
         created() {
+
+            this.getCngInfo();
+            this.getUserAllInfo();
             this.detailCert();
             this.detailComment();
             const cngId = this.$route.params.cngId;
@@ -88,13 +108,53 @@
             }
         },
         methods: {
+            getCngInfo() {
+                const cngId = this.$route.params.cngId;
+                axios.get(`http://localhost:8080/detailChallenge/${cngId}`)
+                    .then((response) => {
+                        console.log(response.data);
+                        this.CngInfo = response.data;
+
+                        if (this.CngInfo.category_id === '1') {
+                            this.category = "건강"
+                            this.color = "light-blue lighten-1"
+                        } else if (this.CngInfo.category_id === '2') {
+                            this.category = "생활습관"
+                            this.color = "orange lighten-1"
+                        } else if (this.CngInfo.category_id === '3') {
+                            this.category = "독서"
+                            this.color = "teal lighten-1"
+                        } else if (this.CngInfo.category_id === '4') {
+                            this.category = "자산"
+                            this.color = "indigo lighten-1"
+                        } else if (this.CngInfo.category_id === '5') {
+                            this.category = "자기계발"
+                            this.color = "purple lighten-1"
+                        } else {
+                            this.category = "취미"
+                            this.color = "pink lighten-1"
+                        }
+                        console.log("카테고리", this.category)
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                    })
+            },
+
+            getUserAllInfo() {
+                const userId = this.$store.state.UserStore.user.user_id
+                axios.get(`http://localhost:8080/userPage/Id/${userId}`)
+                    .then((res) => {
+                        this.UserAllInfo = res.data;
+                    })
+            },
             async detailCert() {
                 const certId = this.$route.params.certId;
                 axios.get(`http://localhost:8080/detailCertification/${certId}`)
                     .then((response) => {
                         this.CertInfo = response.data;
-                        this.imageUrl = this.CertInfo.img;
-                        console.log("created되고 imageUrl: " + this.imageUrl);
+                        this.currentSelectedImg = this.CertInfo.img;
+                        console.log("created되고 imageUrl: " + this.currentSelectedImg);
                     })
                     .catch((err) => {
                         console.log(err)
@@ -144,41 +204,13 @@
                     }
                 });
             },
-            updateImg() {
-                this.$refs.imageInput.click();
-            },
-            onChangeImages(e) {
-                console.log(e.target.files)
-                this.file = e.target.files[0]; // Get first index in files
-                this.imageURL = URL.createObjectURL(this.file);
-                // this.CertInfo.img = this.imageURL
-                console.log("imageurl: "+this.imageURL)
-                console.log("certinfo: "+this.CertInfo.img)
-                
-                var now = new Date();
+            updateCert() {
 
-                var year = now.getFullYear(); // 연도
-                var month = now.getMonth() + 1; // 월
-                var date = now.getDate(); // 일
-                var hours = now.getHours(); // 시간
-                var minutes = now.getMinutes(); // 분
-                var seconds = now.getSeconds(); // 초
-                var milliseconds = now.getMilliseconds(); // 밀리초
-
-                // console.log("현재 : ", now);
-                var realtime = year + "" + month + "" + date + "_" + hours + minutes + seconds + milliseconds;
-                console.log(realtime);
-
-                // S3 관련 주소 풀기
-                console.log(this.file.name);
-
-                this.photoKey = this.CertInfo.user_id + "_" + realtime + "_" + this.file.name
-                this.CertInfo.img = this.photoURL + this.photoKey;
+                this.photoKey = this.certImg;
+                this.CertInfo.img = this.photoURL + this.certImg;
                 console.log(this.CertInfo.img);
 
                 // AWS Setting Start
-
-                console.log("updateCert 들어옴");
 
                 // S3 관련 코드
                 AWS.config.update({
@@ -203,27 +235,6 @@
 
                 // AWS Setting End
 
-
-                // S3 관련 코드
-
-                s3.upload({
-                        Key: this.photoKey,
-                        Body: this.file,
-                        ACL: 'public-read'
-                    }, (err, data) => {
-                        if (err) {
-                            console.log(err)
-                            return alert('There was an error uploading your photo: ', err.message);
-                        }
-
-                    }
-
-                );
-
-
-            },
-            updateCert() {
-
                 const certId = this.$route.params.certId;
                 const UpdateCertInfo = {
                     cng_id: this.CertInfo.cng_id,
@@ -236,8 +247,24 @@
                     current_week: this.CertInfo.current_week,
                     current_day: this.CertInfo.current_day,
                 }
-                console.log(UpdateCertInfo.img);
+                console.log("이미지 정보: " + UpdateCertInfo.img);
 
+               
+                // S3 관련 코드
+
+                s3.upload({
+                        Key: this.photoKey,
+                        Body: this.certFile,
+                        ACL: 'public-read'
+                    }, (err, data) => {
+                        if (err) {
+                            console.log(err)
+                            return alert('There was an error uploading your photo: ', err.message);
+                        }
+
+                    }
+
+                );
 
                 axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
                     .then(res => {
@@ -252,18 +279,21 @@
                     .catch(err => {
                         console.log(err);
                     });
-                console.log(this.certForm);
+                console.log(this.UpdateCertInfo);
 
+            },
+
+            receiveCertImg: function (file, certImg) {
+                this.certFile = file
+                this.certImg = certImg
+                console.log("넘어온 file정보: " + this.certFile)
+                console.log("넘어온 파일 이름 : " + this.certImg)
             },
         },
     };
 </script>
 
 <style lang="scss" scoped>
-    .detail {
-        margin: 10% 30% 0% 30%;
-    }
-
     .v-divider {
         margin: 3% !important;
     }
@@ -276,7 +306,8 @@
 
     .back-update-btn {
         justify-content: center;
-        margin-top: 15%;
+        margin-top: 5%;
+        margin-bottom: 5%;
     }
 
     .content,
@@ -285,8 +316,8 @@
         margin-top: 5%;
     }
 
-    .img-div:hover {
-        opacity: 0.4;
+    .img-div {
+        margin-top: 3%
     }
 
     .cng-name {
@@ -295,7 +326,7 @@
         margin-bottom: 3%;
     }
 
-      .container-size {
+    .container-size {
         border: 5px;
         width: 40vw;
     }

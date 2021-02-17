@@ -18,12 +18,12 @@
           height="100%"
           max-width="100%"
           max-height="100%"
-          v-if="imageUrl"
-          :src="imageUrl"
+          v-if="currentSelectedImg"
+          :src="currentSelectedImg"
         >
           <v-fade-transition>
             <v-overlay v-if="hover" absolute color="#036358">
-              <v-btn>인증 사진 등록<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
+              <v-btn>인증 사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
             </v-overlay>
           </v-fade-transition>
         </v-img>
@@ -34,28 +34,39 @@
 
 <script>
   export default {
-    name: "CertificationImg",
+    name: "CertificationImgUpdate",
     data: function () {
       return {
-        imageUrl: "https://www.nicepng.com/png/detail/102-1020827_polaroid-picture-frame-free-image-on-pixabay-polaroid.png",
+        imageUrl: "",
         overlay: false,
         fileName: null,
         file: null,
       }
     },
+    props:{
+        currentSelectedImg: String,
+    },
+    created(){
+        this.settingImg();
+        console.log("selected: "+this.currentSelectedImg);
+        console.log("imgurl: "+ this.imageUrl)
+    },
     methods: {
+        async settingImg(){
+        this.imageUrl = this.currentSelectedImg;
+        },
       onClickImageUpload() {
         this.$refs.imageInput.click();
       },
       onChangeImages(e) {
         console.log(e.target.files)
         this.file = e.target.files[0]; // Get first index in files
-        this.imageUrl = URL.createObjectURL(this.file); // Create File URL
+        this.currentSelectedImg = URL.createObjectURL(this.file); // Create File URL
         this.fileNameSetting();
         this.transferCertImg();
       },
       onDeleteImage() {
-        this.imageUrl = ""
+        this.currentSelectedImg = ""
         this.fileName = ""
         this.file = ""
       },

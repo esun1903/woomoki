@@ -65,9 +65,32 @@
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </router-link>
-          <v-btn icon v-if="isMySeed === true" class="mr-5 btn-color" color="#EF5350" @click="deleteSeed">
+          <v-btn icon v-if="isMySeed === true" class="mr-5 btn-color" color="#EF5350" @click.stop="confirmCngDeleteDialog = true">
             <v-icon>mdi-trash-can</v-icon>
           </v-btn>
+          <v-dialog v-model="confirmCngDeleteDialog" max-width="350">
+                    <v-card>
+                        <v-card-title class="headline">
+                            씨앗을 삭제하시겠습니까?
+                        </v-card-title>
+
+                        <v-card-text>
+                            한번 삭제된 씨앗은 다시 살릴 수 없어요!
+                        </v-card-text>
+
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+
+                            <v-btn color="grey" text @click="confirmCngDeleteDialog = false">
+                                취소
+                            </v-btn>
+
+                            <v-btn color="red" text @click="confirmCngDeleteDialog = false; deleteSeed()">
+                                삭제
+                            </v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
           <!-- <v-btn v-if="isMySeed === true" class="mr-5 btn-color" color="#AED864" @click="deleteSeed">삭제</v-btn> -->
           <SeedShare></SeedShare>
           <!-- <SeedViewMore></SeedViewMore> -->
@@ -147,7 +170,8 @@ export default {
       panel: [0, 1, 2, 3, 4, 5],
       joinUser: [],
       waitUser: [],
-      isAccepted: false
+      isAccepted: false,
+      confirmCngDeleteDialog: false,
     }
   },
   props: {

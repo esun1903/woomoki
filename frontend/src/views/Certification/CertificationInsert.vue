@@ -36,18 +36,15 @@
             </v-row>
 
             <v-row class="cancel-done-btn">
-                 <router-link to="/">
-              <v-btn class="ml-2 mr-2" outlined>
-                취소
-              </v-btn>
-            </router-link>
+                <router-link to="/">
+                    <v-btn class="ml-2 mr-2" outlined>
+                        취소
+                    </v-btn>
+                </router-link>
 
-               <v-btn 
-               color="#AED864" 
-               class="create-btn"
-              @click="writeCert">
-              생성
-            </v-btn>
+                <v-btn color="#AED864" class="create-btn" @click="writeCert">
+                    생성
+                </v-btn>
             </v-row>
         </div>
 
@@ -104,7 +101,8 @@
                 UserInfo: [],
                 category: "",
                 certFile: null,
-                certImg:"",
+                certImg: "",
+                color: "",
             };
         },
         created() {
@@ -376,7 +374,7 @@
         width: 40vw;
     }
 
-    .insert{
+    .insert {
         margin-top: 3%
     }
 
@@ -388,8 +386,8 @@
         text-decoration: none;
     }
 
-    .create-btn{
-        color:#ffffff;
+    .create-btn {
+        color: #ffffff;
 
     }
 </style>
