@@ -35,7 +35,8 @@
       <v-col cols="8" class="d-flex align-center">
         <v-row class="d-flex justify-end align-center">
           <!-- isJoin에 따라 보이거나 안보이거나 -->
-            <router-link v-if="checkAcception" :to="{ name: 'CertificationInsert', params: { cngId: this.$route.params.seedId }}">
+            <!-- <router-link v-if="checkAcception" :to="{ name: 'CertificationInsert', params: { cngId: this.$route.params.seedId }}"> -->
+            <router-link :to="{ name: 'CertificationInsert', params: { cngId: this.$route.params.seedId }}">
               <v-btn 
                 :ripple="false"
                 color="#AED864"
