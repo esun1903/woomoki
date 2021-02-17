@@ -36,7 +36,7 @@
                 flat
                 >
 
-                <v-card-text v-if="item === '피드'">
+                <v-card-text v-if="item === '보살핌 목록'">
      
                   <v-row>
                     <v-col
@@ -71,9 +71,9 @@
                 
                 </v-card-text>
                   <!-- <v-card-text v-if="item === '챌린지'"><ChallengeResults></ChallengeResults></v-card-text> -->
-                <!-- <v-card-text v-if="item === '통계'">
-                  <UserStat></UserStat>
-                </v-card-text> -->
+                <v-card-text v-if="item === '나의 씨앗'">
+                  <ChallengeResults></ChallengeResults>
+                </v-card-text>
               </v-card>
             </v-tab-item>
           </v-tabs-items>
@@ -92,7 +92,7 @@
 
 <script>
 import BasicUserInfo from "./components/BasicUserInfo"
-// import ChallengeResults from "./components/ChallengeResults"
+import ChallengeResults from "./components/ChallengeResults"
 import UserStat from "./components/UserStat"
 // import {mapState} from "vuex"
 import axios from 'axios'
@@ -101,14 +101,14 @@ export default {
     name: "UserPage",
     components: {
         BasicUserInfo,
-        // ChallengeResults,
+        ChallengeResults,
         UserStat,
     },
     data: function () {
         return {
           userId: "",
           tab: null,
-          items: ['피드', '통계'],
+          items: ['보살핌 목록', '나의 씨앗'],
           total: [],
           cards: [],
           isUserstat: false,

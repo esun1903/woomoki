@@ -1,6 +1,6 @@
 <template>
   <v-avatar class="cursor_img profile-img-margin" width="250" height="250" color="#AED864" @click="onClickImageUpload">
-    <span class="white--text">
+    <span v-if="!imageUrl" class="white--text">
       {{ this.text }}
     </span>
     <v-img v-if="imageUrl" :src="imageUrl"></v-img>
@@ -29,6 +29,7 @@
       getImage() {
 
         this.imageUrl = this.profileImg;
+        console.log("받은 이미지: " + this.profileImg);
         console.log("보여줄 이미지: " + this.imageUrl);
       },
       onClickImageUpload() {

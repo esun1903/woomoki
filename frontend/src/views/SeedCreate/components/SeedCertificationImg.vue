@@ -20,7 +20,6 @@
             max-height="100%"
             v-if="imageUrl"
             :src="imageUrl"
-            @click="onClickImageUpload"
           >
             <v-fade-transition>
               <v-overlay
@@ -55,7 +54,7 @@
     data: function () {
       return {
         text: "인증 예시 사진",
-        imageUrl: "https://t1.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/1P88/image/MK3vcYmgiNjgHG0lyRfRPRxtW7M.jpg",
+        imageUrl: "https://image.freepik.com/free-photo/developing-programmer-development-website-design-and-coding-technologies_18497-1090.jpg",
         fileName: null,
         file: null,
         selectedImage: null,

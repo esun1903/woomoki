@@ -242,8 +242,9 @@
         this.$refs.observer.validate();
       },
       clear() {
-        this.UserInfo = "",
-          this.checkbox = null;
+        this.UserInfo.introduce = "",
+        this.UserInfo.phone = "",
+        this.checkbox = null;
         this.$refs.observer.reset();
       },
 

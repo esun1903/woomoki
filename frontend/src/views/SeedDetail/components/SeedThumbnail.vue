@@ -19,11 +19,11 @@
             class="img"
             :src="this.SeedInfo.sum_img"
           >
-            <div class="content">
            
-              <h1>{{ SeedInfo.title }}</h1>
-              <br>
+            <h1 class="seed-title">{{ SeedInfo.title }}</h1>
+            <br>
 
+            <div class="content">
               <v-chip :color="this.color" class="white--text mb-2">
                 <span class="chip-size">
                   {{this.category}}
@@ -98,6 +98,7 @@
             </div>
             
             <div class="img-cover"></div>
+            <!-- isJoin에 따라 보이거나 안보이거나 -->
             <router-link :to="{ name: 'CertificationInsert', params: { cngId: this.$route.params.seedId }}">
               <v-btn 
                 :ripple="false"
@@ -140,6 +141,7 @@ export default {
       isLogin : this.$store.state.UserStore.isLogin,
       likeCount: 0,
       scrapCount: 0,
+      // isJoin: false,
     }
   },
   methods: {
@@ -323,16 +325,29 @@ export default {
 
 .img-cover{
    position: absolute;
-   height: 100%;
+   top: 0%;
    width: 100%;
+   height: 100%;
    background-color: rgba(0, 0, 0, 0.4);                                                                 
    z-index:1;
+}
+
+.img .seed-title{
+     position: absolute;
+     width: 70%;
+     top:25%;
+     left:50%;
+     transform: translate(-50%, -50%);                                                                   
+     font-size:2rem;
+     color: white;
+     z-index: 2;
+     text-align: center;
 }
 
 .img .content{
      position: absolute;
      width: 30%;
-     top:50%;
+     top:60%;
      left:50%;
      transform: translate(-50%, -50%);                                                                   
      font-size:1rem;
@@ -354,7 +369,7 @@ export default {
   z-index: 6;
   position: relative;
   left: 73%;
-  top: 85%;
+  top: 80%;
 }
 
 a {

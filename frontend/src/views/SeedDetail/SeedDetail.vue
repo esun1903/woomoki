@@ -58,10 +58,16 @@
       <div id="rules"></div>
       <div id="content"></div>
       <footer></footer>
-      <v-btn @click="JoinSeed" depressed tile id="banner" width="65.55vw" height="5vw" class="position-fixed"
+      <v-btn v-if="!isJoin" @click="JoinSeed" depressed tile id="banner" width="65.55vw" height="5vw" class="position-fixed"
         color="#AED864">
         <h1 class="join-font">
           함께하기
+        </h1>
+      </v-btn>
+      <v-btn v-if="isJoin" disabled depressed tile id="banner" width="65.55vw" height="5vw" class="position-fixed"
+        color="#AED864">
+        <h1 class="join-font">
+          참여 수락을 기다리고 있습니다
         </h1>
       </v-btn>
     </div>
@@ -95,6 +101,7 @@ export default {
       isBasicInfo: true,
       isMySeed: false,
       isLogin: this.$store.state.UserStore.isLogin,
+      isJoin: false,
     }
   },
   computed: {
@@ -153,6 +160,7 @@ export default {
           notification)
         .then((res) => {
           console.log(res)
+          this.isJoin = true
         })
     },
     detailCertification: function (certid) {
