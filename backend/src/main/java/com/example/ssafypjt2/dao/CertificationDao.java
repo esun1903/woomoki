@@ -30,13 +30,13 @@ public interface CertificationDao {
 
 	@Update("Update certification SET "
 			+ "cng_id = #{certificationDto.cng_id},"
-			+ "img =  #{certificationDto.img}, "
+			+ "img =  #{certificationDto.img},"
 			+ "content = #{certificationDto.content},"
 			+ "result= #{certificationDto.result},"
 			+ "user_id = #{certificationDto.user_id} , "
-			+ "current_week = #{certificationDto.current_week } , "
-			+ "current_day = #{certificationDto.current_day} , "
-			+ "WHERE id = #{certificationDto.id}")
+			+ "current_week = #{certificationDto.current_week}, "
+			+ "current_day = #{certificationDto.current_day}  "
+			+ "WHERE id = #{certificationDto.id} ")
 	public int certificationUpdate(@Param("certificationDto")CertificationDto certificationDto);
 
 

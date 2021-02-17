@@ -3,11 +3,9 @@ package com.example.ssafypjt2.controller;
 
 import com.example.ssafypjt2.dto.JoinedChallengeDto;
 import com.example.ssafypjt2.service.JoinedChallengeService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,5 +19,10 @@ public class JoinedChallengeController {
     @GetMapping("/joinChallengeUserList/{cngId}")
     public List<JoinedChallengeDto> joinChallengeUserList(@PathVariable(value = "cngId") int cngId){
         return service.joinChallengeUserList(cngId);
+    }
+
+    @PutMapping("/joinResultUpdate/{userId}/{cngId}/{result}")
+    public int joinResultUpdate(@PathVariable("userId")int userId, @PathVariable("cngId")int cngId, @PathVariable("result")int result){
+        return service.joinResultUpdate(userId,cngId,result);
     }
 }
