@@ -1,5 +1,5 @@
 <template>
-  <!-- <v-hover>
+  <v-hover>
   <template v-slot:default="{ hover }"> 
     <v-avatar
         tile
@@ -20,28 +20,25 @@
           max-height="100%"
           v-if="imageUrl"
           :src="imageUrl"
-          @click="onClickImageUpload"
         >
           <v-fade-transition>
             <v-overlay v-if="hover" absolute color="#036358">
-              <v-btn>대표사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
+              <v-btn>인증 사진 등록<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
             </v-overlay>
           </v-fade-transition>
         </v-img>
-
       </v-avatar>
     </template>
-  </v-hover> -->
-  <div>CertificationImg.vue입니다</div>
-</template>
+  </v-hover>
+</template>CertificationImg
 
 <script>
   export default {
-    name: "CertificationImg",
+    name: "SeedThumbnail",
     data: function () {
       return {
-        imageUrl: "https://t1.daumcdn.net/cfile/tistory/995A17455A409C9A28",
-        // text: "썸네일 사진 변경",
+        imageUrl: "https://www.nicepng.com/png/detail/102-1020827_polaroid-picture-frame-free-image-on-pixabay-polaroid.png",
+        text: "썸네일 사진 변경",
         overlay: false,
         fileName: null,
         file: null,
@@ -56,7 +53,7 @@
         this.file = e.target.files[0]; // Get first index in files
         this.imageUrl = URL.createObjectURL(this.file); // Create File URL
         this.fileNameSetting();
-        this.transferThumbnail();
+        this.transferCertImg();
       },
       onDeleteImage() {
         this.text = "썸네일 사진 변경"
@@ -64,9 +61,9 @@
         this.fileName = ""
         this.file = ""
       },
-      transferThumbnail: function () {
+      transferCertImg: function () {
         console.log("file값: " + this.file);
-        this.$emit('transferThumbnail', this.file, this.fileName)
+        this.$emit('transferCertImg', this.file, this.fileName)
       },
       async fileNameSetting() {
 

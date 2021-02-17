@@ -577,4 +577,11 @@ methods: {
         font-size: 17px;
         font-weight: bold;
     }
+
+    .good-bad-btn,
+    .result-done {
+        margin-top: 5%;
+        margin-bottom: 5%;
+        justify-content: center;
+    }
 </style>
