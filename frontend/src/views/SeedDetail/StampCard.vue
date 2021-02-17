@@ -122,10 +122,11 @@ export default {
     },
     goDetailorInsert: function (a, b) {
       const ordinal = (a-1) * this.day + (b-1)
-      const CertId = this.coloringInfo[ordinal][0]
+      const CertId = this.coloringInfo[[ordinal][0]]
       if (ordinal >= this.coloringInfo.length) {
         this.$router.push({ name: 'CertificationInsert', params: { cngId: this.seedId, currentWeek: a, currentDay: b } }) 
-      } else {
+      } 
+      else {
         this.$router.push({ name: 'CertificationDetail', params: { cngUserId: this.cngOwner, cngId: this.seedId, certId: CertId } })
       }
     }
