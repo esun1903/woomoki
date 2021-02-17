@@ -14,6 +14,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.example.ssafypjt2.dto.CertificationDto;
 
+// 변경 
 
 @Mapper
 public interface CertificationDao {
