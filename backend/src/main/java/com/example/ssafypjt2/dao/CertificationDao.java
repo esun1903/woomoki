@@ -138,5 +138,12 @@ public interface CertificationDao {
 
 	@Select(" UPDATE user SET levelnum = levelnum - 1 WHERE id = #{userId} ")
 	public void userLevelDown(@Param("userId") int user_id );
+
+	@Update(" UPDATE certification SET result = 1 WHERE id = #{certId} ")
+	public void rejectConfirmation(@Param("certId")int certId);
+
+	// 성공했다면 3으로 변경
+	@Update(" UPDATE certification SET result = 3 WHERE id = #{certId} ")
+	public void successConfirmation(@Param("certId")int certId);
 }
 
