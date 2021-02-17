@@ -9,84 +9,24 @@
       <v-row align="center" justify="center">
         <v-col
           v-for="(selection, i) in getSelections"
-          :key="selection.text"
+          :key="selection.category"
           class="shrink"
-        > 
-          <span v-if="selection.text === '건강'">
-            <v-chip
-              color="light-blue lighten-1"
-              outlined
-              :disabled="loading"
-              close
-              @click:close="selected.splice(i, 1)"
-            >
-              <v-icon left v-text="selection.icon"></v-icon>
-              {{ selection.text }}
-            </v-chip>
-          </span>
-          <span v-if="selection.text === '생활습관'">
-            <v-chip
-              color="orange lighten-1"
-              outlined
-              :disabled="loading"
-              close
-              @click:close="selected.splice(i, 1)"
-            >
-              <v-icon left v-text="selection.icon"></v-icon>
-              {{ selection.text }}
-            </v-chip>
-          </span>
-          <span v-if="selection.text === '독서'">
-            <v-chip
-              color="teal lighten-1"
-              outlined
-              :disabled="loading"
-              close
-              @click:close="selected.splice(i, 1)"
-            >
-              <v-icon left v-text="selection.icon"></v-icon>
-              {{ selection.text }}
-            </v-chip>
-          </span>
-          <span v-if="selection.text === '자산'">
-            <v-chip
-              color="indigo lighten-1"
-              outlined
-              :disabled="loading"
-              close
-              @click:close="selected.splice(i, 1)"
-            >
-              <v-icon left v-text="selection.icon"></v-icon>
-              {{ selection.text }}
-            </v-chip>
-          </span>
-          <span v-if="selection.text === '자기계발'">
-            <v-chip
-              color="purple lighten-1"
-              outlined
-              :disabled="loading"
-              close
-              @click:close="selected.splice(i, 1)"
-            >
-              <v-icon left v-text="selection.icon"></v-icon>
-              {{ selection.text }}
-            </v-chip>
-          </span>
-          <span v-if="selection.text === '취미'">
-            <v-chip
-              color="pink lighten-1"
-              outlined
-              :disabled="loading"
-              close
-              @click:close="selected.splice(i, 1)"
-            >
-              <v-icon left v-text="selection.icon"></v-icon>
-              {{ selection.text }}
-            </v-chip>
-          </span>
+        >
+          <v-chip 
+            :color=chipColor(selection.text)
+            outlined
+            :disabled="loading"
+            close
+            @click:close="selected.splice(i, 1)"
+          >
+            <v-icon
+              left
+              v-text="selection.icon"
+            ></v-icon>
+            {{ selection.text }}
+          </v-chip>
         </v-col>
       </v-row>
-
       <v-divider v-if="!isAllSelected"></v-divider>
 
       <v-list>
@@ -202,12 +142,26 @@ export default {
   },
   computed: {
     ...mapState('UserStore', ['user']),
-    // ----------------- FavoriteCategory용-----------------
-    // 모든 아이템이 골라졌을 때 구분선 없애기 위함
+    chipColor () {
+      return (val) => {
+        if (val === '건강') {
+          return 'light-blue lighten-1'
+        } else if (val === '생활습관') {
+          return 'orange lighten-1'
+        } else if (val === '독서') {
+          return 'teal lighten-1'
+        } else if (val === '자산') {
+          return 'indigo lighten-1'
+        } else if (val === '자기계발') {
+          return 'purple lighten-1'
+        } else {
+          return 'pink lighten-1'
+        }
+      }
+    },
     isAllSelected: function(state) {
       return state.selected.length === state.items.length;
     },
-    // 선택 시 바로바로 칩 만들기 위함
     getSelections: function(state) {
       const selections = [];
 
@@ -217,7 +171,6 @@ export default {
 
       return selections;
     },
-    // 선택된 카테고리명만 백엔드에 넘기기 위함
     getFavoriteCategories: function (state) {
       const favoriteCategories = []
       for (const selectedCategory of state.selected) {
