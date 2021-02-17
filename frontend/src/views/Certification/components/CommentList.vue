@@ -50,9 +50,9 @@
   <div class="edit-div" v-else>
     <v-divider></v-divider>
     <v-list-item-title id="user-id-list" class="d-flex align-center justify-space-between">
-      <router-link :to="{ name: 'UserPage', params: { userNickname: nickname }}">
+      <router-link :to="{ name: 'UserPage', params: { userNickname: comment.nickname }}">
         <span class="nickname-bold" style="font-size:15px; color:black;">
-          {{nickname}} 
+          {{comment.nickname}} 
         </span>
       </router-link>
       <span class="date">
