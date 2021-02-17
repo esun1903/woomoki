@@ -3,6 +3,7 @@ package com.example.ssafypjt2.dao;
 import java.util.List;
 
 import com.example.ssafypjt2.dto.CertificationDto;
+import com.example.ssafypjt2.dto.UserDto;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -105,9 +106,15 @@ public interface ChallengeDao {
 	@Select("SELECT like_cnt FROM challenge WHERE id = #{cngId}")
 	public int challengeLikeCount(@Param("cngId")int cngId);
 
-    @Select("SELECT cha.id , cha.category_id, cha.user_id, cha.title, cha.title, cha.content, cha.sum_img, cha.start_date, cha.end_date, cha.cert_count, cha.max_people, cha.example_img, cha.join_deposit, cha.like_cnt  " +
-			" FROM like_challenge AS joy JOIN challenge AS cha ON joy.user_id = #{user_id} AND joy.cng_id = cha.id")
-	public List<ChallengeDto> main_LikeChallegeList(@Param("user_id")int user_id);
+//    @Select("SELECT cha.id , cha.category_id, cha.user_id, cha.title, cha.title, cha.content, cha.sum_img, cha.start_date, cha.end_date, cha.cert_count, cha.max_people, cha.example_img, cha.join_deposit, cha.like_cnt  " +
+//			" FROM like_challenge AS joy JOIN challenge AS cha ON joy.user_id = #{user_id} AND joy.cng_id = cha.id")
+//	public List<ChallengeDto> main_LikeChallegeList(@Param("user_id")int user_id);
+
+	@Select("SELECT joy.id , joy.nickname , joy.password , joy.phone , joy.email , joy.introduce , joy.levelnum , joy.leveltitle , joy.img , joy.deposit , joy.join_date " +
+			"FROM like_challenge AS lik  " +
+			"JOIN user AS joy ON joy.id = lik.user_id " +
+			"WHERE lik.cng_id = #{cngId} ")
+	public List<UserDto> main_LikeChallegeList(@Param("cngId")int cngId);
 }
 
 /*

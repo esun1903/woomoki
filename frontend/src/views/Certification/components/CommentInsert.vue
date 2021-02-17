@@ -3,10 +3,10 @@
         <validation-observer v-slot="{ invalid }" ref="observer">
             <v-form @submit.prevent="writeComment">
                 <validation-provider v-slot="{ errors }" rules="required">
-                    <v-textarea outlined v-model="comment" :error-messages="errors" label="댓글" required></v-textarea>
+                    <v-textarea color="#AED864" no-resize outlined v-model="comment" :error-messages="errors" label="댓글" required></v-textarea>
                 </validation-provider>
                 <div id="insert-btn-div">
-                    <v-btn color="warning" id="insert-btn" :disabled="invalid" @click="writeComment">
+                    <v-btn color="#AED864" class="white--text" id="insert-btn" :disabled="invalid" @click="writeComment">
                         등록하기
                     </v-btn>
                 </div>
@@ -84,6 +84,6 @@
     }
 
     #insert-btn-div {
-        margin-bottom: 5%;
+        margin-bottom: 10%;
     }
 </style>

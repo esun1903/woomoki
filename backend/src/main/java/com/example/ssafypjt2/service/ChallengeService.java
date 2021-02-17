@@ -2,6 +2,7 @@ package com.example.ssafypjt2.service;
 
 import java.util.List;
 
+import com.example.ssafypjt2.dto.UserDto;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import com.example.ssafypjt2.dto.ChallengeDto;
@@ -41,5 +42,9 @@ public interface ChallengeService {
     public  int challengeLikeCount(int cngId);
 
 
-    public List<ChallengeDto> user_LikeAndChallengeList(int user_id);
+//    public List<ChallengeDto> user_LikeAndChallengeList(int user_id);
+
+      public List<UserDto> user_LikeAndChallengeList(int user_id);
+
 }
+

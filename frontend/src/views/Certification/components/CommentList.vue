@@ -15,16 +15,16 @@
               <router-link :to="{ name: 'UserPage', params: { userNickname: nickname }}">
                 <span style="font-size:15px; color:black;">{{nickname}}</span>
               </router-link>
-              <span class= "date" style="">{{comment.create_date}}</span>
+              <span class="date" style="">{{comment.create_date}}</span>
             </v-list-item-title>
             <v-list-item-subtitle v-text="comment.content"></v-list-item-subtitle>
           </v-list-item-content>
-          <v-btn icon color="indigo" @click="updateConfirm" v-if="checkUser">
+          <v-btn icon color="#AED864" @click="updateConfirm" v-if="checkUser">
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
           <v-dialog v-model="dialog" persistent max-width="290" v-if="checkUser">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn icon color="red" v-bind="attrs" v-on="on">
+              <v-btn icon color="#EF5350" v-bind="attrs" v-on="on">
                 <v-icon>mdi-trash-can</v-icon>
               </v-btn>
             </template>
@@ -49,13 +49,18 @@
   </div>
   <div class="edit-div" v-else>
     <v-divider></v-divider>
-    <v-list-item-title id="user-id-list"><b>작성자:</b> {{nickname}}<div class="time"><b>시간:</b> {{comment.create_date}}
-      </div>
+    <v-list-item-title id="user-id-list">
+        <b>작성자:</b> 
+          {{nickname}}
+            <div class="time">
+              <b>시간:</b> 
+                {{comment.create_date}}
+            </div>
     </v-list-item-title>
     <validation-observer ref="observer">
       <v-form @submit.prevent="updateComment">
         <validation-provider v-slot="{ errors }" rules="required">
-          <v-textarea outlined v-model="comment.content" :error-messages="errors"></v-textarea>
+          <v-textarea color="#AED864" no-resize outlined v-model="comment.content" :error-messages="errors"></v-textarea>
         </validation-provider>
       </v-form>
     </validation-observer>
@@ -89,7 +94,7 @@
 
   extend('required', {
     ...required,
-    message: '{_field_}(은)는 필수 항목입니다'
+    message: '댓글은 필수 항목입니다'
   })
 
   export default {

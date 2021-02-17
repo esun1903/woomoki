@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.example.ssafypjt2.dto.ChallengeDto;
+import com.example.ssafypjt2.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.ssafypjt2.dao.CertificationDao;
@@ -80,9 +81,15 @@ public class CertificationServiceImpl implements CertificationService {
 		return dao.searchWordCert(keyword);
 	}
 
+//    @Override
+//    public List<CertificationDto> user_LikeAndCertificationList(int user_id) {
+//        List<CertificationDto> list = dao.main_LikeCertificationList(user_id);
+//        return list;
+//    }
+
     @Override
-    public List<CertificationDto> user_LikeAndCertificationList(int user_id) {
-        List<CertificationDto> list = dao.main_LikeCertificationList(user_id);
+    public List<UserDto> user_LikeAndCertificationList(int cert_id) {
+        List<UserDto> list = dao.main_LikeCertificationList(cert_id);
         return list;
     }
 
