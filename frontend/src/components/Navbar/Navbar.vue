@@ -108,8 +108,8 @@
           <v-btn v-if="getCheckLogin" icon class="btn" @click="notice = true">
             <v-icon>mdi-bell-ring</v-icon>
           </v-btn>
-          <v-dialog v-model="notice" width="25%">
-            <div class="notification">
+          <v-dialog v-model="notice" width="25%" >
+            <div class="notification" >
               <v-card class="notice-card">
                 <v-tabs v-model="currentTab" grow dark>
                   <v-tabs-slider></v-tabs-slider>
@@ -118,39 +118,52 @@
                   </v-tab>
                 </v-tabs>
 
-                <v-tabs-items v-model="currentTab">
-                  <v-tab-item v-for="(type,idx) in types" :key="idx">
-                    <v-card  v-for="(tab,idx) in tabs" :key="idx" @click="NotificationConfirm(tab.id)">
-                      {{tab.confirm_date}}
-                    <v-card color ="red" v-if="tab.confirm_date === null">
-                      <v-card-text v-if="type=='알림' && tab.type=='reqFollow'">
-                        {{tab.reqUserName}}님이 팔로우 하였습니다. 
+                <v-tabs-items v-model="currentTab" >
+                  <v-tab-item v-for="(type,idx) in types" :key="idx" >
+                    <v-card  v-for="(tab,idx) in tabs" :key="idx" @click="NotificationConfirm(tab.id)"  height="100">
+                    <v-card color ="#B2DFDB" v-if="tab.confirm_date === null">
+                      <v-card-text v-if="tab.type=='reqFollow'">
+                        {{tab.reqUserName}}님이 팔로우 하였습니다.
+                        <div class="notiBtn" > 
                          <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">알림삭제</v-btn>  
+                        </div>
                       </v-card-text>
-                      <v-card-text v-if="type=='요청' && tab.type=='reqChallenge'"> 
+                      <v-card-text v-if="tab.type=='reqChallenge'"> 
                         {{tab.reqUserName}}님이 {{tab.cngTitle}} 챌린지 참가 요청을 하였습니다.
+                        <div class="notirqBtn" >
                         <v-btn color="#9CCC65" class="white--text" @click="challengeOKay(tab.request_user,tab.cng_id),notificationDelete(tab.id)">수락</v-btn>
                         <v-btn color="#9CCC65" class="white--text" @click="challengeReject(tab.request_user,tab.cng_id),notificationDelete(tab.id)">거절</v-btn> 
+                        </div>
                         </v-card-text>
-                      <v-card-text v-if="type=='알림' && tab.type=='resChallenge'"> 
+                      
+                      <v-card-text v-if="tab.type=='resChallenge'"> 
                         {{tab.cngTitle}} 챌린지 참여 완료. 
+                        <div class="notiBtn" >
                         <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">알림삭제</v-btn> 
+                        </div>
                         </v-card-text>
                     </v-card>
 
-                     <v-card v-else color ="blue" >
-                      <v-card-text v-if="type=='알림' && tab.type=='reqFollow'">
-                        {{tab.reqUserName}}님이 팔로우 하였습니다. 
+                     <v-card v-else color ="#E0F2F1">
+                      <v-card-text v-if="tab.type=='reqFollow'">
+                        {{tab.reqUserName}}님이 팔로우 하였습니다.
+                        <div class="notiBtn" > 
                          <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">알림삭제</v-btn>  
+                        </div>
                       </v-card-text>
-                      <v-card-text v-if="type=='요청' && tab.type=='reqChallenge'"> 
+                      <v-card-text v-if="tab.type=='reqChallenge'"> 
                         {{tab.reqUserName}}님이 {{tab.cngTitle}} 챌린지 참가 요청을 하였습니다.
+                        <div class="notirqBtn" >
                         <v-btn color="#9CCC65" class="white--text" @click="challengeOKay(tab.request_user,tab.cng_id),notificationDelete(tab.id)">수락</v-btn>
                         <v-btn color="#9CCC65" class="white--text" @click="challengeReject(tab.request_user,tab.cng_id),notificationDelete(tab.id)">거절</v-btn> 
+                        </div>
                         </v-card-text>
-                      <v-card-text v-if="type=='알림' && tab.type=='resChallenge'"> 
+                      
+                      <v-card-text v-if="tab.type=='resChallenge'"> 
                         {{tab.cngTitle}} 챌린지 참여 완료. 
+                        <div class="notiBtn" >
                         <v-btn color="#9CCC65" class="white--text" @click="notificationDelete(tab.id)">알림삭제</v-btn> 
+                        </div>
                         </v-card-text>
                     </v-card>
                     </v-card>
@@ -220,7 +233,7 @@ export default {
       notice: false,
       currentTab: null,
       tabs: [],
-      types:['알림','요청'],	
+      types:['알림'],	
     };
   },
   computed:  {
@@ -396,6 +409,16 @@ a:-webkit-any-link {
     color: black;
     cursor: pointer;
     text-decoration: none;
+}
+.notirqBtn{
+  position: absolute;
+  margin-top: 2%;
+   padding-left: 62%;
+}
+.notiBtn{
+  position: absolute;
+  margin-top: 2%;
+  padding-left: 72%;
 }
 
 .btn-group {
