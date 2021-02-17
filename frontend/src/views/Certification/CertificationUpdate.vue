@@ -14,7 +14,7 @@
             </v-row>
             <v-row class="img-div">
                 <v-avatar rounded size=auto @click="updateImg()">
-                    <v-img v-if="CertInfo.img" :src="CertInfo.img">
+                    <v-img v-if="imageUrl" :src="imageUrl">
                     </v-img>
                     <input ref="imageInput" type="file" hidden @change="onChangeImages">
                 </v-avatar>
@@ -37,8 +37,9 @@
         <div>
             <v-divider></v-divider>
             <CommentInsert />
-            <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" :nickname="Nicknames[index]" />
-        
+            <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment"
+                :nickname="Nicknames[index]" :profileImg="ProfileImgs[index]" />
+
         </div>
     </v-container>
 </template>
@@ -61,9 +62,15 @@
                 comments: [],
                 UserInfo: [],
                 Nicknames: [],
+                ProfileImgs: [],
                 photoURL: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
+                albumBucketName: "cert-photo-upload",
+                bucketRegion: "ap-northeast-2",
+                IdentityPoolId: "ap-northeast-2:8cf7cb29-d051-4f38-885f-09b1e4dd8153",
                 dialog: false,
                 file: null,
+                photoKey: "",
+                imageURL: "",
 
             };
         },
@@ -82,18 +89,19 @@
             }
         },
         methods: {
-            detailCert: function () {
+            async detailCert() {
                 const certId = this.$route.params.certId;
                 axios.get(`http://localhost:8080/detailCertification/${certId}`)
                     .then((response) => {
                         this.CertInfo = response.data;
-                        console.log(response.data)
+                        this.imageUrl = this.CertInfo.img;
+                        console.log("created되고 imageUrl: " + this.imageUrl);
                     })
                     .catch((err) => {
                         console.log(err)
                     })
             },
-            
+
             detailComment: function () {
                 const certId = this.$route.params.certId;
                 console.log(certId);
@@ -119,6 +127,7 @@
                         // console.log(response.data);
                         this.UserInfo = response.data;
                         this.Nicknames.push(this.UserInfo.nickname)
+                        this.ProfileImgs.push(this.UserInfo.img)
                         // console.log("nickname: " + this.UserInfo.nickname);
                         // console.log(this.Nicknames);
                         // this.saveNickname();
@@ -142,10 +151,35 @@
             onChangeImages(e) {
                 console.log(e.target.files)
                 this.file = e.target.files[0]; // Get first index in files
-                this.CertInfo.img = URL.createObjectURL(this.file);
-            },
-            updateCert() {
+                this.imageURL = URL.createObjectURL(this.file);
+                // this.CertInfo.img = this.imageURL
+                console.log("imageurl: "+this.imageURL)
+                console.log("certinfo: "+this.CertInfo.img)
+                
+                var now = new Date();
+
+                var year = now.getFullYear(); // 연도
+                var month = now.getMonth() + 1; // 월
+                var date = now.getDate(); // 일
+                var hours = now.getHours(); // 시간
+                var minutes = now.getMinutes(); // 분
+                var seconds = now.getSeconds(); // 초
+                var milliseconds = now.getMilliseconds(); // 밀리초
+
+                // console.log("현재 : ", now);
+                var realtime = year + "" + month + "" + date + "_" + hours + minutes + seconds + milliseconds;
+                console.log(realtime);
+
+                // S3 관련 주소 풀기
+                console.log(this.file.name);
+
+                this.photoKey = this.CertInfo.user_id + "_" + realtime + "_" + this.file.name
+                this.CertInfo.img = this.photoURL + this.photoKey;
+                console.log(this.CertInfo.img);
+
                 // AWS Setting Start
+
+                console.log("updateCert 들어옴");
 
                 // S3 관련 코드
                 AWS.config.update({
@@ -170,23 +204,26 @@
 
                 // AWS Setting End
 
-                var now = new Date();
 
-                var year = now.getFullYear(); // 연도
-                var month = now.getMonth() + 1; // 월
-                var date = now.getDate(); // 일
-                var hours = now.getHours(); // 시간
-                var minutes = now.getMinutes(); // 분
-                var seconds = now.getSeconds(); // 초
-                var milliseconds = now.getMilliseconds(); // 밀리초
+                // S3 관련 코드
 
-                // console.log("현재 : ", now);
-                var realtime = year + "" + month + "" + date + "_" + hours + minutes + seconds + milliseconds;
-                console.log(realtime);
+                s3.upload({
+                        Key: this.photoKey,
+                        Body: this.file,
+                        ACL: 'public-read'
+                    }, (err, data) => {
+                        if (err) {
+                            console.log(err)
+                            return alert('There was an error uploading your photo: ', err.message);
+                        }
 
-                // S3 관련 주소 풀기
-                let photoKey = this.CertInfo.user_id + "_" + realtime + "_" + this.file.name
-                this.certForm.img = this.photoURL + photoKey;
+                    }
+
+                );
+
+
+            },
+            updateCert() {
 
                 const certId = this.$route.params.certId;
                 const UpdateCertInfo = {
@@ -197,33 +234,27 @@
                     user_id: this.CertInfo.user_id,
                     like_cnt: this.CertInfo.like_cnt,
                     result: this.CertInfo.result,
+                    current_week: this.CertInfo.current_week,
+                    current_day: this.CertInfo.current_day,
                 }
-                console.log(UpdateCertInfo);
+                console.log(UpdateCertInfo.img);
 
 
-                // S3 관련 코드
-
-                s3.upload({
-                        Key: photoKey,
-                        Body: this.file,
-                        ACL: 'public-read'
-                    }, (err, data) => {
-                        if (err) {
-                            console.log(err)
-                            return alert('There was an error uploading your photo: ', err.message);
-                        }
-                        axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
-                .then(res => {
-                    console.log(res);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-                        console.log(this.certForm);
-                        console.log(data);
-                    }
-
-                );
+                axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
+                    .then(res => {
+                        console.log(res);
+                        this.$router.push({
+                            name: 'SeedDetail',
+                            params: {
+                                seedId: this.CertInfo.cng_id
+                            }
+                        })
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+                console.log(this.certForm);
+                console.log(data);
 
             },
         },
