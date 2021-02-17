@@ -100,7 +100,7 @@ const routes = [
     props: true,        
   },
   {
-    path: '/certificationInsert/:cngId?',
+    path: '/certificationInsert/:cngId?/:currentWeek?/:currentDay?',
     name: 'CertificationInsert',
     component: CertificationInsert,        
   },
