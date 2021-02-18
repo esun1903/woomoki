@@ -149,6 +149,7 @@ export default {
         .then(() => {
           this.isFollow = true
           console.log(this.isFollow)
+          this.requestFollow()
         })
       }
       else {
@@ -161,10 +162,11 @@ export default {
     },
     requestFollow: function () {
       const followInfo = {
-        userId : this.$store.state.UserStore.user.user_id,
-        followingid : this.UserInfo.id
+        userid : this.$store.state.UserStore.user.user_id,
+        followId : this.UserInfo.id,
+        type : reqFollow
       }
-      axios.delete(`http://i4a303.p.ssafy.io/api/notificationFollow/${followInfo.userId}/${followInfo.followingid}/reqFollow`, followInfo)
+      axios.post(`http://i4a303.p.ssafy.io/api/notificationFollow/${followInfo.userId}/${followInfo.followingid}/reqFollow`, followInfo)
         .then((res) => {
           console.log(res)
         })
