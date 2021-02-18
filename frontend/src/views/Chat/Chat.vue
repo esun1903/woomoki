@@ -42,17 +42,12 @@
                 </span>
               </p>
               <p v-if="log.event === '수신'" class="text-left">
-                <span v-if="idx === 1" class="recieve-message-tooltip">
-                  {{ log.event }}: 구현중입니다^^
-                </span>
-                <span v-if="idx === 2" class="recieve-message-tooltip">
-                  {{ log.event }}: 구현중이라고요...
-                </span>
-                <span v-if="idx === 3" class="recieve-message-tooltip">
-                  {{ log.event }}: 구현중이다...꺼라
-                </span>
-                <span v-else class="recieve-message-tooltip">
+                <!-- <span class="recieve-message-tooltip">
                   {{ log.event }}: {{ log.data }}
+                </span> -->
+                <v-img class="mb-5" v-if="1" src="https://cdnb.pikicast.com/A00/2019/05/05/A00_30958597_1557035414.png"></v-img>
+                <span class="margin-box recive-message-tooltip">
+                  아직 구현못했습니다^^
                 </span>
               </p>
             </div>
@@ -157,6 +152,5 @@ chatbox(() => {
 .enter {
   background-color: white;
 }
-
 
 </style>

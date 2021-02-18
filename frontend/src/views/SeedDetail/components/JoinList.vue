@@ -7,6 +7,17 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
+          v-if="percentage < 0"
+          :ripple="false"
+          color="white"
+          plain
+          v-bind="attrs"
+          v-on="on"
+        >
+          참여: 0 / {{ SeedInfo.max_people }}명
+        </v-btn>
+        <v-btn
+          v-else
           :ripple="false"
           color="white"
           plain
@@ -56,6 +67,7 @@ export default {
     }
   },
   props: {
+    percentage: Number,
     joinUser: Array,
     SeedInfo: [Object, Array]
   },
