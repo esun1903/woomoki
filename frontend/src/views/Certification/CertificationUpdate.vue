@@ -87,6 +87,7 @@
                 certFile: null,
                 certImg: "",
                 color: "",
+                changedImg: false, // 파일 재선택 여부 체크
 
             };
         },
@@ -206,41 +207,12 @@
             },
             updateCert() {
 
-                this.photoKey = this.certImg;
-                this.CertInfo.img = this.photoURL + this.certImg;
-                console.log(this.CertInfo.img);
-
-                // AWS Setting Start
-
-                // S3 관련 코드
-                AWS.config.update({
-
-                        region: this.bucketRegion,
-                        credentials: new AWS.CognitoIdentityCredentials({
-                                IdentityPoolId: this.IdentityPoolId
-                            }
-
-                        )
-                    }
-
-                );
-
-                const s3 = new AWS.S3({
-
-                    apiVersion: "2006-03-01",
-                    params: {
-                        Bucket: this.albumBucketName
-                    }
-                });
-
-                // AWS Setting End
-
                 const certId = this.$route.params.certId;
                 const UpdateCertInfo = {
                     cng_id: this.CertInfo.cng_id,
                     content: this.CertInfo.content,
                     id: certId,
-                    img: this.CertInfo.img,
+                    img: this.CertInfo.img,  //확인
                     user_id: this.CertInfo.user_id,
                     like_cnt: this.CertInfo.like_cnt,
                     result: this.CertInfo.result,
@@ -249,43 +221,93 @@
                 }
                 console.log("이미지 정보: " + UpdateCertInfo.img);
 
-               
-                // S3 관련 코드
+                // 파일 재선택 안했을 때
+                if (this.changedImg === false) {
 
-                s3.upload({
-                        Key: this.photoKey,
-                        Body: this.certFile,
-                        ACL: 'public-read'
-                    }, (err, data) => {
-                        if (err) {
-                            console.log(err)
-                            return alert('There was an error uploading your photo: ', err.message);
+                    axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
+                        .then(res => {
+                            console.log(res);
+                            this.$router.push({
+                                name: 'SeedDetail',
+                                params: {
+                                    seedId: this.CertInfo.cng_id
+                                }
+                            })
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                    console.log(this.UpdateCertInfo);
+                } 
+                // 파일 재선택 했을 때
+                else {
+
+                    this.photoKey = this.certImg;
+                    UpdateCertInfo.img = this.photoURL + this.certImg;
+                    console.log(UpdateCertInfo.img);
+
+                    // AWS Setting Start
+
+                    // S3 관련 코드
+                    AWS.config.update({
+
+                            region: this.bucketRegion,
+                            credentials: new AWS.CognitoIdentityCredentials({
+                                    IdentityPoolId: this.IdentityPoolId
+                                }
+
+                            )
                         }
 
-                    }
+                    );
 
-                );
+                    const s3 = new AWS.S3({
 
-                axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
-                    .then(res => {
-                        console.log(res);
-                        this.$router.push({
-                            name: 'SeedDetail',
-                            params: {
-                                seedId: this.CertInfo.cng_id
-                            }
-                        })
-                    })
-                    .catch(err => {
-                        console.log(err);
+                        apiVersion: "2006-03-01",
+                        params: {
+                            Bucket: this.albumBucketName
+                        }
                     });
-                console.log(this.UpdateCertInfo);
 
+                    // AWS Setting End
+
+                    // S3 관련 코드
+
+                    s3.upload({
+                            Key: this.photoKey,
+                            Body: this.certFile,
+                            ACL: 'public-read'
+                        }, (err, data) => {
+                            if (err) {
+                                console.log(err)
+                                return alert('There was an error uploading your photo: ', err.message);
+                            }
+
+                        }
+
+                    );
+
+                    axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
+                        .then(res => {
+                            console.log(res);
+                            this.$router.push({
+                                name: 'SeedDetail',
+                                params: {
+                                    seedId: this.CertInfo.cng_id
+                                }
+                            })
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                    console.log(this.UpdateCertInfo);
+                }
             },
 
-            receiveCertImg: function (file, certImg) {
+            receiveCertImg: function (file, certImg, changedImg) {
                 this.certFile = file
                 this.certImg = certImg
+                this.changedImg = changedImg
                 console.log("넘어온 file정보: " + this.certFile)
                 console.log("넘어온 파일 이름 : " + this.certImg)
             },

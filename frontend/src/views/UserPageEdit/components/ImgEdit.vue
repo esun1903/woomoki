@@ -17,6 +17,7 @@
         text: "프로필 변경",
         file: null,
         fileName: null,
+        changedImg:"",
       }
     },
     created() {
@@ -39,13 +40,18 @@
       onChangeImages(e) {
         console.log(e.target.files)
         this.file = e.target.files[0]; // Get first index in files
+        if(e.target.files.length === 1){
+          this.changedImg = true ; // 파일을 다시 선택했을 때 
+        }else{
+          this.changedImg = false; // 그 외
+        }
         this.imageUrl = URL.createObjectURL(this.file); // Create File URL
         this.fileNameSetting();
         this.transferUpdateProfileImg();
         this.text = ""
       },
       transferUpdateProfileImg: function () {
-        this.$emit('transferUpdateProfileImg', this.file, this.fileName)
+        this.$emit('transferUpdateProfileImg', this.file, this.fileName,  this.changedImg)
       },
       async fileNameSetting() {
 

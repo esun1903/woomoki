@@ -47,11 +47,11 @@
 
 
         <v-row class="d-flex justify-end">
-          <router-link :to="{ name: 'UserPage', params: { userNickname: userNickname }}">
+          <!-- <router-link :to="{ name: 'UserPage', params: { userNickname: userNickname }}"> -->
             <v-btn class="mr-4 white--text" type="submit" :disabled="invalid" @click="updataUserInfo" color="#AED864">
               적용
             </v-btn>
-          </router-link>
+          <!-- </router-link> -->
 
           <v-btn @click="clear" text>
             지우기
@@ -162,6 +162,8 @@
 
         profileImg: null,
         file: null,
+        changedImg: false,
+        photoKey:"",
       };
     },
     methods: {
@@ -171,7 +173,7 @@
           .then((res) => {
             this.UserInfo = res.data
             this.profileImg = this.UserInfo.img
-            console.log("이미지: "+this.profileImg);
+            console.log("이미지: " + this.profileImg);
             console.log("기존 데이터", res.data)
           })
           .catch((err) => {
@@ -179,44 +181,6 @@
           })
       },
       updataUserInfo: function () {
-
-        // AWS Setting Start
-
-        AWS.config.update({
-
-          region: this.bucketRegion,
-          credentials: new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: this.IdentityPoolId
-          })
-        });
-
-        const s3 = new AWS.S3({
-
-          apiVersion: "2006-03-01",
-          params: {
-            Bucket: this.albumBucketName
-          }
-        });
-
-        // AWS Setting End
-
-        s3.upload({
-            Key: this.profileImg,
-            Body: this.file,
-            ACL: 'public-read'
-          }, (err, data) => {
-            if (err) {
-              console.log(err)
-              return alert('There was an error uploading your photo: ', err.message);
-            }
-            console.log(data);
-          }
-
-        );
-
-        
-        this.profileImg = this.photoURL + this.profileImg
-        
 
         const userId = this.$store.state.UserStore.user.user_id
         const ChangedUserInfo = {
@@ -226,32 +190,84 @@
           password: this.newPassword,
           phone: this.UserInfo.phone,
           id: userId,
-          img: this.profileImg,
+          img: this.UserInfo.img,
           // introduce: this.UserInfo.introduce,
         }
-        // const nickname = this.$store.state.UserStore.user.nickname 
-        axios.post("http://localhost:8080/userPage/changeUser", ChangedUserInfo)
-          .then(res => {
-            console.log(res);
-          })
-          .catch(err => {
-            console.log(err);
+
+        if (this.changedImg === false) {
+          axios.post("http://localhost:8080/userPage/changeUser", ChangedUserInfo)
+            .then(res => {
+              console.log(res);
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        } else {
+
+          this.photoKey = this.profileImg
+          ChangedUserInfo.img = this.photoURL + this.profileImg;
+          console.log("바뀔 이미지: "+ChangedUserInfo.img);
+
+          // AWS Setting Start
+
+          AWS.config.update({
+
+            region: this.bucketRegion,
+            credentials: new AWS.CognitoIdentityCredentials({
+              IdentityPoolId: this.IdentityPoolId
+            })
           });
+
+          const s3 = new AWS.S3({
+
+            apiVersion: "2006-03-01",
+            params: {
+              Bucket: this.albumBucketName
+            }
+          });
+
+          // AWS Setting End
+
+          s3.upload({
+              Key: this.photoKey,
+              Body: this.file,
+              ACL: 'public-read'
+            }, (err, data) => {
+              if (err) {
+                console.log(err)
+                return alert('There was an error uploading your photo: ', err.message);
+              }
+              console.log(data);
+            }
+
+          );
+          // const nickname = this.$store.state.UserStore.user.nickname 
+          axios.post("http://localhost:8080/userPage/changeUser", ChangedUserInfo)
+            .then(res => {
+              console.log(res);
+            })
+            .catch(err => {
+              console.log(err);
+            });
+
+        }
+
       },
       submit() {
         this.$refs.observer.validate();
       },
       clear() {
         this.UserInfo.introduce = "",
-        this.UserInfo.phone = "",
-        this.checkbox = null;
+          this.UserInfo.phone = "",
+          this.checkbox = null;
         this.$refs.observer.reset();
       },
 
       // 컴포넌트 - 데이터 전달
-      receiveUpdateProfileImg: function (file, profileImg) {
+      receiveUpdateProfileImg: function (file, profileImg, changedImg) {
         this.file = file
         this.profileImg = profileImg
+        this.changedImg = changedImg
         console.log("넘어온 file정보: " + this.file)
         console.log("넘어온 profileImg이름 : " + this.profileImg)
       },
