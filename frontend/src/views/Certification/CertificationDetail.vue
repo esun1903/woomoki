@@ -33,12 +33,7 @@
 
             <v-menu offset-y open-on-click bottom left>
                 <template v-slot:activator="{ on, attrs }">
-                    <!-- <v-btn icon  class="btn">
-                <v-icon>mdi-lead-pencil</v-icon>
-              </v-btn> -->
-                    <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
-                    <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
-                    <v-btn icon color="black" v-bind="attrs" v-on="on">
+                   <v-btn icon color="black" v-bind="attrs" v-on="on">
                         <v-icon>fas fa-ellipsis-v</v-icon>
                     </v-btn>
                 </template>
@@ -54,7 +49,6 @@
                         <v-list-item-title>
                             <v-dialog v-model="dialog" persistent max-width="290">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <!-- <v-btn class="ma-2" outlined fab color="red" v-bind="attrs" v-on="on"> -->
                                     <v-btn class="ma-2" icon color="#EF5350" v-bind="attrs" v-on="on">
                                         <v-btn plain text>삭제</v-btn>
                                     </v-btn>
@@ -84,15 +78,6 @@
 
         <div class="detail">
 
-            <!-- <v-row class="nickname-date-row">
-                <v-col class="user-id">
-                    닉네임: {{ CertInfo.nickname }}
-                </v-col>
-                <v-col class="date">
-                    인증날짜: {{ CertInfo.create_date }}
-                </v-col>
-            </v-row> -->
-
             <v-row class="img">
                 <!-- s3 주소 주석 풀기
                 <v-img :src="photoUrl + CertInfo.img"></v-img> -->
@@ -110,8 +95,7 @@
                 <v-col class="d-flex justify-end">
                     <v-btn icon x-large @click="getScrap">
                         <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
-                        <!-- <span>{{ this.likeCount }}</span> -->
-                    </v-btn>
+                        </v-btn>
                 </v-col>
             </v-row>
 
@@ -239,11 +223,6 @@
             const certId = this.$route.params.certId;
             const cngId = this.$route.params.cngId;
             const cngUserId = this.$route.params.cngUserId;
-            // const cngName = this.$route.params.cngName;
-            // console.log(cngName);
-            // console.log("detail's cngid: " + cngId);
-            // console.log("detail's certid: " + certId);
-            // console.log("cngUserId " + cngUserId);
             if (certId === undefined || cngId === undefined || cngUserId === undefined) {
                 this.$router.go(-1);
             }
