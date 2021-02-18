@@ -27,45 +27,9 @@
             </v-overlay>
           </v-fade-transition>
         </v-img>
-
-        <!-- <v-fade-transition>
-          <v-overlay
-            v-if="hover"
-            absolute
-            color="#036358"
-          >
-            <v-btn>대표사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
-          </v-overlay>
-        </v-fade-transition> -->
       </v-avatar>
     </template>
   </v-hover>
-  <!-- <v-col>
-    <v-row>
-        <v-avatar
-          tile
-          :class="`rounded-lg`"
-          width="100%"
-          height="250px"
-          color="grey lighten-3"
-          class="cursor-img"
-          @click="onClickImageUpload"
-          >{{ this.text }}
-          <v-img
-              v-if="imageUrl" :src="imageUrl"
-          ></v-img>
-        </v-avatar>
-
-        <input ref="imageInput" type="file" hidden @change="onChangeImages">
-
-    </v-row>
-    <v-row class="d-flex justify-end align-end">
-      <v-btn
-        @click="onDeleteImage"
-        >이미지 제거
-      </v-btn>
-    </v-row>
-  </v-col> -->
 </template>
 
 <script>
@@ -73,7 +37,6 @@
     name: "SeedThumbnail",
     data: function () {
       return {
-        // imageUrl: "https://t1.daumcdn.net/cfile/tistory/995A17455A409C9A28",
         imageUrl: "https://t1.daumcdn.net/cfile/tistory/995A17455A409C9A28",
         text: "썸네일 사진 변경",
         overlay: false,
@@ -108,19 +71,17 @@
 
         var now = new Date();
 
-        var year = now.getFullYear(); // 연도
-        var month = now.getMonth() + 1; // 월
-        var date = now.getDate(); // 일
-        var hours = now.getHours(); // 시간
-        var minutes = now.getMinutes(); // 분
-        var seconds = now.getSeconds(); // 초
-        var milliseconds = now.getMilliseconds(); // 밀리초
-
-        // console.log("현재 : ", now);
+        var year = now.getFullYear(); 
+        var month = now.getMonth() + 1; 
+        var date = now.getDate(); 
+        var hours = now.getHours(); 
+        var minutes = now.getMinutes(); 
+        var seconds = now.getSeconds(); 
+        var milliseconds = now.getMilliseconds(); 
         var realtime = year + "" + month + "" + date + "_" + hours + minutes + seconds + milliseconds;
         console.log(realtime);
 
-         this.fileName = user_id + "_" + realtime + "_" + this.file.name
+        this.fileName = user_id + "_" + realtime + "_" + this.file.name
         
       }
     }

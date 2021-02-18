@@ -2,45 +2,35 @@
   <v-hover>
     <template v-slot:default="{ hover }"> 
       <v-avatar
-          tile
+        tile
+        :class="`rounded-lg`"
+        width="100%"
+        height="100%"
+        max-width="100%"
+        max-height="100%"
+        color="#AED864"
+        class="cursor-img"
+        @click="onClickImageUpload"
+        >
+        <v-img
           :class="`rounded-lg`"
           width="100%"
           height="100%"
           max-width="100%"
           max-height="100%"
-          color="#AED864"
-          class="cursor-img"
-          @click="onClickImageUpload"
-          >
-          <v-img
-            :class="`rounded-lg`"
-            width="100%"
-            height="100%"
-            max-width="100%"
-            max-height="100%"
-            v-if="imageUrl"
-            :src="imageUrl"
-          >
-            <v-fade-transition>
-              <v-overlay
-                v-if="hover"
-                absolute
-                color="#036358"
-              >
-                <v-btn>인증 예시 사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
-              </v-overlay>
-            </v-fade-transition>
-          </v-img>
-        
-        <!-- <v-fade-transition>
-          <v-overlay
-            v-if="hover"
-            absolute
-            color="#036358"
-          >
-            <v-btn>인증 예시 사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
-          </v-overlay>
-        </v-fade-transition> -->
+          v-if="imageUrl"
+          :src="imageUrl"
+        >
+          <v-fade-transition>
+            <v-overlay
+              v-if="hover"
+              absolute
+              color="#036358"
+            >
+              <v-btn>인증 예시 사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
+            </v-overlay>
+          </v-fade-transition>
+        </v-img>
       </v-avatar>
     </template>
   </v-hover>
@@ -87,15 +77,13 @@
 
         var now = new Date();
 
-        var year = now.getFullYear(); // 연도
-        var month = now.getMonth() + 1; // 월
-        var date = now.getDate(); // 일
-        var hours = now.getHours(); // 시간
-        var minutes = now.getMinutes(); // 분
-        var seconds = now.getSeconds(); // 초
-        var milliseconds = now.getMilliseconds(); // 밀리초
-
-        // console.log("현재 : ", now);
+        var year = now.getFullYear(); 
+        var month = now.getMonth() + 1; 
+        var date = now.getDate(); 
+        var hours = now.getHours(); 
+        var minutes = now.getMinutes(); 
+        var seconds = now.getSeconds(); 
+        var milliseconds = now.getMilliseconds(); 
         var realtime = year + "" + month + "" + date + "_" + hours + minutes + seconds + milliseconds;
         console.log(realtime);
 

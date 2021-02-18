@@ -66,26 +66,6 @@
       // this.makeRandomPW();
     },
     methods: {
-
-      // 랜덤비번 생성(특수문자 전범위 ver)
-      // makeRandomPW() {
-      //   var arr =
-      //     "0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,!,@,#,$,%,^,&,*,(,),-,+,|,_,=,\,[,],{,},<,>,?,/,."
-      //     .split(",");
-
-      //   var temp_pw = this.createCode(arr, 8);
-      //   console.log(temp_pw);
-      // },
-      //  createCode(objArr) {
-      //   var arr = objArr;
-      //   var randomStr = "";
-
-      //   for (var j = 0; j < 8; j++) {
-      //     randomStr += arr[Math.floor(Math.random() * arr.length)];
-      //   }
-
-      //   return randomStr
-      // },
       async submit(temp_pw) {
         const valid = await this.$refs.observer.validate();
         if (valid) {

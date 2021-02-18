@@ -84,8 +84,7 @@ export default {
   directives: {},
   data: function() {
     return {
-          // favoriteCategories 관련 state
-    items: [
+      items: [
         {
           category: '건강',
           category_id: '1',
@@ -123,8 +122,8 @@ export default {
           content: '기타 연습하기, 영상 편집하기, 프랑스자수-기초 스티치 마스터 등이 있어요!'
         },
       ],
-    loading: false,
-    selected: [],
+      loading: false,
+      selected: [],
     };
   },
   computed: {
@@ -176,13 +175,10 @@ export default {
       state.loading = true
       
       setTimeout(() => {
-        
-        // !!!!!!!!!! 빽에 고른 카테고리 넘겨주기!!!!!!!!!! 
         axios.post("http://127.0.0.1:8080/signup/favCategory", this.getFavoriteCategories)
           .then((res) => {
             console.log('카테고리 담기 성공')
             console.log(res)
-            // this.$router.push({ name: 'Main' })
             this.$router.push({ name: 'Main' , params: { userNickname: this.$store.state.UserStore.user.nickname }})
           })
           .catch(err => {
@@ -226,14 +222,11 @@ export default {
         display: flex;
         justify-content: center;
       .col{
-
         .v-chip{
           .v-chip__content{
             .v-icon{
-
             }
             .v-icon{
-
             }
           }
         }
@@ -241,7 +234,6 @@ export default {
     }
   }
   .v-divider{
-    
   }
   .v-list{
   }
@@ -249,17 +241,6 @@ export default {
     margin: 2% 0;
   }
   .v-card__actions{
-
   }
 }
-
-// .v-divider {
-
-// }
-
-// .v-chip{
-//   color: green !important;
-//   border-color: green !important;
-// }
-
 </style>

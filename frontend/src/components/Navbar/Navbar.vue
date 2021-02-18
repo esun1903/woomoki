@@ -10,7 +10,6 @@
         <span v-if="getCheckLogin">
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
-              <!-- <v-btn v-if="getCheckLogin" icon v-bind="attrs" v-on="on" class="btn nav-cursur"> -->
               <v-btn icon v-bind="attrs" v-on="on" class="btn nav-cursur">
                 <v-icon>mdi-lead-pencil</v-icon>
               </v-btn>
@@ -63,7 +62,6 @@
         <span v-if="getCheckLogin">
           <v-dialog class="scrap-dialog" scrollable width="25%">
             <template v-slot:activator="{ on, attrs }">
-              <!-- <v-btn v-if="getCheckLogin" @click="getSeeds" icon v-bind="attrs" v-on="on" class="btn"> -->
               <v-btn @click="getSeeds" icon v-bind="attrs" v-on="on" class="btn">
                 <v-icon>mdi-cart</v-icon>
               </v-btn>
@@ -97,9 +95,8 @@
         </span>
 
         <span v-if="getCheckLogin">
-          <!-- <v-btn v-if="getCheckLogin" icon class="btn" @click="notice = true"> -->
           <v-btn icon class="btn" @click="notice = true">
-             <v-icon :color="bell ? 'red' : '' ">mdi-bell-ring</v-icon>
+            <v-icon :color="bell ? 'red' : '' ">mdi-bell-ring</v-icon>
           </v-btn>
           <v-dialog v-model="notice" width="25%">
             <div class="notification">

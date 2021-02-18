@@ -1,20 +1,20 @@
 <template>
   <v-container class="container-size">
     <span class="feed-title">모든 유저 피드</span>
-      <v-row>
-        <v-col
-          v-for="(card, $idx) in Allslides"
-          :key="$idx"
-          class="d-flex child-flex"
-          cols="4"
+    <v-row>
+      <v-col
+        v-for="(card, $idx) in Allslides"
+        :key="$idx"
+        class="d-flex child-flex"
+        cols="4"
+      >
+        <v-img
+          @click="detailCertification(card)"
+          :src="card.img"
+          :lazy-src="card.img"
+          aspect-ratio="1"
+          class="grey lighten-2 cursor_img"
         >
-          <v-img
-            @click="detailCertification(card)"
-            :src="card.img"
-            :lazy-src="card.img"
-            aspect-ratio="1"
-            class="grey lighten-2 cursor_img"
-          >
           <template v-slot:placeholder>
             <v-row
               class="fill-height ma-0"
@@ -27,19 +27,18 @@
               ></v-progress-circular>
             </v-row>
           </template>
-          </v-img>
-        </v-col>
-      </v-row>             
-      <infinite-loading @infinite="AllinfiniteHandler" spinner="waveDots">
-        <div class="infinite-margin" slot="no-more">
-          "보살핌 후기가 더 이상 없습니다"
-        </div>
-        <div class="infinite-margin" slot="no-results">
-          "보살핌 후기가 없습니다 씨앗에 물을 줘보세요"
-        </div>
-      </infinite-loading>
-      
-    </v-container>
+        </v-img>
+      </v-col>
+    </v-row>             
+    <infinite-loading @infinite="AllinfiniteHandler" spinner="waveDots">
+      <div class="infinite-margin" slot="no-more">
+        "보살핌 후기가 더 이상 없습니다"
+      </div>
+      <div class="infinite-margin" slot="no-results">
+        "보살핌 후기가 없습니다 씨앗에 물을 줘보세요"
+      </div>
+    </infinite-loading>
+  </v-container>
 </template>
 
 <script>
@@ -49,11 +48,9 @@ import {mapState} from "vuex";
 export default {
   name: 'FeedAllUser',
   components: { 
-
-   },
+  },
   directives: { 
-    
-   },
+  },
   data: function () {
     return {
       Allslides: [],
@@ -62,7 +59,6 @@ export default {
     };
   },
   created () {
-    // 모든 유저 피드
     axios.get("http://127.0.0.1:8080/allCertification")
       .then((res) => {
         const certifications = res.data
@@ -70,7 +66,6 @@ export default {
           return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
         })
         this.Alltotal = certifications
-        // console.log("res",res.data)
         console.log("Alltotal",this.Alltotal)
       })
       .catch((err) => {
@@ -81,11 +76,7 @@ export default {
     AllinfiniteHandler($state) {
         setTimeout(() => {
         if (this.Alltotal.length) {
-          // console.log("옮겨지기 전 cards: ", this.cards)
-          // console.log("옮겨지기 전 total: ", this.total)
           this.Allslides.push(...this.Alltotal.splice(0, 3))
-          // console.log("옮겨진 후 cards: ", this.cards)
-          // console.log("옮겨진 후 total: ", this.total)
           $state.loaded();
         } else {
           $state.complete();
@@ -135,7 +126,7 @@ export default {
 }
 
 .infinite-margin {
-   margin-top: 5vh;
+  margin-top: 5vh;
 }
 
 .cursor_img {

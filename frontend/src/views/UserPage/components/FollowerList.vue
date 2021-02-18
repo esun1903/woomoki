@@ -65,30 +65,22 @@ export default {
     isMyPage: Boolean,
   },
   methods: {
-    // 나를 팔로우하는 팔로우 유저 리스트 가져오기
     async FollowerList () {
-      // userId 가져오기
       const UserNickname = this.$route.params.userNickname
       await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
         .then((res) => {
           this.UserInfo = res.data
         })
-      // console.log(this.UserInfo)
       const userId = this.UserInfo.id
       await axios.get(`http://127.0.0.1:8080/followerList/${userId}`)
         .then((res) => {
           this.followers = res.data
-          // console.log("팔로우 리스트", res.data)
         })
       await axios.get(`http://127.0.0.1:8080/followingList/${userId}`)
         .then((res) => {
           this.followings = res.data
-          // console.log("팔로잉 리스트",res.data)
         })
     },
-    // reload: function () {
-    //   this.$router.go(this.$router.currentRoute)
-    // }
   },
   created() {
     this.FollowerList();
@@ -104,10 +96,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-
 .dialog-height {
   height: 300px;
 }
-
 </style>
