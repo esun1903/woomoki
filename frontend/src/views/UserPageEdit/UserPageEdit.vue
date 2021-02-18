@@ -47,11 +47,11 @@
 
 
         <v-row class="d-flex justify-end">
-          <!-- <router-link :to="{ name: 'UserPage', params: { userNickname: userNickname }}"> -->
+          <router-link :to="{ name: 'UserPage', params: { userNickname: userNickname }}">
             <v-btn class="mr-4 white--text" type="submit" :disabled="invalid" @click="updataUserInfo" color="#AED864">
               적용
             </v-btn>
-          <!-- </router-link> -->
+          </router-link>
 
           <v-btn @click="clear" text>
             지우기
