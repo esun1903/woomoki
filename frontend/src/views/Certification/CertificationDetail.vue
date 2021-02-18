@@ -1,5 +1,7 @@
 <template>
-    <v-container class="container-size">
+    <div>
+
+    
         <!-- <v-row> -->
         <v-col class="cng-name">
             <router-link :to="{ name: 'SeedDetail', params: { seedId: CertInfo.cng_id }}">
@@ -14,6 +16,7 @@
             </span>
         </v-col>
         <!-- </v-row> -->
+    <v-container class="container-size">
         <v-row>
 
         
@@ -92,7 +95,7 @@
             <v-row class="d-flex justify-start content">
                 <v-col class="d-flex align-center div-content">
                     <router-link :to="{ name: 'UserPage', params: { userNickname: CertInfo.nickname }}">
-                        <span class="nickname-bold">{{ CertInfo.nickname }}</span>
+                        <span class="nickname-bottom">{{ CertInfo.nickname }}</span>
                     </router-link>
                 </v-col>
 
@@ -102,9 +105,9 @@
                         </v-btn>
                 </v-col>
             </v-row>
-
-            <v-row>
-                <div class="ml-5">{{ CertInfo.content }}</div>
+            <v-divider></v-divider>
+            <v-row class="content-margin">
+                <div class="ml-7">{{ CertInfo.content }}</div>
             </v-row>
             <v-row class="good-bad-btn" v-if="showResultBtn && CertInfo.result==0">
                 <v-btn class="ma-2" outlined fab color="blue" @click.stop="dialogSuccess = true">
@@ -165,13 +168,16 @@
             <v-row class="result-done" v-if="showResultBtn && CertInfo.result!=0">
                 확인이 완료된 인증글입니다.
             </v-row>
-        </div>
-
         <v-divider></v-divider>
         <CommentInsert />
+        </div>
+        </v-container>
+        <v-container class="bottom-container-size">
+
         <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" />
 
-    </v-container>
+        </v-container>
+    </div>
 </template>
 
 <script>
@@ -503,7 +509,7 @@
     .content,
     .nickname-date-row {
         justify-content: center;
-        margin-top: 5%;
+        margin-top: 2%;
     }
 
     .div-content {
@@ -514,10 +520,17 @@
     .cng-name {
         justify-content: center;
         font-style: italic;
-        margin-bottom: 3%;
+        margin-bottom: 2%;
+        margin-top: 2%;
     }
 
     .container-size {
+        border: solid rgb(231, 231, 231);
+        width: 40vw;
+    }
+
+    .bottom-container-size {
+        // border: solid rgb(231, 231, 231);
         width: 40vw;
     }
 
@@ -525,6 +538,14 @@
         color: black;
         font-size: 17px;
         font-weight: bold;
+        // margin-left: 1vw;
+    }
+
+    .nickname-bottom {
+        color: black;
+        font-size: 17px;
+        font-weight: bold;
+        margin-left: 1vw;
     }
 
     .title-size {
@@ -533,7 +554,7 @@
     }
 
     .border-list {
-        border: solid rgb(231, 231, 231);
+        border: thin solid rgb(231, 231, 231);
         margin: 0px;
     }
 
@@ -548,4 +569,11 @@
         text-decoration: none;
     }
 
+    .content-flex {
+        margin-left: 2vw;
+    }
+
+    .content-margin {
+        margin-top: 5%;
+    }
 </style>

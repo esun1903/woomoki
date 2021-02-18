@@ -5,17 +5,21 @@
                 <!-- <validation-provider v-slot="{ errors }" rules="required">
                     <v-text-field color="#AED864" dense outlined v-model="comment" :error-messages="errors" label="댓글" required></v-text-field>
                 </validation-provider> -->
+                <v-row>
+                    <v-col cols="10" class="">
+                        <validation-provider v-slot="{ errors }" name="댓글" rules="required">
+                            <v-text-field color="#AED864" outlined dense v-model="comment" :error-messages="errors" label="댓글"></v-text-field>
+                        </validation-provider>
+                    </v-col>
 
-                <validation-provider v-slot="{ errors }" name="댓글" rules="required">
-                    <v-text-field color="#AED864" outlined dense v-model="comment" :error-messages="errors" label="댓글"></v-text-field>
-                </validation-provider>
-
-
-                <div id="insert-btn-div">
-                    <v-btn color="#AED864" class="white--text" id="insert-btn" :disabled="invalid" @click="writeComment">
-                        등록하기
-                    </v-btn>
-                </div>
+                    <v-col cols="1" class="d-flex justify-center ml-5">
+                        <div id="insert-btn-div">
+                            <v-btn color="#AED864" class="white--text" id="insert-btn" :disabled="invalid" @click="writeComment">
+                                댓글등록
+                            </v-btn>
+                        </div>
+                    </v-col>
+                </v-row>
             </v-form>
         </validation-observer>
     </div>

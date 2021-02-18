@@ -3,7 +3,6 @@
   <template v-slot:default="{ hover }"> 
     <v-avatar
         tile
-        :class="`rounded-lg`"
         width="100%"
         height="100%"
         max-width="100%"
@@ -13,7 +12,6 @@
         @click="onClickImageUpload"
         >
         <v-img
-          :class="`rounded-lg`"
           width="100%"
           height="100%"
           max-width="100%"

@@ -1,5 +1,6 @@
 <template>
-    <v-container class="container-size">
+<div>
+    
         <v-col class="cng-name">
             <router-link :to="{ name: 'SeedDetail', params: { seedId: CertInfo.cng_id }}">
             <span class="d-flex justify-center align-center mb-3 title-size">
@@ -12,7 +13,8 @@
                 </v-chip>
             </span>
         </v-col>
-
+        
+        <v-container class="container-size">
         <v-row>
         
         <v-list-item class="border-list">
@@ -34,8 +36,10 @@
             <CertificationImgUpdate @transferCertImg="receiveCertImg" class="mb-5"
                 :currentSelectedImg="currentSelectedImg" />
         </v-row>
+    </v-container>
+    <v-container class="bottom-container-size">
         <v-row class="content">
-            <v-textarea v-model="CertInfo.content" no-resize color="#AED864" outlined rows="10" label="설명글">
+            <v-textarea height="150" v-model="CertInfo.content" no-resize color="#AED864" outlined rows="10" label="설명글">
             </v-textarea>
         </v-row>
         <v-row class="back-update-btn">
@@ -54,6 +58,7 @@
         <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" />
 
     </v-container>
+    </div>
 </template>
 
 <script>
@@ -306,35 +311,36 @@
         margin: 3% !important;
     }
 
-    .like-btn {
-        float: right;
-        margin-top: 5%;
-        margin-bottom: 5%;
-    }
-
     .back-update-btn {
         justify-content: center;
-        margin-top: 5%;
+        margin-top: 2%;
         margin-bottom: 5%;
     }
 
     .content,
     .nickname-date-row {
         justify-content: center;
-        margin-top: 5%;
+        margin-top: 2%;
     }
 
     .img-div {
-        margin-top: 3%
+        margin-top: 2%
     }
 
     .cng-name {
         justify-content: center;
         font-style: italic;
         margin-bottom: 3%;
+        margin-top: 3%;
     }
 
     .container-size {
+        border: solid rgb(231, 231, 231);
+        width: 40vw;
+        height: 71vh;
+    }
+
+    .bottom-container-size {
         width: 40vw;
     }
 
@@ -344,8 +350,7 @@
     }
 
     .border-list {
-        border: solid rgb(231, 231, 231);
-        margin: 0px;
+        border: thin solid rgb(231, 231, 231);
     }
 
     a {
