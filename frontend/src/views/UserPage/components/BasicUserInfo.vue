@@ -67,6 +67,7 @@
         </v-row>
 
         <v-row class="d-flex justify-space-around">
+          <UserWallet v-if="isMyPage === true" :UserInfo="UserInfo"></UserWallet>
           <FollowerList :isMyPage="isMyPage"></FollowerList>
           <FollowingList :isMyPage="isMyPage"></FollowingList>
         </v-row>
@@ -170,7 +171,7 @@ export default {
         .then((res) => {
           console.log(res)
         })
-    }
+    },
   },
   created() {
     this.BasicUserInfo()
