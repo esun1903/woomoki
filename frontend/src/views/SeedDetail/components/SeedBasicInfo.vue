@@ -35,7 +35,8 @@
           </v-btn>
 
           <!-- <router-link> -->
-          <v-btn v-if="checkAcception" @click="goStampCard" :ripple="false" color="#AED864"
+          <!-- <v-btn v-if="checkAcception" @click="goStampCard" :ripple="false" color="#AED864" -->
+          <v-btn @click="goStampCard" :ripple="false" color="#AED864"
             class="btn-position white--text mr-2">
             나의 인증 현황
           </v-btn>
