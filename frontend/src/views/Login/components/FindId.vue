@@ -2,7 +2,7 @@
   <div class="d-flex justify-center bgimg">
     <section class="size">
         <v-container class="title-box">
-          <h2 class="login-text">아이디 찾기</h2>
+          <h2 class="text">아이디 찾기</h2>
         </v-container>
         
         <v-container>
@@ -44,25 +44,25 @@
 
 <script>
 import axios from "axios"
-  import {
-    required,
-    length
-  } from 'vee-validate/dist/rules'
-  import {
-    extend,
-    ValidationProvider,
-    setInteractionMode,
-    ValidationObserver
-  } from 'vee-validate'
+import {
+  required,
+  length
+} from 'vee-validate/dist/rules'
+import {
+  extend,
+  ValidationProvider,
+  setInteractionMode,
+  ValidationObserver
+} from 'vee-validate'
 
-  import BackBtn from "@/views/Login/components/BackBtn.vue"
+import BackBtn from "@/views/Login/components/BackBtn.vue"
 
-  setInteractionMode('eager')
+setInteractionMode('eager')
 
-  extend("required", {
-    ...required,
-    message: "{_field_}는 필수 항목입니다"
-  });
+extend("required", {
+  ...required,
+  message: "{_field_}는 필수 항목입니다"
+});
 
 
 
@@ -183,7 +183,7 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    .login-text{
+    .text{
       font-size: 1.6vw;
       color: white;
       margin-top: 1.5vh;

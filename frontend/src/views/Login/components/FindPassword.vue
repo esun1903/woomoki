@@ -2,7 +2,7 @@
   <div class="d-flex justify-center bgimg">
     <section class="size">
         <v-container class="title-box">
-          <h2 class="login-text">비밀번호 찾기</h2>
+          <h2 class="text">비밀번호 찾기</h2>
         </v-container>
         
         <v-container>
@@ -43,7 +43,7 @@
 </script>
 
 <style lang="scss" scoped>
-  #find-password-btn {
+#find-password-btn {
     display: flex;
     justify-content: space-around;
     font-size: 15px;
@@ -100,12 +100,38 @@ body, html {
   }
 }
 
+.size {
+  margin-top: 20vh;
+  width: 23%;
+  height: 55vh;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0.5px 0.5px 5px rgb(172, 172, 172);
+  .title-box {
+    width: 90%;
+    height: 20%;
+    background: linear-gradient(70deg, #7CB342, #AED864,);
+    // background-color: #AED864;
+    box-shadow: 5px 5px 10px grey;
+    position: relative;
+    top: -5vh;
+    border-radius: 10px;
+    margin-bottom: -2.5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .text{
+      font-size: 1.6vw;
+      color: white;
+      margin-top: 1.5vh;
+      margin-bottom: 1vh;
+    }
+  }
+}
 
 .input-size{
   width: 20vw;
 }
-
-
 
 .login-text {
   font-size: 1.6vw;
@@ -133,5 +159,20 @@ body, html {
   font-size: 1rem;
 }
 
+.send-code-btn,
+.input-code-btn {
+  width: 100%;
+  color: #black;
+}
 
+.disabled,
+.disabled:hover {
+  background-color: rgb(136, 154, 152, 0.25);
+  color: #be5656;
+  cursor: inherit;
+}
+
+.code {
+  margin-top: 20px;
+}
 </style>
