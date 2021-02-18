@@ -31,8 +31,10 @@ public class JoinedChallengeController {
     	System.out.println("여기가 joined이야"+ joinedChallengeDto.getCng_id() +" " + joinedChallengeDto.getUser_id());
     	return service.joinChallengeInsert(joinedChallengeDto);
     }
+
     @DeleteMapping("/joinChallengeDelete/{userId}/{cngId}")
     public int joinChallengeDelete(@PathVariable("userId")int userId, @PathVariable("cngId")int cngId){
         return service.joinChallengeDelete(userId,cngId);
     }
+
 }
