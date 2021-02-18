@@ -121,8 +121,6 @@
       async submit() {
         const valid = await this.$refs.observer.validate()
         if (valid) {
-          // console.log(this.user.email);
-          // console.log(this.user.password);
           this.$store.dispatch("UserStore/login", this.user);
         }else{
           alert("이메일, 비밀번호를 확인해주세요")

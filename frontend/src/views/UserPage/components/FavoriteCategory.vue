@@ -104,15 +104,6 @@ export default {
         .catch((err) => {
           console.log(err)
         })
-
-        // for (let i=0; i < this.items.length; i++) {
-        //   for (let j=0; j < this.tmp.length; j++) {
-        //     if (this.items[i].text === this.tmp[j].name) {
-        //       this.selected.push(this.items[i])
-        //     }
-        //   }
-        // }
-        
     },
   }
 }

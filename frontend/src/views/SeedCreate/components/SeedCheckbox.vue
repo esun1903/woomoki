@@ -1,5 +1,4 @@
 <template>
-  <!-- snackbar 또는 dialog-->
   <v-col>
     <v-checkbox
         color="#AED864"

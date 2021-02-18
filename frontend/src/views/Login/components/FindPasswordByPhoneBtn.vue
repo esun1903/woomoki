@@ -6,7 +6,6 @@
       </v-btn>
       <p>휴대폰</p>
     </router-link>
-
   </div>
 </template>
 
@@ -17,14 +16,11 @@
     directives: {},
     data() {
       return {
-
       };
     },
     mounted() {
-
     },
     methods: {
-
     },
   };
 </script>

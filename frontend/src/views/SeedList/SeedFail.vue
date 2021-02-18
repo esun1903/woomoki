@@ -72,7 +72,6 @@ export default {
         seeds.sort(function(a,b) {
           return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
         })
-        // seeds.splice(8)
         this.seeds = seeds
       })
       .catch((err) => {

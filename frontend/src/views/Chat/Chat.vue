@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- chatting box -->
     <noscript>
       <strong></strong>
     </noscript>
@@ -91,7 +90,7 @@ export default {
       status: "disconnected",
       ops: {
           bar: {
-             background: '#9CCC65',
+            background: '#9CCC65',
           }
         }
     };
@@ -101,7 +100,6 @@ export default {
       this.socket = new WebSocket("wss://echo.websocket.org");
       this.socket.onopen = () => {
       this.status = "connected";
-      // this.logs.push({ event: "채팅방에 입장했습니다", data: 'wss://echo.websocket.org'})
       this.logs.push({ event: "채팅방에 입장했습니다"})
       this.socket.onmessage = ({data}) => {
       this.logs.push({ event: "수신", data });

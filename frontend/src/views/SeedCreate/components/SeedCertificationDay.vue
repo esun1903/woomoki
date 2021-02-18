@@ -30,9 +30,6 @@ export default {
       const re = /^[0-9]*$/
       return re.test(count)
     },
-    // transferDay: function () {
-      
-    // }
   },
   watch: {
     value: function () {

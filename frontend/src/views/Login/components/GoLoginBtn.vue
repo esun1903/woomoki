@@ -1,8 +1,8 @@
 <template>
     <div>
-            <v-btn class="go-login-btn" rounded color="white">
-                로그인 페이지로 돌아가기
-            </v-btn>
+        <v-btn class="go-login-btn" rounded color="white">
+            로그인 페이지로 돌아가기
+        </v-btn>
     </div>
 </template>
 
@@ -10,21 +10,16 @@
     export default {
         name: 'GoLoginBtn',
         components: {
-
         },
         directives: {
-
         },
         data() {
             return {
-
             };
         },
         mounted() {
-
         },
         methods: {
-
         },
     };
 </script>

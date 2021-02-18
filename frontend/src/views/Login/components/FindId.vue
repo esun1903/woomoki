@@ -27,9 +27,7 @@
                 </validation-observer>
               </div>
               <div class="code" v-else>
-                <!-- <v-divider></v-divider> -->
                 등록하신 아이디는 <br><b>{{ this.userInfo.email }}</b><br>입니다.
-                <!-- <v-text-field label="인증 코드" outlined dark dense></v-text-field> -->
               </div>
               <router-link :to="'/login'">
                 <BackBtn />
@@ -88,62 +86,17 @@ export default {
     }
   },
   methods: {
-
-    // getPhoneMask(val) {
-    //   let res = this.getMask(val)
-    //   this.phone = res
-    //   //서버 전송 값에는 '-' 를 제외하고 숫자만 저장
-    //   this.model.phone = this.phone.replace(/[^0-9]/g, '')
-    // },
-
-    // getMask(phoneNumber) {
-    //   if (!phoneNumber) return phoneNumber
-    //   phoneNumber = phoneNumber.replace(/[^0-9]/g, '')
-
-    //   let res = ''
-    //   if (phoneNumber.length < 3) {
-    //     res = phoneNumber
-    //   } else {
-    //     if (phoneNumber.substr(0, 2) == '02') {
-
-    //       if (phoneNumber.length <= 5) { //02-123-5678
-    //         res = phoneNumber.substr(0, 2) + '-' + phoneNumber.substr(2, 3)
-    //       } else if (phoneNumber.length > 5 && phoneNumber.length <= 9) { //02-123-5678
-    //         res = phoneNumber.substr(0, 2) + '-' + phoneNumber.substr(2, 3) + '-' + phoneNumber.substr(5)
-    //       } else if (phoneNumber.length > 9) { //02-1234-5678
-    //         res = phoneNumber.substr(0, 2) + '-' + phoneNumber.substr(2, 4) + '-' + phoneNumber.substr(6)
-    //       }
-
-    //     } else {
-    //       if (phoneNumber.length < 8) {
-    //         res = phoneNumber
-    //       } else if (phoneNumber.length == 8) {
-    //         res = phoneNumber.substr(0, 4) + '-' + phoneNumber.substr(4)
-    //       } else if (phoneNumber.length == 9) {
-    //         res = phoneNumber.substr(0, 3) + '-' + phoneNumber.substr(3, 3) + '-' + phoneNumber.substr(6)
-    //       } else if (phoneNumber.length == 10) {
-    //         res = phoneNumber.substr(0, 3) + '-' + phoneNumber.substr(3, 3) + '-' + phoneNumber.substr(6)
-    //       } else if (phoneNumber.length > 10) { //010-1234-5678
-    //         res = phoneNumber.substr(0, 3) + '-' + phoneNumber.substr(3, 4) + '-' + phoneNumber.substr(7)
-    //       }
-    //     }
-    //   }
-
-    //   return res
-    // },
-
     async submit() {
       const valid = await this.$refs.observer.validate()
       if (valid) {
-        // 핸드폰 번호값 보내주고 유저 이메일 얻어오기
         const phone = this.phone;
-              axios.get(`http://localhost:8080/userInfo/${phone}`)
-                  .then((response) => {
-                      this.userInfo = response.data;
-                  })
-                  .catch((err) => {
-                      console.log(err)
-                  })
+        axios.get(`http://localhost:8080/userInfo/${phone}`)
+          .then((response) => {
+              this.userInfo = response.data;
+          })
+          .catch((err) => {
+            console.log(err)
+          })
         console.log(this.phone);
         this.show = !this.show;
       }
@@ -242,8 +195,6 @@ body, html {
 .input-size{
   width: 20vw;
 }
-
-
 
 .login-text {
   font-size: 1.6vw;

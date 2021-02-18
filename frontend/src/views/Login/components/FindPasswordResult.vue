@@ -9,11 +9,11 @@
           <h2>Oops!!!!!!!비밀번호를 잊었다니!</h2>
           <h4>비밀번호 찾기</h4>
           <div class="text-center">
-                 <span class="showResult">
-                     회원님의 비밀번호는 
-                     <br>
-                 <b>ssafy1111!</b> 입니다. 
-                 </span>
+            <span class="showResult">
+              회원님의 비밀번호는 
+              <br>
+            <b>ssafy1111!</b> 입니다. 
+            </span>
             <router-link :to="'/login'">
               <GoLoginBtn />
             </router-link>
@@ -54,8 +54,6 @@
   }
 
   .section-container {
-    //   padding: 20px;
-    //   margin: 20px;
     background: #fff;
     width: 100%;
     box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
@@ -68,7 +66,6 @@
       box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
 
       .left {
-        //   padding: 30px;
         justify-content: center;
         align-items: center;
         box-sizing: border-box;
@@ -78,7 +75,6 @@
       }
 
       .right {
-        //   padding: 30px;
         display: flex;
         flex-direction: column;
         align-items: center;

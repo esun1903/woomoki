@@ -7,7 +7,6 @@
       </v-row>
       <v-row>
         <v-col>
-          <!-- <v-banner></v-banner> -->
           <v-tabs
             height="5vw"
             v-model="tab"
@@ -70,7 +69,6 @@
                   </v-row>
                 
                 </v-card-text>
-                  <!-- <v-card-text v-if="item === '챌린지'"><ChallengeResults></ChallengeResults></v-card-text> -->
                 <v-card-text v-if="item === '나의 씨앗'">
                   <ChallengeResults></ChallengeResults>
                 </v-card-text>
@@ -93,16 +91,13 @@
 <script>
 import BasicUserInfo from "./components/BasicUserInfo"
 import ChallengeResults from "./components/ChallengeResults"
-import UserStat from "./components/UserStat"
-// import {mapState} from "vuex"
 import axios from 'axios'
 
 export default {
     name: "UserPage",
     components: {
-        BasicUserInfo,
-        ChallengeResults,
-        UserStat,
+      BasicUserInfo,
+      ChallengeResults,
     },
     data: function () {
         return {
@@ -120,24 +115,18 @@ export default {
       await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
         .then((res) => {
           this.userId = res.data.id
-          // console.log("??", res.data)
         })
       const userid = this.userId
       await axios.get(`http://127.0.0.1:8080/userCertification/${userid}`)
         .then((res) => {
         this.total = res.data
         console.log("생성되었을 때 tmp: ", this.total)
-        // console.log("isUserstat: ", this.isUserstat)
         })
       },
       infiniteHandler($state) {
         setTimeout(() => {
         if (this.total.length) {
-          // console.log("옮겨지기 전 cards: ", this.cards)
-          // console.log("옮겨지기 전 total: ", this.total)
           this.cards.push(...this.total.splice(0, 3))
-          // console.log("옮겨진 후 cards: ", this.cards)
-          // console.log("옮겨진 후 total: ", this.total)
           $state.loaded();
         } else {
           $state.complete();
@@ -156,7 +145,6 @@ export default {
       this.UserCertification();
   },
   computed: {
-    // ...mapState('UserStore', ['user']),
   }
 };
 </script>
