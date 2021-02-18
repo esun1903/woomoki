@@ -30,13 +30,13 @@
         <v-row class="d-flex justify-end align-center">
           <!-- isJoin에 따라 보이거나 안보이거나 -->
           <!-- <router-link v-if="checkAcception" :to="{ name: 'CertificationInsert', params: { cngId: this.$route.params.seedId }}"> -->
-          <v-btn :ripple="false" color="#AED864" class="btn-position white--text mr-2" @click="certInsertorLogin">
+          <!-- <v-btn v-if="getCheckLogin" :ripple="false" color="#AED864" class="btn-position white--text mr-2" @click="certInsertorLogin">
             인증 작성
-          </v-btn>
+          </v-btn> -->
 
           <!-- <router-link> -->
           <!-- <v-btn v-if="checkAcception" @click="goStampCard" :ripple="false" color="#AED864" -->
-          <v-btn @click="goStampCard" :ripple="false" color="#AED864"
+          <v-btn v-if="getCheckLogin" @click="goStampCard" :ripple="false" color="#AED864"
             class="btn-position white--text mr-2">
             나의 인증 현황
           </v-btn>
@@ -255,6 +255,9 @@
     // jquery
     mounted() {},
     computed: {
+      getCheckLogin() {
+        return this.$store.getters["UserStore/getCheckLogin"];
+      },
       ...mapState('UserStore', ['user']),
       color: function () {
         if (this.SeedInfo.category_id === 1) {

@@ -210,6 +210,7 @@ export default {
                 this.scrapped = true
               }
             }
+            console.log(this.scrapped)
           })
     },
     Like: function () {

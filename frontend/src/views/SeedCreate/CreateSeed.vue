@@ -192,6 +192,7 @@
     methods: {
       // 씨앗 생성
       InsertSeed: function () {
+        
         // week calc
         // const start_year = this.dates[0].slice(0, 4)
         // const startDate = new Date(Number(start_year), Number(this.dates[0].slice(5, 7))-1, Number(this.dates[0].slice(8, 10)));
@@ -291,6 +292,8 @@
           .catch((err) => {
             console.log(err)
           })
+
+      
 
       },
       uploadThumbnail() {
