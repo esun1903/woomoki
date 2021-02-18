@@ -42,6 +42,9 @@
 
 #### 🌱 ERD
 ![erd이미지_최종](/uploads/93dd266aae0b4d6e79298ebca9fecbe8/erd이미지_최종.PNG)
+[컨벤션](https://www.notion.so/332cddb89bff4354b3aee8bc1d2746a8)
+[BE-Api](https://www.notion.so/a4d59235ba6f4795b0c7677414e0d766)
+
 #### 🌱실행 방법 
 
 프론트엔드 부분
