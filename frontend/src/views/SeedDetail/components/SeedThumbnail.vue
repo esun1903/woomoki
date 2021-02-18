@@ -45,20 +45,33 @@
               </v-row>
               <v-row>
                 <v-progress-linear
-                  v-if="this.isEnd === false"
+                  v-if="this.isEnd === false && this.percentage > 0"
                   :value="percentage"
                   :color="color"
                   height="25"
                   rounded
                   striped
                 >
-                  <template>
+                  <template v-if="this.percentage > 0">
                     <strong class="white--text">{{ percentage }}%</strong>
+                  </template>
+                </v-progress-linear>
+
+                <v-progress-linear
+                  v-if="this.percentage <= 0"
+                  :value="'0'"
+                  :color="color"
+                  height="25"
+                  rounded
+                  striped
+                > 
+                  <template v-if="this.percentage <= 0">
+                    <strong class="white--text">아직 씨앗이 안심어졌어요</strong>
                   </template>
                 </v-progress-linear>
           
                 <v-progress-linear
-                  v-else
+                  v-else-if="this.isEnd === true"
                   value="100"
                   :color="color"
                   height="25"
@@ -69,7 +82,7 @@
                     <strong>100%</strong>
                   </template>
                   <template v-else>
-                    <strong class="white--text">이미 부화한 씨앗입니다</strong>
+                    <strong class="white--text">이미 꽃핀 씨앗입니다</strong>
                   </template>
                 </v-progress-linear>
               </v-row>
@@ -118,7 +131,7 @@ export default {
       scrapped: false,
       liked: false,
       isMySeed: false,
-      percentage: 20,
+      percentage: 0,
       isEnd: false,
       isLogin : this.$store.state.UserStore.isLogin,
       likeCount: 0,
@@ -161,6 +174,8 @@ export default {
       this.percentage = Math.round(percentage)
       }
 
+      this.$emit('transferPercentage', this.percentage, this.isEnd)
+      // console.log('percentage',this.percentage)
       // 내가 만든 씨앗인지 구분
       const SeedUserId = this.$store.state.UserStore.user.user_id 
       const UserId = this.SeedInfo.user_id
@@ -259,7 +274,7 @@ export default {
 
         for (var i=0; i < allUser.length; i++) {
           console.log("for문", allUser[i].result)
-          if (allUser[i].result == 1) {
+          if (allUser[i].result == 0) {
             console.log("if문", allUser[i])
             this.joinUser.push(allUser[i])
           } 
@@ -267,9 +282,7 @@ export default {
       console.log("참여중인",this.joinUser) 
       })     
   },
-  joinList: function () {
 
-  }
     // getScrappedCount: function () {
     //   const seedId = this.seedId
     //   // fav_challenge 테이블에서 해당 seedId를 하트 누른 유저의 숫자를 가져와야함
@@ -287,6 +300,9 @@ export default {
     this.getSeedThumbnail();
     this.CheckisfavSeed();
     this.CheckisLikeSeed();
+  },
+  mounted() {
+    
   },
   computed: {
     ...mapState('UserStore', ['user']),

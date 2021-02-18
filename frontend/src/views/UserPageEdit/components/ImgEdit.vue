@@ -18,6 +18,7 @@
         file: null,
         fileName: null,
         changedImg:"",
+        tmpImg: "",
       }
     },
     created() {
@@ -26,11 +27,13 @@
     props: {
       profileImg: String,
     },
+    watch: {
+    },
     methods: {
       getImage() {
-
-        this.imageUrl = this.profileImg;
-        console.log("받은 이미지: " + this.profileImg);
+        this.tmpImg = this.profileImg
+        this.imageUrl = this.tmpImg;
+        console.log("받은 이미지: " + this.tmpImg);
         console.log("보여줄 이미지: " + this.imageUrl);
       },
       onClickImageUpload() {

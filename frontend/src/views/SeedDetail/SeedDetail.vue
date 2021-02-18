@@ -1,7 +1,7 @@
 <template>
   <v-container class="container-size">
     <v-row>
-      <SeedThumbnail :joinUser="joinUser"></SeedThumbnail>
+      <SeedThumbnail @transferPercentage="receivePercentage" :joinUser="joinUser"></SeedThumbnail>
     </v-row>
 
     <v-row>
@@ -56,35 +56,42 @@
       <div id="rules"></div>
       <div id="content"></div>
       <footer></footer>
-      <!-- 로그인 상태 && 참가 요청 안보냈을 때 && 최대참여인원보다 현재 참여자가 적을 때 -->
-      <v-btn v-if="!isJoin && joinUser.length < SeedInfo.max_people" @click="JoinSeed" depressed tile id="banner" width="65.55vw" height="5vw"
-        class="position-fixed" color="#AED864">
-        <h1 class="join-font">
-          함께하기
-        </h1>
-      </v-btn>
+      
       <!-- 로그인 상태 && 최대참여인원보다 현재참여자가 많아 질 때 -->
       <!-- <v-btn v-if="getCheckLogin" :disabled="joinUser.length >= SeedInfo.max_people" @click="JoinSeed" depressed tile id="banner" width="65.55vw" height="5vw" -->
-      <v-btn v-if="!isJoin && joinUser.length >= SeedInfo.max_people" @click="JoinSeed" depressed tile id="banner" width="65.55vw" height="5vw"
+      <v-btn v-if="joinUser.length >= SeedInfo.max_people || percentage <= 0 || isEnd" :disabled="joinUser.length >= SeedInfo.max_people || percentage <= 0 || isEnd" depressed tile id="banner" width="65.55vw" height="5vw"
         class="position-fixed" color="#AED864">
         <h1 class="join-font">
-          참여 인원이 다 찼습니다
+          참여가 불가능합니다
         </h1>
       </v-btn>
+
+      <v-btn v-else-if="!isJoin && !isAccepted && percentage > 0 && joinUser.length < SeedInfo.max_people || !isJoin && !isAccepted && !isEnd && joinUser.length < SeedInfo.max_people" 
+            @click="JoinSeed" depressed tile id="banner" width="65.55vw" height="5vw"
+        class="position-fixed" color="#AED864">
+        <h1 class="join-font">
+          참여 신청
+        </h1>
+      </v-btn>
+
+      <v-btn v-else-if="isAccepted && isJoin && percentage > 0" @click="goStampCard" depressed tile id="banner" width="65.55vw" height="5vw"
+        class="position-fixed" color="#AED864">
+        <h1 class="join-font">
+          인증하기
+        </h1>
+      </v-btn>
+
       <!-- 로그인 상태 && 참가 요청 보냈을 때 && 참가버튼을 눌렀을 때-->
-      <v-btn v-if="isJoin" disabled depressed tile id="banner" width="65.55vw" height="5vw"
+      <!-- <v-btn v-if="!isAccepted" disabled depressed tile id="banner" width="65.55vw" height="5vw" -->
+      <v-btn v-else-if="!isAccepted && isJoin" :disabled="!isAccepted && isJoin" depressed tile id="banner" width="65.55vw" height="5vw"
         class="position-fixed" color="#AED864">
         <h1 class="join-font">
           참여 수락을 기다리고 있습니다
         </h1>
       </v-btn>
       <!-- 나의인증현황 -->
-      <v-btn v-if="isJoin && isAccepted" disabled depressed tile id="banner" width="65.55vw" height="5vw"
-        class="position-fixed" color="#AED864">
-        <h1 class="join-font">
-          인증하기
-        </h1>
-      </v-btn>
+      <!-- <v-btn v-if="isAccepted" @click="goStampCard" depressed tile id="banner" width="65.55vw" height="5vw" -->
+      
     </div>
 
   </v-container>
@@ -99,6 +106,7 @@
   import SeedThumbnail from "./components/SeedThumbnail"
   import SeedBasicInfo from "./components/SeedBasicInfo"
   import SeedCertification from "./components/SeedCertification"
+import { setInteractionMode } from 'vee-validate'
 
   export default {
     name: "SeedDetail",
@@ -122,6 +130,10 @@
         isAccepted: false,
         joinUser: [],
         waitUser: [],
+        useridlist: [],
+        waituseridlist :[],
+        percentage: 2,
+        isEnd: false,
       }
     },
     computed: {
@@ -135,31 +147,51 @@
       //   axios.get(`http://i4a303.p.ssafy.io/api/joinChallengeUserList/${seedId}`)
       //     .then((res) => {
       //       const userList = res.data
-      //       for (var i = 0; userList.length; i++) {
-      //         if (userList[i].id === userId && userList[i].id === 0) {
+      //       for (var i = 0;  i < userList.length; i++) {
+      //         console.log("userList[i]", userList[i])
+      //         console.log("userId", userId)
+      //         if (userList[i].user_id === userId && userList[i].result === 0) {
       //           this.isAccepted = true
+      //           this.isJoin = true
+      //           console.log("조인상태")
       //           console.log("accpeted", this.isAccepted)
+      //         } else if (userList[i].user_id === userId && userList[i].result === -1) {
+      //           this.isAccepted = false
+      //           this.isJoin = true
+      //           console.log("요청상태")
       //         }
       //       }
       //     })
-      //   return this.isAccepted
-      // }
+      //     return this.isAccepted
+      // },
     },
     methods: {
+      
+      goStampCard: function () {
+        this.$router.push({
+          name: 'StampCard',
+          params: {
+            seedId: this.seedId,
+            userId: this.user.user_id
+          }
+        })
+      },
       checkAcception () {
         const seedId = this.seedId
         const userId = this.$store.state.UserStore.user.user_id
         axios.get(`http://i4a303.p.ssafy.io/api/joinChallengeUserList/${seedId}`)
           .then((res) => {
             const userList = res.data
-            for (var i = 0; userList.length; i++) {
-              if (userList[i].id === userId && userList[i].id === 0) {
+            for (var i = 0;  i < userList.length; i++) {
+              if (userList[i].user_id === userId && userList[i].result === 0) {
                 this.isAccepted = true
-                console.log("accpeted", this.isAccepted)
+                this.isJoin = true
+              } else if (userList[i].user_id === userId && userList[i].result === -1) {
+                this.isAccepted = false
+                this.isJoin = true
               }
             }
           })
-        
       },
       async getSeedCertification() {
         const seedId = this.seedId
@@ -186,7 +218,7 @@
             // console.log("옮겨지기 전 cards: ", this.cards)
             // console.log("옮겨지기 전 total: ", this.total)
             this.cards.push(...this.total.splice(0, 3))
-            console.log("옮겨진 후 cards: ", this.cards)
+            // console.log("옮겨진 후 cards: ", this.cards)
             // console.log("옮겨진 후 total: ", this.total)
             $state.loaded();
           } else {
@@ -200,7 +232,7 @@
         } else {
           this.isBasicInfo = false
         }
-        console.log(this.isBasicInfo)
+        // console.log(this.isBasicInfo)
       },
       JoinSeed: function () {
         if (this.$store.state.UserStore.user.accessToken === null) {
@@ -243,19 +275,29 @@
           .then((res) => {
             const allUser = res.data
 
-            console.log("전체 유저 리스트", res.data)
+            // console.log(this.joinUser)
 
+            // if (this.joinUser.length > 0) {
+              
+            // for (var i = 0; i < this.joinUser.length; i++) {
+            //   const useridlist = Object.values(this.joinUser[i])
+            //   this.useridlist = useridlist
+            //   const waituseridlist = Object.values(this.waitUser[i])
+            //   this.waituseridlist = waituseridlist
+            // }
+
+            console.log("this.useridlist: ",this.useridlist)
             for (var i = 0; i < allUser.length; i++) {
-              console.log("for문", allUser[i].result)
-              if (allUser[i].result == 0) {
-                console.log("if문", allUser[i])
+              if (allUser[i].result == 0 && !this.useridlist.includes(allUser[i].user_id)) {
+                // console.log("result == 0", allUser[i])
                 this.joinUser.push(allUser[i])
-              } else if (allUser[i].result == -1) {
-                console.log("if문", allUser[i])
-                this.waitUser.push(allUser[i])
+              } else if (allUser[i].result == -1 && !this.waituseridlist.includes(allUser[i].user_id)) {
+                console.log("result == -1", allUser[i].result)
+                // this.waitUser.push(allUser[i])
               }
             }
-            console.log("joinUser",this.joinUser.length)
+            // }
+            // console.log("joinUser",this.joinUser.length)
           })
       },
       detailCertification: function (certid) {
@@ -268,15 +310,26 @@
           }
         });
       },
+      receivePercentage: function (percentage, isEnd) {
+        this.percentage = percentage
+        this.isEnd = isEnd
+      },
+      
     },
     created() {
+      
+      
       this.getSeedCertification();
       this.allJoinUser();
-      
+      this.checkAcception();
+      setInterval(() => {
+        this.checkAcception();
+        // this.allJoinUser();
+      }, 5000)
       
     },
     mounted() {
-      this.checkAcception();
+      
 
       $(function () {
         var $w = $(window),

@@ -2,7 +2,14 @@
   <v-container class="container-size">
 
     <v-row class="d-flex justify-center img-margin">
-      <ImgEdit :profileImg="profileImg" @transferUpdateProfileImg="receiveUpdateProfileImg"></ImgEdit>
+      <!-- <ImgEdit :profileImg="profileImg" @transferUpdateProfileImg="receiveUpdateProfileImg"></ImgEdit> -->
+      <v-avatar class="cursor_img profile-img-margin" width="250" height="250" color="#AED864" @click="onClickImageUpload">
+        <span v-if="!profileImg" class="white--text">
+          {{ this.text }}
+        </span>
+        <v-img v-if="profileImg" :src="profileImg"></v-img>
+        <input ref="imageInput" type="file" hidden @change="onChangeImages">
+      </v-avatar>
     </v-row>
 
     <validation-observer ref="observer" v-slot="{ invalid }">
@@ -85,7 +92,7 @@
     setInteractionMode
   } from "vee-validate";
   import CategoryEdit from "./components/CategoryEdit.vue";
-  import ImgEdit from "./components/ImgEdit.vue";
+  // import ImgEdit from "./components/ImgEdit.vue";
   import UserDelete from "./components/UserDelete.vue";
   import axios from "axios";
 
@@ -139,7 +146,7 @@
       ValidationProvider,
       ValidationObserver,
       CategoryEdit,
-      ImgEdit,
+      // ImgEdit,
       UserDelete
     },
     props: {
@@ -265,6 +272,45 @@
         console.log("넘어온 file정보: " + this.file)
         console.log("넘어온 profileImg이름 : " + this.profileImg)
       },
+      // img edit 컴포넌트
+      onClickImageUpload() {
+        this.$refs.imageInput.click();
+      },
+      onChangeImages(e) {
+        console.log(e.target.files)
+        this.file = e.target.files[0]; 
+        if(e.target.files.length === 1){
+          this.changedImg = true ; 
+        }else{
+          this.changedImg = false; 
+        }
+        this.imageUrl = URL.createObjectURL(this.file);
+        this.fileNameSetting();
+        this.transferUpdateProfileImg();
+        this.text = ""
+      },
+      async fileNameSetting() {
+
+        const user_id = this.$store.state.UserStore.user.user_id;
+
+        var now = new Date();
+
+        var year = now.getFullYear(); 
+        var month = now.getMonth() + 1;
+        var date = now.getDate(); 
+        var hours = now.getHours(); 
+        var minutes = now.getMinutes(); 
+        var seconds = now.getSeconds(); 
+        var milliseconds = now.getMilliseconds(); 
+
+        var realtime = year + "" + month + "" + date + "_" + hours + minutes + seconds + milliseconds;
+        console.log(realtime);
+
+        this.fileName = user_id + "_" + realtime + "_" + this.file.name
+
+      },
+      // img edit 컴포넌트
+
     },
     created() {
       this.originUserInfo()
@@ -284,5 +330,13 @@
 
   .img-margin {
     margin-top: 2%;
+  }
+
+  .cursor_img {
+    cursor: pointer;
+  }
+
+  .profile-img-margin {
+    margin-bottom: 10%;
   }
 </style>
