@@ -34,9 +34,9 @@
                   <JoinList :joinUser="joinUser" :SeedInfo="SeedInfo"></JoinList>
                   <!-- <div @click="joinList">참여: {{ this.joinUser.length }} / {{ this.SeedInfo.max_people }}</div> -->
                 </v-col>
-                <v-col class="d-flex align-center">
+                <!-- <v-col class="d-flex align-center">
                   <div>인증률: </div>
-                </v-col>
+                </v-col> -->
               </v-row>
               <v-row class="d-flex justify-center mb-2">
                 <div>
