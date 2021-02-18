@@ -137,7 +137,7 @@
       async updateComment() {
         const valid = await this.$refs.observer.validate()
         if (valid) {
-          axios.put("http://localhost:8080/updateComment", this.comment)
+          axios.put("http://i4a303.p.ssafy.io/api/updateComment", this.comment)
             .then(res => {
               console.log(res);
               this.$router.go(this.$router.currentRoute);
@@ -152,7 +152,7 @@
       },
       deleteComment() {
         const comId = this.comment.id;
-        axios.delete(`http://localhost:8080/deleteComment/${comId}`)
+        axios.delete(`http://i4a303.p.ssafy.io/api/deleteComment/${comId}`)
           .then((response) => {
             console.log(response.data)
             this.$router.go(this.$router.currentRoute);

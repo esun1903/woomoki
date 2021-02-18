@@ -90,7 +90,7 @@ export default {
       const valid = await this.$refs.observer.validate()
       if (valid) {
         const phone = this.phone;
-        axios.get(`http://localhost:8080/userInfo/${phone}`)
+        axios.get(`http://i4a303.p.ssafy.io/api/userInfo/${phone}`)
           .then((response) => {
               this.userInfo = response.data;
           })

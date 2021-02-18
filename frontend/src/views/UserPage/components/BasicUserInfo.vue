@@ -114,7 +114,7 @@ export default {
       const UserNickname = this.$route.params.userNickname
 
       console.log(MyNickname, UserNickname)
-      await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
+      await axios.get(`http://i4a303.p.ssafy.io/api/userPage/${UserNickname}`)
         .then((res) => {
           this.UserInfo = res.data
           if (MyNickname === UserNickname) {
@@ -123,7 +123,7 @@ export default {
             this.isMyPage = false;
           }
         })
-      await axios.get(`http://127.0.0.1:8080/followingList/${user_id}`)
+      await axios.get(`http://i4a303.p.ssafy.io/api/followingList/${user_id}`)
         .then((res) => {
           this.followings = res.data
         })
@@ -145,14 +145,14 @@ export default {
         followingid : this.UserInfo.id
       }
       if (!this.isFollow) {
-        await axios.post(`http://127.0.0.1:8080/followingList/Insert/${followInfo.userId}/${followInfo.followingid}`, followInfo)
+        await axios.post(`http://i4a303.p.ssafy.io/api/followingList/Insert/${followInfo.userId}/${followInfo.followingid}`, followInfo)
         .then(() => {
           this.isFollow = true
           console.log(this.isFollow)
         })
       }
       else {
-        await axios.delete(`http://127.0.0.1:8080/followingList/delete/${followInfo.userId}/${followInfo.followingid}`, followInfo)
+        await axios.delete(`http://i4a303.p.ssafy.io/api/followingList/delete/${followInfo.userId}/${followInfo.followingid}`, followInfo)
         .then(() => {
           this.isFollow = false
           console.log(this.isFollow)
@@ -164,7 +164,7 @@ export default {
         userId : this.$store.state.UserStore.user.user_id,
         followingid : this.UserInfo.id
       }
-      axios.delete(`http://127.0.0.1:8080/notificationFollow/${followInfo.userId}/${followInfo.followingid}/reqFollow`, followInfo)
+      axios.delete(`http://i4a303.p.ssafy.io/api/notificationFollow/${followInfo.userId}/${followInfo.followingid}/reqFollow`, followInfo)
         .then((res) => {
           console.log(res)
         })

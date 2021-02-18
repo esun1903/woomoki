@@ -63,7 +63,7 @@ export default {
   methods: {
     userDelete: function () {
       const userId = this.$store.state.UserStore.user.user_id 
-      axios.delete(`http://localhost:8080/userPage/${userId}`)
+      axios.delete(`http://i4a303.p.ssafy.io/api/userPage/${userId}`)
         .then((res) => {
           this.$router.push({name: 'Main'})
           this.$store.dispatch('UserStore/logOut')

@@ -41,7 +41,7 @@ export default {
   methods: {
     async UserUnfollow () {
       const UserNickname = this.following.nickname
-      await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
+      await axios.get(`http://i4a303.p.ssafy.io/api/userPage/${UserNickname}`)
         .then((res) => {
           this.followingid = res.data.id
         })
@@ -50,13 +50,13 @@ export default {
         followingid : this.followingid
       }
       if (!this.isFollow) {
-        await axios.post(`http://127.0.0.1:8080/followingList/Insert/${followInfo.userId}/${followInfo.followingid}`, followInfo)
+        await axios.post(`http://i4a303.p.ssafy.io/api/followingList/Insert/${followInfo.userId}/${followInfo.followingid}`, followInfo)
         .then(() => {
           this.isFollow = true
         })
       }
       else {
-        await axios.delete(`http://127.0.0.1:8080/followingList/delete/${followInfo.userId}/${followInfo.followingid}`, followInfo)
+        await axios.delete(`http://i4a303.p.ssafy.io/api/followingList/delete/${followInfo.userId}/${followInfo.followingid}`, followInfo)
         .then(() => {
           this.isFollow = false
         })

@@ -111,7 +111,7 @@
         methods: {
             getCngInfo() {
                 const cngId = this.$route.params.cngId;
-                axios.get(`http://localhost:8080/detailChallenge/${cngId}`)
+                axios.get(`http://i4a303.p.ssafy.io/api/detailChallenge/${cngId}`)
                     .then((response) => {
                         console.log(response.data);
                         this.CngInfo = response.data;
@@ -144,14 +144,14 @@
 
             getUserAllInfo() {
                 const userId = this.$store.state.UserStore.user.user_id
-                axios.get(`http://localhost:8080/userPage/Id/${userId}`)
+                axios.get(`http://i4a303.p.ssafy.io/api/userPage/Id/${userId}`)
                     .then((res) => {
                         this.UserAllInfo = res.data;
                     })
             },
             async detailCert() {
                 const certId = this.$route.params.certId;
-                axios.get(`http://localhost:8080/detailCertification/${certId}`)
+                axios.get(`http://i4a303.p.ssafy.io/api/detailCertification/${certId}`)
                     .then((response) => {
                         this.CertInfo = response.data;
                         this.currentSelectedImg = this.CertInfo.img;
@@ -164,7 +164,7 @@
 
             detailComment: function () {
                 const certId = this.$route.params.certId;
-                axios.get(`http://localhost:8080/commentList/${certId}`)
+                axios.get(`http://i4a303.p.ssafy.io/api/commentList/${certId}`)
                     .then((response) => {
                         this.comments = response.data;
                         for (const i in this.comments) {
@@ -178,7 +178,7 @@
                     })
             },
             async getUserInfo(commentUserId) {
-                  await axios.get(`http://localhost:8080/userPage/Id/${commentUserId}`)
+                  await axios.get(`http://i4a303.p.ssafy.io/api/userPage/Id/${commentUserId}`)
                     .then((response) => {
                         this.UserInfo = response.data;
                         this.Nicknames.push(this.UserInfo.nickname)
@@ -214,7 +214,7 @@
                
                 if (this.changedImg === false) {
 
-                    axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
+                    axios.put("http://i4a303.p.ssafy.io/api/updateCertification", UpdateCertInfo)
                         .then(res => {
                             console.log(res);
                             this.$router.push({
@@ -268,7 +268,7 @@
 
                     );
 
-                    axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
+                    axios.put("http://i4a303.p.ssafy.io/api/updateCertification", UpdateCertInfo)
                         .then(res => {
                             this.$router.push({
                                 name: 'CertificationDetail',

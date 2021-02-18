@@ -112,12 +112,12 @@ export default {
     methods: {
       async UserCertification() {
       const UserNickname = this.$route.params.userNickname
-      await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
+      await axios.get(`http://i4a303.p.ssafy.io/api/userPage/${UserNickname}`)
         .then((res) => {
           this.userId = res.data.id
         })
       const userid = this.userId
-      await axios.get(`http://127.0.0.1:8080/userCertification/${userid}`)
+      await axios.get(`http://i4a303.p.ssafy.io/api/userCertification/${userid}`)
         .then((res) => {
         this.total = res.data
         console.log("생성되었을 때 tmp: ", this.total)

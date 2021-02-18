@@ -84,7 +84,7 @@
               password: this.temp_pw,
             }
             console.log(cngPasswordInfo);
-            axios.post("http://localhost:8080/userPage/changePassword", cngPasswordInfo)
+            axios.post("http://i4a303.p.ssafy.io/api/userPage/changePassword", cngPasswordInfo)
               .then((response) => {
                 console.log(response.data);
               })

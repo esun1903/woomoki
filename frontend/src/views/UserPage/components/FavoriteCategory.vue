@@ -2,7 +2,7 @@
     <v-row class="d-flex justify-center category-margin-top">
       <div>
         <v-row class="d-flex justify-center category-margin-bottom">
-          <h3>{{ this.user.nickname }} 님이 좋아하는 카테고리</h3>
+          <h3>{{ userNickname }} 님이 좋아하는 카테고리</h3>
         </v-row>
         <div class="category-width category-margin-bottom">
           <v-row class="d-flex justify-center">
@@ -23,6 +23,8 @@ export default {
   name: "FavoritCategory",
   data: function () {
     return {
+      userNickname:"",
+
       items: [
         {
           text: "건강",
@@ -95,8 +97,8 @@ export default {
   },
   methods: {
     async initialFavCategory () {
-      const userNickname = this.user.nickname
-      await axios.get(`http://localhost:8080/userPage/favCategoryName/${userNickname}`)
+      this.userNickname = this.$route.params.userNickname;
+      await axios.get(`http://i4a303.p.ssafy.io/api/userPage/favCategoryName/${this.userNickname}`)
         .then((res) => {
           this.selected = res.data
           console.log("카테고리", this.selected)

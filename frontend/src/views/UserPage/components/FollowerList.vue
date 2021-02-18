@@ -67,16 +67,16 @@ export default {
   methods: {
     async FollowerList () {
       const UserNickname = this.$route.params.userNickname
-      await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
+      await axios.get(`http://i4a303.p.ssafy.io/api/userPage/${UserNickname}`)
         .then((res) => {
           this.UserInfo = res.data
         })
       const userId = this.UserInfo.id
-      await axios.get(`http://127.0.0.1:8080/followerList/${userId}`)
+      await axios.get(`http://i4a303.p.ssafy.io/api/followerList/${userId}`)
         .then((res) => {
           this.followers = res.data
         })
-      await axios.get(`http://127.0.0.1:8080/followingList/${userId}`)
+      await axios.get(`http://i4a303.p.ssafy.io/api/followingList/${userId}`)
         .then((res) => {
           this.followings = res.data
         })

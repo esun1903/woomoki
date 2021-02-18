@@ -76,7 +76,7 @@ export default {
     const id = {};
     id["id"] = this.user.user_id
     console.log(id)
-    axios.post("http://127.0.0.1:8080/", id)
+    axios.post("http://i4a303.p.ssafy.io/api/", id)
       .then((res) => {
         console.log("응답", res.data)
         const seeds = res.data

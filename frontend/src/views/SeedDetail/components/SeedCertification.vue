@@ -85,7 +85,7 @@ export default {
     getSeedCertification: function () {
       const seedId = this.seedId
       console.log(this.seedId)
-      axios.get(`http://127.0.0.1:8080/sameChallengeCertification/${seedId}`)
+      axios.get(`http://i4a303.p.ssafy.io/api/sameChallengeCertification/${seedId}`)
         .then((res) => {
           this.total = res.data
           console.log("인증:",res.data)

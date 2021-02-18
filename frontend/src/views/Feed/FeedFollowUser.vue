@@ -65,7 +65,7 @@ export default {
     const userId_num = this.user.user_id
     const userId = {};
     userId["userid"] = userId_num;
-    axios.get(`http://127.0.0.1:8080/feed/follower/${userId_num}`, userId)
+    axios.get(`http://i4a303.p.ssafy.io/api/feed/follower/${userId_num}`, userId)
       .then((res) => {
         const certifications = res.data
         certifications.sort(function(a,b) {
@@ -92,7 +92,7 @@ export default {
         }, 500)
     },
     detailCertification: function (val) {
-      axios.get(`http://127.0.0.1:8080/detailChallenge/${val.cng_id}`)      
+      axios.get(`http://i4a303.p.ssafy.io/api/detailChallenge/${val.cng_id}`)      
         .then((res) => {
           console.log("카드 정보")
           console.log(val)

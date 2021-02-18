@@ -204,7 +204,7 @@ export default {
       setTimeout(() => {
         
         // !!!!!!!!!! 빽에 고른 카테고리 넘겨주기!!!!!!!!!! 
-        axios.post("http://localhost:8080/userPage/UpdatefavCategory", this.getFavoriteCategories)
+        axios.post("http://i4a303.p.ssafy.io/api/userPage/UpdatefavCategory", this.getFavoriteCategories)
           .then((res) => {
             // console.log("유저 아이디",this.user.user_id)
             // console.log("test",this.getFavoriteCategories)
@@ -224,7 +224,7 @@ export default {
     },
     async initialFavCategory () {
       const userNickname = this.user.nickname
-      await axios.get(`http://localhost:8080/userPage/favCategoryName/${userNickname}`)
+      await axios.get(`http://i4a303.p.ssafy.io/api/userPage/favCategoryName/${userNickname}`)
         .then((res) => {
           this.tmp = res.data
         })

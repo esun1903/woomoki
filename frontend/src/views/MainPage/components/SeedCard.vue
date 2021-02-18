@@ -70,11 +70,11 @@ export default {
       likeInfo["userId"] = userId_num;
       likeInfo["cngId"] = seedId_num;
       if (this.liked) {
-        axios.put(`http://127.0.0.1:8080/likeDownChallenge/${userId_num}/${seedId_num}`, likeInfo )
+        axios.put(`http://i4a303.p.ssafy.io/api/likeDownChallenge/${userId_num}/${seedId_num}`, likeInfo )
         this.liked = false
         
       } else {
-        axios.put(`http://127.0.0.1:8080/likeUpChallenge/${userId_num}/${seedId_num}`, likeInfo )
+        axios.put(`http://i4a303.p.ssafy.io/api/likeUpChallenge/${userId_num}/${seedId_num}`, likeInfo )
         this.liked = true
       }
     },
@@ -82,7 +82,7 @@ export default {
       const userId_num = this.user.user_id;
       const seedId_num = this.seed.id;
       if (this.scrapped) {      
-        axios.get(`http://127.0.0.1:8080/userPage/DeletefavChallenge/${userId_num}/${seedId_num}`)
+        axios.get(`http://i4a303.p.ssafy.io/api/userPage/DeletefavChallenge/${userId_num}/${seedId_num}`)
         .then(() => {
           console.log('스크랩취소성공')
         })
@@ -92,7 +92,7 @@ export default {
         })
         this.scrapped = false  
       } else {
-        axios.get(`http://127.0.0.1:8080/userPage/favChallenge/${userId_num}/${seedId_num}`)
+        axios.get(`http://i4a303.p.ssafy.io/api/userPage/favChallenge/${userId_num}/${seedId_num}`)
         .then(() => {
           console.log('스크랩성공')
         })
@@ -106,7 +106,7 @@ export default {
     CheckisScrapped: function () {
       const userId_num = this.user.user_id;
       const seedId_num = this.seed.id;
-      axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId_num}`)
+      axios.get(`http://i4a303.p.ssafy.io/api/userPage/LikeAndfavChallenge/${userId_num}`)
       .then((res) => {
         const seedList = res.data
         var i;
@@ -125,7 +125,7 @@ export default {
         const userId_num = this.user.user_id;
         const seedId_num = this.seed.id;
         userId["userId"] = userId_num;
-        axios.get(`http://127.0.0.1:8080/LikeAndChallenge/${seedId_num}`)
+        axios.get(`http://i4a303.p.ssafy.io/api/LikeAndChallenge/${seedId_num}`)
         .then((res) => {
           console.log(res)
           const UserList = res.data

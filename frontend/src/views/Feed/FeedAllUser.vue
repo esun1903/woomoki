@@ -59,7 +59,7 @@ export default {
     };
   },
   created () {
-    axios.get("http://127.0.0.1:8080/allCertification")
+    axios.get("http://i4a303.p.ssafy.io/api/allCertification")
       .then((res) => {
         const certifications = res.data
         certifications.sort(function(a,b) {
@@ -84,7 +84,7 @@ export default {
       }, 500)
     },
     detailCertification: function (val) {
-      axios.get(`http://127.0.0.1:8080/detailChallenge/${val.cng_id}`)      
+      axios.get(`http://i4a303.p.ssafy.io/api/detailChallenge/${val.cng_id}`)      
         .then((res) => {
           console.log("카드 정보")
           console.log(val)
