@@ -203,7 +203,7 @@ import router from "@/router";
           axios.post("http://i4a303.p.ssafy.io/api/userPage/changeUser", ChangedUserInfo)
             .then(res => {
               console.log(res);
-                router.push({ name: 'UserPage', params: { userNickname: this.$store.state.UserStore.user.nickname }})
+                router.push({ name: 'UserPage', params: { userNickname: this.UserInfo.nickname }})
             })
             .catch(err => {
               console.log(err);
@@ -247,6 +247,8 @@ import router from "@/router";
           axios.post("http://i4a303.p.ssafy.io/api/userPage/changeUser", ChangedUserInfo)
             .then(res => {
               console.log(res);
+               router.push({ name: 'UserPage', params: { userNickname: this.UserInfo.nickname }})
+           
             })
             .catch(err => {
               console.log(err);
