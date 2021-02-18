@@ -65,7 +65,7 @@ export default {
     const id = {};
     id["id"] = this.user.user_id
     console.log(id.id)
-    axios.get(`http://localhost:8080/challengeResultSort/${id.id}/2`)
+    axios.get(`http://localhost:8080/challengeResultSort/${id.id}/1`)
       .then((res) => {
         const seeds = res.data
         console.log(seeds)

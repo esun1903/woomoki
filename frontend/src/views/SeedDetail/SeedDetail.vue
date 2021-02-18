@@ -56,16 +56,33 @@
       <div id="rules"></div>
       <div id="content"></div>
       <footer></footer>
-      <v-btn v-if="!isJoin && !checkAcception" @click="JoinSeed" depressed tile id="banner" width="65.55vw" height="5vw"
+      <!-- 로그인 상태 && 참가 요청 안보냈을 때 && 최대참여인원보다 현재 참여자가 적을 때 -->
+      <v-btn v-if="!isJoin && joinUser.length < SeedInfo.max_people" @click="JoinSeed" depressed tile id="banner" width="65.55vw" height="5vw"
         class="position-fixed" color="#AED864">
         <h1 class="join-font">
           함께하기
         </h1>
       </v-btn>
-      <v-btn v-if="isJoin && checkAcception" disabled depressed tile id="banner" width="65.55vw" height="5vw"
+      <!-- 로그인 상태 && 최대참여인원보다 현재참여자가 많아 질 때 -->
+      <!-- <v-btn v-if="getCheckLogin" :disabled="joinUser.length >= SeedInfo.max_people" @click="JoinSeed" depressed tile id="banner" width="65.55vw" height="5vw" -->
+      <v-btn v-if="!isJoin && joinUser.length >= SeedInfo.max_people" @click="JoinSeed" depressed tile id="banner" width="65.55vw" height="5vw"
+        class="position-fixed" color="#AED864">
+        <h1 class="join-font">
+          참여 인원이 다 찼습니다
+        </h1>
+      </v-btn>
+      <!-- 로그인 상태 && 참가 요청 보냈을 때 && 참가버튼을 눌렀을 때-->
+      <v-btn v-if="isJoin" disabled depressed tile id="banner" width="65.55vw" height="5vw"
         class="position-fixed" color="#AED864">
         <h1 class="join-font">
           참여 수락을 기다리고 있습니다
+        </h1>
+      </v-btn>
+      <!-- 나의인증현황 -->
+      <v-btn v-if="isJoin && isAccepted" disabled depressed tile id="banner" width="65.55vw" height="5vw"
+        class="position-fixed" color="#AED864">
+        <h1 class="join-font">
+          인증하기
         </h1>
       </v-btn>
     </div>
@@ -109,8 +126,41 @@
     },
     computed: {
       ...mapState('UserStore', ['user']),
+      getCheckLogin() {
+        return this.$store.getters["UserStore/getCheckLogin"];
+      },
+      // checkAcception () {
+      //   const seedId = this.seedId
+      //   const userId = this.$store.state.UserStore.user.user_id
+      //   axios.get(`http://127.0.0.1:8080/joinChallengeUserList/${seedId}`)
+      //     .then((res) => {
+      //       const userList = res.data
+      //       for (var i = 0; userList.length; i++) {
+      //         if (userList[i].id === userId && userList[i].id === 0) {
+      //           this.isAccepted = true
+      //           console.log("accpeted", this.isAccepted)
+      //         }
+      //       }
+      //     })
+      //   return this.isAccepted
+      // }
     },
     methods: {
+      checkAcception () {
+        const seedId = this.seedId
+        const userId = this.$store.state.UserStore.user.user_id
+        axios.get(`http://127.0.0.1:8080/joinChallengeUserList/${seedId}`)
+          .then((res) => {
+            const userList = res.data
+            for (var i = 0; userList.length; i++) {
+              if (userList[i].id === userId && userList[i].id === 0) {
+                this.isAccepted = true
+                console.log("accpeted", this.isAccepted)
+              }
+            }
+          })
+        
+      },
       async getSeedCertification() {
         const seedId = this.seedId
         console.log(this.seedId)
@@ -123,7 +173,7 @@
         // 내가 만든 씨앗인지 구분
         const SeedInfo = await axios.get(`http://127.0.0.1:8080/detailChallenge/${this.seedId}`)
         this.SeedInfo = SeedInfo.data
-        console.log("보내기 테스트", this.SeedInfo)
+        console.log("max",this.SeedInfo.max_people)
         const SeedUserId = this.$store.state.UserStore.user.user_id
         const UserId = this.SeedInfo.user_id
         if (SeedUserId === UserId) {
@@ -197,15 +247,15 @@
 
             for (var i = 0; i < allUser.length; i++) {
               console.log("for문", allUser[i].result)
-              if (allUser[i].result == 1) {
+              if (allUser[i].result == 0) {
                 console.log("if문", allUser[i])
                 this.joinUser.push(allUser[i])
-              } else if (allUser[i].result == 0) {
+              } else if (allUser[i].result == -1) {
                 console.log("if문", allUser[i])
                 this.waitUser.push(allUser[i])
               }
             }
-            console.log("참여중인, 참여대기중인", this.joinUser, this.waitUser)
+            console.log("joinUser",this.joinUser.length)
           })
       },
       detailCertification: function (certid) {
@@ -222,25 +272,12 @@
     created() {
       this.getSeedCertification();
       this.allJoinUser();
-    },
-    computed: {
-      checkAcception: function () {
-        const seedId = this.seedId
-        const userId = this.$store.state.UserStore.user.user_id
-        axios.get(`http://127.0.0.1:8080/joinChallengeUserList/${seedId}`)
-          .then((res) => {
-            const userList = res.data
-            for (var i = 0; userList.length; i++) {
-              if (userList[i].id === userId) {
-                this.isAccepted = true
-                console.log("accpeted", this.isAccepted)
-              }
-            }
-          })
-        return this.isAccepted
-      }
+      
+      
     },
     mounted() {
+      this.checkAcception();
+
       $(function () {
         var $w = $(window),
           footerHei = $('footer').outerHeight(),
