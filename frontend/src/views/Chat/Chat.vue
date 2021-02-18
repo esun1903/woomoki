@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- chatting box -->
     <noscript>
       <strong></strong>
     </noscript>
@@ -41,7 +42,16 @@
                 </span>
               </p>
               <p v-if="log.event === '수신'" class="text-left">
-                <span class="recieve-message-tooltip">
+                <span v-if="idx === 1" class="recieve-message-tooltip">
+                  {{ log.event }}: 구현중입니다^^
+                </span>
+                <span v-if="idx === 2" class="recieve-message-tooltip">
+                  {{ log.event }}: 구현중이라고요...
+                </span>
+                <span v-if="idx === 3" class="recieve-message-tooltip">
+                  {{ log.event }}: 구현중이다...꺼라
+                </span>
+                <span v-else class="recieve-message-tooltip">
                   {{ log.event }}: {{ log.data }}
                 </span>
               </p>
@@ -90,7 +100,7 @@ export default {
       status: "disconnected",
       ops: {
           bar: {
-            background: '#9CCC65',
+             background: '#9CCC65',
           }
         }
     };
@@ -100,6 +110,7 @@ export default {
       this.socket = new WebSocket("wss://echo.websocket.org");
       this.socket.onopen = () => {
       this.status = "connected";
+      // this.logs.push({ event: "채팅방에 입장했습니다", data: 'wss://echo.websocket.org'})
       this.logs.push({ event: "채팅방에 입장했습니다"})
       this.socket.onmessage = ({data}) => {
       this.logs.push({ event: "수신", data });

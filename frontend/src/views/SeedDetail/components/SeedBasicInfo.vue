@@ -69,8 +69,9 @@
                       씨앗을 삭제하시겠습니까?
                     </v-card-title>
 
-                    <v-card-text>
-                      한번 삭제된 씨앗은 다시 살릴 수 없어요!
+                    <v-card-text class="mt-5 caution">
+                      한번 삭제된 씨앗은 다시 살릴 수 없으며, 
+                      관련된 모든 보살핌 후기가 삭제됩니다!
                     </v-card-text>
 
                     <v-card-actions>
@@ -359,4 +360,9 @@
   .item-color {
     color: black;
   }
+
+  .caution {
+    font-size: 17px;
+  }
+
 </style>

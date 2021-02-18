@@ -61,8 +61,9 @@
     </v-list-item-title>
     <validation-observer ref="observer">
       <v-form @submit.prevent="updateComment">
-        <validation-provider v-slot="{ errors }" rules="required">
-          <v-text-field color="#AED864" outlined dense v-model="comment.content" :error-messages="errors"></v-text-field>
+        <validation-provider v-slot="{ errors }" name="댓글" rules="required">
+          <v-text-field color="#AED864" v-model="comment.content" :error-messages="errors" label="댓글"
+            outlined dense></v-text-field>
         </validation-provider>
       </v-form>
     </validation-observer>
@@ -94,10 +95,11 @@
 
   setInteractionMode('eager')
 
-  extend('required', {
+  extend("required", {
     ...required,
-    message: '댓글은 필수 항목입니다'
+    message: "{_field_}은(는) 필수 항목입니다"
   })
+
 
   export default {
     name: "CommentList",

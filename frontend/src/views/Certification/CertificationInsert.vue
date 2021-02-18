@@ -30,7 +30,7 @@
             </v-row>
 
             <v-row>
-                <v-textarea v-model="certForm.content" outlined rows="10" label="설명글"
+                <v-textarea color="#AED864" no-resize v-model="certForm.content" outlined rows="10" label="설명글"
                     placeholder="자유롭게 인증에 대한 설명을 넣어주세요">
                 </v-textarea>
             </v-row>
@@ -309,5 +309,19 @@
     .create-btn {
         color: #ffffff;
 
+    }
+
+    .cng-name {
+        justify-content: center;
+        font-style: italic;
+        margin-bottom: 3%;
+    }
+
+    .title-size {
+        font-size: 25px;
+    }
+
+    .border-list {
+        border: solid rgb(231, 231, 231);
     }
 </style>

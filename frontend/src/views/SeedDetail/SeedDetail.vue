@@ -57,8 +57,7 @@
       <div id="content"></div>
       <footer></footer>
       
-      <!-- 로그인 상태 && 최대참여인원보다 현재참여자가 많아 질 때 -->
-      <!-- <v-btn v-if="getCheckLogin" :disabled="joinUser.length >= SeedInfo.max_people" @click="JoinSeed" depressed tile id="banner" width="65.55vw" height="5vw" -->
+      
       <v-btn v-if="joinUser.length >= SeedInfo.max_people || percentage <= 0 || isEnd" :disabled="joinUser.length >= SeedInfo.max_people || percentage <= 0 || isEnd" depressed tile id="banner" width="65.55vw" height="5vw"
         class="position-fixed" color="#AED864">
         <h1 class="join-font">
@@ -81,16 +80,12 @@
         </h1>
       </v-btn>
 
-      <!-- 로그인 상태 && 참가 요청 보냈을 때 && 참가버튼을 눌렀을 때-->
-      <!-- <v-btn v-if="!isAccepted" disabled depressed tile id="banner" width="65.55vw" height="5vw" -->
       <v-btn v-else-if="!isAccepted && isJoin" :disabled="!isAccepted && isJoin" depressed tile id="banner" width="65.55vw" height="5vw"
         class="position-fixed" color="#AED864">
         <h1 class="join-font">
           참여 수락을 기다리고 있습니다
         </h1>
       </v-btn>
-      <!-- 나의인증현황 -->
-      <!-- <v-btn v-if="isAccepted" @click="goStampCard" depressed tile id="banner" width="65.55vw" height="5vw" -->
       
     </div>
 
@@ -329,8 +324,6 @@ import { setInteractionMode } from 'vee-validate'
       
     },
     mounted() {
-      
-
       $(function () {
         var $w = $(window),
           footerHei = $('footer').outerHeight(),
