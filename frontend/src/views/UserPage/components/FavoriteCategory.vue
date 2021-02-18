@@ -7,36 +7,7 @@
         <div class="category-width category-margin-bottom">
           <v-row class="d-flex justify-center">
           <span class="category" v-for="(category, idx) in selected" :key="idx">
-            <span v-if="category.name === '건강'"> 
-              <v-chip large class="chip-font white--text" color='light-blue lighten-1'>
-                {{ category.name }}
-              </v-chip>
-            </span>
-            <span v-if="category.name === '생활습관'"> 
-              <v-chip large class="chip-font white--text" color='orange lighten-1'>
-                {{ category.name }}
-              </v-chip>
-            </span>
-            <span v-if="category.name === '독서'"> 
-              <v-chip large class="chip-font white--text" color='teal lighten-1'>
-                {{ category.name }}
-              </v-chip>
-            </span>
-            <span v-if="category.name === '자산'"> 
-              <v-chip large class="chip-font white--text" color='indigo lighten-1'>
-                {{ category.name }}
-              </v-chip>
-            </span>
-            <span v-if="category.name === '자기계발'"> 
-              <v-chip large class="chip-font white--text" color='purple lighten-1'>
-                {{ category.name }}
-              </v-chip>
-            </span>
-            <span v-if="category.name === '취미'"> 
-              <v-chip large class="chip-font white--text" color='pink lighten-1'>
-                {{ category.name }}
-              </v-chip>
-            </span>
+            <v-chip id="category-chip" :ripple="false" :color=color(category) class="white--text"> {{ category.name }}</v-chip>
           </span>
           </v-row>
         </div>
@@ -101,6 +72,23 @@ export default {
   },
   computed: {
     ...mapState('UserStore', ['user']),
+    color (val) {
+      return (val) => {
+        if (val.name === '건강') {
+          return 'light-blue lighten-1'
+        } else if (val.name === '생활습관') {
+          return 'orange lighten-1'
+        } else if (val.name === '독서') {
+          return 'teal lighten-1'
+        } else if (val.name === '자산') {
+          return 'indigo lighten-1'
+        } else if (val.name === '자기계발') {
+          return 'purple lighten-1'
+        } else {
+          return 'pink lighten-1'
+        }
+      }
+    }
   },
   created () {
     this.initialFavCategory();
@@ -144,12 +132,18 @@ export default {
   width: 800px;
 }
 
-.category {
-  margin: 1%;
-}
-
 .chip-font {
   font-size: 25px;
 }
 
+.category{
+  margin: 1%;
+  .v-chip{
+    width: 6vw;
+    height: 6vh;
+    display: flex;
+    justify-content: center;
+    font-size: 1.1rem;
+  }
+}
 </style>

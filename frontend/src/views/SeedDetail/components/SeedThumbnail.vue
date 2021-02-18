@@ -199,14 +199,14 @@ export default {
     CheckisfavSeed: function () {
       const seedId = this.seedId
       const userId = this.$store.state.UserStore.user.user_id
-      axios.get(`http://127.0.0.1:8080/LikeAndChallenge/${seedId}`)
+      axios.get(`http://127.0.0.1:8080/LikeAndfavChallenge/${userId}`)
         .then((res) => {
             console.log("res",res.data)
             const SeedList = res.data
             this.scrapCount = SeedList.length
             var i;
             for (i=0; i < SeedList.length; i++) {
-              if (SeedList[i].id === Number(userId)) {
+              if (SeedList[i].id === Number(seedId)) {
                 this.scrapped = true
               }
             }

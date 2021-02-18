@@ -4,6 +4,7 @@
       <p>{{ this.user.nickname }}님이 심은 씨앗</p>
     </div>
     <v-data-iterator
+      no-data-text=""
       hide-default-footer
       :items="seeds"
       :items-per-page.sync="itemsPerPage"
