@@ -31,7 +31,7 @@
               </v-chip>
               <v-row>
                 <v-col>
-                  <JoinList :joinUser="joinUser" :SeedInfo="SeedInfo"></JoinList>
+                  <JoinList :joinUser="joinUser" :percentage="percentage" :SeedInfo="SeedInfo"></JoinList>
                   <!-- <div @click="joinList">참여: {{ this.joinUser.length }} / {{ this.SeedInfo.max_people }}</div> -->
                 </v-col>
                 <!-- <v-col class="d-flex align-center">
