@@ -1,17 +1,33 @@
 <template>
-  <div class="d-flex justify-center bgimg">   
+
+    <div class="d-flex justify-center bgimg">
+    
     <section class="size">
-      <v-container class="title-box">
-        <h2 class="signup-text">회원가입</h2>
-      </v-container>
-      
-      <v-container>
-        <v-col>
-          <v-row class="d-flex justify-center message">
-            <h4>이메일로 회원가입하기</h4>
+        <v-container class="title-box">
+          <v-row class="d-flex justify-center">
+            <h2 class="signup-text">회원가입</h2>
+          </v-row>
+          <v-row>
+            <v-col class="d-flex justify-center">
+              <Kakao />
+            </v-col>
+            <v-col class="d-flex justify-center">
+              <Naver />
+            </v-col>
+            <v-col class="d-flex justify-center">
+              <Google />
+            </v-col>
           </v-row>
 
-          <validation-observer v-slot="{ invalid }" ref="observer">
+        </v-container>
+        
+        <v-container>
+          <v-col>
+            <!-- <v-row class="d-flex justify-center message">
+              <h4>이메일 회원가입하기</h4>
+            </v-row> -->
+
+            <validation-observer v-slot="{ invalid }" ref="observer">
             <v-form @submit.prevent="signUp">
               <validation-provider
                 v-slot="{ errors }"
@@ -104,16 +120,19 @@
                 </validation-provider>
               </validation-observer>
               <div class="text-center">
-                <v-btn class="signUpbtn" color="#AED864" :ripple="false" plain type="submit" rounded :disabled="invalid" 
+                <v-btn class="signUpbtn white--text" color="#AED864" :ripple="false" type="submit" rounded :disabled="invalid" 
                 >
                   회원가입
                 </v-btn>
               </div>
             </v-form>
-          </validation-observer> 
-        <span class="or-bar or-bar-right"></span>
-        </v-col>
-      </v-container>
+          </validation-observer>
+            
+
+            <span class="or-bar or-bar-right"></span>
+            
+          </v-col>
+        </v-container>
     </section>
   </div>
 
@@ -136,17 +155,17 @@ setInteractionMode("eager");
 
 extend("required", {
   ...required,
-  message: "{_field_}은(는) 필수 항목입니다."
+  message: "{_field_}은(는) 필수 항목입니다"
 });
 
 extend("email", {
   ...email,
-  message: "이메일 형식이 아닙니다."
+  message: "이메일 형식이 아닙니다"
 });
 
 
 extend( "password", {
-  message: "문자, 숫자, 특수문자 포함 8자리 이상으로 입력해주세요.",
+  message: "문자, 숫자, 특수문자 8자리",
   validate: value => {
     return /^.*(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[$@$!%*#?&]).*$/.test(value)
   }
@@ -211,7 +230,7 @@ body, html {
 .bgimg {
     border: 0;
     padding: 0;
-    height: 91vh;
+    height: 100vh;
     background-image: url("https://demos.creative-tim.com/vue-material-kit/img/vue-mk-header.98fb6ce8.jpg");
     min-height: 100%;
     background-position: center;
@@ -219,40 +238,40 @@ body, html {
 }
 
 .size {
-  margin-top: 10vh;
+  margin-top: 6%;
   width: 23%;
-  height: 75vh;
+  height: 80%;
   background-color: whitesmoke;
   border-radius: 10px;
   box-shadow: 0.5px 0.5px 5px rgb(172, 172, 172);
-  .title-box{
-    width: 90%;
-    height: 20%;
-    background: linear-gradient(70deg, #7CB342, #AED864,);
-    box-shadow: 5px 5px 10px grey;
-    position: relative;
-    top: -5vh;
-    border-radius: 10px;
-    margin-bottom: -2vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .signup-text{
-      font-size: 1.6vw;
-      color: white;
-      margin-top: 1.5vh;
-      margin-bottom: 1vh;
-    }
-  }
 }
 
 .input-size{
   width: 20vw;
 }
 
+.title-box {
+  width: 90%;
+  height: 20%;
+  background: linear-gradient(70deg, #7CB342, #AED864,);
+  // background-color: #AED864;
+  box-shadow: 5px 5px 10px grey;
+  position: relative;
+  top: -5vh;
+  border-radius: 10px;
+  margin-bottom: -2vh;
+}
+
+.signup-text {
+  font-size: 1.6vw;
+  color: white;
+  margin-top: 1.5vh;
+  margin-bottom: 1vh;
+}
 
 .signUpbtn {
-  font-size: 1.5vw;
+  font-size: 1.3vw;
+  margin-top: 1vh;
   margin-bottom: 2vh;
   color: #AED864;
 }
@@ -262,7 +281,7 @@ body, html {
 }
 
 .message {
-  margin-bottom: 5vh;
+  margin-bottom: 4vh;
 }
 
 </style>

@@ -23,7 +23,7 @@
         >
           <v-fade-transition>
             <v-overlay v-if="hover" absolute color="#036358">
-              <v-btn>대표사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
+              <v-btn>예시) 대표사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
             </v-overlay>
           </v-fade-transition>
         </v-img>

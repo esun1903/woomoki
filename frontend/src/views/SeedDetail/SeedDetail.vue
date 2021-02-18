@@ -57,8 +57,31 @@
       <div id="content"></div>
       <footer></footer>
       
+      <v-btn id="banner" class="position-fixed" depressed tile color="#AED864" width="65.55vw" height="5vw" :disabled="!isAccepted && isJoin || joinUser.length >= SeedInfo.max_people || percentage <= 0 || isEnd">
+        <h1 v-if="joinUser.length >= SeedInfo.max_people || percentage <= 0 || isEnd">
+          <span class="join-font">
+            참여가 불가능합니다
+          </span>
+        </h1>
+        <h1 v-else-if="!isJoin && !isAccepted && percentage > 0 && joinUser.length < SeedInfo.max_people || !isJoin && !isAccepted && !isEnd && joinUser.length < SeedInfo.max_people" 
+            @click="JoinSeed">
+          <span class="join-font">
+            참여 신청
+          </span>
+        </h1>
+        <h1 v-else-if="isAccepted && isJoin && percentage > 0" @click="goStampCard">
+          <span class="join-font">
+            인증하기
+          </span>
+        </h1>
+        <h1 v-else-if="!isAccepted && isJoin">
+          <span class="join-font">
+            참여 수락을 기다리고 있습니다
+          </span>
+        </h1>
+      </v-btn>
       
-      <v-btn v-if="joinUser.length >= SeedInfo.max_people || percentage <= 0 || isEnd" :disabled="joinUser.length >= SeedInfo.max_people || percentage <= 0 || isEnd" depressed tile id="banner" width="65.55vw" height="5vw"
+      <!-- <v-btn v-if="joinUser.length >= SeedInfo.max_people || percentage <= 0 || isEnd" :disabled="joinUser.length >= SeedInfo.max_people || percentage <= 0 || isEnd" depressed tile id="banner" width="65.55vw" height="5vw"
         class="position-fixed" color="#AED864">
         <h1 class="join-font">
           참여가 불가능합니다
@@ -85,7 +108,7 @@
         <h1 class="join-font">
           참여 수락을 기다리고 있습니다
         </h1>
-      </v-btn>
+      </v-btn> -->
       
     </div>
 
@@ -274,12 +297,12 @@ import { setInteractionMode } from 'vee-validate'
 
             // if (this.joinUser.length > 0) {
               
-            // for (var i = 0; i < this.joinUser.length; i++) {
-            //   const useridlist = Object.values(this.joinUser[i])
-            //   this.useridlist = useridlist
-            //   const waituseridlist = Object.values(this.waitUser[i])
-            //   this.waituseridlist = waituseridlist
-            // }
+            for (var i = 0; i < this.joinUser.length; i++) {
+              const useridlist = Object.values(this.joinUser[i])
+              this.useridlist = useridlist
+              const waituseridlist = Object.values(this.waitUser[i])
+              this.waituseridlist = waituseridlist
+            }
 
             console.log("this.useridlist: ",this.useridlist)
             for (var i = 0; i < allUser.length; i++) {
@@ -288,7 +311,7 @@ import { setInteractionMode } from 'vee-validate'
                 this.joinUser.push(allUser[i])
               } else if (allUser[i].result == -1 && !this.waituseridlist.includes(allUser[i].user_id)) {
                 console.log("result == -1", allUser[i].result)
-                // this.waitUser.push(allUser[i])
+                this.waitUser.push(allUser[i])
               }
             }
             // }
@@ -312,14 +335,12 @@ import { setInteractionMode } from 'vee-validate'
       
     },
     created() {
-      
-      
       this.getSeedCertification();
       this.allJoinUser();
       this.checkAcception();
       setInterval(() => {
         this.checkAcception();
-        // this.allJoinUser();
+        this.allJoinUser();
       }, 5000)
       
     },

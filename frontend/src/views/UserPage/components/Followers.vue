@@ -53,6 +53,7 @@ export default {
         .then(() => {
           console.log(this.followingid)
           this.isFollow = true
+          this.requestFollow()
         })
       }
       else {
@@ -61,6 +62,15 @@ export default {
           this.isFollow = false
         })
       }
+    },
+    requestFollow: function () {
+      const userid = this.$store.state.UserStore.user.user_id
+      const followId = this.UserInfo.id
+      const type = "reqFollow"
+      axios.post(`http://i4a303.p.ssafy.io/api/notificationFollow/${userid}/${followId}/${type}`)
+        .then((res) => {
+          console.log(res)
+        })
     },
     initialState: function () {
       const tmp = []
