@@ -99,7 +99,7 @@
         <span v-if="getCheckLogin">
           <!-- <v-btn v-if="getCheckLogin" icon class="btn" @click="notice = true"> -->
           <v-btn icon class="btn" @click="notice = true">
-            <v-icon>mdi-bell-ring</v-icon>
+             <v-icon :color="bell ? 'red' : '' ">mdi-bell-ring</v-icon>
           </v-btn>
           <v-dialog v-model="notice" width="25%">
             <div class="notification">
@@ -114,9 +114,8 @@
                 <v-tabs-items v-model="currentTab">
                   <v-tab-item v-for="(type,idx) in types" :key="idx">
                     <v-card v-for="(tab,idx) in tabs" :key="idx" @click="NotificationConfirm(tab.id)" height="100">
-                      <v-card color="#B2DFDB" v-if="tab.confirm_date === null">
+                      <v-card color="#B2DFDB" v-if="tab.confirm_date === null" >  
                         <div class="diCard">
-
                           <v-card-text v-if="tab.type=='reqFollow'">
                             <router-link :to="{ name: 'UserPage', params: { userNickname: tab.reqUserName }}">
                               {{tab.reqUserName}}
@@ -127,7 +126,6 @@
                               </v-btn>
                             </div>
                           </v-card-text>
-
                           <v-card-text v-if="tab.type=='reqChallenge'">
                             <router-link :to="{ name: 'UserPage', params: { userNickname: tab.reqUserName }}">
                               {{tab.reqUserName}}
@@ -146,7 +144,6 @@
                               </v-btn>
                             </div>
                           </v-card-text>
-
                           <v-card-text v-if="tab.type=='resChallenge'">
                             <router-link :to="{ name: 'SeedDetail', params: { seedId: tab.cng_id }}">
                               {{tab.cngTitle}}
@@ -158,7 +155,6 @@
                               </v-btn>
                             </div>
                           </v-card-text>
-
                         </div>
                       </v-card>
 
@@ -268,6 +264,7 @@
     directives: {},
     data: function () {
       return {
+        bell:false,
         userInfo: [],
         userId: "",
         myNickname: "",
@@ -390,7 +387,7 @@
       challengeOKay: function (user_id, cng_id) {
         const userId = user_id;
         const cngId = cng_id;
-        axios.put(`http://127.0.0.1:8080/joinResultUpdate/${userId}/${cngId}/1`)
+        axios.put(`http://127.0.0.1:8080/joinResultUpdate/${userId}/${cngId}/0`)
           .then((response) => {
             console.log(response);
           })
@@ -410,7 +407,8 @@
           });
       },
       NotificationToast() {
-
+        
+        var flag =false;
         for (var i = 0; i < this.tabs.length; i++) {
           var pushMsg = "";
 
@@ -421,7 +419,10 @@
           } else if (this.tabs[i].type == 'resChallenge' && this.tabs[i].msg == '1') {
             pushMsg = "'" + this.tabs[i].cngTitle + "' 챌린지 참여 완료."
           }
-
+          
+          if(this.tabs[i].confirm_date ===null){
+              flag=true;
+          }
 
           if (pushMsg != "") {
             this.$toast.open({
@@ -433,6 +434,11 @@
             this.NotificationCallCheck(this.tabs[i].id);
           }
         }
+          if(flag){
+            this.bell=true;
+          }else{
+            this.bell=false;
+          }
       }
 
     },
