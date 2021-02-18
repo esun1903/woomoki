@@ -47,23 +47,24 @@
 
 
 
+#### 🌱실행 방법 
+
+프론트엔드 부분
+
+Vue.js [Vue.js 설치](https://kr.vuejs.org/v2/guide/index.html)를 통해 설치할 수 있습니다. 
+
+npm install 
+
+npm run serve 를 통해 실행할 수 있습니다. 
+
+localhost:8080으로 실행할 수 있습니다.
 
 
+백엔드 부분 
 
+Spring Boot run 을 통해 실행할 수 있습니다. 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+localhost:8080 으로 실행할 수 있습니다. 
 
 
 
@@ -91,25 +92,6 @@
 
 
   
-
-#### 🌱실행 방법 
-
-프론트엔드 부분
-
-Vue.js [Vue.js 설치](https://kr.vuejs.org/v2/guide/index.html)를 통해 설치할 수 있습니다. 
-
-npm install 
-
-npm run serve 를 통해 실행할 수 있습니다. 
-
-localhost:8080으로 실행할 수 있습니다.
-
-
-백엔드 부분 
-
-Spring Boot run 을 통해 실행할 수 있습니다. 
-
-localhost:8080 으로 실행할 수 있습니다. 
 
 
 
