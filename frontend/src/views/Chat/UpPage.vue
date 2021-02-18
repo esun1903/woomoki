@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span id="topBtn">TOP</span>
+    <span id="topBtn"><v-icon color="white">fas fa-arrow-up</v-icon></span>
   </div>
 </template>
 

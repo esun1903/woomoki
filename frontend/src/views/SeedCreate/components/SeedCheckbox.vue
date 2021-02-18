@@ -3,7 +3,7 @@
     <v-checkbox
         color="#AED864"
         v-model="value"
-        :label="'참여자가 있다면 중간에 씨앗을 없앨 수 없으니 신중하게 정해주세요!'"
+        :label="'씨앗을 삭제할 경우 참여자들의 보살핌 후기도 모두 지워집니다'"
     ></v-checkbox>
   </v-col>
 </template>

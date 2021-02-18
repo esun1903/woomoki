@@ -371,6 +371,7 @@
       },
       // 검사
       checkFormBasicInfo: function () {
+        
         // 씨앗 이름 검사
         if (this.title.length >= 5 && this.title.length <= 20) {
           this.BasicInfo.isSubmit.isSubmitTitle = true

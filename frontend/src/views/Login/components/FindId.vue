@@ -225,7 +225,7 @@ body, html {
 .send-code-btn,
 .input-code-btn {
   width: 100%;
-  color: #black;
+  color: black;
 }
 
 .disabled,
