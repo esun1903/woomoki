@@ -40,7 +40,9 @@
 
 ### 🌳 Tech Stack
 
+#### system architecture
 
+![시스템_구조도](/uploads/521385d54611d84f99e3e0572a5edf9f/시스템_구조도.PNG)
 
 
 
