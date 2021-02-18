@@ -18,8 +18,8 @@ dependencies {
 	implementation 'javax.xml.bind:jaxb-api:2.3.1'
 	
 	//swagger
-compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.5.0'
-compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.5.0'
+  compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.5.0'
+  compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.5.0'
   
   
 	//lombok
