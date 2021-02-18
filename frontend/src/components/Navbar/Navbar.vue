@@ -296,6 +296,7 @@
           return newVal
         }
       },
+     
     },
     methods: {
       getSeeds: function () {
@@ -364,7 +365,7 @@
       },
       NotificationList() {
         const userId = this.user.user_id;
-
+        if(userId !==""){
         axios.get(`http://127.0.0.1:8080/notificationList/${userId}`)
           .then((response) => {
             this.tabs = response.data;
@@ -372,6 +373,7 @@
           .catch((error) => {
             console.log(error);
           });
+        }
       },
 
       notificationDelete: function (id) {
@@ -442,12 +444,14 @@
       }
 
     },
+   
     created() {
-
+  
       setInterval(() => this.NotificationList(), 2000);
       setInterval(() => this.NotificationToast(), 3000);
-
+      
     },
+    
 
   };
 </script>
