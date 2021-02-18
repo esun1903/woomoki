@@ -70,8 +70,8 @@
                 CertInfo: [],
                 CngInfo: [],
                 comments: [],
-                UserAllInfo: [], //update에서 사용 할 유저 정보 저장
-                UserInfo: [], //댓글 컴포넌트로 넘겨주는 유저 정보 저장
+                UserAllInfo: [], 
+                UserInfo: [], 
                 Nicknames: [],
                 ProfileImgs: [],
                 photoURL: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
@@ -87,7 +87,7 @@
                 certFile: null,
                 certImg: "",
                 color: "",
-                changedImg: false, // 파일 재선택 여부 체크
+                changedImg: false, 
 
             };
         },
@@ -164,15 +164,12 @@
 
             detailComment: function () {
                 const certId = this.$route.params.certId;
-                console.log(certId);
                 axios.get(`http://localhost:8080/commentList/${certId}`)
                     .then((response) => {
-                        // console.log(response.data);
                         this.comments = response.data;
                         for (const i in this.comments) {
                             const comment = this.comments[i]
                             const commentUserId = comment["user_id"]
-                            // console.log("cmt user id: " + commentUserId);
                             this.getUserInfo(commentUserId);
                         }
                     })
@@ -181,21 +178,16 @@
                     })
             },
             async getUserInfo(commentUserId) {
-                // console.log("getUserInfo를 들어왔ㅇㅓ : " + commentUserId);
-                await axios.get(`http://localhost:8080/userPage/Id/${commentUserId}`)
+                  await axios.get(`http://localhost:8080/userPage/Id/${commentUserId}`)
                     .then((response) => {
-                        // console.log(response.data);
                         this.UserInfo = response.data;
                         this.Nicknames.push(this.UserInfo.nickname)
                         this.ProfileImgs.push(this.UserInfo.img)
-                        // console.log("nickname: " + this.UserInfo.nickname);
-                        // console.log(this.Nicknames);
-                        // this.saveNickname();
+                        
                     })
 
             },
             back() {
-                // this.$router.go(-1);
                 this.$router.push({
                     name: 'CertificationDetail',
                     params: {
@@ -212,53 +204,46 @@
                     cng_id: this.CertInfo.cng_id,
                     content: this.CertInfo.content,
                     id: certId,
-                    img: this.CertInfo.img,  //확인
+                    img: this.CertInfo.img, 
                     user_id: this.CertInfo.user_id,
                     like_cnt: this.CertInfo.like_cnt,
                     result: this.CertInfo.result,
                     current_week: this.CertInfo.current_week,
                     current_day: this.CertInfo.current_day,
                 }
-                console.log("이미지 정보: " + UpdateCertInfo.img);
-
-                // 파일 재선택 안했을 때
+               
                 if (this.changedImg === false) {
 
                     axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
                         .then(res => {
                             console.log(res);
                             this.$router.push({
-                                name: 'SeedDetail',
+                                name: 'CertificationDetail',
                                 params: {
-                                    seedId: this.CertInfo.cng_id
+                                    cngId: this.$route.params.cngId,
+                                    certId: this.$route.params.certId,
+                                    cngUserId: this.$route.params.cngUserId
                                 }
-                            })
+                            });
                         })
                         .catch(err => {
                             console.log(err);
                         });
-                    console.log(this.UpdateCertInfo);
-                } 
-                // 파일 재선택 했을 때
+                }
+
                 else {
 
                     this.photoKey = this.certImg;
                     UpdateCertInfo.img = this.photoURL + this.certImg;
-                    console.log(UpdateCertInfo.img);
+                    
 
-                    // AWS Setting Start
-
-                    // S3 관련 코드
                     AWS.config.update({
 
                             region: this.bucketRegion,
                             credentials: new AWS.CognitoIdentityCredentials({
                                     IdentityPoolId: this.IdentityPoolId
                                 }
-
-                            )
-                        }
-
+                            )}
                     );
 
                     const s3 = new AWS.S3({
@@ -268,10 +253,6 @@
                             Bucket: this.albumBucketName
                         }
                     });
-
-                    // AWS Setting End
-
-                    // S3 관련 코드
 
                     s3.upload({
                             Key: this.photoKey,
@@ -289,18 +270,18 @@
 
                     axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
                         .then(res => {
-                            console.log(res);
                             this.$router.push({
-                                name: 'SeedDetail',
+                                name: 'CertificationDetail',
                                 params: {
-                                    seedId: this.CertInfo.cng_id
+                                    cngId: this.$route.params.cngId,
+                                    certId: this.$route.params.certId,
+                                    cngUserId: this.$route.params.cngUserId
                                 }
-                            })
+                            });
                         })
                         .catch(err => {
                             console.log(err);
                         });
-                    console.log(this.UpdateCertInfo);
                 }
             },
 
@@ -308,8 +289,7 @@
                 this.certFile = file
                 this.certImg = certImg
                 this.changedImg = changedImg
-                console.log("넘어온 file정보: " + this.certFile)
-                console.log("넘어온 파일 이름 : " + this.certImg)
+                
             },
         },
     };

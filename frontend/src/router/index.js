@@ -29,8 +29,6 @@ import SeedUpdate from "@/views/SeedUpdate/SeedUpdate.vue"
 
 Vue.use(VueRouter);
 
-const BlankContainer = () => import('@/containers/BlankContainer')
-
 
 const routes = [
   {
@@ -110,19 +108,6 @@ const routes = [
     path: '/certificationUpdate/:cngUserId?/:cngId?/:certId?',
     name: 'CertificationUpdate',
     component: CertificationUpdate,        
-  },
-  {
-    path: '/callback',
-    name: 'callback',
-    redirect: '/login',
-    component: BlankContainer,
-    children: [
-      {
-        path: 'kakaotalk',
-        name: 'callback-kakaotalk',
-        component: () => import('@/views/Login/callback/KakaoTalk'),
-      },
-    ]
   },
   {
     path: '/createSeed',

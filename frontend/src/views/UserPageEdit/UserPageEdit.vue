@@ -191,7 +191,6 @@
           phone: this.UserInfo.phone,
           id: userId,
           img: this.UserInfo.img,
-          // introduce: this.UserInfo.introduce,
         }
 
         if (this.changedImg === false) {
@@ -208,7 +207,6 @@
           ChangedUserInfo.img = this.photoURL + this.profileImg;
           console.log("바뀔 이미지: "+ChangedUserInfo.img);
 
-          // AWS Setting Start
 
           AWS.config.update({
 
@@ -226,8 +224,6 @@
             }
           });
 
-          // AWS Setting End
-
           s3.upload({
               Key: this.photoKey,
               Body: this.file,
@@ -241,7 +237,6 @@
             }
 
           );
-          // const nickname = this.$store.state.UserStore.user.nickname 
           axios.post("http://localhost:8080/userPage/changeUser", ChangedUserInfo)
             .then(res => {
               console.log(res);
@@ -263,7 +258,6 @@
         this.$refs.observer.reset();
       },
 
-      // 컴포넌트 - 데이터 전달
       receiveUpdateProfileImg: function (file, profileImg, changedImg) {
         this.file = file
         this.profileImg = profileImg
