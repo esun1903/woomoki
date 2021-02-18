@@ -13,7 +13,7 @@
             :src="card.img"
             :lazy-src="card.img"
             aspect-ratio="1"
-            class="grey lighten-2 cursor_test"
+            class="grey lighten-2 cursor_img"
           >
           <template v-slot:placeholder>
             <v-row
@@ -137,4 +137,9 @@ export default {
 .infinite-margin {
    margin-top: 5vh;
 }
+
+.cursor_img {
+  cursor: pointer;
+}
+
 </style>
