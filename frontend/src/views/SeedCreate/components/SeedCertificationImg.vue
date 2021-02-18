@@ -27,7 +27,7 @@
               absolute
               color="#036358"
             >
-              <v-btn>인증 예시 사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
+              <v-btn>예시) 인증 예시 사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
             </v-overlay>
           </v-fade-transition>
         </v-img>

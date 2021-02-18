@@ -161,13 +161,11 @@ export default {
         })
       }
     },
-    requestFollow: function () {
-      const followInfo = {
-        userid : this.$store.state.UserStore.user.user_id,
-        followId : this.UserInfo.id,
-        type : reqFollow
-      }
-      axios.post(`http://i4a303.p.ssafy.io/api/notificationFollow/${followInfo.userId}/${followInfo.followingid}/reqFollow`, followInfo)
+  requestFollow: function () {
+      const userid = this.$store.state.UserStore.user.user_id
+      const followId = this.UserInfo.id
+      const type = "reqFollow"
+      axios.post(`http://i4a303.p.ssafy.io/api/notificationFollow/${userid}/${followId}/${type}`)
         .then((res) => {
           console.log(res)
         })

@@ -5,6 +5,7 @@
       <div class="selectBoxes">
         <div class="selectBox1">
           <v-select
+            color="#AED864"
             v-model="valSelect1"
             :items="select1"
             label="인기/신규"
@@ -14,6 +15,7 @@
         </div>
         <div class="selectBox2">
           <v-select
+            color="#AED864"
             v-model="valSelect2"
             :items="select2"
             label="카테고리"

@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import { UserStore } from "../store/modules/UserStore"
 import Main from "@/views/MainPage/MainPage.vue";
 import Signup from "@/views/Signup/Signup.vue";
 import FavoriteCategory from "@/views/Signup/components/FavoriteCategory.vue";
@@ -29,6 +30,12 @@ import SeedUpdate from "@/views/SeedUpdate/SeedUpdate.vue"
 
 Vue.use(VueRouter);
 
+// const requireAuth = () => (to, from, next) => {
+//   if (this.$store.state.UserStore.user.accessToken !== '') {
+//     return next();
+//   }
+//   next('/login');
+// };
 
 const routes = [
   {
@@ -80,90 +87,107 @@ const routes = [
     path: '/userPage/:userNickname',
     name: 'UserPage',
     component: UserPage,
-    props: true     
+    props: true,
+    // beforeEnter: requireAuth()
   },
   {
     path: '/userPageEdit',
     name: 'UserPageEdit',
-    component: UserPageEdit,   
+    component: UserPageEdit,
+    // beforeEnter: requireAuth() 
   },
   {
     path: '/comparepwd',
     name: 'CompareOriginPassword',
     component: CompareOriginPassword,
-    props: true,        
+    props: true,
+    // beforeEnter: requireAuth()
   },
   {
     path: '/certificationInsert/:cngId?/:currentWeek?/:currentDay?',
     name: 'CertificationInsert',
-    component: CertificationInsert,        
+    component: CertificationInsert,
+    // beforeEnter: requireAuth()    
   },
   {
     path: '/certificationDetail/:cngUserId?/:cngId?/:certId?',
     name: 'CertificationDetail',
     component: CertificationDetail,    
-    props: true        
+    props: true,
+    // beforeEnter: requireAuth()
   },
   {
     path: '/certificationUpdate/:cngUserId?/:cngId?/:certId?',
     name: 'CertificationUpdate',
-    component: CertificationUpdate,        
+    component: CertificationUpdate, 
+    // beforeEnter: requireAuth()    
   },
   {
     path: '/createSeed',
     name: 'SeedCreate',
     component: SeedCreate,        
+    // beforeEnter: requireAuth()
   },
   {
     path: '/feedAll',
     name: 'FeedAllUser',
-    component: FeedAllUser,        
+    component: FeedAllUser,    
+    // beforeEnter: requireAuth()    
   },
   {
     path: '/feedFollow',
     name: 'FeedFollowUser',
     component: FeedFollowUser,        
+    // beforeEnter: requireAuth()
   },
   {
     path: '/seedCreated',
     name: 'SeedCreated',
-    component: SeedCreated,        
+    component: SeedCreated, 
+    // beforeEnter: requireAuth()       
   },
   {
     path: '/seedFail',
     name: 'SeedFail',
     component: SeedFail,        
+    // beforeEnter: requireAuth()
   },
   {
     path: '/seedJoin',
     name: 'SeedJoin',
-    component: SeedJoin,        
+    component: SeedJoin,    
+    // beforeEnter: requireAuth()    
   },
   {
     path: '/seedSuccess',
     name: 'SeedSuccess',
-    component: SeedSuccess,        
+    component: SeedSuccess, 
+    // beforeEnter: requireAuth()       
   },
   {
     path: '/seedDetail/:seedId',
     name: 'SeedDetail',
     component: SeedDetail,        
+    // beforeEnter: requireAuth()
   },
   {
     path: '/seedDetail/stampCard/:seedId?/:userId?',
     name: 'StampCard',
-    component: StampCard,       
+    component: StampCard,     
+    // beforeEnter: requireAuth()  
   },
   {
     path: '/searchedPage',
     name: 'SearchedPage',
     component: SearchedPage,
-    props: true        
+    props: true,
+    // beforeEnter: requireAuth()
   },
   {
     path: '/seedUpdate/:seedId',
     name: 'SeedUpdate',
-    component: SeedUpdate,        
+    component: SeedUpdate,
+    // beforeEnter: requireAuth()  
   },
 ];
 

@@ -143,7 +143,7 @@
           <v-expansion-panel-content v-if="result.key === '예시 이미지'" class="mt-4">
             <v-img :src="result.value"></v-img>
           </v-expansion-panel-content>
-          <v-expansion-panel-content v-else class="mt-4">
+          <v-expansion-panel-content v-else style="white-space:pre;" class="mt-5 pa-3">
             <span class="black--text content-size">
               {{ result.value }}
             </span>
