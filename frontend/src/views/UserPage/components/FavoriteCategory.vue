@@ -143,6 +143,7 @@ export default {
     height: 6vh;
     display: flex;
     justify-content: center;
+    font-size: 1.1rem;
   }
 }
 </style>

@@ -41,7 +41,7 @@
             </v-btn>
           </v-col>
 
-          <v-col class="d-flex justify-center" v-if="isMyPage === true">
+          <v-col class="d-flex justify-center ml-4" v-if="isMyPage === true">
             <router-link to="/comparepwd">
               <v-icon>fas fa-user-cog</v-icon>
             </router-link>    
@@ -67,7 +67,7 @@
         </v-row>
 
         <v-row class="d-flex justify-space-around">
-          <UserWallet v-if="isMyPage === true" :UserInfo="UserInfo"></UserWallet>
+          <!-- <UserWallet v-if="isMyPage === true" :UserInfo="UserInfo"></UserWallet> -->
           <FollowerList :isMyPage="isMyPage"></FollowerList>
           <FollowingList :isMyPage="isMyPage"></FollowingList>
         </v-row>

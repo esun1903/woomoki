@@ -150,7 +150,7 @@
           "보살핌 후기가 더 이상 없습니다"
         </div>
         <div class="infinite-margin" slot="no-results">
-          "보살핌 후기가 없습니다 씨앗에 물을 줘보세요"
+          "다른 친구들을 팔로우해보세요! 아직 팔로우한 친구가 없네요!"
         </div>
       </infinite-loading>
       
