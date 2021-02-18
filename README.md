@@ -95,9 +95,9 @@ $ java -jar ssafy_pjt2-0.0.1-SNAPSHOT.war --server.servlet.context-path=(실행�
 
 새해 목표를 꾸준히 지민 성인남녀 28% 달성률이 낮은 것을 볼 수 있습니다. 
 ![문제인식수정](/uploads/f8d864ea1f3edbd73fd505d954099331/문제인식수정.png)
-<p align="center"><img src="![해결방안](/uploads/049afd0d4caba31a6632b44215ae26c6/해결방안.PNG)"></p>
+<p align="center">
 ![해결방안](/uploads/049afd0d4caba31a6632b44215ae26c6/해결방안.PNG)
-
+</p>
 #### 🌱주요 서비스 기능
 
 ![서비스_기능](/uploads/17b64fcc5f11b79c63f2acc7dcd5bb03/서비스_기능.PNG)
