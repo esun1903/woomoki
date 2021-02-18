@@ -11,10 +11,10 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
- 
-	 
+
+
 	@Autowired
-	private UserDao dao;
+	 UserDao dao;
 	
 	@Override
 	public UserDto login(UserDto userDto) throws Exception {

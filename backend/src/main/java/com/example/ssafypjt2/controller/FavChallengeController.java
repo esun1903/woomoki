@@ -1,17 +1,14 @@
 package com.example.ssafypjt2.controller;
 
 import com.example.ssafypjt2.dto.ChallengeDto;
-import com.example.ssafypjt2.dto.FavCategoryDto;
-import com.example.ssafypjt2.dto.FavChallengeDto;
-import com.example.ssafypjt2.service.FavCategoryService;
+
 import com.example.ssafypjt2.service.FavChallengeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
