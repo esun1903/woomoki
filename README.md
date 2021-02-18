@@ -28,7 +28,7 @@
  스크럼은  1일 1스크럼으로  노션에 올려 이슈들을 공유하고 있으며 
  회의를 진행할 때마다 회의록을 작성하여 일차별로 정리하고 있습니다.
 
-[프로젝트 공유문서](https://www.notion.so/A303-1d48727b951b41a18886118e55d04fb8)
+<br>[프로젝트 공유문서](https://www.notion.so/A303-1d48727b951b41a18886118e55d04fb8)</br>
 ![스크럼](/uploads/23af022e3d6741638aa7bd1651bb2038/스크럼.PNG)
 
 
@@ -42,8 +42,8 @@
 
 #### 🌱 ERD
 ![erd이미지_최종](/uploads/93dd266aae0b4d6e79298ebca9fecbe8/erd이미지_최종.PNG)
-[컨벤션](https://www.notion.so/332cddb89bff4354b3aee8bc1d2746a8)
-[BE-Api](https://www.notion.so/a4d59235ba6f4795b0c7677414e0d766)
+<br>[컨벤션](https://www.notion.so/332cddb89bff4354b3aee8bc1d2746a8)
+<br>[BE-Api](https://www.notion.so/a4d59235ba6f4795b0c7677414e0d766)
 
 #### 🌱실행 방법 
 
@@ -68,10 +68,10 @@ DB 테이블 생성
 
 appication.properties 파일 생성  후
 아래 내용에 맞게 입력
-spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
-spring.datasource.url=(내용 입력)
-spring.datasource.username=(내용 입력)
-spring.datasource.password=(내용 입력)
+<br>spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+<br>spring.datasource.url=(내용 입력)
+<br>spring.datasource.username=(내용 입력)
+<br>spring.datasource.password=(내용 입력)
 
 /backend/src/main/resource/ 아래 위치 파일을 넣습니다. 
 
