@@ -1,11 +1,11 @@
 <template>
-<div>
-    
+    <div>
+
         <v-col class="cng-name">
-            <router-link :to="{ name: 'SeedDetail', params: { seedId: CertInfo.cng_id }}">
-            <span class="d-flex justify-center align-center mb-3 title-size">
-                {{ CngInfo.title }}
-            </span>
+            <router-link :to="{ name: 'SeedDetail', params: { seedId: this.$route.params.certId }}">
+                <span class="d-flex justify-center align-center mb-3 title-size">
+                    {{ CngInfo.title }}
+                </span>
             </router-link>
             <span class="d-flex justify-center">
                 <v-chip class="white--text" :color="color">
@@ -13,51 +13,63 @@
                 </v-chip>
             </span>
         </v-col>
-        
+
         <v-container class="container-size">
-        <v-row>
-        
-        <v-list-item class="border-list">
-            <v-list-item-avatar size="55">
-                <v-img :src="UserAllInfo.img"></v-img>
-            </v-list-item-avatar>
+            <v-row>
 
-            <v-list-item-content>
-                <v-list-item-title>
-                    <span class="nickname-bold" style="font-size:15px; color:black;"> {{ UserAllInfo.nickname }}</span>
-                </v-list-item-title>
-                <v-list-item-title>
-                    <span class="nickname-bold" style="font-size:13px; color:grey;"> {{ CertInfo.create_date }}</span>
-                </v-list-item-title>
-            </v-list-item-content>
-        </v-list-item>
-        </v-row>
-        <v-row class="img-div">
-            <CertificationImgUpdate @transferCertImg="receiveCertImg" class="mb-5"
-                :currentSelectedImg="currentSelectedImg" />
-        </v-row>
-    </v-container>
-    <v-container class="bottom-container-size">
-        <v-row class="content">
-            <v-textarea height="150" v-model="CertInfo.content" no-resize color="#AED864" outlined rows="10" label="설명글">
-            </v-textarea>
-        </v-row>
-        <v-row class="back-update-btn">
-            <v-btn class="ma-2" outlined fab color="red" v-on:click="back()">
-                <v-icon>mdi-arrow-left</v-icon>
-            </v-btn>
-            <v-btn class="ma-2" outlined fab color="green" v-on:click="updateCert()">
-                <v-icon>mdi-check-outline</v-icon>
-            </v-btn>
+                <v-list-item class="border-list">
+                    <v-list-item-avatar size="55">
+                        <v-img :src="UserAllInfo.img"></v-img>
+                    </v-list-item-avatar>
 
-        </v-row>
+                    <v-list-item-content>
+                        <v-list-item-title>
+                            <span class="nickname-bold" style="font-size:15px; color:black;">
+                                {{ UserAllInfo.nickname }}</span>
+                        </v-list-item-title>
+                        <v-list-item-title>
+                            <span class="nickname-bold" style="font-size:13px; color:grey;">
+                                {{ CertInfo.create_date }}</span>
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+            </v-row>
+            <v-row class="img-div">
+                <v-avatar class="img-cursor" rounded width="100%" height="450px" color="grey"
+                    @click="onClickImageUpload">
+                    <span v-if="!CertInfo.img" class="white--text">
+                        {{ this.text }}
+                    </span>
+                    <v-img :class="`rounded-lg`" width="100%" height="450px" max-width="100%" max-height="100%"
+                        v-if="CertInfo.img" :src="CertInfo.img">
+
+                    </v-img>
+                    <input ref="imageInput" type="file" hidden @change="onChangeImages">
+                </v-avatar>
+            </v-row>
+        </v-container>
+        <v-container class="bottom-container-size">
+            <v-row class="content">
+                <v-textarea height="150" v-model="CertInfo.content" no-resize color="#AED864" outlined rows="10"
+                    label="설명글">
+                </v-textarea>
+            </v-row>
+            <v-row class="back-update-btn">
+                <v-btn class="ma-2" outlined fab color="red" v-on:click="back()">
+                    <v-icon>mdi-arrow-left</v-icon>
+                </v-btn>
+                <v-btn class="ma-2" outlined fab color="green" v-on:click="updateCert()">
+                    <v-icon>mdi-check-outline</v-icon>
+                </v-btn>
+
+            </v-row>
 
 
-        <v-divider></v-divider>
-        <CommentInsert />
-        <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" />
+            <v-divider></v-divider>
+            <CommentInsert />
+            <CommentList v-for="(comment, index) in comments" :key="index" :comment="comment" />
 
-    </v-container>
+        </v-container>
     </div>
 </template>
 
@@ -81,8 +93,8 @@
                 CertInfo: [],
                 CngInfo: [],
                 comments: [],
-                UserAllInfo: [], 
-                UserInfo: [], 
+                UserAllInfo: [],
+                UserInfo: [],
                 Nicknames: [],
                 ProfileImgs: [],
                 photoURL: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
@@ -95,10 +107,10 @@
                 imageURL: "",
                 category: "",
                 currentSelectedImg: "",
-                certFile: null,
                 certImg: "",
                 color: "",
-                changedImg: false, 
+                changedImg: false,
+                text: "인증 사진 변경"
 
             };
         },
@@ -189,12 +201,12 @@
                     })
             },
             async getUserInfo(commentUserId) {
-                  await axios.get(`http://i4a303.p.ssafy.io/api/userPage/Id/${commentUserId}`)
+                await axios.get(`http://i4a303.p.ssafy.io/api/userPage/Id/${commentUserId}`)
                     .then((response) => {
                         this.UserInfo = response.data;
                         this.Nicknames.push(this.UserInfo.nickname)
                         this.ProfileImgs.push(this.UserInfo.img)
-                        
+
                     })
 
             },
@@ -215,14 +227,14 @@
                     cng_id: this.CertInfo.cng_id,
                     content: this.CertInfo.content,
                     id: certId,
-                    img: this.CertInfo.img, 
+                    img: this.CertInfo.img,
                     user_id: this.CertInfo.user_id,
                     like_cnt: this.CertInfo.like_cnt,
                     result: this.CertInfo.result,
                     current_week: this.CertInfo.current_week,
                     current_day: this.CertInfo.current_day,
                 }
-               
+
                 if (this.changedImg === false) {
 
                     axios.put("http://i4a303.p.ssafy.io/api/updateCertification", UpdateCertInfo)
@@ -240,22 +252,19 @@
                         .catch(err => {
                             console.log(err);
                         });
-                }
-
-                else {
+                } else {
 
                     this.photoKey = this.certImg;
                     UpdateCertInfo.img = this.photoURL + this.certImg;
-                    
+
 
                     AWS.config.update({
 
-                            region: this.bucketRegion,
-                            credentials: new AWS.CognitoIdentityCredentials({
-                                    IdentityPoolId: this.IdentityPoolId
-                                }
-                            )}
-                    );
+                        region: this.bucketRegion,
+                        credentials: new AWS.CognitoIdentityCredentials({
+                            IdentityPoolId: this.IdentityPoolId
+                        })
+                    });
 
                     const s3 = new AWS.S3({
 
@@ -267,7 +276,7 @@
 
                     s3.upload({
                             Key: this.photoKey,
-                            Body: this.certFile,
+                            Body:this.file,
                             ACL: 'public-read'
                         }, (err, data) => {
                             if (err) {
@@ -296,11 +305,43 @@
                 }
             },
 
-            receiveCertImg: function (file, certImg, changedImg) {
-                this.certFile = file
-                this.certImg = certImg
-                this.changedImg = changedImg
-                
+            onClickImageUpload() {
+                this.$refs.imageInput.click();
+            },
+            onChangeImages(e) {
+                console.log(e.target.files)
+                console.log("length " + e.target.files.length)
+                if (e.target.files.length === 1) {
+                    this.changedImg = true; // 파일을 다시 선택했을 때 
+                    this.text="";
+                } else {
+                    this.changedImg = false; // 그 외
+                }
+                console.log("값: " + this.changedImg);
+                this.file = e.target.files[0]; // Get first index in files
+                this.CertInfo.img = URL.createObjectURL(this.file); // Create File URL
+                this.fileNameSetting();
+            },
+            async fileNameSetting() {
+
+                const user_id = this.$store.state.UserStore.user.user_id;
+
+                var now = new Date();
+
+                var year = now.getFullYear(); // 연도
+                var month = now.getMonth() + 1; // 월
+                var date = now.getDate(); // 일
+                var hours = now.getHours(); // 시간
+                var minutes = now.getMinutes(); // 분
+                var seconds = now.getSeconds(); // 초
+                var milliseconds = now.getMilliseconds(); // 밀리초
+
+                // console.log("현재 : ", now);
+                var realtime = year + "" + month + "" + date + "_" + hours + minutes + seconds + milliseconds;
+                console.log(realtime);
+
+                this.certImg = user_id + "_" + realtime + "_" + this.file.name
+
             },
         },
     };
@@ -317,10 +358,15 @@
         margin-bottom: 5%;
     }
 
-    .content,
+
     .nickname-date-row {
         justify-content: center;
         margin-top: 2%;
+    }
+
+    .content {
+        justify-content: center;
+        margin-top: 7%;
     }
 
     .img-div {

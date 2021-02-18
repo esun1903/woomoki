@@ -66,7 +66,7 @@
                   striped
                 > 
                   <template v-if="this.percentage <= 0">
-                    <strong class="white--text">아직 씨앗이 안심어졌어요</strong>
+                    <strong class="white--text">아직 씨앗이 심어지지 않았어요</strong>
                   </template>
                 </v-progress-linear>
           
@@ -82,7 +82,7 @@
                     <strong>100%</strong>
                   </template>
                   <template v-else>
-                    <strong class="white--text">이미 꽃핀 씨앗입니다</strong>
+                    <strong class="white--text">이미 꽃 핀 씨앗입니다</strong>
                   </template>
                 </v-progress-linear>
               </v-row>

@@ -4,10 +4,10 @@
     <v-row class="d-flex justify-center img-margin">
       <!-- <ImgEdit :profileImg="profileImg" @transferUpdateProfileImg="receiveUpdateProfileImg"></ImgEdit> -->
       <v-avatar class="cursor_img profile-img-margin" width="250" height="250" color="#AED864" @click="onClickImageUpload">
-        <span v-if="!profileImg" class="white--text">
+        <span v-if="!UserInfo.img" class="white--text">
           {{ this.text }}
         </span>
-        <v-img v-if="profileImg" :src="profileImg"></v-img>
+        <v-img v-if="UserInfo.img" :src="UserInfo.img"></v-img>
         <input ref="imageInput" type="file" hidden @change="onChangeImages">
       </v-avatar>
     </v-row>
@@ -54,11 +54,9 @@
 
 
         <v-row class="d-flex justify-end">
-          <router-link :to="{ name: 'UserPage', params: { userNickname: userNickname }}">
-            <v-btn class="mr-4 white--text" type="submit" :disabled="invalid" @click="updataUserInfo" color="#AED864">
+            <v-btn class="mr-4 white--text" type="submit" :disabled="invalid" @click="updateUserInfo" color="#AED864">
               적용
             </v-btn>
-          </router-link>
 
           <v-btn @click="clear" text>
             지우기
@@ -95,6 +93,8 @@
   // import ImgEdit from "./components/ImgEdit.vue";
   import UserDelete from "./components/UserDelete.vue";
   import axios from "axios";
+  
+import router from "@/router";
 
   setInteractionMode("eager");
 
@@ -171,6 +171,7 @@
         file: null,
         changedImg: false,
         photoKey:"",
+        text:"프로필 사진 변경",
       };
     },
     methods: {
@@ -179,15 +180,13 @@
         axios.get(`http://i4a303.p.ssafy.io/api/userPage/${userNickname}`)
           .then((res) => {
             this.UserInfo = res.data
-            this.profileImg = this.UserInfo.img
-            console.log("이미지: " + this.profileImg);
             console.log("기존 데이터", res.data)
           })
           .catch((err) => {
             console.log(err)
           })
       },
-      updataUserInfo: function () {
+      updateUserInfo: function () {
 
         const userId = this.$store.state.UserStore.user.user_id
         const ChangedUserInfo = {
@@ -204,6 +203,7 @@
           axios.post("http://i4a303.p.ssafy.io/api/userPage/changeUser", ChangedUserInfo)
             .then(res => {
               console.log(res);
+                router.push({ name: 'UserPage', params: { userNickname: this.$store.state.UserStore.user.nickname }})
             })
             .catch(err => {
               console.log(err);
@@ -265,13 +265,13 @@
         this.$refs.observer.reset();
       },
 
-      receiveUpdateProfileImg: function (file, profileImg, changedImg) {
-        this.file = file
-        this.profileImg = profileImg
-        this.changedImg = changedImg
-        console.log("넘어온 file정보: " + this.file)
-        console.log("넘어온 profileImg이름 : " + this.profileImg)
-      },
+      // receiveUpdateProfileImg: function (file, profileImg, changedImg) {
+      //   this.file = file
+      //   this.profileImg = profileImg
+      //   this.changedImg = changedImg
+      //   console.log("넘어온 file정보: " + this.file)
+      //   console.log("넘어온 profileImg이름 : " + this.profileImg)
+      // },
       // img edit 컴포넌트
       onClickImageUpload() {
         this.$refs.imageInput.click();
@@ -284,10 +284,9 @@
         }else{
           this.changedImg = false; 
         }
-        this.imageUrl = URL.createObjectURL(this.file);
+        this.UserInfo.img = URL.createObjectURL(this.file);
+          this.text="";
         this.fileNameSetting();
-        this.transferUpdateProfileImg();
-        this.text = ""
       },
       async fileNameSetting() {
 
@@ -306,7 +305,7 @@
         var realtime = year + "" + month + "" + date + "_" + hours + minutes + seconds + milliseconds;
         console.log(realtime);
 
-        this.fileName = user_id + "_" + realtime + "_" + this.file.name
+        this.profileImg = user_id + "_" + realtime + "_" + this.file.name
 
       },
       // img edit 컴포넌트

@@ -23,7 +23,7 @@
         >
           <v-fade-transition>
             <v-overlay v-if="hover" absolute color="#036358">
-              <v-btn>대표사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
+              <v-btn>대표 사진을 입력하세요<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
             </v-overlay>
           </v-fade-transition>
         </v-img>
@@ -38,10 +38,10 @@
     data: function () {
       return {
         imageUrl: "https://t1.daumcdn.net/cfile/tistory/995A17455A409C9A28",
-        text: "썸네일 사진 변경",
         overlay: false,
         fileName: null,
         file: null,
+        checkImg:"",
       }
     },
     methods: {
@@ -52,18 +52,17 @@
         console.log(e.target.files)
         this.file = e.target.files[0]; // Get first index in files
         this.imageUrl = URL.createObjectURL(this.file); // Create File URL
+        if(e.target.files.length === 1){
+          this.checkImg = true ; // 파일을 다시 선택했을 때 
+        }else{
+          this.checkImg = false; // 그 외
+        }
         this.fileNameSetting();
         this.transferThumbnail();
       },
-      onDeleteImage() {
-        this.text = "썸네일 사진 변경"
-        this.imageUrl = ""
-        this.fileName = ""
-        this.file = ""
-      },
       transferThumbnail: function () {
         console.log("file값: " + this.file);
-        this.$emit('transferThumbnail', this.file, this.fileName)
+        this.$emit('transferThumbnail', this.file, this.fileName, this.checkImg)
       },
       async fileNameSetting() {
 

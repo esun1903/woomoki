@@ -41,6 +41,7 @@
         overlay: false,
         fileName: null,
         file: null,
+        checkImg:"",
       }
     },
     methods: {
@@ -51,6 +52,11 @@
         console.log(e.target.files)
         this.file = e.target.files[0]; // Get first index in files
         this.imageUrl = URL.createObjectURL(this.file); // Create File URL
+        if(e.target.files.length === 1){
+          this.checkImg = true ; // 파일을 다시 선택했을 때 
+        }else{
+          this.checkImg = false; // 그 외
+        }
         this.fileNameSetting();
         this.transferCertImg();
       },
@@ -61,7 +67,7 @@
       },
       transferCertImg: function () {
         console.log("file값: " + this.file);
-        this.$emit('transferCertImg', this.file, this.fileName)
+        this.$emit('transferCertImg', this.file, this.fileName, this.checkImg)
       },
       async fileNameSetting() {
 

@@ -30,6 +30,8 @@ import SeedUpdate from "@/views/SeedUpdate/SeedUpdate.vue"
 Vue.use(VueRouter);
 
 
+
+
 const routes = [
   {
     path: "/",

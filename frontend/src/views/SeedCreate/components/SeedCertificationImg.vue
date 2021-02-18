@@ -27,7 +27,7 @@
               absolute
               color="#036358"
             >
-              <v-btn>인증 예시 사진 변경<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
+              <v-btn>인증 예시 사진을 입력하세요<input ref="imageInput" type="file" hidden @change="onChangeImages"></v-btn>
             </v-overlay>
           </v-fade-transition>
         </v-img>
@@ -59,17 +59,16 @@
         console.log(e.target.files)
         this.file = e.target.files[0]; // Get first index in files
         this.imageUrl = URL.createObjectURL(this.file); // Create File URL
+        if(e.target.files.length === 1){
+          this.checkImg = true ; // 파일을 다시 선택했을 때 
+        }else{
+          this.checkImg = false; // 그 외
+        }
         this.fileNameSetting();
         this.transferCertificationImg();
       },
-      onDeleteImage() {
-        this.text = "인증 사진 변경"
-        this.imageUrl = ""
-        this.fileName = ""
-        this.file = ""
-      },
       transferCertificationImg: function () {
-        this.$emit('transferCertificationImg', this.file, this.fileName)
+        this.$emit('transferCertificationImg', this.file, this.fileName, this.checkImg)
       },
       async fileNameSetting() {
 
