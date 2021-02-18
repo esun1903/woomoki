@@ -62,9 +62,27 @@ localhost:8080으로 실행할 수 있습니다.
 
 백엔드 부분 
 
-Spring Boot run 을 통해 실행할 수 있습니다. 
+Java(openjdk version "1.8.0_282") 설치합니다.
+gradle 설치
 
-localhost:8080 으로 실행할 수 있습니다. 
+DB 테이블 생성
+
+
+appication.properties 파일 생성  후
+아래 내용에 맞게 입력
+spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+spring.datasource.url=(내용 입력)
+spring.datasource.username=(내용 입력)
+spring.datasource.password=(내용 입력)
+
+/backend/src/main/resource/ 아래 위치 파일을 넣습니다. 
+
+
+/backend/ 안에   ->   $ ./gradlew build 빌드 후
+/backend/build/lib 안에 
+$ java -jar ssafy_pjt2-0.0.1-SNAPSHOT.war --server.servlet.context-path=(실행할 서버주소)
+
+살행 
 
 
 
