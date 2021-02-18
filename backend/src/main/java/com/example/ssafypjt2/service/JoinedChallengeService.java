@@ -1,7 +1,6 @@
 package com.example.ssafypjt2.service;
 
 import com.example.ssafypjt2.dto.JoinedChallengeDto;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

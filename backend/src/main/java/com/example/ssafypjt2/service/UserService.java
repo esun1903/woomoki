@@ -1,9 +1,7 @@
 package com.example.ssafypjt2.service;
 
 import com.example.ssafypjt2.dto.ChallengeDto;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.ssafypjt2.dto.UserDto;
 

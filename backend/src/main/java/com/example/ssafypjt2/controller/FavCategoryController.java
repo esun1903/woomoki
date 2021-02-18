@@ -1,7 +1,6 @@
 package com.example.ssafypjt2.controller;
 
 import java.util.List;
-import java.util.Locale.Category;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.ssafypjt2.dto.FavCategoryDto;
-import com.example.ssafypjt2.dto.UserDto;
 import com.example.ssafypjt2.service.FavCategoryService;
 
 @RestController

@@ -29,7 +29,7 @@ public interface NotificationDao {
     public int notificationCallCheck(@Param("notificationId")int notificationId);
 
     @Insert("Insert INTO notification ( get_user, request_user, type, create_date) "
-            + " VALUES ( #{followId}, #{userId},#{type}, now())" )
+            + " VALUES ( #{followId}, #{userId}, #{type}, now())" )
     public int notificationFollow(@Param("userId") int userId, @Param("followId") int followId, @Param("type") String type);
 
     @Insert("Insert INTO notification ( get_user, request_user, type, cng_Id, create_date) "

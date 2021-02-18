@@ -1,8 +1,6 @@
 package com.example.ssafypjt2.service;
 
 import com.example.ssafypjt2.dto.ChallengeDto;
-import com.example.ssafypjt2.dto.FavCategoryDto;
-import com.example.ssafypjt2.dto.FavChallengeDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
