@@ -5,7 +5,7 @@
       placeholder="EX) 코딩을 꾸준히 하지 않으면 까먹기 쉽지 않나요? 각자 조금씩이라도 코딩을 하고 매일매일 커밋하는 씨앗을 심고 싶어요! 함께하실 가꾸미님 구합니다!!"
       v-model="content"
       :rules="contentRules"
-      :counter="10000"
+      :counter="30000"
       outlined
       no-resize
       required
@@ -24,8 +24,8 @@ export default {
       content: "",
       contentRules: [
         v => !!v || '내용은 필수 항목입니다',
-        v => v.length >= 10 || '참여자들을 위해 내용을 자세히 적어주세요',
-        v => v.length <= 10000 || '10000자를 초과할 수 없습니다',
+        v => v.length >= 50 || '참여자들을 위해 내용을 자세히 적어주세요',
+        v => v.length <= 30000 || '10000자를 초과할 수 없습니다',
       ],
     }
   },
