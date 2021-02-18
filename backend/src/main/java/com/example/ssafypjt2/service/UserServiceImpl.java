@@ -31,7 +31,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int signup(UserDto userDto) {
 		System.out.println("여기는 회원가입 Service~ 도달했습니다 ~ "+userDto.getNickname());
-		int get = dao.signup(userDto); 
+		userDto.setImg("https://cert-photo-upload.s3.ap-northeast-2.amazonaws.com/unnamedImg.jpg");
+		System.out.println(userDto.getImg());
+		int get = dao.signup(userDto);
 		System.out.println(get);
 		return get;
 	}

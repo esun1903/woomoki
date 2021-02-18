@@ -30,9 +30,9 @@ public interface UserDao {
 	
 	@Insert("Insert INTO user ( nickname, password, phone, email, introduce, levelnum, leveltitle, img, deposit, join_date )"
 			+ " VALUES ( #{userDto.nickname} , #{userDto.password}, #{userDto.phone}, #{userDto.email}, #{userDto.introduce}, #{userDto.levelnum}," +
-			" #{userDto.leveltitle}, #{userDto.img}, #{userDto.deposit} , now())")
+			" #{userDto.leveltitle}, #{userDto.img} , #{userDto.deposit} , now())")
 	@Options(useGeneratedKeys = true)
-	public int signup(@Param("userDto")UserDto userDto);
+	public int signup(@Param("userDto") UserDto userDto);
 
    //password 변경
 	@Update("UPDATE user SET PASSWORD = #{user_password} WHERE email = #{user_email} ")
