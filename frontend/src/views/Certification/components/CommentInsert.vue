@@ -63,7 +63,7 @@
                     }
                     console.log(CommentForm);
 
-                    axios.post("http://localhost:8080/insertComment", CommentForm)
+                    axios.post("http://i4a303.p.ssafy.io/api/insertComment", CommentForm)
                         .then(res => {
                             console.log(res);
                             this.$router.go(this.$router.currentRoute);

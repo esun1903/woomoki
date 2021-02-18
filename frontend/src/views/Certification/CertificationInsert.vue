@@ -117,7 +117,7 @@
 
             getCngInfo() {
                 const cngId = this.$route.params.cngId;
-                axios.get(`http://localhost:8080/detailChallenge/${cngId}`)
+                axios.get(`http://i4a303.p.ssafy.io/api/detailChallenge/${cngId}`)
                     .then((response) => {
                         console.log(response.data);
                         this.CngInfo = response.data;
@@ -150,7 +150,7 @@
 
             getUserInfo() {
                 const userId = this.$store.state.UserStore.user.user_id
-                axios.get(`http://localhost:8080/userPage/Id/${userId}`)
+                axios.get(`http://i4a303.p.ssafy.io/api/userPage/Id/${userId}`)
                     .then((res) => {
                         this.UserInfo = res.data;
                     })

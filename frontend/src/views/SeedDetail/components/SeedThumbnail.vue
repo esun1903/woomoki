@@ -136,7 +136,7 @@ export default {
     async getSeedThumbnail () {
       // 씨앗 정보 가져오기
       const seedId = this.seedId
-      const SeedInfo = await axios.get(`http://127.0.0.1:8080/detailChallenge/${seedId}`)
+      const SeedInfo = await axios.get(`http://i4a303.p.ssafy.io/api/detailChallenge/${seedId}`)
       this.SeedInfo = SeedInfo.data 
 
       // 오늘 날짜
@@ -176,7 +176,7 @@ export default {
       const userId = this.$store.state.UserStore.user.user_id
       // 스크랩이 되어있지 않을 때 스크랩
       if (this.scrapped) {
-        axios.get(`http://127.0.0.1:8080/userPage/favChallenge/${userId}/${seedId}`)
+        axios.get(`http://i4a303.p.ssafy.io/api/userPage/favChallenge/${userId}/${seedId}`)
         .then((res) => {
           this.scrapCount += 1
           console.log(res)
@@ -186,7 +186,7 @@ export default {
         })
       } else {
         // 스크랩 되어 있을 때 스크랩 취소
-        axios.get(`http://127.0.0.1:8080/userPage/DeletefavChallenge/${userId}/${seedId}`)
+        axios.get(`http://i4a303.p.ssafy.io/api/userPage/DeletefavChallenge/${userId}/${seedId}`)
         .then((res) => {
           this.scrapCount -= 1
           console.log(res)
@@ -199,7 +199,7 @@ export default {
     CheckisfavSeed: function () {
       const seedId = this.seedId
       const userId = this.$store.state.UserStore.user.user_id
-      axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId}`)
+      axios.get(`http://i4a303.p.ssafy.io/api/userPage/LikeAndfavChallenge/${userId}`)
         .then((res) => {
             console.log("res",res.data)
             const SeedList = res.data
@@ -218,13 +218,13 @@ export default {
       const seedId = this.seedId
       const userId = this.$store.state.UserStore.user.user_id
       if (this.liked) {
-      axios.put(`http://127.0.0.1:8080/likeUpChallenge/${userId}/${seedId}`)
+      axios.put(`http://i4a303.p.ssafy.io/api/likeUpChallenge/${userId}/${seedId}`)
         .then((res) => {
           this.likeCount += 1
           console.log(res)
         })
       } else {
-        axios.put(`http://127.0.0.1:8080/likeDownChallenge/${userId}/${seedId}`)
+        axios.put(`http://i4a303.p.ssafy.io/api/likeDownChallenge/${userId}/${seedId}`)
         .then((res) => {
           this.likeCount -= 1
           console.log(res)
@@ -234,7 +234,7 @@ export default {
     CheckisLikeSeed: function () {
       const seedId = this.seedId
       const userId = this.$store.state.UserStore.user.user_id
-      axios.get(`http://127.0.0.1:8080/LikeAndChallenge/${seedId}`)
+      axios.get(`http://i4a303.p.ssafy.io/api/LikeAndChallenge/${seedId}`)
         .then((res) => {
           console.log(res)
           const UserList = res.data
@@ -251,7 +251,7 @@ export default {
     // 참여중인 리스트
     async allJoinUser () {
     const seedId = this.seedId
-    await axios.get(`http://127.0.0.1:8080/joinChallengeUserList/${seedId}`)
+    await axios.get(`http://i4a303.p.ssafy.io/api/joinChallengeUserList/${seedId}`)
       .then((res) => {
         const allUser = res.data
 
@@ -274,7 +274,7 @@ export default {
     //   const seedId = this.seedId
     //   // fav_challenge 테이블에서 해당 seedId를 하트 누른 유저의 숫자를 가져와야함
     //   // 지금은 challenge테이블의 like_count 컬럼값을 갖고옴 
-    //   axios.get(`http://127.0.0.1:8080/likecount/${seedId}`)
+    //   axios.get(`http://i4a303.p.ssafy.io/api/likecount/${seedId}`)
     //     .then((res) => {
     //       console.log("count", res.data)
     //     })

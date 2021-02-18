@@ -259,7 +259,7 @@
          
 
 
-        axios.post("http://127.0.0.1:8080/insertChallenge", SeedData)
+        axios.post("http://i4a303.p.ssafy.io/api/insertChallenge", SeedData)
           .then((res) => {
             this.$router.push({
               name: "Main"

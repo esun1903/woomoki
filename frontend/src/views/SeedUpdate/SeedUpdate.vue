@@ -178,7 +178,7 @@
       },
       getSeedDetail: function () {
         const seedId = this.seedId
-        axios.get(`http://127.0.0.1:8080/detailChallenge/${seedId}`)
+        axios.get(`http://i4a303.p.ssafy.io/api/detailChallenge/${seedId}`)
           .then((res) => {
             console.log(res.data)
             this.SeedInfo = res.data
@@ -219,7 +219,7 @@
         }
 
         if (this.changedImg === false) {
-          axios.put('http://127.0.0.1:8080/updateChallenge/', ChangedUserInfo)
+          axios.put('http://i4a303.p.ssafy.io/api/updateChallenge/', ChangedUserInfo)
             .then((res) => {
               this.$router.push({
                 name: 'SeedDetail',
@@ -268,7 +268,7 @@
 
           );
 
-          axios.put('http://127.0.0.1:8080/updateChallenge/', ChangedUserInfo)
+          axios.put('http://i4a303.p.ssafy.io/api/updateChallenge/', ChangedUserInfo)
             .then((res) => {
               this.$router.push({
                 name: 'SeedDetail',

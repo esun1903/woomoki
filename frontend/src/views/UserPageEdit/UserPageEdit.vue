@@ -169,7 +169,7 @@
     methods: {
       originUserInfo: function () {
         const userNickname = this.$store.state.UserStore.user.nickname
-        axios.get(`http://localhost:8080/userPage/${userNickname}`)
+        axios.get(`http://i4a303.p.ssafy.io/api/userPage/${userNickname}`)
           .then((res) => {
             this.UserInfo = res.data
             this.profileImg = this.UserInfo.img
@@ -194,7 +194,7 @@
         }
 
         if (this.changedImg === false) {
-          axios.post("http://localhost:8080/userPage/changeUser", ChangedUserInfo)
+          axios.post("http://i4a303.p.ssafy.io/api/userPage/changeUser", ChangedUserInfo)
             .then(res => {
               console.log(res);
             })
@@ -237,7 +237,7 @@
             }
 
           );
-          axios.post("http://localhost:8080/userPage/changeUser", ChangedUserInfo)
+          axios.post("http://i4a303.p.ssafy.io/api/userPage/changeUser", ChangedUserInfo)
             .then(res => {
               console.log(res);
             })
