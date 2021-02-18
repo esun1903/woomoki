@@ -47,11 +47,10 @@
 
 
         <v-row class="d-flex justify-end">
-          <router-link :to="{ name: 'UserPage', params: { userNickname: userNickname }}">
+          
             <v-btn class="mr-4 white--text" type="submit" :disabled="invalid" @click="updataUserInfo" color="#AED864">
               적용
             </v-btn>
-          </router-link>
 
           <v-btn @click="clear" text>
             지우기
@@ -181,7 +180,7 @@
       updataUserInfo: function () {
 
         // AWS Setting Start
-
+        
         AWS.config.update({
 
           region: this.bucketRegion,
@@ -237,6 +236,8 @@
           .catch(err => {
             console.log(err);
           });
+
+        this.$router.push({ name: 'UserPage', params: { userNickname: userNickname }} )
       },
       submit() {
         this.$refs.observer.validate();

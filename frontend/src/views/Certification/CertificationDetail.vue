@@ -31,7 +31,7 @@
                 </v-list-item-subtitle>
             </v-list-item-content>
 
-            <v-menu offset-y open-on-click bottom left>
+            <v-menu v-if="checkUser" offset-y open-on-click bottom left>
                 <template v-slot:activator="{ on, attrs }">
                     <!-- <v-btn icon  class="btn">
                 <v-icon>mdi-lead-pencil</v-icon>
@@ -42,7 +42,7 @@
                         <v-icon>fas fa-ellipsis-v</v-icon>
                     </v-btn>
                 </template>
-                <v-list v-if="checkUser">
+                <v-list>
                     <v-list-item>
                         <v-list-item-title>
                             <v-btn class="ma-2" icon color="#AED864" v-on:click="updateCert()">

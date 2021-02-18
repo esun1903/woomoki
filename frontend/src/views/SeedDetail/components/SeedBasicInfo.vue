@@ -24,38 +24,84 @@
           </v-row>
         </div>
       </v-col>
-      <!-- <v-col>
-      </v-col> -->
       <v-col cols="8" class="d-flex align-center">
         <v-row class="d-flex justify-end align-center">
           <!-- isJoin에 따라 보이거나 안보이거나 -->
-          <!-- <router-link v-if="checkAcception" :to="{ name: 'CertificationInsert', params: { cngId: this.$route.params.seedId }}"> -->
-          <!-- <v-btn v-if="getCheckLogin" :ripple="false" color="#AED864" class="btn-position white--text mr-2" @click="certInsertorLogin">
-            인증 작성
-          </v-btn> -->
-
+          <router-link v-if="checkAcception && getCheckLogin" :to="{ name: 'CertificationInsert', params: { cngId: this.$route.params.seedId }}">
+            <v-btn v-if="getCheckLogin" :ripple="false" color="#AED864" class="btn-position white--text mr-2" @click="certInsertorLogin">
+              인증 작성
+            </v-btn>
           <!-- <router-link> -->
           <!-- <v-btn v-if="checkAcception" @click="goStampCard" :ripple="false" color="#AED864" -->
-          <v-btn v-if="getCheckLogin" @click="goStampCard" :ripple="false" color="#AED864"
+          <!-- <v-btn v-if="getCheckLogin" @click="goStampCard" :ripple="false" color="#AED864"
             class="btn-position white--text mr-2">
             나의 인증 현황
-          </v-btn>
-          <!-- </router-link> -->
+          </v-btn> --> -->
+          </router-link>
           <WaitList v-if="isMySeed === true" :waitUser="waitUser"></WaitList>
 
-          <router-link v-if="isMySeed === true" :to="{ name: 'SeedUpdate', params: { seedId: this.seedId }}">
-            <!-- <v-btn class="mr-5 btn-color" color="#AED864">
-              수정
-            </v-btn> -->
+          <v-menu v-if="isMySeed === true" offset-y open-on-click bottom left>
+            <template v-slot:activator="{ on, attrs }">
+              <!-- <v-btn v-if="getCheckLogin" icon v-bind="attrs" v-on="on" class="btn nav-cursur"> -->
+              <v-btn icon v-bind="attrs" v-on="on" class="btn nav-cursur">
+                <v-icon>fas fa-ellipsis-v</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item>
+                <v-list-item-title>
+                  <router-link :to="{ name: 'SeedUpdate', params: { seedId: this.seedId }}">
+                    <v-btn icon class="ma-2 btn-color" color="#AED864">
+                      <v-btn plain text class="item-color">수정</v-btn>
+                    </v-btn>
+                  </router-link>
+                </v-list-item-title>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-title>
+                  <v-btn icon class="ma-2 btn-color" color="#AED864"
+                    @click.stop="confirmCngDeleteDialog = true">
+                    <v-btn plain text class="item-color">삭제</v-btn>
+                  </v-btn>
+                  <v-dialog v-model="confirmCngDeleteDialog" max-width="350">
+                  <v-card>
+                    <v-card-title class="headline">
+                      씨앗을 삭제하시겠습니까?
+                    </v-card-title>
+
+                    <v-card-text>
+                      한번 삭제된 씨앗은 다시 살릴 수 없어요!
+                    </v-card-text>
+
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+
+                      <v-btn color="grey" text @click="confirmCngDeleteDialog = false">
+                        취소
+                      </v-btn>
+
+                      <v-btn color="red" text @click="confirmCngDeleteDialog = false; deleteSeed()">
+                        삭제
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+
+
+          <!-- <router-link v-if="isMySeed === true" :to="{ name: 'SeedUpdate', params: { seedId: this.seedId }}">
             <v-btn icon class="mr-5 btn-color" color="#AED864">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
-          </router-link>
-          <v-btn icon v-if="isMySeed === true" class="mr-5 btn-color" color="#EF5350"
+          </router-link> -->
+          <!-- <v-btn icon v-if="isMySeed === true" class="mr-5 btn-color" color="#EF5350"
             @click.stop="confirmCngDeleteDialog = true">
             <v-icon>mdi-trash-can</v-icon>
-          </v-btn>
-          <v-dialog v-model="confirmCngDeleteDialog" max-width="350">
+          </v-btn> -->
+          <!-- <v-dialog v-model="confirmCngDeleteDialog" max-width="350">
             <v-card>
               <v-card-title class="headline">
                 씨앗을 삭제하시겠습니까?
@@ -77,7 +123,7 @@
                 </v-btn>
               </v-card-actions>
             </v-card>
-          </v-dialog>
+          </v-dialog> -->
           <!-- <v-btn v-if="isMySeed === true" class="mr-5 btn-color" color="#AED864" @click="deleteSeed">삭제</v-btn> -->
           <SeedShare></SeedShare>
           <!-- <SeedViewMore></SeedViewMore> -->
@@ -155,13 +201,13 @@
         isMySeed: false,
         panel: [0, 1, 2, 3, 4, 5],
         joinUser: [],
-        waitUser: [],
         isAccepted: false,
         confirmCngDeleteDialog: false,
       }
     },
     props: {
-      isJoin: Boolean
+      isJoin: Boolean,
+      waitUser: Array
     },
     methods: {
       async SeedDetailInfo() {
@@ -186,7 +232,7 @@
         })
         this.results.push({
           key: "보살핌 횟수",
-          value: `${this.SeedInfo.week}동안 주 ${this.SeedInfo.day}회`
+          value: `${this.SeedInfo.week}주 동안에 주 ${this.SeedInfo.day}회`
         })
         this.results.push({
           key: "참여 금액",
@@ -308,5 +354,9 @@
 
   .btn-color {
     color: white;
+  }
+
+  .item-color {
+    color: black;
   }
 </style>
