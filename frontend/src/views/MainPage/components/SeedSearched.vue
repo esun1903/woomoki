@@ -97,7 +97,7 @@ export default {
         const cgId_num = cat
         const cgId = {};
         cgId["cgId"] = cgId_num
-        axios.get(`http://127.0.0.1:8080/categorySort/${cgId_num}`, cgId)
+        axios.get(`http://i4a303.p.ssafy.io/api/categorySort/${cgId_num}`, cgId)
           .then((res) => {
             const seeds = res.data
             console.log(seeds)
@@ -110,7 +110,6 @@ export default {
                 return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
               })
             }
-            // seeds.splice(8)
             this.seeds = seeds
           })
           .catch((err) => {
@@ -119,7 +118,7 @@ export default {
         }
     },
     allCategory: function (opt) {
-      axios.get("http://localhost:8080/allChallenge")
+      axios.get("http://i4a303.p.ssafy.io/api/allChallenge")
         .then((res) => {
           const seeds = res.data
           console.log(seeds)
@@ -132,7 +131,6 @@ export default {
               return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
             })
           }
-          // seeds.splice(8)
           this.seeds = seeds
         })
         .catch((err) => {

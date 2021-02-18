@@ -35,7 +35,7 @@ export default {
   methods: {
     getUserImg: function() {
       const nickname = this.user.nickname
-      axios.get(`http://127.0.0.1:8080/userPage/${nickname}`)
+      axios.get(`http://i4a303.p.ssafy.io/api/userPage/${nickname}`)
         .then((res) => {
           this.img = res.data.img
         })

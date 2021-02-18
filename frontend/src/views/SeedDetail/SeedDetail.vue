@@ -144,7 +144,7 @@ import { setInteractionMode } from 'vee-validate'
       // checkAcception () {
       //   const seedId = this.seedId
       //   const userId = this.$store.state.UserStore.user.user_id
-      //   axios.get(`http://127.0.0.1:8080/joinChallengeUserList/${seedId}`)
+      //   axios.get(`http://i4a303.p.ssafy.io/api/joinChallengeUserList/${seedId}`)
       //     .then((res) => {
       //       const userList = res.data
       //       for (var i = 0;  i < userList.length; i++) {
@@ -179,7 +179,7 @@ import { setInteractionMode } from 'vee-validate'
       checkAcception () {
         const seedId = this.seedId
         const userId = this.$store.state.UserStore.user.user_id
-        axios.get(`http://127.0.0.1:8080/joinChallengeUserList/${seedId}`)
+        axios.get(`http://i4a303.p.ssafy.io/api/joinChallengeUserList/${seedId}`)
           .then((res) => {
             const userList = res.data
             for (var i = 0;  i < userList.length; i++) {
@@ -195,15 +195,15 @@ import { setInteractionMode } from 'vee-validate'
       },
       async getSeedCertification() {
         const seedId = this.seedId
-        // console.log(this.seedId)
-        await axios.get(`http://127.0.0.1:8080/sameChallengeCertification/${seedId}`)
+        console.log(this.seedId)
+        await axios.get(`http://i4a303.p.ssafy.io/api/sameChallengeCertification/${seedId}`)
           .then((res) => {
             this.total = res.data
             // console.log("인증:",res.data)
           })
 
         // 내가 만든 씨앗인지 구분
-        const SeedInfo = await axios.get(`http://127.0.0.1:8080/detailChallenge/${this.seedId}`)
+        const SeedInfo = await axios.get(`http://i4a303.p.ssafy.io/api/detailChallenge/${this.seedId}`)
         this.SeedInfo = SeedInfo.data
         console.log("max",this.SeedInfo.max_people)
         const SeedUserId = this.$store.state.UserStore.user.user_id
@@ -244,7 +244,7 @@ import { setInteractionMode } from 'vee-validate'
             cngId: this.seedId
           }
           axios.post(
-              `http://127.0.0.1:8080/notificationRequestChallenge/${notification.userId}/${notification.cngUserId}/${notification.cngId}/reqChallenge`,
+              `http://i4a303.p.ssafy.io/api/notificationRequestChallenge/${notification.userId}/${notification.cngUserId}/${notification.cngId}/reqChallenge`,
               notification)
             .then((res) => {
               console.log(res)
@@ -259,7 +259,7 @@ import { setInteractionMode } from 'vee-validate'
             user_id: this.$store.state.UserStore.user.user_id
           }
           console.log(joinData)
-          axios.post(`http://127.0.0.1:8080/joinChallengeInsert`, joinData)
+          axios.post(`http://i4a303.p.ssafy.io/api/joinChallengeInsert`, joinData)
             .then((res) => {
               console.log(res)
             })
@@ -271,9 +271,7 @@ import { setInteractionMode } from 'vee-validate'
       },
       async allJoinUser() {
         const seedId = this.seedId
-
-        // if (isJoin isAccepted)
-        await axios.get(`http://127.0.0.1:8080/joinChallengeUserList/${seedId}`)
+        await axios.get(`http://i4a303.p.ssafy.io/api/joinChallengeUserList/${seedId}`)
           .then((res) => {
             const allUser = res.data
 
@@ -324,10 +322,10 @@ import { setInteractionMode } from 'vee-validate'
       this.getSeedCertification();
       this.allJoinUser();
       this.checkAcception();
-      // setInterval(() => {
-      //   this.checkAcception();
-      //   this.allJoinUser();
-      // }, 5000)
+      setInterval(() => {
+        this.checkAcception();
+        // this.allJoinUser();
+      }, 5000)
       
     },
     mounted() {

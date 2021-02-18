@@ -19,7 +19,6 @@
                   인증 코드 보내기
                 </v-btn>
                 <div class="code" v-if="show">
-                  <!-- <v-divider></v-divider> -->
                   <v-text-field label="인증 코드" outlined dark dense></v-text-field>
                   <v-btn class="input-code-btn" @click="checkCode" rounded color="white">
                     입력
@@ -30,7 +29,6 @@
             <router-link :to="'/login/findPassword'">
               <BackBtn />
             </router-link>
-
           </div>
         </v-col>
       </v-row>
@@ -98,7 +96,6 @@
       getPhoneMask(val) {
         let res = this.getMask(val)
         this.phone = res
-        //서버 전송 값에는 '-' 를 제외하고 숫자만 저장
         this.model.phone = this.phone.replace(/[^0-9]/g, '')
       },
 
@@ -159,8 +156,6 @@
   }
 
   .section-container {
-    //   padding: 20px;
-    //   margin: 20px;
     background: #fff;
     width: 100%;
     box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
@@ -173,7 +168,6 @@
       box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
 
       .left {
-        //   padding: 30px;
         justify-content: center;
         align-items: center;
         box-sizing: border-box;
@@ -183,7 +177,6 @@
       }
 
       .right {
-        //   padding: 30px;
         display: flex;
         flex-direction: column;
         align-items: center;

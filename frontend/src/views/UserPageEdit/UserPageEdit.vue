@@ -2,7 +2,14 @@
   <v-container class="container-size">
 
     <v-row class="d-flex justify-center img-margin">
-      <ImgEdit :profileImg="profileImg" @transferUpdateProfileImg="receiveUpdateProfileImg"></ImgEdit>
+      <!-- <ImgEdit :profileImg="profileImg" @transferUpdateProfileImg="receiveUpdateProfileImg"></ImgEdit> -->
+      <v-avatar class="cursor_img profile-img-margin" width="250" height="250" color="#AED864" @click="onClickImageUpload">
+        <span v-if="!profileImg" class="white--text">
+          {{ this.text }}
+        </span>
+        <v-img v-if="profileImg" :src="profileImg"></v-img>
+        <input ref="imageInput" type="file" hidden @change="onChangeImages">
+      </v-avatar>
     </v-row>
 
     <validation-observer ref="observer" v-slot="{ invalid }">
@@ -47,10 +54,11 @@
 
 
         <v-row class="d-flex justify-end">
-          
+          <router-link :to="{ name: 'UserPage', params: { userNickname: userNickname }}">
             <v-btn class="mr-4 white--text" type="submit" :disabled="invalid" @click="updataUserInfo" color="#AED864">
               적용
             </v-btn>
+          </router-link>
 
           <v-btn @click="clear" text>
             지우기
@@ -84,7 +92,7 @@
     setInteractionMode
   } from "vee-validate";
   import CategoryEdit from "./components/CategoryEdit.vue";
-  import ImgEdit from "./components/ImgEdit.vue";
+  // import ImgEdit from "./components/ImgEdit.vue";
   import UserDelete from "./components/UserDelete.vue";
   import axios from "axios";
 
@@ -138,7 +146,7 @@
       ValidationProvider,
       ValidationObserver,
       CategoryEdit,
-      ImgEdit,
+      // ImgEdit,
       UserDelete
     },
     props: {
@@ -161,16 +169,18 @@
 
         profileImg: null,
         file: null,
+        changedImg: false,
+        photoKey:"",
       };
     },
     methods: {
       originUserInfo: function () {
         const userNickname = this.$store.state.UserStore.user.nickname
-        axios.get(`http://localhost:8080/userPage/${userNickname}`)
+        axios.get(`http://i4a303.p.ssafy.io/api/userPage/${userNickname}`)
           .then((res) => {
             this.UserInfo = res.data
             this.profileImg = this.UserInfo.img
-            console.log("이미지: "+this.profileImg);
+            console.log("이미지: " + this.profileImg);
             console.log("기존 데이터", res.data)
           })
           .catch((err) => {
@@ -178,44 +188,6 @@
           })
       },
       updataUserInfo: function () {
-
-        // AWS Setting Start
-        
-        AWS.config.update({
-
-          region: this.bucketRegion,
-          credentials: new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: this.IdentityPoolId
-          })
-        });
-
-        const s3 = new AWS.S3({
-
-          apiVersion: "2006-03-01",
-          params: {
-            Bucket: this.albumBucketName
-          }
-        });
-
-        // AWS Setting End
-
-        s3.upload({
-            Key: this.profileImg,
-            Body: this.file,
-            ACL: 'public-read'
-          }, (err, data) => {
-            if (err) {
-              console.log(err)
-              return alert('There was an error uploading your photo: ', err.message);
-            }
-            console.log(data);
-          }
-
-        );
-
-        
-        this.profileImg = this.photoURL + this.profileImg
-        
 
         const userId = this.$store.state.UserStore.user.user_id
         const ChangedUserInfo = {
@@ -225,37 +197,120 @@
           password: this.newPassword,
           phone: this.UserInfo.phone,
           id: userId,
-          img: this.profileImg,
-          // introduce: this.UserInfo.introduce,
+          img: this.UserInfo.img,
         }
-        // const nickname = this.$store.state.UserStore.user.nickname 
-        axios.post("http://localhost:8080/userPage/changeUser", ChangedUserInfo)
-          .then(res => {
-            console.log(res);
-          })
-          .catch(err => {
-            console.log(err);
+
+        if (this.changedImg === false) {
+          axios.post("http://i4a303.p.ssafy.io/api/userPage/changeUser", ChangedUserInfo)
+            .then(res => {
+              console.log(res);
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        } else {
+
+          this.photoKey = this.profileImg
+          ChangedUserInfo.img = this.photoURL + this.profileImg;
+          console.log("바뀔 이미지: "+ChangedUserInfo.img);
+
+
+          AWS.config.update({
+
+            region: this.bucketRegion,
+            credentials: new AWS.CognitoIdentityCredentials({
+              IdentityPoolId: this.IdentityPoolId
+            })
           });
 
-        this.$router.push({ name: 'UserPage', params: { userNickname: userNickname }} )
+          const s3 = new AWS.S3({
+
+            apiVersion: "2006-03-01",
+            params: {
+              Bucket: this.albumBucketName
+            }
+          });
+
+          s3.upload({
+              Key: this.photoKey,
+              Body: this.file,
+              ACL: 'public-read'
+            }, (err, data) => {
+              if (err) {
+                console.log(err)
+                return alert('There was an error uploading your photo: ', err.message);
+              }
+              console.log(data);
+            }
+
+          );
+          axios.post("http://i4a303.p.ssafy.io/api/userPage/changeUser", ChangedUserInfo)
+            .then(res => {
+              console.log(res);
+            })
+            .catch(err => {
+              console.log(err);
+            });
+
+        }
+
       },
       submit() {
         this.$refs.observer.validate();
       },
       clear() {
         this.UserInfo.introduce = "",
-        this.UserInfo.phone = "",
-        this.checkbox = null;
+          this.UserInfo.phone = "",
+          this.checkbox = null;
         this.$refs.observer.reset();
       },
 
-      // 컴포넌트 - 데이터 전달
-      receiveUpdateProfileImg: function (file, profileImg) {
+      receiveUpdateProfileImg: function (file, profileImg, changedImg) {
         this.file = file
         this.profileImg = profileImg
+        this.changedImg = changedImg
         console.log("넘어온 file정보: " + this.file)
         console.log("넘어온 profileImg이름 : " + this.profileImg)
       },
+      // img edit 컴포넌트
+      onClickImageUpload() {
+        this.$refs.imageInput.click();
+      },
+      onChangeImages(e) {
+        console.log(e.target.files)
+        this.file = e.target.files[0]; 
+        if(e.target.files.length === 1){
+          this.changedImg = true ; 
+        }else{
+          this.changedImg = false; 
+        }
+        this.imageUrl = URL.createObjectURL(this.file);
+        this.fileNameSetting();
+        this.transferUpdateProfileImg();
+        this.text = ""
+      },
+      async fileNameSetting() {
+
+        const user_id = this.$store.state.UserStore.user.user_id;
+
+        var now = new Date();
+
+        var year = now.getFullYear(); 
+        var month = now.getMonth() + 1;
+        var date = now.getDate(); 
+        var hours = now.getHours(); 
+        var minutes = now.getMinutes(); 
+        var seconds = now.getSeconds(); 
+        var milliseconds = now.getMilliseconds(); 
+
+        var realtime = year + "" + month + "" + date + "_" + hours + minutes + seconds + milliseconds;
+        console.log(realtime);
+
+        this.fileName = user_id + "_" + realtime + "_" + this.file.name
+
+      },
+      // img edit 컴포넌트
+
     },
     created() {
       this.originUserInfo()
@@ -275,5 +330,13 @@
 
   .img-margin {
     margin-top: 2%;
+  }
+
+  .cursor_img {
+    cursor: pointer;
+  }
+
+  .profile-img-margin {
+    margin-bottom: 10%;
   }
 </style>

@@ -3,7 +3,7 @@ import router from "@/router";
 
 // 나중에 env 파일로 바꾸기
 // const SERVER_URL = "http://i4a303.p.ssafy.io/";
-const SERVER_URL = "http://localhost:8080";
+const SERVER_URL = "http://i4a303.p.ssafy.io/api";
 
 const CertStore = {
   namespaced: true,

@@ -33,12 +33,7 @@
 
             <v-menu v-if="checkUser" offset-y open-on-click bottom left>
                 <template v-slot:activator="{ on, attrs }">
-                    <!-- <v-btn icon  class="btn">
-                <v-icon>mdi-lead-pencil</v-icon>
-              </v-btn> -->
-                    <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
-                    <!-- <v-btn icon class="btn" v-bind="attrs" v-on="on" @click="goFeed"> -->
-                    <v-btn icon color="black" v-bind="attrs" v-on="on">
+                   <v-btn icon color="black" v-bind="attrs" v-on="on">
                         <v-icon>fas fa-ellipsis-v</v-icon>
                     </v-btn>
                 </template>
@@ -54,7 +49,6 @@
                         <v-list-item-title>
                             <v-dialog v-model="dialog" persistent max-width="290">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <!-- <v-btn class="ma-2" outlined fab color="red" v-bind="attrs" v-on="on"> -->
                                     <v-btn class="ma-2" icon color="#EF5350" v-bind="attrs" v-on="on">
                                         <v-btn plain text>삭제</v-btn>
                                     </v-btn>
@@ -84,15 +78,6 @@
 
         <div class="detail">
 
-            <!-- <v-row class="nickname-date-row">
-                <v-col class="user-id">
-                    닉네임: {{ CertInfo.nickname }}
-                </v-col>
-                <v-col class="date">
-                    인증날짜: {{ CertInfo.create_date }}
-                </v-col>
-            </v-row> -->
-
             <v-row class="img">
                 <!-- s3 주소 주석 풀기
                 <v-img :src="photoUrl + CertInfo.img"></v-img> -->
@@ -110,8 +95,7 @@
                 <v-col class="d-flex justify-end">
                     <v-btn icon x-large @click="getScrap">
                         <v-icon :color="scrapped ? 'red' : '' ">mdi-heart</v-icon>
-                        <!-- <span>{{ this.likeCount }}</span> -->
-                    </v-btn>
+                        </v-btn>
                 </v-col>
             </v-row>
 
@@ -239,11 +223,6 @@
             const certId = this.$route.params.certId;
             const cngId = this.$route.params.cngId;
             const cngUserId = this.$route.params.cngUserId;
-            // const cngName = this.$route.params.cngName;
-            // console.log(cngName);
-            // console.log("detail's cngid: " + cngId);
-            // console.log("detail's certid: " + certId);
-            // console.log("cngUserId " + cngUserId);
             if (certId === undefined || cngId === undefined || cngUserId === undefined) {
                 this.$router.go(-1);
             }
@@ -254,7 +233,7 @@
                 const userId = this.$store.state.UserStore.user.user_id;
                 console.log("userid: " + userId);
                 const certId = this.$route.params.certId;
-                await axios.get(`http://localhost:8080/detailCertification/${certId}`)
+                await axios.get(`http://i4a303.p.ssafy.io/api/detailCertification/${certId}`)
                     .then((response) => {
                         this.CertInfo = response.data;
                         const certUserId = this.CertInfo.user_id;
@@ -281,7 +260,7 @@
             detailComment: function () {
                 const certId = this.$route.params.certId;
                 console.log(certId);
-                axios.get(`http://localhost:8080/commentList/${certId}`)
+                axios.get(`http://i4a303.p.ssafy.io/api/commentList/${certId}`)
                     .then((response) => {
                         console.log(response.data);
                         this.comments = response.data;
@@ -300,7 +279,7 @@
             // 댓글단 유저 정보
             async getUserInfo(commentUserId) {
                 // console.log("getUserInfo를 들어왔ㅇㅓ : " + commentUserId);
-                await axios.get(`http://localhost:8080/userPage/Id/${commentUserId}`)
+                await axios.get(`http://i4a303.p.ssafy.io/api/userPage/Id/${commentUserId}`)
                     .then((response) => {
                         // console.log(response.data);
                         this.UserInfo = response.data;
@@ -332,7 +311,7 @@
             },
             deleteCert() {
                 const certId = this.$route.params.certId;
-                axios.delete(`http://localhost:8080/deleteCertification/${certId}`)
+                axios.delete(`http://i4a303.p.ssafy.io/api/deleteCertification/${certId}`)
                     .then((response) => {
                         console.log(response.data)
                         this.$router.push({
@@ -354,7 +333,7 @@
                 const userId = this.$store.state.UserStore.user.user_id
                 // 스크랩이 되어있지 않을 때 스크랩
                 if (this.scrapped) {
-                    axios.put(`http://127.0.0.1:8080/likeUpCertification/${userId}/${certId}`)
+                    axios.put(`http://i4a303.p.ssafy.io/api/likeUpCertification/${userId}/${certId}`)
                         .then((res) => {
                             this.likeCount += 1
                             console.log(res)
@@ -364,7 +343,7 @@
                         })
                 } else {
                     // 스크랩 되어 있을 때 스크랩 취소
-                    axios.put(`http://127.0.0.1:8080/likeDownCertification/${userId}/${certId}`)
+                    axios.put(`http://i4a303.p.ssafy.io/api/likeDownCertification/${userId}/${certId}`)
                         .then((res) => {
                             this.likeCount -= 1
                             console.log(res)
@@ -377,7 +356,7 @@
             CheckisLikeSeed: function () {
                 const certId = this.$route.params.certId;
                 const userId = this.$store.state.UserStore.user.user_id
-                axios.get(`http://127.0.0.1:8080/LikeAndCertification/${certId}`)
+                axios.get(`http://i4a303.p.ssafy.io/api/LikeAndCertification/${certId}`)
                     .then((res) => {
                         const UserList = res.data
                         this.likeCount = UserList.length
@@ -392,7 +371,7 @@
             },
             getCategory: function () {
                 const seedId = this.$route.params.cngId
-                axios.get(`http://127.0.0.1:8080/detailChallenge/${seedId}`)
+                axios.get(`http://i4a303.p.ssafy.io/api/detailChallenge/${seedId}`)
                     .then((res) => {
                         if (res.data.category_id === '1') {
                             this.category = "건강"
@@ -434,7 +413,7 @@
                     current_day: this.CertInfo.current_day,
                 }
 
-                axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
+                axios.put("http://i4a303.p.ssafy.io/api/updateCertification", UpdateCertInfo)
                     .then(res => {
                         console.log(res);
                         this.$router.go(this.$router.currentRoute);
@@ -460,7 +439,7 @@
                     current_day: this.CertInfo.current_day,
                 }
 
-                axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
+                axios.put("http://i4a303.p.ssafy.io/api/updateCertification", UpdateCertInfo)
                     .then(res => {
                         console.log(res);
                     })
@@ -472,7 +451,7 @@
             },
             getCertUserImg() {
                 const certUser = this.CertInfo.user_id;
-                axios.get(`http://localhost:8080/userPage/Id/${certUser}`)
+                axios.get(`http://i4a303.p.ssafy.io/api/userPage/Id/${certUser}`)
                     .then((res) => {
                         console.log('내 프로필 잘 나와야하는데')
                         console.log(res)

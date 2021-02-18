@@ -10,7 +10,6 @@
         <span v-if="getCheckLogin">
           <v-menu offset-y open-on-hover bottom left>
             <template v-slot:activator="{ on, attrs }">
-              <!-- <v-btn v-if="getCheckLogin" icon v-bind="attrs" v-on="on" class="btn nav-cursur"> -->
               <v-btn icon v-bind="attrs" v-on="on" class="btn nav-cursur">
                 <v-icon>mdi-lead-pencil</v-icon>
               </v-btn>
@@ -63,7 +62,6 @@
         <span v-if="getCheckLogin">
           <v-dialog class="scrap-dialog" scrollable width="25%">
             <template v-slot:activator="{ on, attrs }">
-              <!-- <v-btn v-if="getCheckLogin" @click="getSeeds" icon v-bind="attrs" v-on="on" class="btn"> -->
               <v-btn @click="getSeeds" icon v-bind="attrs" v-on="on" class="btn">
                 <v-icon>mdi-cart</v-icon>
               </v-btn>
@@ -97,9 +95,8 @@
         </span>
 
         <span v-if="getCheckLogin">
-          <!-- <v-btn v-if="getCheckLogin" icon class="btn" @click="notice = true"> -->
           <v-btn icon class="btn" @click="notice = true">
-             <v-icon :color="bell ? 'red' : '' ">mdi-bell-ring</v-icon>
+            <v-icon :color="bell ? 'red' : '' ">mdi-bell-ring</v-icon>
           </v-btn>
           <v-dialog v-model="notice" width="25%">
             <div class="notification">
@@ -296,13 +293,14 @@
           return newVal
         }
       },
+     
     },
     methods: {
       getSeeds: function () {
         const userId_num = this.user.user_id
         const userId = {};
         userId["userid"] = userId_num
-        axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId_num}`, userId)
+        axios.get(`http://i4a303.p.ssafy.io/api/userPage/LikeAndfavChallenge/${userId_num}`, userId)
           .then((res) => {
             const seeds = res.data
             seeds.sort(function (a, b) {
@@ -334,7 +332,7 @@
       goDeleteScrap: function (val) {
         const userId_num = this.user.user_id;
         const cgId_num = val;
-        axios.get(`http://127.0.0.1:8080/userPage/DeletefavChallenge/${userId_num}/${cgId_num}`)
+        axios.get(`http://i4a303.p.ssafy.io/api/userPage/DeletefavChallenge/${userId_num}/${cgId_num}`)
           .then(() => {
             this.getSeeds()
           })
@@ -344,7 +342,7 @@
       },
       NotificationConfirm: function (id) {
         const notificationId = id;
-        axios.put(`http://127.0.0.1:8080/notificationConfirm/${notificationId}`)
+        axios.put(`http://i4a303.p.ssafy.io/api/notificationConfirm/${notificationId}`)
           .then((response) => {
             this.tabs = response.data;
           })
@@ -354,7 +352,7 @@
       },
       NotificationCallCheck: function (id) {
         const notificationId = id;
-        axios.put(`http://127.0.0.1:8080/notificationCallCheck/${notificationId}`)
+        axios.put(`http://i4a303.p.ssafy.io/api/notificationCallCheck/${notificationId}`)
           .then((response) => {
             this.tabs = response.data;
           })
@@ -364,19 +362,20 @@
       },
       NotificationList() {
         const userId = this.user.user_id;
-
-        axios.get(`http://127.0.0.1:8080/notificationList/${userId}`)
+        if(userId !==""){
+        axios.get(`http://i4a303.p.ssafy.io/api/notificationList/${userId}`)
           .then((response) => {
             this.tabs = response.data;
           })
           .catch((error) => {
             console.log(error);
           });
+        }
       },
 
       notificationDelete: function (id) {
         const notificationId = id;
-        axios.delete(`http://127.0.0.1:8080/notificationDelete/${notificationId}`)
+        axios.delete(`http://i4a303.p.ssafy.io/api/notificationDelete/${notificationId}`)
           .then((response) => {
             this.tabs = response.data;
           })
@@ -387,7 +386,7 @@
       challengeOKay: function (user_id, cng_id) {
         const userId = user_id;
         const cngId = cng_id;
-        axios.put(`http://127.0.0.1:8080/joinResultUpdate/${userId}/${cngId}/0`)
+        axios.put(`http://i4a303.p.ssafy.io/api/joinResultUpdate/${userId}/${cngId}/0`)
           .then((response) => {
             console.log(response);
           })
@@ -398,7 +397,7 @@
       challengeReject: function (user_id, cng_id) {
         const userId = user_id;
         const cngId = cng_id;
-        axios.delete(`http://127.0.0.1:8080/joinChallengeDelete/${userId}/${cngId}`)
+        axios.delete(`http://i4a303.p.ssafy.io/api/joinChallengeDelete/${userId}/${cngId}`)
           .then((response) => {
             console.log(response);
           })
@@ -442,12 +441,14 @@
       }
 
     },
+   
     created() {
-
+  
       setInterval(() => this.NotificationList(), 2000);
       setInterval(() => this.NotificationToast(), 3000);
-
+      
     },
+    
 
   };
 </script>

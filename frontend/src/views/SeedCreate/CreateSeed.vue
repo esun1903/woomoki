@@ -6,13 +6,11 @@
         <v-stepper-step color="#AED864" complete-icon="fas fa-check-circle" :complete="e1 > 1" step="1">
           씨앗 종류
         </v-stepper-step>
-
         <v-divider></v-divider>
 
         <v-stepper-step color="#AED864" complete-icon="fas fa-check-circle" :complete="e1 > 2" step="2">
           씨앗 내용
         </v-stepper-step>
-
         <v-divider></v-divider>
 
         <v-stepper-step color="#AED864" complete-icon="fas fa-check-circle" step="3">
@@ -21,7 +19,6 @@
       </v-stepper-header>
 
       <v-stepper-items>
-
         <v-stepper-content step="1">
           <SeedCategory class="pt-3" @transferLifestyle="receiveLifestyle" @transferHealth="receiveHealth"
             @transferBook="receiveBook" @transferAssets="receiveAssets" @transferGrown="receiveGrown"
@@ -40,30 +37,25 @@
               </v-btn>
             </router-link>
           </div>
-
         </v-stepper-content>
 
         <v-stepper-content step="2">
           <SeedThumbnail @transferThumbnail="receiveThumbnail" class="mb-5"></SeedThumbnail>
           <SeedTitle @transferTitle="receiveTitle"></SeedTitle>
           <SeedContent @transferContent="receiveContent"></SeedContent>
-
           <div class="d-flex justify-end mb-1">
             <v-btn color="#AED864" @click="[e1 = 3, uploadThumbnail()]" class="seed-btn"
               :disabled="BasicInfo.isSubmitBasicInfo === false">
               다음
             </v-btn>
-
             <router-link to="/">
               <v-btn text class="ml-2 mr-2">
                 취소
               </v-btn>
             </router-link>
-
             <v-btn text @click="e1 = 1">
               뒤로가기
             </v-btn>
-
           </div>
         </v-stepper-content>
 
@@ -175,9 +167,6 @@
         },
         isSubmitTotalSeedData: false,
 
-        // s3 업로드 관련
-
-        // albumBucketName, bucketRegion, IdentityPoolId = AWS S3 bucket value -> .env save 
         albumBucketName: "cert-photo-upload",
         bucketRegion: "ap-northeast-2",
         IdentityPoolId: "ap-northeast-2:8cf7cb29-d051-4f38-885f-09b1e4dd8153",
@@ -190,17 +179,8 @@
       }
     },
     methods: {
-      // 씨앗 생성
-      InsertSeed: function () {
-        
-        // week calc
-        // const start_year = this.dates[0].slice(0, 4)
-        // const startDate = new Date(Number(start_year), Number(this.dates[0].slice(5, 7))-1, Number(this.dates[0].slice(8, 10)));
-        // const end_year = this.dates[1].slice(0, 4)
-        // const endDate = new Date(Number(end_year), Number(this.dates[1].slice(5, 7))-1, Number(this.dates[1].slice(8, 10)));
-        // const week = Math.floor((endDate - startDate) / (1000*60*60*24*7))
 
-        // end_date 계산
+      InsertSeed: function () {
         function getDateStr(myDate) {
           if ((myDate.getMonth() + 1) < 10 && myDate.getDate() >= 10) {
             return (myDate.getFullYear() + '-0' + (myDate.getMonth() + 1) + '-' + myDate.getDate())
@@ -279,12 +259,8 @@
          
 
 
-        axios.post("http://127.0.0.1:8080/insertChallenge", SeedData)
+        axios.post("http://i4a303.p.ssafy.io/api/insertChallenge", SeedData)
           .then((res) => {
-            // console.log(res)
-            // console.log(this.end_date)
-            // console.log(this.dates)
-            // console.log(this.date[0], this.date[1])
             this.$router.push({
               name: "Main"
             })
@@ -335,8 +311,6 @@
         );
 
       },
-      // 컴포넌트에서 데이터 받아오기
-      // receiveHealth: function (isSubmitCategory, health) {
       receiveHealth: function (isSubmitCategory) {
         this.isSubmitCategory = isSubmitCategory
         this.category = 1
@@ -429,11 +403,6 @@
       },
       checkFormEtc: function () {
         // 예시 이미지 검사
-        // if (this.certificationImg.length > 0) {
-        //   this.EtcInfo.isSubmit.isCertificationImg = true
-        // } else {
-        //   this.EtcInfo.isSubmit.isCertificationImg = false
-        // }
 
         // 날짜 검사
         if (this.dates.length > 1) {
@@ -454,7 +423,6 @@
         // 몇 주
         if (this.week > 0) {
           this.EtcInfo.isSubmit.isWeek = true
-          // console.log("몇 주:", this.EtcInfo.isSubmit.isWeek)
         } else {
           this.EtcInfo.isSubmit.isWeek = false
           console.log("몇 주:", this.EtcInfo.isSubmit.isWeek)

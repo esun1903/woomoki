@@ -8,7 +8,6 @@
         >
         fas fa-user-plus</v-icon>
       <div class="challenge-state">참가</div>
-      <!-- <div class="challenge-count">5</div> -->
     </v-col>
     <v-col @click="SeedSuccess">
       <v-icon 
@@ -18,7 +17,6 @@
         >
         fas fa-seedling</v-icon>
       <div class="challenge-state">성공</div>
-      <!-- <div class="challenge-count">5</div> -->
     </v-col>
     <v-col @click="SeedFail">
       <v-icon 
@@ -28,7 +26,6 @@
         >
         fas fa-dizzy</v-icon>
       <div class="challenge-state">실패</div>
-      <!-- <div class="challenge-count">5</div> -->
     </v-col>
     <v-col @click="SeedCreated">
       <v-icon 
@@ -38,7 +35,6 @@
         >
         fas fa-pencil-alt</v-icon>
       <div class="challenge-state">개설</div>
-      <!-- <div class="challenge-count">5</div> -->
     </v-col>
   </v-row>
 </template>
@@ -48,7 +44,6 @@ export default {
   name: "ChallengeResults",
   data: function () {
     return {
-
     }
   },
   methods: {

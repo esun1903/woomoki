@@ -70,7 +70,7 @@ export default {
     }
   },
   created () {
-    axios.get("http://localhost:8080/challenge")
+    axios.get("http://i4a303.p.ssafy.io/api/challenge")
       .then((res) => {
         this.seeds = res.data
       })

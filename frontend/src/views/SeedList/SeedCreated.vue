@@ -65,14 +65,13 @@ export default {
     const id = {};
     id["id"] = this.user.user_id
     console.log(id.id)
-    axios.get(`http://localhost:8080/challengeUserSelect/${id.id}`)
+    axios.get(`http://i4a303.p.ssafy.io/api/challengeUserSelect/${id.id}`)
       .then((res) => {
         const seeds = res.data
         console.log(seeds)
         seeds.sort(function(a,b) {
           return a.id > b.id ? -1 : a.id < b.id ? 1 : 0;
         })
-        // seeds.splice(8)
         this.seeds = seeds
       })
       .catch((err) => {

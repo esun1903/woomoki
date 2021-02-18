@@ -17,20 +17,23 @@
         text: "프로필 변경",
         file: null,
         fileName: null,
+        changedImg:"",
+        tmpImg: "",
       }
     },
     created() {
       this.getImage();
-      console.log("렌더링 된 이미지",this.imageUrl)
     },
     props: {
       profileImg: String,
     },
+    watch: {
+    },
     methods: {
       getImage() {
-
-        this.imageUrl = this.profileImg;
-        console.log("받은 이미지: " + this.profileImg);
+        this.tmpImg = this.profileImg
+        this.imageUrl = this.tmpImg;
+        console.log("받은 이미지: " + this.tmpImg);
         console.log("보여줄 이미지: " + this.imageUrl);
       },
       onClickImageUpload() {
@@ -38,14 +41,19 @@
       },
       onChangeImages(e) {
         console.log(e.target.files)
-        this.file = e.target.files[0]; // Get first index in files
-        this.imageUrl = URL.createObjectURL(this.file); // Create File URL
+        this.file = e.target.files[0]; 
+        if(e.target.files.length === 1){
+          this.changedImg = true ; 
+        }else{
+          this.changedImg = false; 
+        }
+        this.imageUrl = URL.createObjectURL(this.file);
         this.fileNameSetting();
         this.transferUpdateProfileImg();
         this.text = ""
       },
       transferUpdateProfileImg: function () {
-        this.$emit('transferUpdateProfileImg', this.file, this.fileName)
+        this.$emit('transferUpdateProfileImg', this.file, this.fileName,  this.changedImg)
       },
       async fileNameSetting() {
 
@@ -53,15 +61,14 @@
 
         var now = new Date();
 
-        var year = now.getFullYear(); // 연도
-        var month = now.getMonth() + 1; // 월
-        var date = now.getDate(); // 일
-        var hours = now.getHours(); // 시간
-        var minutes = now.getMinutes(); // 분
-        var seconds = now.getSeconds(); // 초
-        var milliseconds = now.getMilliseconds(); // 밀리초
+        var year = now.getFullYear(); 
+        var month = now.getMonth() + 1;
+        var date = now.getDate(); 
+        var hours = now.getHours(); 
+        var minutes = now.getMinutes(); 
+        var seconds = now.getSeconds(); 
+        var milliseconds = now.getMilliseconds(); 
 
-        // console.log("현재 : ", now);
         var realtime = year + "" + month + "" + date + "_" + hours + minutes + seconds + milliseconds;
         console.log(realtime);
 

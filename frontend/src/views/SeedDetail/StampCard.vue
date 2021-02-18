@@ -84,7 +84,7 @@ export default {
     getSeedInfo: function () {
       const seedId = {}
       seedId["cgId"] = this.seedId
-      axios.get(`http://127.0.0.1:8080/detailChallenge/${this.seedId}`, seedId)
+      axios.get(`http://i4a303.p.ssafy.io/api/detailChallenge/${this.seedId}`, seedId)
         .then((res) => {
           this.seedTitle = res.data.title
           this.cngOwner = res.data.user_id
@@ -97,7 +97,7 @@ export default {
     drawCircles: function () {
       const seedId = {};
       seedId["cngId"] = this.seedId
-      axios.get(`http://127.0.0.1:8080/certification/${this.seedId}`, seedId)
+      axios.get(`http://i4a303.p.ssafy.io/api/certification/${this.seedId}`, seedId)
         .then((res) => {
           this.day = res.data.day
           this.week = res.data.week
@@ -112,7 +112,7 @@ export default {
       const Info = {}
       Info["userid"] = this.userId
       Info["cngId"] = this.seedId
-      axios.get(`http://127.0.0.1:8080/confirmstatus/${this.userId}/${this.seedId}`, Info)
+      axios.get(`http://i4a303.p.ssafy.io/api/confirmstatus/${this.userId}/${this.seedId}`, Info)
         .then((res) => {
           console.log(res)
           console.log('무엇을 채색할까요')

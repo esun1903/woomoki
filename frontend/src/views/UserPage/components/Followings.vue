@@ -39,39 +39,30 @@ export default {
     isMyPage: Boolean
   },
   methods: {
-    // 클릭했을 때 토글되면서 팔로우, 언팔로우
     async UserUnfollow () {
-
-      // 유저 닉네임에 해당하는 userid값 가져오기
       const UserNickname = this.following.nickname
-      await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
+      await axios.get(`http://i4a303.p.ssafy.io/api/userPage/${UserNickname}`)
         .then((res) => {
           this.followingid = res.data.id
         })
-        
-      // 오브젝트 생성
       const followInfo = {
         userId : this.$store.state.UserStore.user.user_id,
         followingid : this.followingid
       }
-
-      // isFollow가 false(언팔로우 상태면) 팔로우 한다.
       if (!this.isFollow) {
-        await axios.post(`http://127.0.0.1:8080/followingList/Insert/${followInfo.userId}/${followInfo.followingid}`, followInfo)
+        await axios.post(`http://i4a303.p.ssafy.io/api/followingList/Insert/${followInfo.userId}/${followInfo.followingid}`, followInfo)
         .then(() => {
           this.isFollow = true
         })
       }
-      // isFollow가 true(팔로우 상태면) 언팔로우 한다.
       else {
-        await axios.delete(`http://127.0.0.1:8080/followingList/delete/${followInfo.userId}/${followInfo.followingid}`, followInfo)
+        await axios.delete(`http://i4a303.p.ssafy.io/api/followingList/delete/${followInfo.userId}/${followInfo.followingid}`, followInfo)
         .then(() => {
           this.isFollow = false
         })
       }
     },
     initialState: function () {
-      // 현재 팔로우 상태 체크
       
       const tmp = []
       var i;
@@ -92,12 +83,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 a {text-decoration: none;}
 
 .username {
   color: black
 }
-
-
 </style>

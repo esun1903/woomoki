@@ -6,7 +6,6 @@
     </v-main>
     <div class="loader">
       <UpPage></UpPage>
-      <Chat></Chat>
     </div>
     <Footer></Footer>
   </v-app>
@@ -16,7 +15,6 @@
 <script>
 import Navbar from "@/components/Navbar/Navbar.vue"
 import Footer from "@/components/Footer/Footer.vue"
-import Chat from "@/views/Chat/Chat.vue";
 import UpPage from "@/views/Chat/UpPage.vue";
 
 export default {
@@ -24,7 +22,6 @@ export default {
   components: {
     Navbar,
     Footer,
-    Chat,
     UpPage,
   },
 

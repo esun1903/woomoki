@@ -41,18 +41,19 @@
         overlay: false,
         fileName: null,
         file: null,
+        changedImg:"",
       }
     },
     props:{
         currentSelectedImg: String,
     },
     created(){
-        this.settingImg();
+      this.settingImg();
         console.log("selected: "+this.currentSelectedImg);
         console.log("imgurl: "+ this.imageUrl)
     },
     methods: {
-        async settingImg(){
+        settingImg(){
         this.imageUrl = this.currentSelectedImg;
         },
       onClickImageUpload() {
@@ -60,6 +61,13 @@
       },
       onChangeImages(e) {
         console.log(e.target.files)
+        console.log("length "+e.target.files.length)
+        if(e.target.files.length === 1){
+          this.changedImg = true ; // 파일을 다시 선택했을 때 
+        }else{
+          this.changedImg = false; // 그 외
+        }
+        console.log("값: "+ this.changedImg);
         this.file = e.target.files[0]; // Get first index in files
         this.currentSelectedImg = URL.createObjectURL(this.file); // Create File URL
         this.fileNameSetting();
@@ -72,7 +80,7 @@
       },
       transferCertImg: function () {
         console.log("file값: " + this.file);
-        this.$emit('transferCertImg', this.file, this.fileName)
+        this.$emit('transferCertImg', this.file, this.fileName, this.changedImg)
       },
       async fileNameSetting() {
 

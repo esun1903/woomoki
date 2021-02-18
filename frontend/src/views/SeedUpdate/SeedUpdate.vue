@@ -11,18 +11,18 @@
       <v-hover>
         <template v-slot:default="{ hover }">
           <v-avatar color="gery" rounded width="100%" height="450px">
-          
+
             <!-- <span v-if="!SeedInfo.sum_img" class="white--text">
               {{ this.text2 }}
             </span> -->
-          <v-img :class="`rounded-lg`" width="100%" height="450px" max-width="100%" max-height="100%" v-if="SeedInfo.sum_img"
-            readonly :src="SeedInfo.sum_img"></v-img>
+            <v-img :class="`rounded-lg`" width="100%" height="450px" max-width="100%" max-height="100%"
+              v-if="SeedInfo.sum_img" readonly :src="SeedInfo.sum_img"></v-img>
             <v-fade-transition>
               <v-overlay class="black--text" v-if="hover" absolute color="white">
-                  대표 사진
+                대표 사진
               </v-overlay>
             </v-fade-transition>
-          
+
           </v-avatar>
         </template>
       </v-hover>
@@ -30,113 +30,65 @@
 
     <v-row class="mt-10">
       <!-- <v-hover> -->
-        <!-- <template v-slot:default="{ hover }"> -->
-          <v-avatar class="img-cursor" rounded width="100%" height="450px" color="grey" @click="onClickImageUpload">
-            <span v-if="!SeedInfo.example_img" class="white--text">
-              {{ this.text }}
-            </span>
-            <v-img :class="`rounded-lg`" width="100%" height="450px" max-width="100%" max-height="100%" v-if="SeedInfo.example_img"
-            :src="SeedInfo.example_img">
-            <!-- <v-fade-transition>
+      <!-- <template v-slot:default="{ hover }"> -->
+      <v-avatar class="img-cursor" rounded width="100%" height="450px" color="grey" @click="onClickImageUpload">
+        <span v-if="!SeedInfo.example_img" class="white--text">
+          {{ this.text }}
+        </span>
+        <v-img :class="`rounded-lg`" width="100%" height="450px" max-width="100%" max-height="100%"
+          v-if="SeedInfo.example_img" :src="SeedInfo.example_img">
+          <!-- <v-fade-transition>
               <v-overlay
                 v-if="hover"
                 absolute
                 color="#036358"
               > -->
-                <!-- <v-btn color="#AED864">인증 예시 사진 변경 -->
-                <!-- </v-btn> -->
-              <!-- </v-overlay>
+          <!-- <v-btn color="#AED864">인증 예시 사진 변경 -->
+          <!-- </v-btn> -->
+          <!-- </v-overlay>
             </v-fade-transition> -->
-            </v-img>
-            <input ref="imageInput" type="file" hidden @change="onChangeImages">
-          </v-avatar>
-        <!-- </template> -->
+        </v-img>
+        <input ref="imageInput" type="file" hidden @change="onChangeImages">
+      </v-avatar>
+      <!-- </template> -->
       <!-- </v-hover> -->
     </v-row>
 
     <v-row class="mt-10">
-      <v-text-field
-        color="#AED864"
-        v-model="SeedInfo.title"
-        outlined
-        placeholder="EX) 매일매일 코딩 공부하기"
-        label="씨앗 이름"
-        readonly
-        disabled
-      ></v-text-field>
+      <v-text-field color="#AED864" v-model="SeedInfo.title" outlined placeholder="EX) 매일매일 코딩 공부하기" label="씨앗 이름"
+        readonly disabled></v-text-field>
     </v-row>
 
     <v-row>
-      <v-textarea
-        color="#AED864"
-        clear-icon="fas fa-times"
-        v-model="content"
-        :rules="contentRules"
-        :counter="200"
-        outlined
-        placeholder="EX) 코딩을 꾸준히 하지 않으면 까먹기 쉽지 않나요? 각자 조금씩이라도 코딩을 하고 매일매일 커밋하는 씨앗을 심고 싶어요! 함께하실 가꾸미님 구합니다!!"
+      <v-textarea color="#AED864" clear-icon="fas fa-times" v-model="content" :rules="contentRules" :counter="30000"
+        outlined placeholder="EX) 코딩을 꾸준히 하지 않으면 까먹기 쉽지 않나요? 각자 조금씩이라도 코딩을 하고 매일매일 커밋하는 씨앗을 심고 싶어요! 함께하실 가꾸미님 구합니다!!"
         label="씨앗에 물주는 방법" no-resize></v-textarea>
     </v-row>
 
-    
+
     <v-row>
-      <v-slider
-        v-model="max_people"
-        label="최대 인원"
-        color="grey"
-        track-color="grey"
-        thumb-color="#AED864"
-        :thumb-label="true"
-        min="0"
-        max="50"
-      ></v-slider>
+      <v-slider v-model="max_people" label="최대 인원" color="grey" track-color="grey" thumb-color="#AED864"
+        :thumb-label="true" min="0" max="50"></v-slider>
     </v-row>
 
     <v-row>
-      <v-text-field
-        color="#AED864"
-        v-model="dateRangeText"
-        outlined
-        label="기간"
-        readonly
-        disabled
-      ></v-text-field>
-    </v-row>
-    
-    <v-row>
-      <v-text-field
-        color="#AED864"
-        clear-icon="fas fa-times"
-        v-model="weekDay"
-        outlined
-        label="보살핌 횟수"
-        disabled
-      ></v-text-field>
+      <v-text-field color="#AED864" v-model="dateRangeText" outlined label="기간" readonly disabled></v-text-field>
     </v-row>
 
     <v-row>
-      <v-text-field
-        suffix="원"
-        color="#AED864"
-        v-model="SeedInfo.join_deposit"
-        outlined
-        label="참여 금액(원)"
-        readonly
-        disabled
-      ></v-text-field>
+      <v-text-field color="#AED864" clear-icon="fas fa-times" v-model="weekDay" outlined label="보살핌 횟수" disabled>
+      </v-text-field>
+    </v-row>
+
+    <v-row>
+      <v-text-field suffix="원" color="#AED864" v-model="SeedInfo.join_deposit" outlined label="참여 금액(원)" readonly
+        disabled></v-text-field>
     </v-row>
 
     <v-row class="d-flex justify-end">
-      <router-link :to="{ name: 'SeedDetail', params: { seedId: this.seedId } }">
-        <v-btn
-          color="#AED864"
-          class="white--text"
-          @click="UpdateSeed"
-          :disabled="isAllSubmit === false"
-          >
-          적용
-        </v-btn>
-      </router-link>
+      <v-btn color="#AED864" class="white--text" @click="UpdateSeed" :disabled="isAllSubmit === false">
+        적용
+      </v-btn>
     </v-row>
 
   </v-container>
@@ -157,8 +109,8 @@
         content: "",
         contentRules: [
           v => !!v || '내용은 필수 항목입니다',
-          v => v.length >= 10 || '참여자들을 위해 내용을 자세히 적어주세요',
-          v => v.length <= 200 || '200자를 초과할 수 없습니다',
+          v => v.length >= 50 || '참여자들을 위해 내용을 자세히 적어주세요',
+          v => v.length <= 30000 || '30000자를 초과할 수 없습니다',
         ],
         example_img: "",
         max_people: "",
@@ -173,16 +125,16 @@
           isPeople: false,
         },
         isAllSubmit: false,
+        changedImg: false,
 
         // s3 업로드 관련
 
-        // albumBucketName, bucketRegion, IdentityPoolId = AWS S3 bucket value -> .env save 
         albumBucketName: "cert-photo-upload",
         bucketRegion: "ap-northeast-2",
         IdentityPoolId: "ap-northeast-2:8cf7cb29-d051-4f38-885f-09b1e4dd8153",
 
         photoURL: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
-        photoKey: null,
+        photoKey: "",
         file: null,
 
       }
@@ -193,15 +145,15 @@
       },
       onChangeImages(e) {
         console.log(e.target.files)
-        this.file = e.target.files[0]; // Get first index in files
+        this.file = e.target.files[0];
+        if (e.target.files.length === 1) {
+          this.changedImg = true;
+        } else {
+          this.changedImg = false;
+        }
         this.SeedInfo.example_img = URL.createObjectURL(this.file); // Create File URL
         this.text = ""
         this.fileNameSetting();
-      },
-      onDeleteImage() {
-        this.text = "썸네일 사진 변경"
-        this.imageUrl = ""
-        this.file = ""
       },
       async fileNameSetting() {
 
@@ -226,7 +178,7 @@
       },
       getSeedDetail: function () {
         const seedId = this.seedId
-        axios.get(`http://127.0.0.1:8080/detailChallenge/${seedId}`)
+        axios.get(`http://i4a303.p.ssafy.io/api/detailChallenge/${seedId}`)
           .then((res) => {
             console.log(res.data)
             this.SeedInfo = res.data
@@ -245,41 +197,7 @@
       },
       UpdateSeed: function () {
 
-        // AWS Setting Start
-
-        AWS.config.update({
-
-          region: this.bucketRegion,
-          credentials: new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: this.IdentityPoolId
-          })
-        });
-
-        const s3 = new AWS.S3({
-
-          apiVersion: "2006-03-01",
-          params: {
-            Bucket: this.albumBucketName
-          }
-        });
-
-        // AWS Setting End
-
-        s3.upload({
-            Key: this.example_img,
-            Body: this.file,
-            ACL: 'public-read'
-          }, (err, data) => {
-            if (err) {
-              console.log(err)
-              return alert('There was an error uploading your photo: ', err.message);
-            }
-            console.log(data);
-          }
-
-        );
-
-        this.example_img = this.photoURL + this.example_img
+        console.log("changed img: "+this.changedImg);
 
         const ChangedUserInfo = {
           id: this.seedId,
@@ -292,7 +210,7 @@
           cert_count: this.SeedInfo.cert_count,
           max_people: this.max_people,
           sum_img: this.SeedInfo.sum_img,
-          example_img: this.example_img,
+          example_img: this.SeedInfo.example_img,
           join_deposit: this.SeedInfo.join_deposit,
           like_cnt: this.SeedInfo.like_cnt,
           result: this.SeedInfo.result,
@@ -300,15 +218,70 @@
           week: this.SeedInfo.week
         }
 
+        if (this.changedImg === false) {
+          axios.put('http://i4a303.p.ssafy.io/api/updateChallenge/', ChangedUserInfo)
+            .then((res) => {
+              this.$router.push({
+                name: 'SeedDetail',
+                params: {
+                  seedId: this.seedId
+                }
+              });
+              console.log(res)
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        } else {
+          this.photoKey = this.example_img;
+          ChangedUserInfo.example_img = this.photoURL + this.example_img
 
+          AWS.config.update({
 
-        axios.put('http://127.0.0.1:8080/updateChallenge/', ChangedUserInfo)
-          .then((res) => {
-            console.log(res)
-          })
-          .catch((err) => {
-            console.log(err)
-          })
+            region: this.bucketRegion,
+            credentials: new AWS.CognitoIdentityCredentials({
+              IdentityPoolId: this.IdentityPoolId
+            })
+          });
+
+          const s3 = new AWS.S3({
+
+            apiVersion: "2006-03-01",
+            params: {
+              Bucket: this.albumBucketName
+            }
+          });
+
+          // AWS Setting End
+
+          s3.upload({
+              Key: this.example_img,
+              Body: this.file,
+              ACL: 'public-read'
+            }, (err, data) => {
+              if (err) {
+                console.log(err)
+                return alert('There was an error uploading your photo: ', err.message);
+              }
+              console.log(data);
+            }
+
+          );
+
+          axios.put('http://i4a303.p.ssafy.io/api/updateChallenge/', ChangedUserInfo)
+            .then((res) => {
+              this.$router.push({
+                name: 'SeedDetail',
+                params: {
+                  seedId: this.seedId
+                }
+              });
+              console.log(res)
+            })
+            .catch((err) => {
+              console.log(err)
+            })
+        }
       },
       checkForm: function () {
         if (this.sum_img.length > 1) {

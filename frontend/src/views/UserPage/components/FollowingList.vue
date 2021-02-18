@@ -65,25 +65,20 @@ export default {
     isMyPage: Boolean, 
   },
   methods: {
-    // 내가 팔로우 하는 유저들 팔로잉 리스트 가져오기
     async FollowingList () {
-      // userId 가져오기
       const UserNickname = this.$route.params.userNickname
-      await axios.get(`http://127.0.0.1:8080/userPage/${UserNickname}`)
+      await axios.get(`http://i4a303.p.ssafy.io/api/userPage/${UserNickname}`)
         .then((res) => {
           this.UserInfo = res.data
         })
-      // console.log(this.UserInfo)
       const userId = this.UserInfo.id
-      await axios.get(`http://127.0.0.1:8080/followerList/${userId}`)
+      await axios.get(`http://i4a303.p.ssafy.io/api/followerList/${userId}`)
         .then((res) => {
           this.followers = res.data
-          // console.log("팔로우 리스트", res.data)
         })
-      await axios.get(`http://127.0.0.1:8080/followingList/${userId}`)
+      await axios.get(`http://i4a303.p.ssafy.io/api/followingList/${userId}`)
         .then((res) => {
           this.followings = res.data
-          // console.log("팔로잉 리스트",res.data)
         })
     },
     reload: function () {
@@ -104,10 +99,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-
 .dialog-height {
   height: 300px;
 }
-
 </style>

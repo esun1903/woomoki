@@ -75,7 +75,7 @@ export default {
   },
   methods: {
     arrangeRule: function (val) {
-      axios.get("http://127.0.0.1:8080/allChallenge")
+      axios.get("http://i4a303.p.ssafy.io/api/allChallenge")
         .then((res) => {
           const seeds = res.data
           const searchedSeeds=[]
@@ -149,8 +149,6 @@ export default {
 .checkLogin{
   .nickname{
     color: #AED864;
-    // color: #65a11f;
-    // color: #68a720;
     font-weight: bold;
     font-size: 2rem;
   }

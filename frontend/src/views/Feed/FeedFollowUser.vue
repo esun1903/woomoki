@@ -2,102 +2,54 @@
 
   <v-container class="container-size">
     <span class="feed-title">팔로우 유저 피드</span>
-      <v-row>
-        <v-col
-          v-for="(card, $idx) in Followslides"
-          :key="$idx"
-          class="d-flex child-flex"
-          cols="4"
+    <v-row>
+      <v-col
+        v-for="(card, $idx) in Followslides"
+        :key="$idx"
+        class="d-flex child-flex"
+        cols="4"
+      >
+        <v-img
+          @click="detailCertification(card)"
+          :src="card.img"
+          :lazy-src="card.img"
+          aspect-ratio="1"
+          class="grey lighten-2 cursor_img"
         >
-          <v-img
-            @click="detailCertification(card)"
-            :src="card.img"
-            :lazy-src="card.img"
-            aspect-ratio="1"
-            class="grey lighten-2 cursor_img"
+        <template v-slot:placeholder>
+          <v-row
+            class="fill-height ma-0"
+            align="center"
+            justify="center"
           >
-          <template v-slot:placeholder>
-            <v-row
-              class="fill-height ma-0"
-              align="center"
-              justify="center"
-            >
-              <v-progress-circular
-                indeterminate
-                color="grey lighten-5"
-              ></v-progress-circular>
-            </v-row>
-          </template>
-          </v-img>
-        </v-col>
-      </v-row>             
-      <infinite-loading @infinite="FollowinfiniteHandler" spinner="waveDots">
-        <div class="infinite-margin" slot="no-more">
-          "보살핌 후기가 더 이상 없습니다"
-        </div>
-        <div class="infinite-margin" slot="no-results">
-          "보살핌 후기가 없습니다 씨앗에 물을 줘보세요"
-        </div>
-      </infinite-loading>
+            <v-progress-circular
+              indeterminate
+              color="grey lighten-5"
+            ></v-progress-circular>
+          </v-row>
+        </template>
+        </v-img>
+      </v-col>
+    </v-row>             
+    <infinite-loading @infinite="FollowinfiniteHandler" spinner="waveDots">
+      <div class="infinite-margin" slot="no-more">
+        "보살핌 후기가 더 이상 없습니다"
+      </div>
+      <div class="infinite-margin" slot="no-results">
+        "보살핌 후기가 없습니다 씨앗에 물을 줘보세요"
+      </div>
+    </infinite-loading>
       
-    </v-container>
-
-<!-- 
-  <v-container class="container-size">
-    <div class="feed-title">팔로우 유저 피드</div>
-                  <v-row>
-                    <v-col
-                      v-for="(card, $idx) in Followslides"
-                      :key="$idx"
-                      class="d-flex child-flex"
-                      cols="4"
-                      >
-
-                        <v-img
-                          :src="card.img"
-                          :lazy-src="card.img"
-                          aspect-ratio="1"
-                          class="grey lighten-2 cursor_test"
-                        >
-                      <template v-slot:placeholder>
-                        <v-row
-                          class="fill-height ma-0"
-                          align="center"
-                          justify="center"
-                        >
-                          <v-progress-circular
-                            indeterminate
-                            color="grey lighten-5"
-                          ></v-progress-circular>
-                        </v-row>
-                      </template>
-                      </v-img>
-
-                    </v-col>
-  
-      <infinite-loading @infinite="FollowinfiniteHandler" spinner="waveDots">
-        <div class="infinite-margin" slot="no-more">
-          "보살핌 후기가 더 이상 없습니다"
-        </div>
-        <div class="infinite-margin" slot="no-results">
-          "다른 친구들을 팔로우해보세요! 아직 팔로우한 친구가 없네요!"
-        </div>
-      </infinite-loading> -->
-      
-    </v-container>
+  </v-container>
 </template>
 
 <script>
 import axios from "axios"
 import {mapState} from "vuex";
-// import FeedAll from "@/views/Feed/components/FeedAll.vue"
-// import FeedFollower from "@/views/Feed/components/FeedFollower.vue"
 
 export default {
   name: 'FeedFollowUser',
   components: { 
-    // FeedAll, 
-    // FeedFollower
    },
   directives: { 
     
@@ -110,11 +62,10 @@ export default {
   },
   created () {
 
-    // 팔로우 피드
     const userId_num = this.user.user_id
     const userId = {};
     userId["userid"] = userId_num;
-    axios.get(`http://127.0.0.1:8080/feed/follower/${userId_num}`, userId)
+    axios.get(`http://i4a303.p.ssafy.io/api/feed/follower/${userId_num}`, userId)
       .then((res) => {
         const certifications = res.data
         certifications.sort(function(a,b) {
@@ -133,11 +84,7 @@ export default {
     FollowinfiniteHandler($state) {
       setTimeout(() => {
         if (this.Followtotal.length) {
-          // console.log("옮겨지기 전 cards: ", this.cards)
-          // console.log("옮겨지기 전 total: ", this.total)
           this.Followslides.push(...this.Followtotal.splice(0, 3))
-          // console.log("옮겨진 후 cards: ", this.cards)
-          // console.log("옮겨진 후 total: ", this.total)
           $state.loaded();
         } else {
           $state.complete();
@@ -145,7 +92,7 @@ export default {
         }, 500)
     },
     detailCertification: function (val) {
-      axios.get(`http://127.0.0.1:8080/detailChallenge/${val.cng_id}`)      
+      axios.get(`http://i4a303.p.ssafy.io/api/detailChallenge/${val.cng_id}`)      
         .then((res) => {
           console.log("카드 정보")
           console.log(val)
@@ -187,7 +134,7 @@ export default {
 }
 
 .infinite-margin {
-   margin-top: 5vh;
+  margin-top: 5vh;
 }
 
 .cursor_img {

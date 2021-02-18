@@ -70,8 +70,8 @@
                 CertInfo: [],
                 CngInfo: [],
                 comments: [],
-                UserAllInfo: [], //update에서 사용 할 유저 정보 저장
-                UserInfo: [], //댓글 컴포넌트로 넘겨주는 유저 정보 저장
+                UserAllInfo: [], 
+                UserInfo: [], 
                 Nicknames: [],
                 ProfileImgs: [],
                 photoURL: "https://s3.ap-northeast-2.amazonaws.com/cert-photo-upload/",
@@ -87,6 +87,7 @@
                 certFile: null,
                 certImg: "",
                 color: "",
+                changedImg: false, 
 
             };
         },
@@ -110,7 +111,7 @@
         methods: {
             getCngInfo() {
                 const cngId = this.$route.params.cngId;
-                axios.get(`http://localhost:8080/detailChallenge/${cngId}`)
+                axios.get(`http://i4a303.p.ssafy.io/api/detailChallenge/${cngId}`)
                     .then((response) => {
                         console.log(response.data);
                         this.CngInfo = response.data;
@@ -143,14 +144,14 @@
 
             getUserAllInfo() {
                 const userId = this.$store.state.UserStore.user.user_id
-                axios.get(`http://localhost:8080/userPage/Id/${userId}`)
+                axios.get(`http://i4a303.p.ssafy.io/api/userPage/Id/${userId}`)
                     .then((res) => {
                         this.UserAllInfo = res.data;
                     })
             },
             async detailCert() {
                 const certId = this.$route.params.certId;
-                axios.get(`http://localhost:8080/detailCertification/${certId}`)
+                axios.get(`http://i4a303.p.ssafy.io/api/detailCertification/${certId}`)
                     .then((response) => {
                         this.CertInfo = response.data;
                         this.currentSelectedImg = this.CertInfo.img;
@@ -163,15 +164,12 @@
 
             detailComment: function () {
                 const certId = this.$route.params.certId;
-                console.log(certId);
-                axios.get(`http://localhost:8080/commentList/${certId}`)
+                axios.get(`http://i4a303.p.ssafy.io/api/commentList/${certId}`)
                     .then((response) => {
-                        // console.log(response.data);
                         this.comments = response.data;
                         for (const i in this.comments) {
                             const comment = this.comments[i]
                             const commentUserId = comment["user_id"]
-                            // console.log("cmt user id: " + commentUserId);
                             this.getUserInfo(commentUserId);
                         }
                     })
@@ -180,21 +178,16 @@
                     })
             },
             async getUserInfo(commentUserId) {
-                // console.log("getUserInfo를 들어왔ㅇㅓ : " + commentUserId);
-                await axios.get(`http://localhost:8080/userPage/Id/${commentUserId}`)
+                  await axios.get(`http://i4a303.p.ssafy.io/api/userPage/Id/${commentUserId}`)
                     .then((response) => {
-                        // console.log(response.data);
                         this.UserInfo = response.data;
                         this.Nicknames.push(this.UserInfo.nickname)
                         this.ProfileImgs.push(this.UserInfo.img)
-                        // console.log("nickname: " + this.UserInfo.nickname);
-                        // console.log(this.Nicknames);
-                        // this.saveNickname();
+                        
                     })
 
             },
             back() {
-                // this.$router.go(-1);
                 this.$router.push({
                     name: 'CertificationDetail',
                     params: {
@@ -206,88 +199,97 @@
             },
             updateCert() {
 
-                this.photoKey = this.certImg;
-                this.CertInfo.img = this.photoURL + this.certImg;
-                console.log(this.CertInfo.img);
-
-                // AWS Setting Start
-
-                // S3 관련 코드
-                AWS.config.update({
-
-                        region: this.bucketRegion,
-                        credentials: new AWS.CognitoIdentityCredentials({
-                                IdentityPoolId: this.IdentityPoolId
-                            }
-
-                        )
-                    }
-
-                );
-
-                const s3 = new AWS.S3({
-
-                    apiVersion: "2006-03-01",
-                    params: {
-                        Bucket: this.albumBucketName
-                    }
-                });
-
-                // AWS Setting End
-
                 const certId = this.$route.params.certId;
                 const UpdateCertInfo = {
                     cng_id: this.CertInfo.cng_id,
                     content: this.CertInfo.content,
                     id: certId,
-                    img: this.CertInfo.img,
+                    img: this.CertInfo.img, 
                     user_id: this.CertInfo.user_id,
                     like_cnt: this.CertInfo.like_cnt,
                     result: this.CertInfo.result,
                     current_week: this.CertInfo.current_week,
                     current_day: this.CertInfo.current_day,
                 }
-                console.log("이미지 정보: " + UpdateCertInfo.img);
-
                
-                // S3 관련 코드
+                if (this.changedImg === false) {
 
-                s3.upload({
-                        Key: this.photoKey,
-                        Body: this.certFile,
-                        ACL: 'public-read'
-                    }, (err, data) => {
-                        if (err) {
-                            console.log(err)
-                            return alert('There was an error uploading your photo: ', err.message);
+                    axios.put("http://i4a303.p.ssafy.io/api/updateCertification", UpdateCertInfo)
+                        .then(res => {
+                            console.log(res);
+                            this.$router.push({
+                                name: 'CertificationDetail',
+                                params: {
+                                    cngId: this.$route.params.cngId,
+                                    certId: this.$route.params.certId,
+                                    cngUserId: this.$route.params.cngUserId
+                                }
+                            });
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                }
+
+                else {
+
+                    this.photoKey = this.certImg;
+                    UpdateCertInfo.img = this.photoURL + this.certImg;
+                    
+
+                    AWS.config.update({
+
+                            region: this.bucketRegion,
+                            credentials: new AWS.CognitoIdentityCredentials({
+                                    IdentityPoolId: this.IdentityPoolId
+                                }
+                            )}
+                    );
+
+                    const s3 = new AWS.S3({
+
+                        apiVersion: "2006-03-01",
+                        params: {
+                            Bucket: this.albumBucketName
+                        }
+                    });
+
+                    s3.upload({
+                            Key: this.photoKey,
+                            Body: this.certFile,
+                            ACL: 'public-read'
+                        }, (err, data) => {
+                            if (err) {
+                                console.log(err)
+                                return alert('There was an error uploading your photo: ', err.message);
+                            }
+
                         }
 
-                    }
+                    );
 
-                );
-
-                axios.put("http://localhost:8080/updateCertification", UpdateCertInfo)
-                    .then(res => {
-                        console.log(res);
-                        this.$router.push({
-                            name: 'SeedDetail',
-                            params: {
-                                seedId: this.CertInfo.cng_id
-                            }
+                    axios.put("http://i4a303.p.ssafy.io/api/updateCertification", UpdateCertInfo)
+                        .then(res => {
+                            this.$router.push({
+                                name: 'CertificationDetail',
+                                params: {
+                                    cngId: this.$route.params.cngId,
+                                    certId: this.$route.params.certId,
+                                    cngUserId: this.$route.params.cngUserId
+                                }
+                            });
                         })
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    });
-                console.log(this.UpdateCertInfo);
-
+                        .catch(err => {
+                            console.log(err);
+                        });
+                }
             },
 
-            receiveCertImg: function (file, certImg) {
+            receiveCertImg: function (file, certImg, changedImg) {
                 this.certFile = file
                 this.certImg = certImg
-                console.log("넘어온 file정보: " + this.certFile)
-                console.log("넘어온 파일 이름 : " + this.certImg)
+                this.changedImg = changedImg
+                
             },
         },
     };

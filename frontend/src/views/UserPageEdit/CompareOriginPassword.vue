@@ -49,7 +49,7 @@ export default {
     // db에서 로그인 정보와 일치하는 패스워드 불러오기
     getPassword: function () {
       const myId = this.$store.state.UserStore.user.user_id
-      axios.get(`http://localhost:8080/userPage/Id/${myId}`)
+      axios.get(`http://i4a303.p.ssafy.io/api/userPage/Id/${myId}`)
         .then((res) => {
           // console.log(res.data)
           this.savedPassword = res.data.password
