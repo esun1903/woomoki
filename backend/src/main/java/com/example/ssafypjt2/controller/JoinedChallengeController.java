@@ -3,7 +3,6 @@ package com.example.ssafypjt2.controller;
 
 import com.example.ssafypjt2.dto.JoinedChallengeDto;
 import com.example.ssafypjt2.service.JoinedChallengeService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

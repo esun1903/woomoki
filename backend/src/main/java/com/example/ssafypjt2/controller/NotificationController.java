@@ -2,8 +2,6 @@ package com.example.ssafypjt2.controller;
 
 import com.example.ssafypjt2.dto.NotificationDto;
 import com.example.ssafypjt2.service.NotificationService;
-import com.example.ssafypjt2.service.RelationService;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
