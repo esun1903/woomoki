@@ -120,7 +120,8 @@ export default {
 
 .feed-title {
   font-size: 2rem;
-  margin-bottom: 5vh;
+  margin-top: -5vh;
+  margin-bottom: 10vh;
   display: flex;
   justify-content: center;
 }

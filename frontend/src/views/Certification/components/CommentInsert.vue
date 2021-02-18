@@ -2,9 +2,15 @@
     <div>
         <validation-observer v-slot="{ invalid }" ref="observer">
             <v-form @submit.prevent="writeComment">
-                <validation-provider v-slot="{ errors }" rules="required">
+                <!-- <validation-provider v-slot="{ errors }" rules="required">
                     <v-text-field color="#AED864" dense outlined v-model="comment" :error-messages="errors" label="댓글" required></v-text-field>
+                </validation-provider> -->
+
+                <validation-provider v-slot="{ errors }" name="댓글" rules="required">
+                    <v-text-field color="#AED864" outlined dense v-model="comment" :error-messages="errors" label="댓글"></v-text-field>
                 </validation-provider>
+
+
                 <div id="insert-btn-div">
                     <v-btn color="#AED864" class="white--text" id="insert-btn" :disabled="invalid" @click="writeComment">
                         등록하기
@@ -30,7 +36,7 @@
 
     extend('required', {
         ...required,
-        message: '댓글 내용을 넣어주세요!'
+        message: '{_field_} 내용을 넣어주세요!'
     })
     import axios from "axios";
     export default {

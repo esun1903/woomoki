@@ -1,15 +1,20 @@
 <template>
     <v-container class="container-size">
         <v-col class="cng-name">
+            <router-link :to="{ name: 'SeedDetail', params: { seedId: CertInfo.cng_id }}">
             <span class="d-flex justify-center align-center mb-3 title-size">
                 {{ CngInfo.title }}
             </span>
+            </router-link>
             <span class="d-flex justify-center">
                 <v-chip class="white--text" :color="color">
                     {{ this.category }}
                 </v-chip>
             </span>
         </v-col>
+
+        <v-row>
+        
         <v-list-item class="border-list">
             <v-list-item-avatar size="55">
                 <v-img :src="UserAllInfo.img"></v-img>
@@ -24,12 +29,13 @@
                 </v-list-item-title>
             </v-list-item-content>
         </v-list-item>
+        </v-row>
         <v-row class="img-div">
             <CertificationImgUpdate @transferCertImg="receiveCertImg" class="mb-5"
                 :currentSelectedImg="currentSelectedImg" />
         </v-row>
         <v-row class="content">
-            <v-textarea v-model="CertInfo.content" outlined rows="10" label="설명글">
+            <v-textarea v-model="CertInfo.content" no-resize color="#AED864" outlined rows="10" label="설명글">
             </v-textarea>
         </v-row>
         <v-row class="back-update-btn">
@@ -329,7 +335,20 @@
     }
 
     .container-size {
-        border: 5px;
         width: 40vw;
+    }
+
+    .title-size {
+        color: black;
+        font-size: 25px;
+    }
+
+    .border-list {
+        border: solid rgb(231, 231, 231);
+        margin: 0px;
+    }
+
+    a {
+        text-decoration: none;
     }
 </style>

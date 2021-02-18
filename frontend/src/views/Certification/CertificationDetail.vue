@@ -2,9 +2,11 @@
     <v-container class="container-size">
         <!-- <v-row> -->
         <v-col class="cng-name">
-            <span class="d-flex justify-center align-center mb-3 title-size">
-                {{ CertInfo.title }}
-            </span>
+            <router-link :to="{ name: 'SeedDetail', params: { seedId: CertInfo.cng_id }}">
+                <span class="d-flex justify-center align-center mb-3 title-size">
+                    {{ CertInfo.title }}
+                </span>
+            </router-link>
             <span class="d-flex justify-center">
                 <v-chip class="white--text" :color="color">
                     {{ this.category }}
@@ -12,6 +14,9 @@
             </span>
         </v-col>
         <!-- </v-row> -->
+        <v-row>
+
+        
         <v-list-item class="border-list">
             <router-link :to="{ name: 'UserPage', params: { userNickname: CertInfo.nickname }}">
                 <v-list-item-avatar size="55">
@@ -30,8 +35,9 @@
                     <span class="date">{{ CertInfo.create_date }}</span>
                 </v-list-item-subtitle>
             </v-list-item-content>
-
+            <CertificationShare></CertificationShare>
             <v-menu v-if="checkUser" offset-y open-on-click bottom left>
+                
                 <template v-slot:activator="{ on, attrs }">
                    <v-btn icon color="black" v-bind="attrs" v-on="on">
                         <v-icon>fas fa-ellipsis-v</v-icon>
@@ -74,16 +80,14 @@
                 </v-list>
             </v-menu>
         </v-list-item>
-
+        </v-row>
 
         <div class="detail">
 
             <v-row class="img">
                 <!-- s3 주소 주석 풀기
                 <v-img :src="photoUrl + CertInfo.img"></v-img> -->
-                <div>
-                    <v-img width="35vw" :src="CertInfo.img"></v-img>
-                </div>
+                <v-img width="35vw" height="35vw" :src="CertInfo.img"></v-img>
             </v-row>
             <v-row class="d-flex justify-start content">
                 <v-col class="d-flex align-center div-content">
@@ -173,6 +177,7 @@
 <script>
     import CommentInsert from '@/views/Certification/components/CommentInsert.vue'
     import CommentList from '@/views/Certification/components/CommentList.vue'
+    import CertificationShare from '@/views/Certification/components/CertificationShare.vue'
     import {
         mapState
     } from "vuex";
@@ -182,7 +187,8 @@
         name: 'CertificationDetail',
         components: {
             CommentList,
-            CommentInsert
+            CommentInsert,
+            CertificationShare
         },
         data() {
             return {
@@ -512,7 +518,6 @@
     }
 
     .container-size {
-        border: 5px;
         width: 40vw;
     }
 
@@ -523,17 +528,13 @@
     }
 
     .title-size {
+        color: black;
         font-size: 25px;
     }
 
     .border-list {
         border: solid rgb(231, 231, 231);
-    }
-
-    .nickname-bold {
-        color: black;
-        font-size: 17px;
-        font-weight: bold;
+        margin: 0px;
     }
 
     .good-bad-btn,
@@ -542,4 +543,9 @@
         margin-bottom: 5%;
         justify-content: center;
     }
+
+    a {
+        text-decoration: none;
+    }
+
 </style>
