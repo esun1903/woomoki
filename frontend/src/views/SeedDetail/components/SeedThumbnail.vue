@@ -199,7 +199,7 @@ export default {
     CheckisfavSeed: function () {
       const seedId = this.seedId
       const userId = this.$store.state.UserStore.user.user_id
-      axios.get(`http://127.0.0.1:8080/LikeAndfavChallenge/${userId}`)
+      axios.get(`http://127.0.0.1:8080/userPage/LikeAndfavChallenge/${userId}`)
         .then((res) => {
             console.log("res",res.data)
             const SeedList = res.data
