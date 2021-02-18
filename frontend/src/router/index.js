@@ -37,6 +37,8 @@ Vue.use(VueRouter);
 //   next('/login');
 // };
 
+
+
 const routes = [
   {
     path: "/",

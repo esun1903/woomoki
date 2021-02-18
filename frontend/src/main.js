@@ -5,7 +5,6 @@ import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
 import axios from "axios";
-import firebase from 'firebase';
 import VueApexCharts from 'vue-apexcharts';
 import "./common/filters";
 import InfiniteLoading from "vue-infinite-loading";
@@ -39,6 +38,5 @@ new Vue({
   UserStore,
   vuetify,
   axios,
-  firebase,
   render: h => h(App)
 }).$mount("#app");

@@ -103,6 +103,7 @@
                 certFile: null,
                 certImg: "",
                 color: "",
+                checkImg: false,
             };
         },
         created() {
@@ -159,96 +160,98 @@
             handleFileUpload() {
                 this.file = this.$refs.file.files[0]
                 console.log(this.file, '파일이 선택되었음')
-                // 사진 보여줄 거
+
                 this.selectedImage = URL.createObjectURL(this.file);
             },
             writeCert() {
-                // AWS Setting Start
 
-                // S3 관련 코드
-                AWS.config.update({
+                if (this.checkImg === true) {
+                    // AWS Setting Start
+
+                    // S3 관련 코드
+                    AWS.config.update({
 
                         region: this.bucketRegion,
                         credentials: new AWS.CognitoIdentityCredentials({
-                                IdentityPoolId: this.IdentityPoolId
-                            }
+                            IdentityPoolId: this.IdentityPoolId
+                        })
+                    });
 
-                        )
-                    }
+                    const s3 = new AWS.S3({
 
-                );
-
-                const s3 = new AWS.S3({
-
-                    apiVersion: "2006-03-01",
-                    params: {
-                        Bucket: this.albumBucketName
-                    }
-                });
-
-                // AWS Setting End
-
-                const user_id = this.$store.state.UserStore.user.user_id;
-                this.certForm.user_id = user_id;
-                this.certForm.cng_id = this.$route.params.cngId;
-                this.certForm.current_week = this.$route.params.currentWeek;
-                this.certForm.current_day = this.$route.params.currentDay;
-
-
-                var now = new Date();
-
-                var year = now.getFullYear(); // 연도
-                var month = now.getMonth() + 1; // 월
-                var date = now.getDate(); // 일
-                var hours = now.getHours(); // 시간
-                var minutes = now.getMinutes(); // 분
-                var seconds = now.getSeconds(); // 초
-                var milliseconds = now.getMilliseconds(); // 밀리초
-
-                // console.log("현재 : ", now);
-                var realtime = year + "" + month + "" + date + "_" + hours + minutes + seconds + milliseconds;
-                console.log(realtime);
-
-                // S3 관련 url값
-                let photoKey = user_id + "_" + realtime + "_" + this.certImg
-                this.certForm.img = this.photoURL + photoKey;
-
-                // let photoKey = "http://www.topstarnews.net/news/photo/first/201709/img_306795_1.jpg"
-
-                console.log(this.certForm.content);
-                console.log(this.certForm.img);
-                console.log(this.certForm.user_id);
-                console.log(this.certForm.cng_id);
-                // console.log(this.certForm.select);
-
-                // // S3 관련 코드 풀면서 제거하기
-                // this.$store.dispatch("CertStore/writeCert", this.certForm);
-                // console.log(this.certForm);
-
-                // S3 관련 코드
-
-                s3.upload({
-                        Key: photoKey,
-                        Body: this.certFile,
-                        ACL: 'public-read'
-                    }, (err, data) => {
-                        if (err) {
-                            console.log(err)
-                            return alert('There was an error uploading your photo: ', err.message);
+                        apiVersion: "2006-03-01",
+                        params: {
+                            Bucket: this.albumBucketName
                         }
-                        this.$store.dispatch("CertStore/writeCert", this.certForm);
-                        console.log(this.certForm);
-                        console.log(data);
-                    }
+                    });
 
-                );
+                    // AWS Setting End
+
+                    const user_id = this.$store.state.UserStore.user.user_id;
+                    this.certForm.user_id = user_id;
+                    this.certForm.cng_id = this.$route.params.cngId;
+                    this.certForm.current_week = this.$route.params.currentWeek;
+                    this.certForm.current_day = this.$route.params.currentDay;
+
+
+                    var now = new Date();
+
+                    var year = now.getFullYear(); // 연도
+                    var month = now.getMonth() + 1; // 월
+                    var date = now.getDate(); // 일
+                    var hours = now.getHours(); // 시간
+                    var minutes = now.getMinutes(); // 분
+                    var seconds = now.getSeconds(); // 초
+                    var milliseconds = now.getMilliseconds(); // 밀리초
+
+                    // console.log("현재 : ", now);
+                    var realtime = year + "" + month + "" + date + "_" + hours + minutes + seconds + milliseconds;
+                    console.log(realtime);
+
+                    // S3 관련 url값
+                    let photoKey = user_id + "_" + realtime + "_" + this.certImg
+                    this.certForm.img = this.photoURL + photoKey;
+
+                    // let photoKey = "http://www.topstarnews.net/news/photo/first/201709/img_306795_1.jpg"
+
+                    console.log(this.certForm.content);
+                    console.log(this.certForm.img);
+                    console.log(this.certForm.user_id);
+                    console.log(this.certForm.cng_id);
+                    // console.log(this.certForm.select);
+
+                    // // S3 관련 코드 풀면서 제거하기
+                    // this.$store.dispatch("CertStore/writeCert", this.certForm);
+                    // console.log(this.certForm);
+
+                    // S3 관련 코드
+
+                    s3.upload({
+                            Key: photoKey,
+                            Body: this.certFile,
+                            ACL: 'public-read'
+                        }, (err, data) => {
+                            if (err) {
+                                console.log(err)
+                                
+                            }
+                            this.$store.dispatch("CertStore/writeCert", this.certForm);
+                            console.log(this.certForm);
+                            console.log(data);
+                        }
+
+                    );
+
+                } else {
+                    alert("사진 입력은 필수입니다!");
+                }
 
             },
-            receiveCertImg: function (file, certImg) {
+            receiveCertImg: function (file, certImg, checkImg) {
                 this.certFile = file
                 this.certImg = certImg
-                console.log("넘어온 file정보: " + this.certFile)
-                console.log("넘어온 thumbnail이름 : " + this.certImg)
+                this.checkImg = checkImg
+               
             },
         }
     };
