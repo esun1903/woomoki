@@ -25,7 +25,7 @@
               <v-list-item>
                 <v-list-item-title>
                   <router-link to="/seedJoin">
-                    씨앗 물 주기
+                    씨앗 보살피기
                   </router-link>
                 </v-list-item-title>
               </v-list-item>

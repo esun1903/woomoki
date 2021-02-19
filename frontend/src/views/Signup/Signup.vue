@@ -230,7 +230,7 @@ body, html {
 .bgimg {
     border: 0;
     padding: 0;
-    height: 100vh;
+    height: 91.2vh;
     background-image: url("https://demos.creative-tim.com/vue-material-kit/img/vue-mk-header.98fb6ce8.jpg");
     min-height: 100%;
     background-position: center;
@@ -252,7 +252,7 @@ body, html {
 
 .title-box {
   width: 90%;
-  height: 20%;
+  height: 23%;
   background: linear-gradient(70deg, #7CB342, #AED864,);
   // background-color: #AED864;
   box-shadow: 5px 5px 10px grey;

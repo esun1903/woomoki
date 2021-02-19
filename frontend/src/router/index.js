@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import { UserStore } from "../store/modules/UserStore"
+import UserStore from '@/router/index.js';
 import Main from "@/views/MainPage/MainPage.vue";
 import Signup from "@/views/Signup/Signup.vue";
 import FavoriteCategory from "@/views/Signup/components/FavoriteCategory.vue";

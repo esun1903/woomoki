@@ -162,7 +162,7 @@ body, html {
 .bgimg {
     border: 0;
     padding: 0;
-    height: 80vh;
+    height: 91.2vh;
     background-image: url("https://demos.creative-tim.com/vue-material-kit/img/profile_city.435c148e.jpg");
     min-height: 100%;
     background-position: center;
@@ -170,9 +170,9 @@ body, html {
 }
 
 .size {
-  margin-top: 6%;
+  margin-top: 20vh;
   width: 23%;
-  height: 75%;
+  height: 60%;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0.5px 0.5px 5px rgb(172, 172, 172);

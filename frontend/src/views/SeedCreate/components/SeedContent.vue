@@ -9,7 +9,7 @@
       outlined
       no-resize
       required
-      label="씨앗에 물주는 방법"
+      label="씨앗에 보살피는 방법"
       value="어떻게 해야 하나요?"
       @input="transferContent"
     ></v-textarea>
