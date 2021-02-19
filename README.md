@@ -41,10 +41,9 @@
 ![시스템_구조도](/uploads/521385d54611d84f99e3e0572a5edf9f/시스템_구조도.PNG)
 
 <details>
-    <summary>자세히</summary>
+    <summary> #### 🌱 ERD </summary>
 
-<!-- summary 아래 한칸 공백 두고 내용 삽입 -->
-
+![erd이미지_최종](/uploads/93dd266aae0b4d6e79298ebca9fecbe8/erd이미지_최종.PNG)
 </details>
 #### 🌱 ERD
 ![erd이미지_최종](/uploads/93dd266aae0b4d6e79298ebca9fecbe8/erd이미지_최종.PNG)
