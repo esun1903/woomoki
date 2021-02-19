@@ -40,7 +40,12 @@
 
 ![시스템_구조도](/uploads/521385d54611d84f99e3e0572a5edf9f/시스템_구조도.PNG)
 
+<details>
+    <summary>자세히</summary>
 
+<!-- summary 아래 한칸 공백 두고 내용 삽입 -->
+
+</details>
 #### 🌱 ERD
 ![erd이미지_최종](/uploads/93dd266aae0b4d6e79298ebca9fecbe8/erd이미지_최종.PNG)
 <br>[컨벤션](https://www.notion.so/332cddb89bff4354b3aee8bc1d2746a8)
