@@ -39,16 +39,18 @@
 #### 🌱 system architecture
 
 ![시스템_구조도](/uploads/521385d54611d84f99e3e0572a5edf9f/시스템_구조도.PNG)
-
+<br>
 <details>
-    <summary> ***🌱 ERD </summary>
+    <summary><span>🌱ERD</span></summary>
 
 ![erd이미지_최종](/uploads/93dd266aae0b4d6e79298ebca9fecbe8/erd이미지_최종.PNG)
 </details>
-#### 🌱 ERD
 
-<br>[컨벤션](https://www.notion.so/332cddb89bff4354b3aee8bc1d2746a8)
-<br>[BE-Api](https://www.notion.so/a4d59235ba6f4795b0c7677414e0d766)
+
+<br><br> 
+[🌱 &fontSize= "30" 컨벤션](https://www.notion.so/332cddb89bff4354b3aee8bc1d2746a8)
+<br><br>
+[🌱 BE-Api](https://www.notion.so/a4d59235ba6f4795b0c7677414e0d766)
 
 #### 🌱실행 방법 
 
