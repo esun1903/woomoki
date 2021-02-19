@@ -25,15 +25,18 @@
             @transferHobby="receiveHobby"></SeedCategory>
 
           <div class="d-flex justify-end mb-1">
-            <v-btn color="#AED864" class="seed-btn" @click="e1 = 2" :disabled="isSubmitCategory === false">
-              다음
-            </v-btn>
 
             <router-link to="/">
               <v-btn text class="ml-2 mr-2">
                 취소
               </v-btn>
             </router-link>
+
+            <v-btn color="#AED864" class="seed-btn" @click="e1 = 2" :disabled="isSubmitCategory === false">
+              다음
+            </v-btn>
+
+
           </div>
         </v-stepper-content>
 
@@ -42,17 +45,19 @@
           <SeedTitle @transferTitle="receiveTitle"></SeedTitle>
           <SeedContent @transferContent="receiveContent"></SeedContent>
           <div class="d-flex justify-end mb-1">
-            <v-btn color="#AED864" @click="[e1 = 3, uploadThumbnail()]" class="seed-btn"
-              :disabled="BasicInfo.isSubmitBasicInfo === false">
-              다음
-            </v-btn>
+
+
             <router-link to="/">
               <v-btn text class="ml-2 mr-2">
                 취소
               </v-btn>
             </router-link>
-            <v-btn text @click="e1 = 1">
+            <v-btn text @click="e1 = 1" style="margin-right:1%">
               뒤로가기
+            </v-btn>
+            <v-btn color="#AED864" @click="[e1 = 3, uploadThumbnail()]" class="seed-btn"
+              :disabled="BasicInfo.isSubmitBasicInfo === false">
+              다음
             </v-btn>
           </div>
         </v-stepper-content>
@@ -67,9 +72,7 @@
           <SeedCheckbox @transferCheckbox="receiveCheckbox"></SeedCheckbox>
 
           <div class="text-end mb-2">
-            <v-btn color="#AED864" class="seed-btn" @click="InsertSeed" :disabled="EtcInfo.isSubmitEtcInfo === false">
-              생성
-            </v-btn>
+            
 
             <router-link to="/">
               <v-btn text class="ml-2 mr-2">
@@ -77,8 +80,12 @@
               </v-btn>
             </router-link>
 
-            <v-btn text @click="e1 = 2">
+            <v-btn text @click="e1 = 2" style="margin-right:1%">
               뒤로가기
+            </v-btn>
+
+            <v-btn color="#AED864" class="seed-btn" @click="InsertSeed" :disabled="EtcInfo.isSubmitEtcInfo === false">
+              생성
             </v-btn>
           </div>
 
@@ -178,129 +185,129 @@
 
       InsertSeed: function () {
 
-          function getDateStr(myDate) {
-            if ((myDate.getMonth() + 1) < 10 && myDate.getDate() >= 10) {
-              return (myDate.getFullYear() + '-0' + (myDate.getMonth() + 1) + '-' + myDate.getDate())
-            } else if ((myDate.getMonth() + 1) >= 10 && myDate.getDate() < 10) {
-              return (myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-0' + myDate.getDate())
-            } else if ((myDate.getMonth() + 1) < 10 && myDate.getDate() < 10) {
-              return (myDate.getFullYear() + '-0' + (myDate.getMonth() + 1) + '-0' + myDate.getDate())
-            } else {
-              return (myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate())
-            }
-
+        function getDateStr(myDate) {
+          if ((myDate.getMonth() + 1) < 10 && myDate.getDate() >= 10) {
+            return (myDate.getFullYear() + '-0' + (myDate.getMonth() + 1) + '-' + myDate.getDate())
+          } else if ((myDate.getMonth() + 1) >= 10 && myDate.getDate() < 10) {
+            return (myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-0' + myDate.getDate())
+          } else if ((myDate.getMonth() + 1) < 10 && myDate.getDate() < 10) {
+            return (myDate.getFullYear() + '-0' + (myDate.getMonth() + 1) + '-0' + myDate.getDate())
+          } else {
+            return (myDate.getFullYear() + '-' + (myDate.getMonth() + 1) + '-' + myDate.getDate())
           }
 
-          const days = this.week * 7
-          const start_year = this.dates.slice(0, 4)
-          const start_date = new Date(Number(start_year), Number(this.dates.slice(5, 7)) - 1, Number(this.dates.slice(
-            8, 10)));
-          var dayOfMonth = start_date.getDate()
-          start_date.setDate(dayOfMonth + days)
-          const end_date = getDateStr(start_date)
-          console.log('end_date', end_date)
+        }
 
-          AWS.config.update({
+        const days = this.week * 7
+        const start_year = this.dates.slice(0, 4)
+        const start_date = new Date(Number(start_year), Number(this.dates.slice(5, 7)) - 1, Number(this.dates.slice(
+          8, 10)));
+        var dayOfMonth = start_date.getDate()
+        start_date.setDate(dayOfMonth + days)
+        const end_date = getDateStr(start_date)
+        console.log('end_date', end_date)
 
-            region: this.bucketRegion,
-            credentials: new AWS.CognitoIdentityCredentials({
-              IdentityPoolId: this.IdentityPoolId
-            })
-          });
+        AWS.config.update({
 
-          const s3 = new AWS.S3({
+          region: this.bucketRegion,
+          credentials: new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: this.IdentityPoolId
+          })
+        });
 
-            apiVersion: "2006-03-01",
-            params: {
-              Bucket: this.albumBucketName
-            }
-          });
+        const s3 = new AWS.S3({
 
-          // AWS Setting End
-
-          s3.upload({
-              Key: this.certificationImg,
-              Body: this.certExampleImg,
-              ACL: 'public-read'
-            }, (err, data) => {
-              if (err) {
-                console.log(err)
-                return alert('There was an error uploading your photo: ', err.message);
-              }
-              console.log(data);
-            }
-
-          );
-
-          this.thumbnail = this.photoURL + this.thumbnail
-          this.certificationImg = this.photoURL + this.certificationImg
-
-          const SeedData = {
-            category_id: this.category,
-            cert_count: 0,
-            content: this.content,
-            end_date: end_date,
-            example_img: this.certificationImg,
-            join_deposit: Number(this.joinDeposit),
-            like_cnt: this.like_cnt,
-            max_people: this.people,
-            day: this.day,
-            week: this.week,
-            start_date: this.dates,
-            sum_img: this.thumbnail,
-            title: this.title,
-            user_id: this.userId
+          apiVersion: "2006-03-01",
+          params: {
+            Bucket: this.albumBucketName
           }
+        });
 
-          axios.post("http://i4a303.p.ssafy.io/api/insertChallenge", SeedData)
-            .then((res) => {
-              this.$router.push({
-                name: "Main"
-              })
-            })
-            .catch((err) => {
+        // AWS Setting End
+
+        s3.upload({
+            Key: this.certificationImg,
+            Body: this.certExampleImg,
+            ACL: 'public-read'
+          }, (err, data) => {
+            if (err) {
               console.log(err)
+              return alert('There was an error uploading your photo: ', err.message);
+            }
+            console.log(data);
+          }
+
+        );
+
+        this.thumbnail = this.photoURL + this.thumbnail
+        this.certificationImg = this.photoURL + this.certificationImg
+
+        const SeedData = {
+          category_id: this.category,
+          cert_count: 0,
+          content: this.content,
+          end_date: end_date,
+          example_img: this.certificationImg,
+          join_deposit: Number(this.joinDeposit),
+          like_cnt: this.like_cnt,
+          max_people: this.people,
+          day: this.day,
+          week: this.week,
+          start_date: this.dates,
+          sum_img: this.thumbnail,
+          title: this.title,
+          user_id: this.userId
+        }
+
+        axios.post("http://i4a303.p.ssafy.io/api/insertChallenge", SeedData)
+          .then((res) => {
+            this.$router.push({
+              name: "Main"
             })
-      
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+
 
       },
       uploadThumbnail() {
-          console.log("썸네일 들어옴: " + this.thumbnail);
+        console.log("썸네일 들어옴: " + this.thumbnail);
 
-          // AWS Setting Start
+        // AWS Setting Start
 
-          AWS.config.update({
+        AWS.config.update({
 
-            region: this.bucketRegion,
-            credentials: new AWS.CognitoIdentityCredentials({
-              IdentityPoolId: this.IdentityPoolId
-            })
-          });
+          region: this.bucketRegion,
+          credentials: new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: this.IdentityPoolId
+          })
+        });
 
-          const s3 = new AWS.S3({
+        const s3 = new AWS.S3({
 
-            apiVersion: "2006-03-01",
-            params: {
-              Bucket: this.albumBucketName
+          apiVersion: "2006-03-01",
+          params: {
+            Bucket: this.albumBucketName
+          }
+        });
+
+        // AWS Setting End
+
+        s3.upload({
+            Key: this.thumbnail,
+            Body: this.thumbnailFile,
+            ACL: 'public-read'
+          }, (err, data) => {
+            if (err) {
+              console.log(err)
+              return alert('There was an error uploading your photo: ', err.message);
             }
-          });
+            console.log(data);
+          }
 
-          // AWS Setting End
+        );
 
-          s3.upload({
-              Key: this.thumbnail,
-              Body: this.thumbnailFile,
-              ACL: 'public-read'
-            }, (err, data) => {
-              if (err) {
-                console.log(err)
-                return alert('There was an error uploading your photo: ', err.message);
-              }
-              console.log(data);
-            }
-
-          );
-       
 
       },
       receiveHealth: function (isSubmitCategory) {
@@ -371,7 +378,7 @@
       },
       // 검사
       checkFormBasicInfo: function () {
-        
+
         // 씨앗 이름 검사
         if (this.title.length >= 5 && this.title.length <= 20) {
           this.BasicInfo.isSubmit.isSubmitTitle = true

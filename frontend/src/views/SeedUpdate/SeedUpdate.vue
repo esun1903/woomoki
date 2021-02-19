@@ -62,7 +62,7 @@
     <v-row>
       <v-textarea color="#AED864" clear-icon="fas fa-times" v-model="content" :rules="contentRules" :counter="30000"
         outlined placeholder="EX) 코딩을 꾸준히 하지 않으면 까먹기 쉽지 않나요? 각자 조금씩이라도 코딩을 하고 매일매일 커밋하는 씨앗을 심고 싶어요! 함께하실 가꾸미님 구합니다!!"
-        label="씨앗에 물주는 방법" no-resize></v-textarea>
+        label="씨앗에 보살피는 방법" no-resize></v-textarea>
     </v-row>
 
 
