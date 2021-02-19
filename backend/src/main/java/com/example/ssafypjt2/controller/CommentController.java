@@ -42,15 +42,4 @@ public class CommentController {
     public List<CommentDto> commentShowList(@PathVariable(value = "certId") int certId) {
         return commentService.commentShowList(certId);
     }
-//
-//    @PutMapping("/likeUpComment/{certId}")
-//    public int likeUp(@PathVariable(value = "certId") int id) {
-//        return commentService.likeUp(id);
-//    }
-//
-//    @PutMapping("/likeDownComment/{certId}")
-//    public int likeDown(@PathVariable(value = "certId") int id) {
-//        return commentService.likeDown(id);
-//    }
-
 }

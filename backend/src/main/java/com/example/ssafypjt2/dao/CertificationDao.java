@@ -14,8 +14,6 @@ import org.apache.ibatis.annotations.Update;
 
 import com.example.ssafypjt2.dto.CertificationDto;
 
-// 변경 
-
 @Mapper
 public interface CertificationDao {
 	@Select(" SELECT cert.id , cert.cng_id ,  cert.user_id , user.nickname, cng.title , cert.img, cert.content , cert.create_date , cert.result , cert.like_cnt  ,cert.current_week , cert.current_day " +

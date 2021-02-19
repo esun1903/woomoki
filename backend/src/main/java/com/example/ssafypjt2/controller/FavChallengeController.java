@@ -14,55 +14,39 @@ import java.util.List;
 @RestController
 public class FavChallengeController {
 
-	@Autowired
-	private FavChallengeService favChallengeService;
-	public static final Logger logger = LoggerFactory.getLogger(FavChallengeController.class);
+    @Autowired
+    private FavChallengeService favChallengeService;
+    public static final Logger logger = LoggerFactory.getLogger(FavChallengeController.class);
 
+    @CrossOrigin(origins = "*")
+    @GetMapping("/userPage/favChallenge/{userid}/{cngid}")
+    public int user_InsertfavChallenge(@PathVariable(value = "userid") int user_id,
+                                       @PathVariable(value = "cngid") int cng_id) throws Exception {
+        int result = favChallengeService.user_InsertfavChallenge(user_id, cng_id);
+        System.out.println(result);
+        return result;
+    }
 
-	// 장바구니에 챌린지 넣기
-	@CrossOrigin(origins = "*")
-	@GetMapping("/userPage/favChallenge/{userid}/{cngid}")
-	public int user_InsertfavChallenge(@PathVariable(value = "userid") int user_id,
-												   @PathVariable(value = "cngid") int cng_id ) throws Exception {
+    @CrossOrigin(origins = "*")
+    @GetMapping("/userPage/DeletefavChallenge/{userid}/{cngid}")
+    public int user_DeletefavChallenge(@PathVariable(value = "userid") int user_id,
+                                       @PathVariable(value = "cngid") int cng_id) throws Exception {
+        int result = favChallengeService.user_DeletefavChallenge(user_id, cng_id);
+        return result;
+    }
 
-		System.out.println(user_id+"가 "+cng_id+" 를 장바구니에 넣을게~ ");
-		int result =  favChallengeService.user_InsertfavChallenge(user_id, cng_id);
-		System.out.println(result);
-		return result;
-	}
+    @CrossOrigin(origins = "*")
+    @GetMapping("/userPage/ListfavChallenge/{userid}")
+    public List<ChallengeDto> user_favChallengeList(@PathVariable(value = "userid") int user_id) throws Exception {
+        List<ChallengeDto> result = favChallengeService.user_favChallengeList(user_id);
+        return result;
+    }
 
-	// 장바구니에 챌린지 삭제
-	@CrossOrigin(origins = "*")
-	@GetMapping("/userPage/DeletefavChallenge/{userid}/{cngid}")
-	public int user_DeletefavChallenge(@PathVariable(value = "userid") int user_id,
-									@PathVariable(value = "cngid") int cng_id ) throws Exception {
-
-		System.out.println(user_id+"가 "+cng_id+" 장바구니에 있는 것 삭제~  ");
-		int result =  favChallengeService.user_DeletefavChallenge(user_id, cng_id);
-		System.out.println(result);
-		return result;
-	}
-
-	//장바구니 챌린지 리스트 보여주기
-	@CrossOrigin(origins = "*")
-	@GetMapping("/userPage/ListfavChallenge/{userid}")
-	public List<ChallengeDto> user_favChallengeList(@PathVariable(value = "userid") int user_id ) throws Exception {
-
-		System.out.println(user_id+"가 관심있는 챌린지들을 보여줄게");
-		List<ChallengeDto> result = favChallengeService.user_favChallengeList(user_id);
-		System.out.println(result);
-		return result;
-	}
-
-	//내가 관심있는 챌린지의 id와 스크랩의 수 ->
-	@CrossOrigin(origins = "*")
-	@GetMapping("/userPage/LikeAndfavChallenge/{userid}")
-	public List<ChallengeDto> user_LikeAndfavChallengeList(@PathVariable(value = "userid") int user_id ) throws Exception {
-
-		System.out.println(user_id+"가 관심이있는 챌린지들과 스크랩의 수를 보여줄게");
-		List<ChallengeDto> result = favChallengeService.user_LikeAndfavChallengeList(user_id);
-		System.out.println(result);
-		return result;
-	}
+    @CrossOrigin(origins = "*")
+    @GetMapping("/userPage/LikeAndfavChallenge/{userid}")
+    public List<ChallengeDto> user_LikeAndfavChallengeList(@PathVariable(value = "userid") int user_id) throws Exception {
+        List<ChallengeDto> result = favChallengeService.user_LikeAndfavChallengeList(user_id);
+        return result;
+    }
 
 }
