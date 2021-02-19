@@ -1,4 +1,4 @@
-# 우목이 🌳 (우린 다 목표를 이룰거야 ) .
+# 🌳 우목이 🌳 (우린 다 목표를 이룰거야 ) .
 
 ![logo](/uploads/2d3df481f6a0d3c3761deffb5034cb0c/logo.PNG)
 
@@ -93,11 +93,13 @@ $ java -jar ssafy_pjt2-0.0.1-SNAPSHOT.war --server.servlet.context-path=(실행�
 #### 🌱문제인식  
 
 새해 목표를 꾸준히 지민 성인남녀 28% 달성률이 낮은 것을 볼 수 있습니다. 
-![문제인식수정](/uploads/f8d864ea1f3edbd73fd505d954099331/문제인식수정.png)
-![해결방안](/uploads/049afd0d4caba31a6632b44215ae26c6/해결방안.PNG)
+![문제인식수정1](/uploads/7b05c08559365a3cbcfbec1ea3ed5400/문제인식수정1.PNG)
+![문제인식수정2](/uploads/72e9fe7a2d5dcce3c44762bab2811a10/문제인식수정2.PNG)
+![해결방안](/uploads/02e6e22d840c07803e810f7097312b95/해결방안.PNG)
+
 
 #### 🌱주요 서비스 기능
-
+![핵심기능](/uploads/ae84ca71747ea6b30661fd8c802af08a/핵심기능.PNG)
 ![서비스_기능](/uploads/17b64fcc5f11b79c63f2acc7dcd5bb03/서비스_기능.PNG)
 
 
