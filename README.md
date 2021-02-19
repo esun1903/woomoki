@@ -1,7 +1,6 @@
 # 🌳 우목이 🌳 (우린 다 목표를 이룰거야 ) .
 
-![logo](/uploads/2d3df481f6a0d3c3761deffb5034cb0c/logo.PNG)
-
+![Logo](/uploads/241f273cb70018dc1527d6cced26c4fc/Logo.PNG)
  
 <br><br><br>
 ## 🌳 팀원 소개
