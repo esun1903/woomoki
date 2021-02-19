@@ -111,7 +111,7 @@
                 <v-tabs-items v-model="currentTab">
                   <v-tab-item v-for="(type,idx) in types" :key="idx">
                     <v-card v-for="(tab,idx) in tabs" :key="idx" @click="NotificationConfirm(tab.id)" height="100">
-                      <v-card height="0" v-if="tab.confirm_date === null" >  
+                      <v-card v-if="tab.confirm_date === null" color =#E8F5E9 >  
                         <div class="diCard">
                           <v-card-text v-if="tab.type=='reqFollow'">
                             <router-link :to="{ name: 'UserPage', params: { userNickname: tab.reqUserName }}">
@@ -160,26 +160,19 @@
                           </v-card-text>
                         </div>
                       </v-card>
-
-                      <v-card v-else color="">
+                      <v-card v-else>
                         <div class="diCard">
                           <v-card-text v-if="tab.type=='reqFollow'">
-                            <v-row class="d-flex align-center">
-                              <v-col class="d-flex justify-start">
                                 <router-link :to="{ name: 'UserPage', params: { userNickname: tab.reqUserName }}">
                                   <span class="user-name">
                                     {{tab.reqUserName}}
                                   </span>
                                 </router-link>
                                 님이 팔로우 하였습니다.
-                              </v-col>
-                              <v-col class="d-flex justify-end">
                                 <div class="notiBtn">
                                   <v-btn color="#AED864" class="white--text" @click="notificationDelete(tab.id)">알림삭제
                                   </v-btn>
-                                </div>
-                              </v-col>
-                            </v-row>
+                                </div>               
                           </v-card-text>
                           <v-card-text v-if="tab.type=='reqChallenge'">
                             <router-link :to="{ name: 'UserPage', params: { userNickname: tab.reqUserName }}">
@@ -192,8 +185,7 @@
                               <span class="seed-name">
                                 {{tab.cngTitle}}
                               </span>
-                            </router-link> 
-                            
+                            </router-link>         
                               씨앗 참가 요청을 하였습니다.
                             <div class="notirqBtn">
                               <v-btn small color="#AED864" class="mr-10 white--text"
@@ -204,7 +196,6 @@
                               </v-btn>
                             </div>
                           </v-card-text>
-
                           <v-card-text v-if="tab.type=='resChallenge'">
                             <router-link :to="{ name: 'SeedDetail', params: { seedId: tab.cng_id }}">{{tab.cngTitle}}
                             </router-link>씨앗 참여 완료.
@@ -498,11 +489,11 @@
 
   }
 
-  // .notiBtn{
-  //   position: absolute;
-  //   margin-top: 2%;
-  //   padding-left: 72%;
-  // }
+  .notiBtn{
+    position: absolute;
+    margin-top: 2%;
+    padding-left: 72%;
+  }
 
   .btn-group {
     padding-left: 17%;
