@@ -12,6 +12,9 @@ public class NotificationDto {
 	private String url;
 	private LocalDate create_date;
 	private LocalDate confirm_date;  // 알림을 알려주면 되나?
+	private String getUserName;
+	private String reqUserName;
+	private String cngTitle;
 	
 	public int getId() {
 		return id;
@@ -68,6 +71,28 @@ public class NotificationDto {
 		this.confirm_date = confirm_date;
 	}
 
-	
-	
+
+	public String getGetUserName() {
+		return getUserName;
+	}
+
+	public void setGetUserName(String getUserName) {
+		this.getUserName = getUserName;
+	}
+
+	public String getReqUserName() {
+		return reqUserName;
+	}
+
+	public void setReqUserName(String reqUserName) {
+		this.reqUserName = reqUserName;
+	}
+
+	public String getCngTitle() {
+		return cngTitle;
+	}
+
+	public void setCngTitle(String cngTitle) {
+		this.cngTitle = cngTitle;
+	}
 }

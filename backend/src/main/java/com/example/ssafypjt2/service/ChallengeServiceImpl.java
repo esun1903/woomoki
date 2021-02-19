@@ -2,9 +2,9 @@ package com.example.ssafypjt2.service;
 
 import java.util.List;
 
+import com.example.ssafypjt2.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.ssafypjt2.dao.ChallengeDao;
 import com.example.ssafypjt2.dto.ChallengeDto;
 
@@ -23,6 +23,7 @@ public class ChallengeServiceImpl implements ChallengeService {
 	public ChallengeDto challengeJoin(ChallengeDto challengeDto) {
 		return null;
 	}
+
 
 	@Override
 	public int challengeDelete(int id) {
@@ -56,5 +57,67 @@ public class ChallengeServiceImpl implements ChallengeService {
 	public List<ChallengeDto> challengeUserSelect(int userId) {
 		return dao.challengeUserSelect(userId);
 	}
+
+
+	@Override
+	public int likeUp(int userId, int cng_id) {
+		int COUNT = dao.one_likeUp(cng_id);
+		return dao.likeUp( userId , cng_id);
+	}
+
+
+	@Override
+	public int likeDown(int userId, int cng_id)
+	{
+		int COUNT = dao.one_likeDown(cng_id);
+		return dao.likeDown( userId , cng_id);
+	}
+
+	@Override
+	public List<ChallengeDto> searchWordChallenge(String keyword) {
+		System.out.println("키워드로 챌린지 찾기 "+keyword);
+		List<ChallengeDto> result =  dao.searchWordChallenge(keyword);
+		System.out.println(result);
+		return result;
+	}
+
+	@Override
+	public List<ChallengeDto> userPageCreatecng(int user_id) {
+		System.out.println(user_id+"가 생성한 챌린지들의 정보를 보여주기 ");
+		List<ChallengeDto> result =  dao.userPageCreatecng(user_id);
+		return result;
+	}
+
+	@Override
+	public List<String> Challenge() {
+		System.out.println("모든 챌린지 title 리턴해줄 service에 도착 ~ ");
+		List<String> result =  dao.challenge();
+		System.out.println(result);
+		return result;
+	}
+
+	@Override
+	public List<ChallengeDto> challengeListResultSort(int user_id, int result_num) {
+		return dao.challengeListResultSort(user_id,result_num);
+	}
+
+	@Override
+	public int challengeLikeCount(int cngId) {
+		return dao.challengeLikeCount(cngId);
+	}
+
+	@Override
+	public List<UserDto> user_LikeAndChallengeList(int cngId) {
+		List<UserDto> list = dao.main_LikeChallegeList(cngId);
+		return list;
+	}
+
+/*
+@Override
+	public List<ChallengeDto> user_LikeAndChallengeList(int user_id) {
+		List<ChallengeDto> list = dao.main_LikeChallegeList(user_id);
+		return list;
+	}
+ */
 
 }

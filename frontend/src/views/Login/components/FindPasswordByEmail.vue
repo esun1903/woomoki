@@ -1,38 +1,24 @@
 <template>
   <div>
-    <section class="section-container">
-      <v-row class="find-password">
-        <v-col cols="8" class="left">
-          <h1>로고로고로고로고로고로고로고</h1>
-        </v-col>
-        <v-col cols="4" class="right">
-          <h2>Oops!!!!!!!비밀번호를 잊었다니!</h2>
-          <h4>이메일로 임시 비밀번호 발급받기</h4>
-          <validation-observer v-slot="{ invalid }" ref="observer">
-            <v-form @submit.prevent="submit">
-              <validation-provider v-slot="{ errors }" name="Name" rules="required|email">
-                <v-text-field v-model="email" :error-messages="errors" label="Email" required outlined dark filled
-                  dense></v-text-field>
-              </validation-provider>
-              <div class="text-center">
-                <v-btn class="send-email" type="submit" rounded color="white" :disabled="invalid">
-                  임시 비밀번호 메일 발송
-                </v-btn>
-                <router-link :to="'/login/findPassword'">
-                  <v-btn class="back-btn" rounded color="white">
-                    이전 페이지로 돌아가기
-                  </v-btn>
-                </router-link>
-              </div>
-            </v-form>
-          </validation-observer>
-        </v-col>
-      </v-row>
-    </section>
+    <validation-observer v-slot="{ invalid }" ref="observer">
+      <v-form @submit.prevent="submit">
+        <validation-provider v-slot="{ errors }" name="이메일" rules="required|email">
+          <v-text-field class="input-size" color="black" v-model="email" :error-messages="errors" label="이메일" required
+            outlined dense></v-text-field>
+        </validation-provider>
+        <div class="text-center">
+          <v-btn class="send-email" type="submit" rounded color="white" :disabled="invalid">
+            임시 비밀번호 메일 발송
+          </v-btn>
+        </div>
+      </v-form>
+    </validation-observer>
+
   </div>
 </template>
 
 <script>
+  import axios from "axios";
   import emailjs from 'emailjs-com';
   import {
     required,
@@ -49,13 +35,14 @@
 
   extend('required', {
     ...required,
-    message: '{_field_} can not be empty'
+    message: '{_field_}은 필수 항목입니다'
   })
 
   extend('email', {
     ...email,
-    message: 'Email must be valid'
+    message: '이메일 형식이 올바르지 않습니다.'
   })
+
 
   export default {
     name: 'FindPasswordByEmail',
@@ -71,21 +58,36 @@
       params() {
         return {
           email: this.email,
+          temp_pw:"",
         }
       }
     },
+    created() {
+      // this.makeRandomPW();
+    },
     methods: {
-      async submit() {
-        const valid = await this.$refs.observer.validate()
+      async submit(temp_pw) {
+        const valid = await this.$refs.observer.validate();
         if (valid) {
+          this.temp_pw = Math.random().toString(36).substr(2, 11);
+          this.temp_pw = this.temp_pw + "!";
           emailjs.send('service_y8xub6u', 'template_fyxfdgh', {
             from_name: "우목이",
             to_name: "김싸피",
             user_email: this.email,
             admin_email: "admin@a303.com",
-            temp_pw: "1234abcd*"
+            temp_pw: this.temp_pw,
           }, 'user_jsT9VLscfRQIahhEQbuiv').then((
             result) => {
+            const cngPasswordInfo = {
+              email: this.email,
+              password: this.temp_pw,
+            }
+            console.log(cngPasswordInfo);
+            axios.post("http://i4a303.p.ssafy.io/api/userPage/changePassword", cngPasswordInfo)
+              .then((response) => {
+                console.log(response.data);
+              })
             console.log('SUCCESS!', result.status, result.text);
           }, (error) => {
             console.log('FAILED...', error);
@@ -170,13 +172,13 @@
 
         .send-email {
           width: 100%;
-          color: #be5656;
+          color: black;
         }
 
         .disabled,
         .disabled:hover {
           background-color: rgb(136, 154, 152, 0.25);
-          color: #f8f8f8;
+          color: #be5656;
           cursor: inherit;
         }
 

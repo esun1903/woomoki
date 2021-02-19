@@ -1,22 +1,24 @@
 <template>
-  <div>
-    <v-app>
-      <v-card id="fav-card">
+  <div class="d-flex justify-center">
+      <v-card class="fav-card">
         <v-toolbar
           flat
           color="transparent"
         >
           <v-toolbar-title>관심있는 카테고리를 담아주세요!</v-toolbar-title>
         </v-toolbar>
+        <v-divider></v-divider>
     
-        <v-container class="py-0">
-          <v-row align="center" justify="start">
+        <v-container>
+          <v-row>
             <v-col
               v-for="(selection, i) in getSelections"
-              :key="selection.text"
+              :key="selection.category"
               class="shrink"
             >
-              <v-chip outlined
+              <v-chip 
+                :color=chipColor(selection.category)
+                outlined
                 :disabled="loading"
                 close
                 @click:close="selected.splice(i, 1)"
@@ -25,7 +27,7 @@
                   left
                   v-text="selection.icon"
                 ></v-icon>
-                {{ selection.text }}
+                {{ selection.category }}
               </v-chip>
             </v-col>
           </v-row>
@@ -37,7 +39,7 @@
           <template v-for="item in items">
             <v-list-item
               v-if="!selected.includes(item)"
-              :key="item.text"
+              :key="item.category"
               :disabled="loading"
               @click="selected.push(item)"
             >
@@ -48,7 +50,7 @@
                 ></v-icon>
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-title v-text="item.text"></v-list-item-title>
+                <v-list-item-title v-text="item.category"></v-list-item-title>
                 <v-list-item-subtitle v-text="item.content"></v-list-item-subtitle>
               </v-list-item-content>
 
@@ -63,126 +65,182 @@
           <v-btn
             :disabled="!selected.length"
             :loading="loading"
-            color="green"
+            color="#AED864"
             text
-            @click="goMainPage"
-          >GRITREE 시작하기!</v-btn>
+            @click="sendFavoriteCategories"
+          >우목이 시작하기!</v-btn>
         </v-card-actions>
       </v-card>
-    </v-app>
+
   </div>
 </template>
 
 <script>
+import axios from "axios";
+import {mapState} from "vuex";
 export default {
   name: "FavoriteCategory",
   components: {},
   directives: {},
   data: function() {
     return {
-          // favoriteCategories 관련 state
-    items: [
+      items: [
         {
-          text: '건강',
+          category: '건강',
+          category_id: '1',
           icon: 'mdi-dumbbell',
           content: '식이조절, 복근 만들기, 클로이팅 챌린지, 식단일기 쓰기 등이 있어요! '
         },
         {
-          text: '생활습관',
+          category: '생활습관',
+          category_id: '2',
           icon: 'mdi-calendar-check',
           content: '미라클 모닝, 스크린 타임 4시간, 물 2L 마시기, 매일 일기쓰기 등이 있어요!'
         },
         {
-          text: '독서',
+          category: '독서',
+          category_id: '3',
           icon: 'mdi-bookshelf',
-          content: '30분 책읽기, 코스모스 끝내기, 독서 기록장 쓰기, 한 달 두 권 읽기 등이 있어요!'
+          content: '30분 책읽기, 코스모스 끝내기, 한 달 두 권 읽기 등이 있어요!'
         },
         {
-          text: '자산',
+          category: '자산',
+          category_id: '4',
           icon: 'mdi-cash-usd-outline',
-          content: '경제 기사 스크랩, 가계부 쓰기, 출근 길 택시 안 타기, 주식일기 쓰기 등이 있어요!'
+          content: '경제 기사 스크랩, 가계부 쓰기, 출근 길 택시 안 타기 등이 있어요!'
         },
         {
-          text: '자기계발',
+          category: '자기계발',
+          category_id: '5',
           icon: 'mdi-school',
-          content: '1일 2알고리즘, 매일 영단어 20개, 뉴스레터 밀리지 않기, 컴활 공부하기 등이 있어요'
+          content: '1일 2알고리즘, 매일 영단어 20개, 뉴스레터 밀리지 않기 등이 있어요'
         },
         {
-          text: '취미',
+          category: '취미',
+          category_id: '6',
           icon: 'mdi-piano',
-          content: '매일 크로키, 기타 연습하기, 영상 편집하기, 프랑스자수-기초 스티치 마스터 등이 있어요!'
+          content: '기타 연습하기, 영상 편집하기, 프랑스자수-기초 스티치 마스터 등이 있어요!'
         },
       ],
-    loading: false,
-    selected: [],
+      loading: false,
+      selected: [],
     };
   },
   computed: {
-    // ----------------- FavoriteCategory용-----------------
-    // 모든 아이템이 골라졌을 때 구분선 없애기 위함
+    ...mapState('UserStore', ['user']),
+    chipColor () {
+      return (val) => {
+        if (val === '건강') {
+          return 'light-blue lighten-1'
+        } else if (val === '생활습관') {
+          return 'orange lighten-1'
+        } else if (val === '독서') {
+          return 'teal lighten-1'
+        } else if (val === '자산') {
+          return 'indigo lighten-1'
+        } else if (val === '자기계발') {
+          return 'purple lighten-1'
+        } else {
+          return 'pink lighten-1'
+        }
+      }
+    },
     isAllSelected: function (state) {
       return state.selected.length === state.items.length
     },
-    // 선택 시 바로바로 칩 만들기 위함
     getSelections: function (state) {
       const selections = []
 
       for (const selection of state.selected) {
         selections.push(selection)
       }
-
+      console.log(selections)
       return selections
     },
-    // 선택된 카테고리명만 백엔드에 넘기기 위함
     getFavoriteCategories: function (state) {
       const favoriteCategories = []
-      
-      for (const favoriteCategory of state.selected)
-        favoriteCategories.push(favoriteCategory.text)
-        console.log(favoriteCategories)
+      for (const selectedCategory of state.selected) {
+        const favoriteCategory = {}
+        const user_id = this.user.user_id
+        favoriteCategory["user_id"] = user_id
+        favoriteCategory["category_id"] = selectedCategory.category_id
+        favoriteCategories.push(favoriteCategory)
+      }
       return favoriteCategories
-    }
+    },
   },
   mounted() {},
   methods: {
-    goMainPage: function (state) {
+    sendFavoriteCategories: function (state) {
       state.loading = true
-
+      
       setTimeout(() => {
-        
-        // !!!!!!!!!! 빽에 고른 카테고리 넘겨주기!!!!!!!!!! 
-        // axios.post(`${SERVER_URL}/signup/favCategory`, this.getFavoriteCategories)
-        //   .then(() => {
-        //     // console.log('로그인 성공')
-        //     this.$router.push({ name: 'MainPage' })
-        //   })
-        //   .catch(err => console.log(err))
+        axios.post("http://i4a303.p.ssafy.io/api/signup/favCategory", this.getFavoriteCategories)
+          .then((res) => {
+            console.log('카테고리 담기 성공')
+            console.log(res)
+            this.$router.push({ name: 'Main' , params: { userNickname: this.$store.state.UserStore.user.nickname }})
+          })
+          .catch(err => {
+            console.log(err)
+            console.log('카테고리 담기 실패')
+            console.log(this.getFavoriteCategories)
+          })
 
-        state.search = ''
         state.selected = []
         state.loading = false
-      }, 2000)
+      },2000)
     },
   }
 };
 </script>
 
 <style lang="scss" scoped>
-#fav-card {
-  width: 50%;
-  top:15%;
-  left: 25%;
-  padding: 0px 50px;
-}
-// .v-toolbar-title {
-//   font-weight: bold;
-//   text: center;
-// }
-.v-divider {
-  margin-top: 20px;
-}
-.v-chip{
-  color: green !important;
-  border-color: green !important;
+
+.fav-card {
+  width: 40%;
+  margin-top: 10vh;
+  margin-bottom: 0;
+  top: 10%;
+  padding: 0 2%;
+  .v-toolbar{
+    display: flex;
+    justify-content: center;
+    .v-toolbar__content{
+
+      .v-toolbar__title{
+            text-align: center;
+      }
+    }
+  }
+  .v-divider{
+    margin: 0 0 7% 0;
+    margin-bottom: 7%;
+  }
+  .container{
+    .row{
+        display: flex;
+        justify-content: center;
+      .col{
+        .v-chip{
+          .v-chip__content{
+            .v-icon{
+            }
+            .v-icon{
+            }
+          }
+        }
+      }
+    }
+  }
+  .v-divider{
+  }
+  .v-list{
+  }
+  .v-divider{
+    margin: 2% 0;
+  }
+  .v-card__actions{
+  }
 }
 </style>

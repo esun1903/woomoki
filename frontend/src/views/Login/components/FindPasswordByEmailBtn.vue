@@ -16,14 +16,11 @@
         directives: {},
         data() {
             return {
-
             };
         },
         mounted() {
-
         },
         methods: {
-
         },
     };
 </script>

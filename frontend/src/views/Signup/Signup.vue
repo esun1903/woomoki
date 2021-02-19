@@ -1,28 +1,46 @@
 <template>
-  <div>
-    <section class="section-container">
-      <v-row class="signup">
-        <v-col cols="8" class="left">
-          <h1>우목이, 당신의 새로운 원동력</h1>
-        </v-col>
-        <v-col cols="4" class="right">
-          <h2>회원가입</h2>
-          <h4>이메일 회원가입하기</h4>
-          <validation-observer v-slot="{ invalid }" ref="observer">
-            <v-form @submit.prevent="submit">
+
+    <div class="d-flex justify-center bgimg">
+    
+    <section class="size">
+        <v-container class="title-box">
+          <v-row class="d-flex justify-center">
+            <h2 class="signup-text">회원가입</h2>
+          </v-row>
+          <v-row>
+            <v-col class="d-flex justify-center">
+              <Kakao />
+            </v-col>
+            <v-col class="d-flex justify-center">
+              <Naver />
+            </v-col>
+            <v-col class="d-flex justify-center">
+              <Google />
+            </v-col>
+          </v-row>
+
+        </v-container>
+        
+        <v-container>
+          <v-col>
+            <!-- <v-row class="d-flex justify-center message">
+              <h4>이메일 회원가입하기</h4>
+            </v-row> -->
+
+            <validation-observer v-slot="{ invalid }" ref="observer">
+            <v-form @submit.prevent="signUp">
               <validation-provider
                 v-slot="{ errors }"
                 name="닉네임"
                 rules="required"
               >
                 <v-text-field
-                  v-model="nickName"
+                  v-model="credentials.nickname"
                   :error-messages="errors"
                   label="닉네임"
                   required
                   outlined
-                  dark
-                  filled
+                  color="#AED864"
                   dense
                 ></v-text-field>
               </validation-provider>
@@ -32,13 +50,12 @@
                 rules="required|email"
               >
                 <v-text-field
-                  v-model="email"
+                  v-model="credentials.email"
                   :error-messages="errors"
                   label="이메일"
                   required
                   outlined
-                  dark
-                  filled
+                  color="#AED864"
                   dense
                 ></v-text-field>
               </validation-provider>
@@ -52,14 +69,13 @@
                 }"
               >
                 <v-text-field
-                  v-model="phoneNumber"
+                  v-model="credentials.phone"
                   :counter="11"
                   :error-messages="errors"
                   label="핸드폰 번호(숫자만)"
                   required
                   outlined
-                  dark
-                  filled
+                  color="#AED864"
                   dense
                 ></v-text-field>
               </validation-provider>
@@ -70,7 +86,7 @@
                   rules="required|password"
                 >
                   <v-text-field
-                    v-model="password"
+                    v-model="credentials.password"
                     :error-messages="errors"
                     label="비밀번호"
                     :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
@@ -78,58 +94,51 @@
                     required
                     outlined
                     dense
-                    dark
-                    filled
+                    color="#AED864"
                     :type="showPass ? 'text' : 'password'"
                   ></v-text-field>
                 </validation-provider>
                 <validation-provider
                   v-slot="{ errors }"
-                  name="비밀번호 한 번 더"
+                  name="비밀번호 확인"
                   rules="required|passwordConfirm:@비밀번호"
                   vid="password"
                 >
                   <v-text-field
                     v-model="passwordConfirmation"
                     :error-messages="errors"
-                    label="비밀번호 재확인"
+                    label="비밀번호 확인"
                     :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
                     @click:append="showPass = !showPass"
+                    @keydown.enter="signUp"
                     required
                     outlined
                     dense
-                    dark
-                    filled
+                    color="#AED864"
                     :type="showPass ? 'text' : 'password'"
                   ></v-text-field>
                 </validation-provider>
               </validation-observer>
               <div class="text-center">
-                <v-btn class="signup-btn" type="submit" rounded color="white" :disabled="invalid" 
+                <v-btn class="signUpbtn white--text" color="#AED864" :ripple="false" type="submit" rounded :disabled="invalid" 
                 >
                   회원가입
                 </v-btn>
               </div>
             </v-form>
           </validation-observer>
-          <v-divider></v-divider>
-          <p class="signup-box-hd">또는 다른 서비스 계정으로 회원가입</p>
-          <span class="or-bar or-bar-right"></span>
-          <v-col class="py-2">
-            <div id="socialBtn">
-              <Kakao />
-              <Naver />
-              <Google/>
-            </div>
+            
+
+            <span class="or-bar or-bar-right"></span>
+            
           </v-col>
-        </v-col>
-      </v-row>
+        </v-container>
     </section>
   </div>
+
 </template>
 
 <script>
-import axios from "axios";
 import Kakao from "@/components/BaseSocial/Kakao.vue";
 import Naver from "@/components/BaseSocial/Naver.vue";
 import Google from "@/components/BaseSocial/Google.vue";
@@ -142,17 +151,16 @@ import {
 } from "vee-validate";
 
 
-
 setInteractionMode("eager");
 
 extend("required", {
   ...required,
-  message: "{_field_} ㅠㅠ"
+  message: "{_field_}은(는) 필수 항목입니다"
 });
 
 extend("email", {
   ...email,
-  message: "이메일 형식에 맞추어 입력해주세요."
+  message: "이메일 형식이 아닙니다"
 });
 
 
@@ -183,121 +191,97 @@ export default {
   },
   data: function() {
     return {
-      nickName: "",
-      email: "",
-      phoneNumber: "",
-      password: "",
+      credentials: {
+        nickname: "",
+        email: "",
+        phone: "",
+        password: "",
+      },
       passwordConfirmation: "",
       showPass: false,
     }
   },
   computed: {
-    signupParams: function () {
-      return {
-        nickName: this.nickName,
-        email: this.email,
-        phoneNumber: this.phoneNumber,
-        password: this.password
-      };
-    },
-    loginParams: function () {
-      return {
-        email: this.email,
-        password: this.password,  
-      }
-    }
   },
   methods: {
-    async submit() {
+    async signUp () {
       const valid = await this.$refs.observer.validate();
       if (valid) {
-        this.isSubmit = true;
-        axios.post("http://localhost:8080/signup", this.signupParams)
-          .then(() => {
-            axios.post("http://localhost:8080/login", this.loginParams)
-          })
-          .catch((err) => console.log(err))
-        this.$router.push({ name: 'FavoriteCategory' })
+        this.$store.dispatch('UserStore/signUp', this.credentials)
       } else {
-        this.isSubmit = false;
-        alert("내용을 확인해주세요")
+        alert("내용을 확인해주세요.")
       }
-    },
-    clear() {
-      this.email = "";
-      this.password = "";
-      this.$refs.observer.reset();
     }
-  },
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-  .v-text-field {
-    width: 100%;
-  }
-  #socialBtn {
-    display: flex;
-    justify-content: space-around;
-    margin-right: 50px;
-    margin-left: 50px;
-    padding-left: 20px;
-    padding-right: 20px;
 
-  }
-  .signup-box-hd {
-    margin-top: 20px;
-    text-align: center;
-    font-weight: 400;
-    font-size: 11px;
-    line-height: 28px;
-    color: #ffffff;
-  }
 
-  .section-container {
-    background: #fff;
-    width: 100%;
-    box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
-    box-sizing: border-box;
+a { text-decoration: none; }
 
-    .signup {
-      padding: 0;
-      margin: 0 auto;
-      min-height: 750px;
-      box-shadow: 0 0 1px 1px rgba($color: #000000, $alpha: 0.1);
+body, html { 
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 
-      .left {
-        justify-content: center;
-        align-items: center;
-        box-sizing: border-box;
-        display: flex;
-        color: #30ac7c;
-        background-color: #f9f9f9;
-      }
+.bgimg {
+    border: 0;
+    padding: 0;
+    height: 91.2vh;
+    background-image: url("https://demos.creative-tim.com/vue-material-kit/img/vue-mk-header.98fb6ce8.jpg");
+    min-height: 100%;
+    background-position: center;
+    background-size: cover;
+}
 
-      .right {
-        padding: 30px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        box-sizing: border-box;
-        background: #30ac7c;
-        color: #fff;
-        padding-left: 50px;
-        padding-right: 50px;
+.size {
+  margin-top: 6%;
+  width: 23%;
+  height: 80%;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  box-shadow: 0.5px 0.5px 5px rgb(172, 172, 172);
+}
 
-        h2,
-        h4 {
-          text-align: center;
-          margin: 20px 0;
-        }
+.input-size{
+  width: 20vw;
+}
 
-        .signup-btn {
-          width: 100%;
-          color: #30ac7c;  
-          margin-top: 10px; 
-        }
-      }
-    }
-  }
+.title-box {
+  width: 90%;
+  height: 23%;
+  background: linear-gradient(70deg, #7CB342, #AED864,);
+  // background-color: #AED864;
+  box-shadow: 5px 5px 10px grey;
+  position: relative;
+  top: -5vh;
+  border-radius: 10px;
+  margin-bottom: -2vh;
+}
+
+.signup-text {
+  font-size: 1.6vw;
+  color: white;
+  margin-top: 1.5vh;
+  margin-bottom: 1vh;
+}
+
+.signUpbtn {
+  font-size: 1.3vw;
+  margin-top: 1vh;
+  margin-bottom: 2vh;
+  color: #AED864;
+}
+
+.link {
+  color: black;
+}
+
+.message {
+  margin-bottom: 4vh;
+}
+
 </style>
