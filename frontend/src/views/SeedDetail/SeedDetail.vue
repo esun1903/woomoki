@@ -24,7 +24,7 @@
 
                 <v-row>
                   <v-col v-for="(card, $idx) in cards" :key="$idx" class="d-flex child-flex" cols="4">
-                    <v-img :src="card.img" :lazy-src="card.img" aspect-ratio="1" class="grey lighten-2 cursor_test"
+                    <v-img :src="card.img" :lazy-src="card.img" aspect-ratio="1" class="grey lighten-2 img-cursor"
                       v-on:click="detailCertification(card.id)">
                       <template v-slot:placeholder>
                         <v-row class="fill-height ma-0" align="center" justify="center">
@@ -431,11 +431,7 @@ import { setInteractionMode } from 'vee-validate'
     font-size: 35px;
   }
 
-  // .stamp-card-section{
-  //   margin-bottom: 1vh;
-  //   .v-btn{
-  //     display: flex;
-  //     justify-content: flex-end;
-  //   }
-  // }
+  .img-cursor {
+    cursor: pointer;
+  }
 </style>
