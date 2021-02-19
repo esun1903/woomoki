@@ -16,7 +16,7 @@
           <v-row v-if="UserInfo.levelnum <= 10">
             <div class="d-inline-flex">🥉 Lv.{{ UserInfo.levelnum }}</div>
           </v-row>
-          <v-row v-if="UserInfo.levelnum > 10 && UserInfo.levelnum <= 20">
+          <v-row v-if="UserInfo.levelnum > 10 && UserInfo.levelnum <= 30">
             <div class="d-inline-flex">🥈 Lv.{{ UserInfo.levelnum }}</div>
           </v-row>
           <v-row v-if="UserInfo.levelnum > 30">
@@ -233,7 +233,7 @@
         })
         this.results.push({
           key: "보살핌 횟수",
-          value: `${this.SeedInfo.week}주 동안에 주 ${this.SeedInfo.day}회`
+          value: `${this.SeedInfo.week}주, 주 ${this.SeedInfo.day}회`
         })
         this.results.push({
           key: "참여 금액",
