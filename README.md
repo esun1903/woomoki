@@ -1,4 +1,4 @@
-# 🌳우목이 (우린 목표를 이룰 거야!)
+# 🌳 우목이 (우린 목표를 이룰 거야)
 <img src = "https://user-images.githubusercontent.com/38427646/126250991-a5e359ca-0938-42cb-b074-7c7856dbdc11.png" width="400px">
 <br>
 
@@ -29,6 +29,27 @@
 
 <br>
 
+### ❓문제인식  
+
+**새해 목표를 꾸준히 지킨 성인남녀가 28%** 로 달성률이 현저히 낮은 것을 볼 수 있습니다. 
+
+![문제인식수정1](/uploads/7b05c08559365a3cbcfbec1ea3ed5400/문제인식수정1.PNG)
+
+![문제인식수정2](/uploads/72e9fe7a2d5dcce3c44762bab2811a10/문제인식수정2.PNG)
+
+![해결방안](/uploads/02e6e22d840c07803e810f7097312b95/해결방안.PNG)
+
+<br>
+
+### ✔️주요 서비스 기능
+
+![핵심기능](/uploads/ae84ca71747ea6b30661fd8c802af08a/핵심기능.PNG)
+
+![서비스_기능](/uploads/17b64fcc5f11b79c63f2acc7dcd5bb03/서비스_기능.PNG)
+
+<br>
+
+
 ### 🌱 Tech Log  &  Cooperation
 
  저희의 진행 상황은 **스크럼과 회의록**을 통해 진행하고 있습니다. 
@@ -53,28 +74,7 @@
 
 <br>
 
-
-### 🌱문제인식  
-
-**새해 목표를 꾸준히 지킨 성인남녀가 28%**로 달성률이 현저히 낮은 것을 볼 수 있습니다. 
-
-![문제인식수정1](/uploads/7b05c08559365a3cbcfbec1ea3ed5400/문제인식수정1.PNG)
-
-![문제인식수정2](/uploads/72e9fe7a2d5dcce3c44762bab2811a10/문제인식수정2.PNG)
-
-![해결방안](/uploads/02e6e22d840c07803e810f7097312b95/해결방안.PNG)
-
-<br>
-
-### 🌱주요 서비스 기능
-
-![핵심기능](/uploads/ae84ca71747ea6b30661fd8c802af08a/핵심기능.PNG)
-
-![서비스_기능](/uploads/17b64fcc5f11b79c63f2acc7dcd5bb03/서비스_기능.PNG)
-
-<br>
-
-### 🌱ERD
+### ✔️ERD
 
 ![erd이미지_최종](/uploads/93dd266aae0b4d6e79298ebca9fecbe8/erd이미지_최종.PNG)
 
@@ -94,20 +94,18 @@
 
 <br>
 
-### [ 🌳 상세페이지 이미지 ](https://www.notion.so/7156847a4022484da2f3002e27f20941)
-### [ 🌳 시연영상 ](https://www.notion.so/No-04c62b36acc64a9c9cbcb02ec6668851)
-### [ 🌳 실제 홈페이지 ](http://i4a303.p.ssafy.io/)
+#### [ 🌳 상세페이지 이미지 ](https://www.notion.so/7156847a4022484da2f3002e27f20941)
+#### [ 🌳 시연영상 ](https://www.notion.so/No-04c62b36acc64a9c9cbcb02ec6668851)
+#### [ 🌳 실제 홈페이지 ](http://i4a303.p.ssafy.io/)
+
+#### [🌱 컨벤션](https://www.notion.so/332cddb89bff4354b3aee8bc1d2746a8)
+#### [🌱 BE-Api](https://www.notion.so/a4d59235ba6f4795b0c7677414e0d766)
 
 <br>
 
-### [🌱 컨벤션](https://www.notion.so/332cddb89bff4354b3aee8bc1d2746a8)
-### [🌱 BE-Api](https://www.notion.so/a4d59235ba6f4795b0c7677414e0d766)
-
-<br>
 
 
-
-### 🌱실행 방법
+### 💻 실행 방법
 
 #### ☑️ 프론트엔드 부분
 
