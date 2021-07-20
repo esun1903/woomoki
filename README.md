@@ -111,25 +111,25 @@
 
 #### ☑️ 프론트엔드 부분
 
-**-** Vue.js [Vue.js 설치](https://kr.vuejs.org/v2/guide/index.html)를 통해 설치할 수 있습니다. 
+1. Vue.js [Vue.js 설치](https://kr.vuejs.org/v2/guide/index.html)를 통해 설치할 수 있습니다. 
 
-**-**  ``` $npm install ```
+  ``` $npm install ```
 
-**-** ```npm run serve``` 를 통해 실행할 수 있습니다. 
+   ```npm run serve``` 를 통해 실행할 수 있습니다. 
 
-**-** localhost:8080으로 실행할 수 있습니다.
+    localhost:8080으로 실행할 수 있습니다.
 
 <br>
 
 #### ☑️ 백엔드 부분
 
-**-** Java(openjdk version "1.8.0_282") 설치합니다.
+1. Java(openjdk version "1.8.0_282") 설치합니다.
 
-**-** gradle 설치
+2. gradle 설치
 
-**-** DB 테이블 생성
+3. DB 테이블 생성
 
-**-** ```appication.properties``` 파일 생성  후
+4. ```appication.properties``` 파일 생성  후
 
 아래 내용에 맞게 입력
 
