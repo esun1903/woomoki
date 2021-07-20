@@ -147,6 +147,7 @@
 7. /backend/build/lib 안에 
 
 ```$ java -jar ssafy_pjt2-0.0.1-SNAPSHOT.war --server.servlet.context-path=(실행할 서버주소)```
+
 8. 실행
 
 
