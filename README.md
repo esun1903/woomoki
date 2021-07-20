@@ -1,4 +1,4 @@
-## 🌳 우목이 - 우린 목표를 이룰 거야 <br>
+## 🌳  우목이 - 우린 목표를 이룰 거야 <br>
 
 
 <img src = "https://user-images.githubusercontent.com/38427646/126250991-a5e359ca-0938-42cb-b074-7c7856dbdc11.png" width="400px">
@@ -30,7 +30,7 @@
 
 <br>
 
-### ❓문제인식  
+### ❓ 문제인식  
 
 **새해 목표를 꾸준히 지킨 성인남녀가 28%로 달성률이 현저히 낮은 것**을 볼 수 있습니다. 
 <br>
@@ -47,7 +47,7 @@
 
 <br>
 
-### ✔️주요 서비스 기능
+### ✔️ 주요 서비스 기능
 1. 소셜 로그인 및 회원가입 가능
 
 2. 목표관리 등록, 수정, 삭제 기능
@@ -81,12 +81,12 @@
 
 <br>
 
-#### [ 🌳 상세페이지 이미지 ](https://www.notion.so/7156847a4022484da2f3002e27f20941)
-#### [ 🌳 시연영상 ](https://www.notion.so/No-04c62b36acc64a9c9cbcb02ec6668851)
-#### [ 🌳 실제 홈페이지 ](http://i4a303.p.ssafy.io/)
+#### [상세페이지 이미지 ](https://www.notion.so/7156847a4022484da2f3002e27f20941)
+#### [시연영상 ](https://www.notion.so/No-04c62b36acc64a9c9cbcb02ec6668851)
+#### [실제 홈페이지 ](http://i4a303.p.ssafy.io/)
 
-#### [🌱 컨벤션](https://www.notion.so/332cddb89bff4354b3aee8bc1d2746a8)
-#### [🌱 BE-Api](https://www.notion.so/a4d59235ba6f4795b0c7677414e0d766)
+#### [컨벤션](https://www.notion.so/332cddb89bff4354b3aee8bc1d2746a8)
+#### [BE-Api](https://www.notion.so/a4d59235ba6f4795b0c7677414e0d766)
 
 <br>
 
