@@ -98,7 +98,7 @@
 <br>
 
 <details>
-### <summary><b>✔️ERD</b></summary>
+<summary><b>✔️ERD</b></summary>
 <img src = "https://user-images.githubusercontent.com/38427646/126273089-c15b39f8-c1eb-4cff-a8c9-f6d9caf6aee0.png" width="800px">
 </details>
 
