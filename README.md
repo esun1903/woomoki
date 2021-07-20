@@ -31,32 +31,43 @@
 
 ### ❓문제인식  
 
-**새해 목표를 꾸준히 지킨 성인남녀가 28%** 로 달성률이 현저히 낮은 것을 볼 수 있습니다. 
+**새해 목표를 꾸준히 지킨 성인남녀가 28%로 달성률이 현저히 낮은 것**을 볼 수 있습니다. 
+<br>
 
-![문제인식수정1](/uploads/7b05c08559365a3cbcfbec1ea3ed5400/문제인식수정1.PNG)
+<img src = "https://user-images.githubusercontent.com/38427646/126270492-64caf202-1155-45d1-a86d-96c574a1ca21.png" width="800px">
 
-![문제인식수정2](/uploads/72e9fe7a2d5dcce3c44762bab2811a10/문제인식수정2.PNG)
+### 👨🏻‍💼 페르소나 설정
+**목표 달성이 쉽지 않은 32세 직장인 김경민씨**
+<br>
+<img src = "https://user-images.githubusercontent.com/38427646/126270878-41bec00d-65a9-416d-b8f3-8b79c3747615.png" width="800px">
 
-![해결방안](/uploads/02e6e22d840c07803e810f7097312b95/해결방안.PNG)
+### 💁🏻‍♀️ 해결방안 
+<img src = "https://user-images.githubusercontent.com/38427646/126271519-1c1e07ab-b6ea-44ac-b423-cb1a69f7fe3c.png" width="800px">
 
 <br>
 
 ### ✔️주요 서비스 기능
-
-![핵심기능](/uploads/ae84ca71747ea6b30661fd8c802af08a/핵심기능.PNG)
-
-![서비스_기능](/uploads/17b64fcc5f11b79c63f2acc7dcd5bb03/서비스_기능.PNG)
+<img src = "https://user-images.githubusercontent.com/38427646/126271817-d7786a5b-c3d0-4532-89be-20f4285b66c3.png" width="800px">
 
 <br>
+##### 1. 소셜 로그인 및 회원가입 가능
+##### 2. 목표관리 등록, 수정, 삭제 기능
+##### 3. 인증제를 통한 목표관리 기능
+##### 4. SNS 형식으로 팔로우, 팔로잉 기능
+##### 5. 관심 카테고리의 챌린지가 메인에 보이는 기능
+##### 6. 내 정보 관리기능
+##### 7. 알림 기능
+
+
 
 
 ### 🌱 Tech Log  &  Cooperation
 
  저희의 진행 상황은 **스크럼과 회의록**을 통해 진행하고 있습니다. 
 
- **스크럼은  1일 1스크럼**으로  노션에 올려 이슈들을 공유하고 있으며 
+ **1일 1스크럼**으로 노션에 올려 이슈들을 공유하고 있으며
 
- **회의를 진행할 때마다 회의록을 작성**하여 일차별로 정리하고 있습니다.
+ **회의를 진행 시 회의록을 작성**하여 일차별로 정리하고 있습니다.
 
 [프로젝트 공유문서](https://www.notion.so/A303-1d48727b951b41a18886118e55d04fb8)
 
@@ -64,7 +75,8 @@
 
 ### 🌱 Tech Stack
 
-![기술스택](https://user-images.githubusercontent.com/38427646/126262711-ae506989-798f-4143-978a-882827bdd6ef.png)
+<img src = "https://user-images.githubusercontent.com/38427646/126262711-ae506989-798f-4143-978a-882827bdd6ef.png" width="800px">
+
 
 <br>
 
