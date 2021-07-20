@@ -1,4 +1,6 @@
-# 🌳 우목이 (우린 목표를 이룰 거야)
+## 🌳 우목이 - 우린 목표를 이룰 거야 <br>
+
+
 <img src = "https://user-images.githubusercontent.com/38427646/126250991-a5e359ca-0938-42cb-b074-7c7856dbdc11.png" width="400px">
 <br>
 
@@ -13,7 +15,6 @@
 - 다양한 사람들의 도전을 보며 자극을 받으며 나아가고 싶은 사람을 위한 서비스
 
 **디자인 컨셉** : 도전,목표를 하나의 씨앗으로 시작하여 거대한 나무를 키우는 것처럼 목표를 이루는 컨셉 </b>
-
 
 <br>
 
@@ -47,62 +48,36 @@
 <br>
 
 ### ✔️주요 서비스 기능
-<img src = "https://user-images.githubusercontent.com/38427646/126271817-d7786a5b-c3d0-4532-89be-20f4285b66c3.png" width="800px">
+1. 소셜 로그인 및 회원가입 가능
 
+2. 목표관리 등록, 수정, 삭제 기능
+
+3. 인증제를 통한 목표관리 기능
+
+4. SNS 형식으로 팔로우, 팔로잉 기능
+
+5. 관심 카테고리의 챌린지를 주로 보여주는 기능
+
+6. 내 정보 관리기능
+
+7. 알림 기능
+
+8. 챌린지에 맞는 인증이 되었는지 확인하고 이야기할 수 있는 기능
 <br>
-##### 1. 소셜 로그인 및 회원가입 가능
-##### 2. 목표관리 등록, 수정, 삭제 기능
-##### 3. 인증제를 통한 목표관리 기능
-##### 4. SNS 형식으로 팔로우, 팔로잉 기능
-##### 5. 관심 카테고리의 챌린지가 메인에 보이는 기능
-##### 6. 내 정보 관리기능
-##### 7. 알림 기능
 
+<img src = "https://user-images.githubusercontent.com/38427646/126271817-d7786a5b-c3d0-4532-89be-20f4285b66c3.png" width="800px">
 
 
 
 ### 🌱 Tech Log  &  Cooperation
 
- 저희의 진행 상황은 **스크럼과 회의록**을 통해 진행하고 있습니다. 
+ 진행 상황은 **스크럼과 회의록**을 통해 진행하고 있습니다. 
 
  **1일 1스크럼**으로 노션에 올려 이슈들을 공유하고 있으며
 
  **회의를 진행 시 회의록을 작성**하여 일차별로 정리하고 있습니다.
 
 [프로젝트 공유문서](https://www.notion.so/A303-1d48727b951b41a18886118e55d04fb8)
-
-<br>
-
-### 🌱 Tech Stack
-
-<img src = "https://user-images.githubusercontent.com/38427646/126262711-ae506989-798f-4143-978a-882827bdd6ef.png" width="800px">
-
-
-<br>
-
-### 🌱 system architecture
-
-![시스템_구조도](/uploads/521385d54611d84f99e3e0572a5edf9f/시스템_구조도.PNG)
-
-<br>
-
-### ✔️ERD
-
-![erd이미지_최종](/uploads/93dd266aae0b4d6e79298ebca9fecbe8/erd이미지_최종.PNG)
-
-</details>
-
-<br>
-
-### 🌱기능
-
-**-** 소셜 로그인 및 회원가입 가능
-**-** 목표관리 등록, 수정, 삭제 기능
-**-** 인증제를 통한 목표관리 기능
-**-** SNS 형식으로 팔로우, 팔로잉 기능
-**-** 관심 카테고리의 챌린지가 메인에 보이는 기능
-**-** 내 정보 관리기능
-**-** 알림 기능 
 
 <br>
 
@@ -115,7 +90,19 @@
 
 <br>
 
+### 🌱 Tech Stack
+#### - System architecture
 
+<img src = "https://user-images.githubusercontent.com/38427646/126262711-ae506989-798f-4143-978a-882827bdd6ef.png" width="800px">
+
+<br>
+
+<details>
+### <summary><b>✔️ERD</b></summary>
+<img src = "https://user-images.githubusercontent.com/38427646/126273089-c15b39f8-c1eb-4cff-a8c9-f6d9caf6aee0.png" width="800px">
+</details>
+
+<br>
 
 ### 💻 실행 방법
 
@@ -143,7 +130,7 @@
 
 아래 내용에 맞게 입력
 
-\```spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
+```spring.datasource.driverClassName=com.mysql.cj.jdbc.Driver
 
    spring.datasource.url=(내용 입력)
 
@@ -151,17 +138,16 @@
 
    spring.datasource.password=(내용 입력)
 
-\```
+```
 
-**-** /backend/src/main/resource/ 아래 위치 파일을 넣습니다. 
+5. /backend/src/main/resource/ 아래 위치 파일을 넣습니다. 
 
-**-** /backend/ 안에   ->   $ ./gradlew build 빌드 후
+6. /backend/ 안에   ->   $ ./gradlew build 빌드 후
 
-**-** /backend/build/lib 안에 
+7. /backend/build/lib 안에 
 
--```$ java -jar ssafy_pjt2-0.0.1-SNAPSHOT.war --server.servlet.context-path=(실행할 서버주소)```
-
-**-** 실행
+```$ java -jar ssafy_pjt2-0.0.1-SNAPSHOT.war --server.servlet.context-path=(실행할 서버주소)```
+8. 실행
 
 
 
