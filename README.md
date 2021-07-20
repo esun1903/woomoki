@@ -18,6 +18,7 @@
 **디자인 컨셉** : 도전,목표를 하나의 씨앗으로 시작하여 거대한 나무를 키우는 것처럼 목표를 이룸 </b>
 
 
+<br>
 
 ## 👩🏻‍💻👨🏻‍💻 우목이를 만든 사람들
 
@@ -26,10 +27,10 @@
 | 최은선 | BE      |
 | 표기동 | BE      |
 | 김효진 | FE      |
-| 김용민 | FE,     |
+| 김용민 | FE    |
 | 홍지희 | FE,팀장 |
 
-
+<br>
 
 ### 🌱 Tech Log  &  Cooperation
 
@@ -41,27 +42,22 @@
 
 [프로젝트 공유문서](https://www.notion.so/A303-1d48727b951b41a18886118e55d04fb8)
 
-
+<br>
 
 ### 🌱 Tech Stack
 
 ![기술스택](https://user-images.githubusercontent.com/38427646/126262711-ae506989-798f-4143-978a-882827bdd6ef.png)
 
-
+<br>
 
 ### 🌱 system architecture
 
 ![시스템_구조도](/uploads/521385d54611d84f99e3e0572a5edf9f/시스템_구조도.PNG)
 
-**## 🌳 개발목표**
-
-<br><br>
+<br>
 
 
-
-**#### 🌱문제인식**  
-
-
+### 🌱문제인식  
 
 새해 목표를 꾸준히 지민 성인남녀 28% 달성률이 낮은 것을 볼 수 있습니다. 
 
@@ -71,89 +67,52 @@
 
 ![해결방안](/uploads/02e6e22d840c07803e810f7097312b95/해결방안.PNG)
 
+<br>
 
-
-
-
-**#### 🌱주요 서비스 기능**
+### 🌱주요 서비스 기능
 
 ![핵심기능](/uploads/ae84ca71747ea6b30661fd8c802af08a/핵심기능.PNG)
 
 ![서비스_기능](/uploads/17b64fcc5f11b79c63f2acc7dcd5bb03/서비스_기능.PNG)
 
-**### <summary><b>🌱ERD</b></summary>**
+<br>
 
-
+### 🌱ERD
 
 ![erd이미지_최종](/uploads/93dd266aae0b4d6e79298ebca9fecbe8/erd이미지_최종.PNG)
 
 </details>
 
-<br><br> </br></br>
+<br>
 
-
-
-<br><br><br>
-
-**#### 🌱기능**
-
-
+### 🌱기능
 
 **-** 소셜 로그인 및 회원가입 가능
-
-
-
 **-** 목표관리 등록, 수정, 삭제 기능
-
-
-
 **-** 인증제를 통한 목표관리 기능
-
-
-
 **-** SNS 형식으로 팔로우, 팔로잉 기능
-
-
-
 **-** 관심 카테고리의 챌린지가 메인에 보이는 기능
-
-
-
 **-** 내 정보 관리기능
-
-
-
 **-** 알림 기능 
 
+<br>
 
+### [ 🌳 상세페이지 이미지 ](https://www.notion.so/7156847a4022484da2f3002e27f20941)
+### [ 🌳 시연영상 ](https://www.notion.so/No-04c62b36acc64a9c9cbcb02ec6668851)
+### [ 🌳 실제 홈페이지 ](http://i4a303.p.ssafy.io/)
 
-<br><br><br>
+<br>
 
-**# [ 🌳 상세페이지 이미지 ](https://www.notion.so/7156847a4022484da2f3002e27f20941)**
+### [🌱 컨벤션](https://www.notion.so/332cddb89bff4354b3aee8bc1d2746a8)
+### [🌱 BE-Api](https://www.notion.so/a4d59235ba6f4795b0c7677414e0d766)
 
-<br><br>
-
-**# [ 🌳 시연영상 ](https://www.notion.so/No-04c62b36acc64a9c9cbcb02ec6668851)**
-
-<br><br>
-
-**# [ 🌳 실제 홈페이지 ](http://i4a303.p.ssafy.io/)**http://i4a303.p.ssafy.io/)
-
-<details>
-
- [🌱 컨벤션](https://www.notion.so/332cddb89bff4354b3aee8bc1d2746a8)
-
-<br><br>
-
- [🌱 BE-Api](https://www.notion.so/a4d59235ba6f4795b0c7677414e0d766)
-
-<br><br></br></br>
+<br>
 
 
 
-**### 🌱실행 방법** 
+### 🌱실행 방법
 
-**##### 프론트엔드 부분**
+#### ☑️ 프론트엔드 부분
 
 **-** Vue.js [Vue.js 설치](https://kr.vuejs.org/v2/guide/index.html)를 통해 설치할 수 있습니다. 
 
@@ -163,9 +122,9 @@
 
 **-** localhost:8080으로 실행할 수 있습니다.
 
+<br>
 
-
-**##### 백엔드 부분** 
+#### ☑️ 백엔드 부분
 
 **-** Java(openjdk version "1.8.0_282") 설치합니다.
 
