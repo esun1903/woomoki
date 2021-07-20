@@ -1,6 +1,7 @@
 # 🌳우목이[우린 목표를 다 이룰 거야]
 
-![우목이_로고](https://user-images.githubusercontent.com/38427646/126250991-a5e359ca-0938-42cb-b074-7c7856dbdc11.png) 
+<img src = "https://user-images.githubusercontent.com/38427646/126250991-a5e359ca-0938-42cb-b074-7c7856dbdc11.png" width="400px">
+
 
 
 
